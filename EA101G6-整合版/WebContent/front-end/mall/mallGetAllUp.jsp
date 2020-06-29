@@ -1,0 +1,98 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="BIG5"%>
+<%@ page import="com.mall.model.*"%>
+<%@ page import="com.gmTypeDt.model.*"%>
+<%@ page import="com.gmType.model.*"%>
+<%@ page import="java.util.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Gameing on Board</title>
+
+<!-- 個人CSS -->
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/mallCss/mallGetAllUpFornt.css">
+
+</head>
+<body>
+
+	<%@ include file="/front-end/front-end-nav.jsp"%>
+
+	<main class="mall">
+
+	<%
+	GmTypeService gmTypeSvc = new GmTypeService();
+	pageContext.setAttribute("gmTypeSvc", gmTypeSvc);
+	
+	%>
+
+		<div class="seldiv">
+			<form action="<%=request.getContextPath()%>/Mall/ForntMallServlet" method="post">
+				<input placeholder="請輸入商品名稱" type="text" name="selName"
+					class="selinput"> <input type="hidden" name="action"
+					value="selName"> <input type="submit" value="搜尋商品">
+			</form>
+			<form action="<%= request.getRequestURI()%>" method="post">
+				<select name="typeNo">
+					<option value="">不分類</option>
+					<c:forEach var="typeVo" items="${gmTypeSvc.all}">
+						<option value="${typeVo.typeNo}">${typeVo.typeName} </option>				
+					</c:forEach>
+				</select> 
+				<input type="submit" style="width:80px;height:30px;" value="搜尋類型">
+			</form>
+		</div>
+
+
+
+		<%
+		MallService mallSvc = new MallService();
+		pageContext.setAttribute("mallSvc", mallSvc);
+		String typeNo=request.getParameter("typeNo");
+		List<MallVO> mallVoList=null;
+		if(typeNo==null||typeNo.trim().length()==0){
+			mallVoList = mallSvc.getAllUp();
+		}else{
+			mallVoList = mallSvc.findByType(typeNo);
+		}
+		pageContext.setAttribute("mallVoList", mallVoList);
+		%>
+
+
+		<div class="container commMain">
+			<div class="row">
+
+				<%@ include file="/front-end/mall/page1.file"%>
+				<c:forEach var="mallVo" items="${mallVoList}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+						<div class="col-lg-3 col-6 comm">
+							<a href="<%=request.getContextPath()%>/front-end/mall/mallGetOne.jsp?commNo=${mallVo.commNo}">
+							<div class="imgdiv">
+								<img src="<%= request.getContextPath()%>/Mall/MallShowImg?commNo=${mallVo.commNo}">
+							</div>
+							<p>${mallVo.commName}</p>
+							
+							<div class="dt"><p><b>$${mallVo.price}</b></p></div>
+						</a>
+					</div>
+				</c:forEach>
+
+			</div>
+		</div>
+		<div style="text-align: center"><%@ include
+				file="/front-end/mall/page2.file"%></div>
+
+		<a href="<%=request.getContextPath()%>/front-end/buyCar/buyCar.jsp"><button
+				class="shopcar">
+				<img
+					src="<%=request.getContextPath()%>/front-end/images/supermarket.png">
+			</button></a>
+
+	</main>
+
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+</body>
+</html>
