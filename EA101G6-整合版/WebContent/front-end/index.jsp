@@ -33,12 +33,29 @@
 <!-- MAIN CSS -->
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/model/style.css">
+	
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/mallCss/mallGetAllUpFornt.css">	
 
 <style>
 .icon {
 	width: 20px;
 	height: 20px;
 }
+
+	.imgdiv img{
+		width: 100%;
+		height: 100%;
+		margin:0px auto;
+		border:solid #FF5809; 
+	}
+	
+	div.imgdiv{
+		margin:5px auto;
+		width: 80%;
+		height: 40%;
+	}
+
 </style>
 
 </head>
@@ -118,7 +135,9 @@
 
 						<ul
 							class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
-							<li><a href="<%=request.getContextPath()%>/front-end/index.jsp" class="nav-link">首頁</a></li>
+							<li><a
+								href="<%=request.getContextPath()%>/front-end/index.jsp"
+								class="nav-link">首頁</a></li>
 
 							<li class="has-children"><a href="#about-section"
 								class="nav-link">會員專區</a>
@@ -134,10 +153,16 @@
 										</ul></li>
 								</ul></li>
 
-							<li><a href="<%=request.getContextPath()%>/front-end/mall/mallGetAllUp.jsp" class="nav-link">商城</a></li>
-							<li><a href="<%=request.getContextPath()%>/front-end/shgm/mainPage.jsp" class="nav-link">市集</a></li>
+							<li><a
+								href="<%=request.getContextPath()%>/front-end/mall/mallGetAllUp.jsp"
+								class="nav-link">商城</a></li>
+							<li><a
+								href="<%=request.getContextPath()%>/front-end/shgm/mainPage.jsp"
+								class="nav-link">市集</a></li>
 							<li><a href="#play" class="nav-link">揪團區</a></li>
-							<li><a href="<%= request.getContextPath()%>/front-end/shop/listAllShop.jsp" class="nav-link">店家列表</a></li>
+							<li><a
+								href="<%=request.getContextPath()%>/front-end/shop/listAllShop.jsp"
+								class="nav-link">店家列表</a></li>
 							<li><a href="#forum" class="nav-link">討論區</a></li>
 						</ul>
 					</nav>
@@ -232,8 +257,30 @@
 		................<br> ................<br>
 	</div>
 
-	<div class="block__73694 mb-2" id="services-section">
-	
+
+	<jsp:useBean id="gmTypeSvc" class="com.gmType.model.GmTypeService" scope="request"/>
+	<jsp:useBean id="mallSvc" class="com.mall.model.MallService" scope="request"/>
+
+	<div id="services-section">
+		最新商品
+		<div class="container commMain">
+			<div class="row">
+				<c:forEach var="mallVo" items="${mallSvc.getNew()}" >
+						<div class="col-lg-2 col-4 comm">
+							<a href="<%=request.getContextPath()%>/front-end/mall/mallGetOne.jsp?commNo=${mallVo.commNo}">
+							<div class="imgdiv">
+								<img src="<%= request.getContextPath()%>/Mall/MallShowImg?commNo=${mallVo.commNo}">
+							</div>
+							<p>${mallVo.commName}</p>
+							
+							<div class="dt"><p><b>$${mallVo.price}</b></p></div>
+						</a>
+					</div>
+				</c:forEach>
+
+			</div>
+		</div>
+
 	</div>
 
 
