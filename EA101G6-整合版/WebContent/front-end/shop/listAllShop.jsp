@@ -72,7 +72,7 @@ h4 {
 		<div class="card-deck">
 		<div class="row">
 			<c:forEach var="shopVO" items="${list}">
-				
+				123
 					<div class="col-sm-4" style="margin-bottom: 20px;">
 						<div class="card" style="width: 18rem">
 							<div class="card-body">
