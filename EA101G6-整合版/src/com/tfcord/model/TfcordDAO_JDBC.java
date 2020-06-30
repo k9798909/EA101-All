@@ -15,9 +15,10 @@ public class TfcordDAO_JDBC implements TfcordDAO_Interface {
 	public static final String userid = "EA101_G6";
 	public static final String passwd = "123456";
 
-	private static final String INSERT_PSTMT = "INSERT INTO TFCORD(TFNO, MBRNO, TFTYPE, PRICE, TFTIME, TFSTATUS) VALUES (TO_CHAR(SYSDATE,'YYYYMMDD')||'-'||LPAD(TO_CHAR(TFCORD_SEQ.NEXTVAL),7,'0'), ?, ?, ?, ?, ?)";
+	private static final String INSERT_PSTMT = "INSERT INTO TFCORD(TFNO, MBRNO, TFTYPE, PRICE, TFTIME, TFSTATUS) VALUES (TO_CHAR(SYSDATE,'YYYYMMDD')||'-'||LPAD(TO_CHAR(TFCORD_SEQ.NEXTVAL),7,'0'), ?, ?, ?, CURRENT_TIMESTAMP, ?)";
 	private static final String UPDATE_PSTMT = "UPDATE TFCORD SET MBRNO = ?, TFTYPE = ?, PRICE = ?, TFTIME = ?, TFSTATUS = ? WHERE TFNO = ?";//換點數的修改，按修改時，TFNO會自動抓要修改的那筆的號碼
 	private static final String DELETE_PSTMT = "DELETE FROM　TFCORD WHERE TFNO = ?"; //刪除某筆申請的換錢紀錄
+	private static final String CHANGE_BY_PK = "UPDATE TFCORD SET TFSTATUS = 1 WHERE TFNO = ?";//審核通過某筆訂單狀態
 	private static final String FIND_BY_PK = "SELECT * FROM TFCORD WHERE TFNO = ?";//查詢某筆訂單
 	private static final String GET_MBR_ALL = "SELECT * FROM TFCORD WHERE MBRNO = ?";//查某會員有哪些紀錄，也可用於帳戶管理
 	private static final String GET_ALL = "SELECT * FROM TFCORD";//查所有點數紀錄
@@ -34,8 +35,7 @@ public class TfcordDAO_JDBC implements TfcordDAO_Interface {
 			pstmt.setString(1, tfcordVO.getMbrno());
 			pstmt.setString(2, tfcordVO.getTftype());
 			pstmt.setInt(3, tfcordVO.getPrice());
-			pstmt.setTimestamp(4, tfcordVO.getTftime());
-			pstmt.setInt(5,tfcordVO.getTfstatus());
+			pstmt.setInt(4,tfcordVO.getTfstatus());
 			pstmt.executeUpdate();
 			
 		}catch(ClassNotFoundException cs) {
@@ -295,6 +295,61 @@ public class TfcordDAO_JDBC implements TfcordDAO_Interface {
 		return tfAll;
 	}
 	
+	@Override
+	public void changeStatusBytfno(String tfno) {
+		TfcordVO tfcordVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(CHANGE_BY_PK);
+			pstmt.setString(1, tfno);
+			pstmt.executeUpdate();
+			
+//			rs = pstmt.executeQuery();
+//			
+//			while(rs.next()) {
+//				
+//				tfcordVO = new TfcordVO();
+//				
+//				tfcordVO.setTfno(rs.getString("tfno"));
+//				tfcordVO.setMbrno(rs.getString("mbrno"));
+//				tfcordVO.setTftype(rs.getString("tftype"));
+//				tfcordVO.setPrice(rs.getInt("price"));
+//				tfcordVO.setTftime(rs.getTimestamp("tftime"));
+//				tfcordVO.setTfstatus(rs.getInt("tfstatus"));
+//			}
+		}catch (ClassNotFoundException ce) {
+			ce.printStackTrace();
+		}catch (SQLException se) {
+			se.printStackTrace();
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				}catch(SQLException se) {
+					se.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				}catch(SQLException se) {
+					se.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				}catch(SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+//		return tfcordVO;
+	}
 	
 	public static void main(String[] args) {
 		
@@ -305,7 +360,6 @@ public class TfcordDAO_JDBC implements TfcordDAO_Interface {
 //		tfcordVO.setTftype("M");
 //		tfcordVO.setPrice(10000);
 //		tfcordVO.setTfstatus(0);
-//		tfcordVO.setTftime(new java.sql.Timestamp(new java.util.Date().getTime()));
 //		dao.insert(tfcordVO);
 	
 //修改測試
@@ -333,6 +387,10 @@ public class TfcordDAO_JDBC implements TfcordDAO_Interface {
 //	    System.out.println(tFormat(tfcordVO.getTftime()));
 //	    System.out.println(tfcordVO.getTfstatus());
 
+//審核狀態測試
+//		TfcordDAO_JDBC dao = new TfcordDAO_JDBC();
+//		dao.changeStatusBytfno("20200630-0000050");
+		
 //查詢某會員轉換紀錄測試
 //		TfcordDAO_JDBC dao = new TfcordDAO_JDBC();
 //		List<TfcordVO> mbrTfAll = dao.findWhoAll("BM00001");
@@ -366,10 +424,8 @@ public class TfcordDAO_JDBC implements TfcordDAO_Interface {
 		java.text.DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String str = df.format(time);//format(util.Date)，sql.Timestamp是util.Date的子類別，所以也可以放進去
 		return str;
-	}
-	
-	
-	
+	}	
+		
 	
 //	public static Timestamp timeFormat() {
 //		java.util.Date du = new java.util.Date();

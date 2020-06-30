@@ -11,12 +11,11 @@ public class TfcordService {
 		dao = new TfcordDAO_JDBC();
 	}
 	
-	public TfcordVO addTfcord(String mbrno, String tftype, Integer price, Timestamp tftime, Integer tfstatus) {
+	public TfcordVO addTfcord(String mbrno, String tftype, Integer price, Integer tfstatus) {
 		TfcordVO tfcordVO = new TfcordVO();
 		tfcordVO.setMbrno(mbrno);
 		tfcordVO.setTftype(tftype);
 		tfcordVO.setPrice(price);
-		tfcordVO.setTftime(tftime);
 		tfcordVO.setTfstatus(tfstatus);
 		dao.insert(tfcordVO);
 		return tfcordVO;
@@ -38,7 +37,12 @@ public class TfcordService {
 		dao.delete(tfno);
 	}
 	
+	public void changeTfcordStatus(String tfno) {
+		dao.changeStatusBytfno(tfno);
+	}
+	
 	public TfcordVO getOneTfcord(String tfno) {
+		
 		return dao.findByPrimaryKey(tfno);
 	}
 	
