@@ -36,7 +36,7 @@ public class LoginFilter implements Filter {
 		Object account = session.getAttribute("account");//從session看是否有登入過，如果有通過登入EmpServlet.java會將account存進session中，354行【session.setAttribute("account", account);】
 		if(account == null) {//如果沒有登入過
 			session.setAttribute("location", req.getRequestURI());//將現在的位址，以location的名字存進session
-			res.sendRedirect(req.getContextPath()+"/login.jsp");//重導至登入頁面
+			res.sendRedirect(req.getContextPath()+"/front-end/login.jsp");//重導至登入頁面
 			System.out.println("首頁"); 
 			return;
 		}else {

@@ -212,12 +212,12 @@
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>ForntMallServlet</servlet-name>
-		<servlet-class>com.mall.controller.ForntMallServlet</servlet-class>
+		<servlet-name>FrontMallServlet</servlet-name>
+		<servlet-class>com.mall.controller.FrontMallServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>ForntMallServlet</servlet-name>
-		<url-pattern>/Mall/ForntMallServlet</url-pattern>
+		<servlet-name>FrontMallServlet</servlet-name>
+		<url-pattern>/Mall/FrontMallServlet</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
@@ -236,6 +236,128 @@
 	<servlet-mapping>
 		<servlet-name>MallOrServlet</servlet-name>
 		<url-pattern>/MallOr/MallOrServlet</url-pattern>
+	</servlet-mapping>
+	
+	<!--彥志-->
+	
+	<servlet>
+		<servlet-name>Test_DataSource</servlet-name>
+		<servlet-class>Test_DataSource</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		 <servlet-name>Test_DataSource</servlet-name>
+		 <url-pattern>/Test_DataSource</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>MbrpfServlet</servlet-name>
+		<servlet-class>com.mbrpf.controller.MbrpfServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>MbrpfServlet</servlet-name>
+		<url-pattern>/mbrpf/mbrpf.do</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>MbrimgServlet</servlet-name>
+		<servlet-class>com.mbrpf.controller.MbrimgServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>MbrimgServlet</servlet-name>
+		<url-pattern>/mbrpf/mbrimg.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>MsgServlet</servlet-name>
+		<servlet-class>com.msg.controller.MsgServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>MsgServlet</servlet-name>
+		<url-pattern>/msg/msg.do</url-pattern>
+	</servlet-mapping>
+
+ 	<filter>
+  		<filter-name>LoginFilter</filter-name>
+  		<filter-class>com.filter.LoginFilter</filter-class>
+  	</filter>
+  	<filter-mapping>
+  		<filter-name>LoginFilter</filter-name>
+  		<url-pattern>/mbrpf/select_page.jsp</url-pattern>
+	<!--<url-pattern>/mbrpf/addMbrpf.jsp</url-pattern>-->
+	<!--<url-pattern>/mbrpf/listAllMbrpf.jsp</url-pattern> -->
+  		<url-pattern>/mbrpf/listOneMbrpf.jsp</url-pattern>
+  		<url-pattern>/mbrpf/update_mbrpf_input.jsp</url-pattern>
+  		<dispatcher>REQUEST</dispatcher>
+  		<dispatcher>FORWARD</dispatcher>
+  		<dispatcher>INCLUDE</dispatcher>
+  		<dispatcher>ERROR</dispatcher>
+  		<dispatcher>ASYNC</dispatcher>
+  	</filter-mapping>
+  	
+<!--孟辰 -->
+	<servlet>
+		<servlet-name>ArtServlet</servlet-name>
+		<servlet-class>com.art.controller.ArtServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ArtServlet</servlet-name>
+		<url-pattern>/back-end/art/art.do</url-pattern>
+		<url-pattern>/font-end/art/art.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ArtPicServlet</servlet-name>
+		<servlet-class>com.art.controller.ArtPicServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ArtPicServlet</servlet-name>
+		<url-pattern>/art/artpic.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ArtrpServlet</servlet-name>
+		<servlet-class>com.artrp.controller.ArtrpServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ArtrpServlet</servlet-name>
+		<url-pattern>/artrp/artrp.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>NewsServlet</servlet-name>
+		<servlet-class>com.news.controller.NewsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NewsServlet</servlet-name>
+		<url-pattern>/news/news.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>MalladServlet</servlet-name>
+		<servlet-class>com.mallad.controller.MalladServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MalladServlet</servlet-name>
+		<url-pattern>/mallad/mallad.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>MalladPicServlet</servlet-name>
+		<servlet-class>com.mallad.controller.MalladPicServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MalladPicServlet</servlet-name>
+		<url-pattern>/mallad/malladpic.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ShopadServlet</servlet-name>
+		<servlet-class>com.shopad.controller.ShopadServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ShopadServlet</servlet-name>
+		<url-pattern>/shopad/shopad.do</url-pattern>
 	</servlet-mapping>
 
   

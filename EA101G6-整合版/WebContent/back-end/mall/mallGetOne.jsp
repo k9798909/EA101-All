@@ -39,11 +39,10 @@
 					</tr>
 				</thead>
 				<tbody>
-					
+
 					<jsp:useBean id="gmTypeSvc" class="com.gmType.model.GmTypeService" scope="request"/>
-					<jsp:useBean id="mallSvc" class="com.mall.model.MallService" scope="request"/>
-										
-					<c:forEach var="mallVo" items="${selMallVoList}">
+					<jsp:useBean id="mallSvc" class="com.mall.model.MallService" scope="request"/>					
+					<c:forEach var="mallVo" items="${selNameMallVoSet}">
 						<tr>
 							<td class="col-md-1">
 							<form action= "<%= request.getContextPath()%>/back-end/mall/mallGetOne.jsp" method="post">
@@ -93,7 +92,6 @@
 <!-- 有成功訊息就啟動 -->
 <c:if test="${not empty successMsg}">
 	<script>swal({text:"${successMsg}" });</script>
-	<%session.removeAttribute("successMsg");%>
 </c:if>
 
 <!-- 點擊修改時會啟動傳回錯誤訊息時也會啟動 -->
@@ -104,7 +102,6 @@
 <!-- 查詢時有錯誤啟動 -->
 <c:if test="${not empty selErroMsg}">
 	<script>swal({text:"${selErroMsg}" });</script>
-	<%session.removeAttribute("selErroMsg"); %>
 </c:if>							
 
 

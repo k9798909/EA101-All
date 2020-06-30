@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -44,6 +45,11 @@ public class MallOrServlet extends HttpServlet{
 				dispatcher.forward(req, res);
 				return;
 			} else {
+				
+				Integer totalPrice=buyCarList.stream()
+						.mapToInt(p -> p.getPrice()*p.getQuantity())
+						.sum();
+				req.setAttribute("totalPrice", totalPrice);
 				RequestDispatcher dispatcher = req.getRequestDispatcher("/front-end/mallOr/mallOr.jsp");
 				dispatcher.forward(req, res);
 				return;
@@ -263,11 +269,11 @@ public class MallOrServlet extends HttpServlet{
 			MallOrService mallOrSvc = new MallOrService();
 			MallOrDtService mallOrDtSvc = new MallOrDtService();
 			MallOrVO mallOrVo = mallOrSvc.findOneByOrNo(mallOrNo);
-			List<MallOrDtVO> mallOrDtList = mallOrDtSvc.getByOrNo(mallOrNo);
+			Set<MallOrDtVO> mallOrDtSet = mallOrDtSvc.getByOrNo(mallOrNo);
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			RequestDispatcher dispatcher = req.getRequestDispatcher("/back-end/mallOr/mallOrGetOne.jsp");
 			req.setAttribute("mallOrVo", mallOrVo);
-			req.setAttribute("mallOrDtList", mallOrDtList);
+			req.setAttribute("mallOrDtSet", mallOrDtSet);
 			dispatcher.forward(req, res);
 			return;
 

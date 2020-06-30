@@ -1,237 +1,599 @@
 package com.mbrpf.model;
 
-import java.sql.Clob;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.sql.*;
 
-import javax.naming.*;
-import javax.sql.DataSource;
+public class MbrpfDAO implements MbrpfDAO_interface {
+	String driver = "oracle.jdbc.driver.OracleDriver";
+	String url = "jdbc:oracle:thin:@localhost:1521:XE";
+	String userid = "EA101";
+	String passwd = "123456";
 
-
-public class MbrpfDAO implements MbrpfDAO_interface{
-	
-	private static DataSource ds = null;
-	static {
-		try {
-			Context ctx = new InitialContext();
-			ds = (DataSource)ctx.lookup("java:comp/env/jdbc/EA101G6DB");
-		} catch(NamingException e) {
-			e.printStackTrace();
-		}
-	}
-	private static final String LOGIN_STMT = "SELECT mbrno,mbract,mbrpw,mbrname,points FROM MBRPF WHERE mbract=? AND mbrpw=?";
-	private static final String UPDATE_STMT =
-			"UPDATE MBRPF SET points=? WHERE mbrno=?";
-	private static final String GET_ONE_STMT=
-			"SELECT mbrno,mbract,mbrpw,mbrname,points FROM MBRPF WHERE mbrno=?";
-	private static final String GET_ALL_STMT =
-			"SELECT mbrno,mbract,mbrpw,mbrname,points FROM MBRPF";
-	
-	public boolean check(String mbract, String mbrpw) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		boolean result = false;
-		try {
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(LOGIN_STMT);
-			
-			pstmt.setString(1, mbract);
-			pstmt.setString(2, mbrpw);
-			System.out.println("2");
-			if(pstmt.executeUpdate() != 0) 
-				result = true;
-			
-		} catch(SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if(pstmt != null) {
-				try {
-					pstmt.close();
-				} catch(SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if(con != null) {
-				try {
-					con.close();
-				} catch(SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return result;
-	}
-	
-	public MbrpfVO findByActPw(String mbract, String mbrpw) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		MbrpfVO mbrpfvo = null;
-		try {
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(LOGIN_STMT);
-			
-			pstmt.setString(1, mbract);
-			pstmt.setString(2, mbrpw);
-			
-			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				mbrpfvo = new MbrpfVO();
-				mbrpfvo.setMbrno(rs.getString(1));
-				mbrpfvo.setMbract(rs.getString(2));
-				mbrpfvo.setMbrpw(rs.getString(3));
-				mbrpfvo.setMbrname(rs.getString(4));
-				mbrpfvo.setPoints(rs.getInt(5));
-			}
-			
-			
-			
-		} catch(SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if(pstmt != null) {
-				try {
-					pstmt.close();
-				} catch(SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if(con != null) {
-				try {
-					con.close();
-				} catch(SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return mbrpfvo;
-	}
+	private static final String INSERT_STMT = 
+		"INSERT INTO mbrpf (mbrno,mbract,mbrpw,mbrname,mbrimg,birth,sex,mail,phone,mbrac,nickname,points,status,ratedtotal,startotal,unattend,ttattend) VALUES ('BM'||LPAD(to_char(mem_seq.NEXTVAL),5,'0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String GET_ALL_STMT = 
+		"SELECT mbrno,mbract,mbrpw,mbrname,mbrimg,to_char(birth,'yyyy-mm-dd') birth,sex,mail,phone,mbrac,nickname,points,status,ratedtotal,startotal,unattend,ttattend FROM mbrpf order by mbrno";
+	private static final String GET_ONE_STMT = 
+		"SELECT mbrno,mbract,mbrpw,mbrname,mbrimg,to_char(birth,'yyyy-mm-dd') birth,sex,mail,phone,mbrac,nickname,points,status,ratedtotal,startotal,unattend,ttattend FROM mbrpf where mbrno = ?";
+	private static final String DELETE = 
+		"DELETE FROM mbrpf where mbrno = ?";
+	private static final String UPDATE = 
+		"UPDATE mbrpf set mbract=?,mbrpw=?,mbrname=?,mbrimg=?,birth=?,sex=?,mail=?,phone=?,mbrac=?,nickname=?,points=?,status=?,ratedtotal=?,startotal=?,unattend=?,ttattend=? where mbrno = ?";
+	private static final String FIND_BY_MBRACT = 
+		"SELECT mbract,mbrpw,mbrname FROM mbrpf where mbract = ?";
+	private static final String LOGIN =
+		"SELECT * FROM mbrpf WHERE mbract = ?";
 	
 	@Override
-	public void update(MbrpfVO mbrpfvo) {
+public void insert(MbrpfVO mbrpfVO) {
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
+
 		try {
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(UPDATE_STMT);
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(INSERT_STMT);
+
 			
-			pstmt.setInt(1, mbrpfvo.getPoints());
-			pstmt.setString(2, mbrpfvo.getMbrno());
 			
+			pstmt.setString(1, mbrpfVO.getMbract());
+			pstmt.setString(2, mbrpfVO.getMbrpw());
+			pstmt.setString(3, mbrpfVO.getMbrname());
+			pstmt.setBytes(4, mbrpfVO.getMbrimg());
+			pstmt.setDate(5, mbrpfVO.getBirth());
+			pstmt.setInt(6, mbrpfVO.getSex());
+			pstmt.setString(7, mbrpfVO.getMail());
+			pstmt.setString(8, mbrpfVO.getPhone());
+			pstmt.setString(9, mbrpfVO.getMbrac());
+			pstmt.setString(10, mbrpfVO.getNickname());
+			pstmt.setInt(11, mbrpfVO.getPoints());
+			pstmt.setInt(12, mbrpfVO.getStatus());
+			pstmt.setInt(13, mbrpfVO.getRatedtotal());
+			pstmt.setInt(14, mbrpfVO.getStartotal());
+			pstmt.setInt(15, mbrpfVO.getUnattend());
+			pstmt.setInt(16, mbrpfVO.getTtattend());
 			pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
 		} finally {
-			if(pstmt != null) {
+			if (pstmt != null) {
 				try {
 					pstmt.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
 				}
 			}
-			if(con != null) {
+			if (con != null) {
 				try {
 					con.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
 				}
 			}
 		}
-	}
-	
-	@Override
-	public MbrpfVO findByPrimaryKey(String shgmno) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		MbrpfVO mbrpfvo = null;
-		try {
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_ONE_STMT);
-			
-			pstmt.setString(1, shgmno);
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				mbrpfvo = new MbrpfVO();
-				mbrpfvo.setMbrno(rs.getString(1));
-				mbrpfvo.setMbract(rs.getString(2));
-				mbrpfvo.setMbrpw(rs.getString(3));
-				mbrpfvo.setMbrname(rs.getString(4));
-				mbrpfvo.setPoints(rs.getInt(5));
-			}
-			
-			rs.close();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if(pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if(con != null) {
-				try {
-					con.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return mbrpfvo;
+
 	}
 
 	@Override
-	public List<MbrpfVO> getall() {
+public void update(MbrpfVO mbrpfVO) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(UPDATE);
+			
+			pstmt.setString(1, mbrpfVO.getMbract());
+			pstmt.setString(2, mbrpfVO.getMbrpw());
+			pstmt.setString(3, mbrpfVO.getMbrname());
+			pstmt.setBytes(4, mbrpfVO.getMbrimg());
+			pstmt.setDate(5, mbrpfVO.getBirth());
+			pstmt.setInt(6, mbrpfVO.getSex());
+			pstmt.setString(7, mbrpfVO.getMail());
+			pstmt.setString(8, mbrpfVO.getPhone());
+			pstmt.setString(9, mbrpfVO.getMbrac());
+			pstmt.setString(10, mbrpfVO.getNickname());
+			pstmt.setInt(11, mbrpfVO.getPoints());
+			pstmt.setInt(12, mbrpfVO.getStatus());
+			pstmt.setInt(13, mbrpfVO.getRatedtotal());
+			pstmt.setInt(14, mbrpfVO.getStartotal());
+			pstmt.setInt(15, mbrpfVO.getUnattend());
+			pstmt.setInt(16, mbrpfVO.getTtattend());
+			pstmt.setString(17, mbrpfVO.getMbrno());
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+	}
+
+	@Override
+public void delete(String mbrno) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(DELETE);
+
+			pstmt.setString(1, mbrno);
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+	}
+
+	@Override
+public MbrpfVO findByPrimaryKey(String mbrno) {
+
+		MbrpfVO mbrpfVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		List<MbrpfVO> list= new ArrayList<MbrpfVO>();
-		
+
 		try {
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_ALL_STMT);
-			
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ONE_STMT);
+
+			pstmt.setString(1, mbrno);
+
 			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				MbrpfVO mbrpfvo = new MbrpfVO();
-				mbrpfvo.setMbrno(rs.getString(1));
-				mbrpfvo.setMbract(rs.getString(2));
-				mbrpfvo.setMbrpw(rs.getString(3));
-				mbrpfvo.setMbrname(rs.getString(4));
-				mbrpfvo.setPoints(rs.getInt(5));
+
+			while (rs.next()) {
+				// mbrpfVO  也稱為 Domain objects
+				mbrpfVO = new MbrpfVO();
+				mbrpfVO.setMbrno(rs.getString("mbrno"));
+				mbrpfVO.setMbract(rs.getString("mbract"));
+				mbrpfVO.setMbrpw(rs.getString("mbrpw"));
+				mbrpfVO.setMbrname(rs.getString("mbrname"));
+				mbrpfVO.setMbrimg(rs.getBytes("mbrimg"));
+				mbrpfVO.setBirth(rs.getDate("birth"));
+				mbrpfVO.setSex(rs.getInt("sex"));
+				mbrpfVO.setMail(rs.getString("mail"));
+				mbrpfVO.setPhone(rs.getString("phone"));
+				mbrpfVO.setMbrac(rs.getString("mbrac"));
+				mbrpfVO.setNickname(rs.getString("nickname"));
+				mbrpfVO.setPoints(rs.getInt("points"));
+				mbrpfVO.setStatus(rs.getInt("status"));
+				mbrpfVO.setRatedtotal(rs.getInt("ratedtotal"));
+				mbrpfVO.setStartotal(rs.getInt("startotal"));
+				mbrpfVO.setUnattend(rs.getInt("unattend"));
+				mbrpfVO.setTtattend(rs.getInt("ttattend"));
 				
-				list.add(mbrpfvo);
 			}
-			
-			rs.close();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
 		} finally {
-			if(pstmt != null)
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
 				try {
 					pstmt.close();
-				} catch (SQLException e1) {
-					e1.printStackTrace();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
 				}
-			if(con != null) {
+			}
+			if (con != null) {
 				try {
 					con.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return mbrpfVO;
+	}
+
+	@Override
+public List<MbrpfVO> getAll() {
+		List<MbrpfVO> list = new ArrayList<MbrpfVO>();
+		MbrpfVO mbrpfVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ALL_STMT);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// empVO  也稱為 Domain objects
+				mbrpfVO = new MbrpfVO();
+				mbrpfVO.setMbrno(rs.getString("mbrno"));
+				mbrpfVO.setMbract(rs.getString("mbract"));
+				mbrpfVO.setMbrpw(rs.getString("mbrpw"));
+				mbrpfVO.setMbrname(rs.getString("mbrname"));
+				mbrpfVO.setMbrimg(rs.getBytes("mbrimg"));
+				mbrpfVO.setBirth(rs.getDate("birth"));
+				mbrpfVO.setSex(rs.getInt("sex"));
+				mbrpfVO.setMail(rs.getString("mail"));
+				mbrpfVO.setPhone(rs.getString("phone"));
+				mbrpfVO.setMbrac(rs.getString("mbrac"));
+				mbrpfVO.setNickname(rs.getString("nickname"));
+				mbrpfVO.setPoints(rs.getInt("points"));
+				mbrpfVO.setStatus(rs.getInt("status"));
+				mbrpfVO.setRatedtotal(rs.getInt("ratedtotal"));
+				mbrpfVO.setStartotal(rs.getInt("startotal"));
+				mbrpfVO.setUnattend(rs.getInt("unattend"));
+				mbrpfVO.setTtattend(rs.getInt("ttattend"));
+				list.add(mbrpfVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
 				}
 			}
 		}
 		return list;
 	}
+
+	
+	
+@Override
+public MbrpfVO findByMbract(String mbract) {
+		
+		MbrpfVO mbrpfVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ONE_STMT);
+
+			pstmt.setString(1, mbract);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// mbrpfVO  也稱為 Domain objects
+				mbrpfVO = new MbrpfVO();
+				mbrpfVO.setMbract(rs.getString("mbract"));
+				mbrpfVO.setMbrpw(rs.getString("mbrpw"));
+				mbrpfVO.setMbrname(rs.getString("mbrname"));
+				mbrpfVO.setMbrimg(rs.getBytes("mbrimg"));
+				
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return mbrpfVO;
+	}
+
+@Override
+public MbrpfVO login(String mbract) {
+	
+	MbrpfVO mbrpfVO = null;
+	Connection con = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+
+	try {
+
+		Class.forName(driver);
+		con = DriverManager.getConnection(url, userid, passwd);
+		pstmt = con.prepareStatement(LOGIN);
+
+		pstmt.setString(1, mbract);
+
+		rs = pstmt.executeQuery();
+
+		while (rs.next()) {
+			// mbrpfVO  也稱為 Domain objects
+			mbrpfVO = new MbrpfVO();
+			mbrpfVO.setMbrno(rs.getString("mbrno"));
+			mbrpfVO.setMbract(rs.getString("mbract"));
+			mbrpfVO.setMbrpw(rs.getString("mbrpw"));
+			mbrpfVO.setMbrname(rs.getString("mbrname"));
+			mbrpfVO.setMbrimg(rs.getBytes("mbrimg"));
+			mbrpfVO.setBirth(rs.getDate("birth"));
+			mbrpfVO.setSex(rs.getInt("sex"));
+			mbrpfVO.setMail(rs.getString("mail"));
+			mbrpfVO.setPhone(rs.getString("phone"));
+			mbrpfVO.setMbrac(rs.getString("mbrac"));
+			mbrpfVO.setNickname(rs.getString("nickname"));
+			mbrpfVO.setPoints(rs.getInt("points"));
+			mbrpfVO.setStatus(rs.getInt("status"));
+			mbrpfVO.setRatedtotal(rs.getInt("ratedtotal"));
+			mbrpfVO.setStartotal(rs.getInt("startotal"));
+			mbrpfVO.setUnattend(rs.getInt("unattend"));
+			mbrpfVO.setTtattend(rs.getInt("ttattend"));
+			
+		}
+
+		// Handle any driver errors
+	} catch (ClassNotFoundException e) {
+		throw new RuntimeException("Couldn't load database driver. "
+				+ e.getMessage());
+		// Handle any SQL errors
+	} catch (SQLException se) {
+		throw new RuntimeException("A database error occured. "
+				+ se.getMessage());
+		// Clean up JDBC resources
+	} finally {
+		if (rs != null) {
+			try {
+				rs.close();
+			} catch (SQLException se) {
+				se.printStackTrace(System.err);
+			}
+		}
+		if (pstmt != null) {
+			try {
+				pstmt.close();
+			} catch (SQLException se) {
+				se.printStackTrace(System.err);
+			}
+		}
+		if (con != null) {
+			try {
+				con.close();
+			} catch (Exception e) {
+				e.printStackTrace(System.err);
+			}
+		}
+	}
+	return mbrpfVO;
 }
+
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//public static void main(String[] args) {
+//
+//	MbrpfDAO dao = new MbrpfDAO();
+//
+//	// 新增
+//	MbrpfVO mbrpfVO1 = new MbrpfVO();
+//	mbrpfVO1.setMbrno("555");
+//	mbrpfVO1.setMbract("iamnot555");
+//	mbrpfVO1.setMbrpw("555");
+//	mbrpfVO1.setMbrname("5");
+//	mbrpfVO1.setMbrimg(null);
+//	mbrpfVO1.setBirth(java.sql.Date.valueOf("2005-05-05"));
+//	mbrpfVO1.setSex(1);
+//	mbrpfVO1.setMail("555@gmail.com");
+//	mbrpfVO1.setPhone("0955555555");
+//	mbrpfVO1.setMbrac("5555-5555-5555-5555");
+//	mbrpfVO1.setNickname("V");
+//	mbrpfVO1.setPoints(500);
+//	mbrpfVO1.setStatus(1);
+//	mbrpfVO1.setRatedtotal(50);
+//	mbrpfVO1.setStartotal(50);
+//	mbrpfVO1.setUnattend(0);
+//	mbrpfVO1.setTtattend(50);
+//	dao.insert(mbrpfVO1);
+//
+//	// 修改
+//	MbrpfVO mbrpfVO2 = new MbrpfVO();
+//	mbrpfVO2.setMbrno("666");
+//	mbrpfVO2.setMbract("iam666");
+//	mbrpfVO2.setMbrpw("666");
+//	mbrpfVO2.setMbrname("5");
+//	mbrpfVO2.setMbrimg(null);
+//	mbrpfVO2.setBirth(java.sql.Date.valueOf("2005-05-05"));
+//	mbrpfVO2.setSex(1);
+//	mbrpfVO2.setMail("555@gmail.com");
+//	mbrpfVO2.setPhone("0955555555");
+//	mbrpfVO2.setMbrac("5555-5555-5555-5555");
+//	mbrpfVO2.setNickname("V");
+//	mbrpfVO2.setPoints(500);
+//	mbrpfVO2.setStatus(1);
+//	mbrpfVO2.setRatedtotal(50);
+//	mbrpfVO2.setStartotal(50);
+//	mbrpfVO2.setUnattend(0);
+//	mbrpfVO2.setTtattend(50);
+//	dao.update(mbrpfVO2);
+//
+//	// 刪除
+//	dao.delete("666");
+//
+//	// 查詢
+//	MbrpfVO mbrpfVO3 = dao.findByPrimaryKey("666");
+//	System.out.print(mbrpfVO3.getMbrno() + ",");
+//	System.out.print(mbrpfVO3.getMbract() + ",");
+//	System.out.print(mbrpfVO3.getMbrpw() + ",");
+//	System.out.print(mbrpfVO3.getMbrname() + ",");
+//	System.out.print(mbrpfVO3.getMbrimg() + ",");
+//	System.out.print(mbrpfVO3.getBirth() + ",");
+//	System.out.print(mbrpfVO3.getSex() + ",");
+//	System.out.print(mbrpfVO3.getMail() + ",");
+//	System.out.print(mbrpfVO3.getPhone() + ",");
+//	System.out.print(mbrpfVO3.getMbrac() + ",");
+//	System.out.print(mbrpfVO3.getNickname() + ",");
+//	System.out.print(mbrpfVO3.getPoints() + ",");
+//	System.out.print(mbrpfVO3.getStatus() + ",");
+//	System.out.print(mbrpfVO3.getRatedtotal() + ",");
+//	System.out.print(mbrpfVO3.getStartotal() + ",");
+//	System.out.print(mbrpfVO3.getUnattend() + ",");
+//	System.out.print(mbrpfVO3.getTtattend() + ",");
+//	System.out.println("---------------------");
+//
+//	// 查詢
+//	List<MbrpfVO> list = dao.getAll();
+//	for (MbrpfVO aMbrpf : list) {
+//		System.out.print(aMbrpf.getMbrno() + ",");
+//		System.out.print(aMbrpf.getMbract() + ",");
+//		System.out.print(aMbrpf.getMbrpw() + ",");
+//		System.out.print(aMbrpf.getMbrname() + ",");
+//		System.out.print(aMbrpf.getMbrimg() + ",");
+//		System.out.print(aMbrpf.getBirth() + ",");
+//		System.out.print(aMbrpf.getSex() + ",");
+//		System.out.print(aMbrpf.getMail() + ",");
+//		System.out.print(aMbrpf.getPhone() + ",");
+//		System.out.print(aMbrpf.getMbrac() + ",");
+//		System.out.print(aMbrpf.getNickname() + ",");
+//		System.out.print(aMbrpf.getPoints() + ",");
+//		System.out.print(aMbrpf.getStatus() + ",");
+//		System.out.print(aMbrpf.getRatedtotal() + ",");
+//		System.out.print(aMbrpf.getStartotal() + ",");
+//		System.out.print(aMbrpf.getUnattend() + ",");
+//		System.out.print(aMbrpf.getTtattend() + ",");
+//		System.out.println();
+//	}
+//}
+//}
