@@ -2,10 +2,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.shopbk.model.*"%>
-
+<%@ include file="/front-end/front-end-nav.jsp" %>
 <%
 	ShopbkService shopbkSvc = new ShopbkService();
-	String shopno = null;
+	shopno = null;
 	String shoppds = null;
 	String shoppde = null;
 	List<ShopbkVO> list = null;
@@ -64,7 +64,7 @@ h4 {
 
 <body>
 
-<%@ include file="/front-end/front-end-nav.jsp" %>
+
 
 <h4>
 	<a href="../shop/index.jsp"><img src="images/add-icon.png" class="icon">¦^­º­¶</a>

@@ -1,15 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.shop.model.*"%>
+<%@ include file="/front-end/front-end-nav.jsp" %>
 
-<%
-	ShopVO shopVO = null;
-	if(request.getParameter("shopno") == null){		
-		shopVO = (ShopVO) session.getAttribute("account");
-	}else{
-		shopVO = (ShopVO) request.getAttribute("shopVO"); //shopServlet.java (Concroller) 存入req的shopVO物件 (包括幫忙取出的shopVO, 也包括輸入資料錯誤時的shopVO物件)
-	}
-%>
 <html>
 <head>
 <meta charset="utf-8">
@@ -48,7 +41,7 @@ img {
 </head>
 <body bgcolor='white'>
 
-<%@ include file="/front-end/front-end-nav.jsp" %>
+
 
 	<table>
 		<h4>
@@ -109,7 +102,7 @@ img {
 				<td>店家圖片:</td>
 				<td><input type="file" id="myFile" name="shopimg">
 					<div type="file" id="preview">
-						<img src="<%=request.getContextPath()%>/ShopShowImg?shopno=${shopVO.shopno}" />
+						<img src="<%=request.getContextPath()%>/ShopShowImg?shopno=<%=shopno%>" />
 					</div></td>
 			</tr>
 			<input type="hidden" name="status" value="<%=shopVO.getStatus()%>" />

@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="BIG5"%>
+<%@ page import="com.shop.model.*"%>
+
+<%
+	String shopno = (String)session.getAttribute("shopAccount");
+	ShopService shopSVC = new ShopService();	
+	ShopVO shopVO = shopSVC.getOneShop(shopno);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,9 +73,19 @@
 						<a href="#" class="text-white"><span class="d-md-inline-block">
 								<img class="icon"
 								src="<%=request.getContextPath()%>/front-end/images/User-icon.png">會員登入
-						</span></a> <a href="#" class="text-white"> <span
-							class="d-md-inline-block"><img class="icon"
-								src="<%=request.getContextPath()%>/front-end/images/man-icon.png">店家登入</span></a>
+						</span></a><c:if test="${not empty shopAccount}">
+							<span class="mx-md-2 d-inline-block"></span>
+							<a href="<%=request.getContextPath()%>/front-end/shop/update_shop_input.jsp" class="text-white"> <span
+								class="mr-2 text-white icon-instagram"></span> <span
+								class="d-none d-md-inline-block"><%= shopVO.getShopname()%></span>
+														
+						</c:if>
+						<c:if test="${empty shopAccount}">
+							<a href="<%=request.getContextPath()%>/front-end/shop/login.jsp"
+								class="text-white"> <span class="d-md-inline-block"><img
+									class="icon"
+									src="<%=request.getContextPath()%>/front-end/images/man-icon.png">店家登入</span></a>
+						</c:if>
 					</div>
 				</div>
 			</div>

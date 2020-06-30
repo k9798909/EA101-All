@@ -376,11 +376,19 @@ public class ShopServlet extends HttpServlet {
 				RequestDispatcher failureView = req.getRequestDispatcher("login.jsp");
 				failureView.forward(req, res);
 				return; // �{�����_
+			}else {
+				session.setAttribute("shopAccount", shopVO.getShopno());
+			      
+			       try {                                                        
+			         String location = (String) session.getAttribute("location");
+			         if (location != null) {
+			           session.removeAttribute("location");   //*工作2: 看看有無來源網頁 (-->如有來源網頁:則重導至來源網頁)
+			           res.sendRedirect(location);            
+			           return;
+			         }
+			       }catch (Exception ignored) { }
+			       res.sendRedirect(req.getContextPath()+"/front-end/index.jsp");
 			}
-			shopVO = shopSvc.getOneShop(shopVO.getShopno());
-			session.setAttribute("account", shopVO);
-			RequestDispatcher failureView = req.getRequestDispatcher("index.jsp");
-			failureView.forward(req, res);
 		}
 
 	}

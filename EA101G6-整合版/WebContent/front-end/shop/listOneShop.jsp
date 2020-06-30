@@ -1,14 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.shop.model.*"%>
-
+<%@ include file="/front-end/front-end-nav.jsp" %>
 <%
-	ShopVO shopVO = null;
-	if(request.getParameter("shopno") == null){		
-		shopVO = (ShopVO) session.getAttribute("account");
-	}else{
-		shopVO = (ShopVO) request.getAttribute("shopVO"); //shopServlet.java (Concroller) 存入req的shopVO物件 (包括幫忙取出的shopVO, 也包括輸入資料錯誤時的shopVO物件)
-	}
+	if(request.getParameter("shopno") != null)		
+		shopVO = (ShopVO) request.getAttribute("shopVO");	
 %>
 
 <head>
@@ -52,7 +48,7 @@ h4 {
 
 <body>
 
-<%@ include file="/front-end/front-end-nav.jsp" %>
+
 
 <h4 style="margin-left: 20px;">
 	<a href="index.jsp"><img src="images/add-icon.png" class="icon">回首頁</a>
@@ -73,7 +69,7 @@ h4 {
 		<td><%=shopVO.getShoploc()%></td>
 		<td><%=shopVO.getShopcy()%></td>
 		<td><%=shopVO.getShopphone()%></td>
-		<td><img src="<%=request.getContextPath()%>/ShopShowImg?shopno=${shopVO.shopno}" /></td>
+		<td><img src="<%=request.getContextPath()%>/ShopShowImg?shopno=<%=shopVO.getShopno()%>" /></td>
 	</tr>
 
 </table>

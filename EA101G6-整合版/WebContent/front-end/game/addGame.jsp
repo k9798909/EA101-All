@@ -42,6 +42,7 @@ img {
 	height:200px;
 }
 </style>
+<%@ include file="/front-end/front-end-nav.jsp" %>
 </head>
 
 <body bgcolor='white'>
@@ -49,7 +50,7 @@ img {
 	<table id="table-1">
 		<a href="index.jsp"><img src="images/add-icon.png"
 			class="icon">回首頁</a>
-		<h3>店家註冊</h3>
+		<h3>增加遊戲</h3>
 	</table>
 	<%-- 錯誤表列 --%>
 	<c:if test="${not empty errorMsgs}">
@@ -61,7 +62,7 @@ img {
 		</ul>
 	</c:if>
 
-	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/game/game.do" enctype="multipart/form-data">
+	<FORM METHOD="post" ACTION="game.do" enctype="multipart/form-data">
 		<table>
 			<tr>
 				<td>遊戲名稱:</td>
@@ -91,7 +92,6 @@ img {
 			if (files !== null && files.length > 0) {
 				var file = files[0];
 				if (file.type.indexOf('image') > -1) {
-// 					filename.value = file.name;
 					var reader = new FileReader();
 					reader.addEventListener('load', function(e) {
 						var result = e.target.result;

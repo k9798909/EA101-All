@@ -51,7 +51,7 @@ h4 {
 	<a href="index.jsp"><img src="images/add-icon.png" class="icon">回首頁</a>
 </h4>
 
-	<form method="post" action="shop.do">
+	<form method="post" action="<%=request.getContextPath()%>/front-end/shop/shop.do">
 		<div class="login-form" style="margin-top: 40px;">
 			<h1>店家登入</h1>
 			<div class="form-group ">

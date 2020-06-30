@@ -1,9 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.shop.model.*"%>
-
+<%@ include file="/front-end/front-end-nav.jsp" %>
 <%
-	ShopVO shopVO = (ShopVO) request.getAttribute("shopVO");
+	shopVO = (ShopVO) request.getAttribute("shopVO");
 %>
 <html>
 <head>
@@ -45,7 +45,7 @@ img {
 </head>
 <body bgcolor='white'>
 
-<%@ include file="/front-end/front-end-nav.jsp" %>
+
 
 	<table id="table-1">
 		<a href="index.jsp"><img src="images/add-icon.png"
@@ -120,7 +120,6 @@ img {
 			if (files !== null && files.length > 0) {
 				var file = files[0];
 				if (file.type.indexOf('image') > -1) {
-// 					filename.value = file.name;
 					var reader = new FileReader();
 					reader.addEventListener('load', function(e) {
 						var result = e.target.result;

@@ -4,10 +4,11 @@
 <%@ page import="com.game.model.*"%>
 <%@ page import="com.gmlist.model.*"%>
 <%@ page import="com.shop.model.*"%>
+<%@ include file="/front-end/front-end-nav.jsp" %>
 <%
 	GmlistService gmlistSvc = new GmlistService();
 	String gmno = request.getParameter("gmno");
-	String shopno = request.getParameter("shopno");
+	shopno = request.getParameter("shopno");
 	List<GmlistVO> list = null;
 	if(shopno != null)
 		list = gmlistSvc.getSomeGmlistByShop(shopno);
@@ -58,7 +59,7 @@ h4 {
 </style>
 </head>
 
-<%@ include file="/front-end/front-end-nav.jsp" %>
+
 
 <h4>
 	<a href="../shop/index.jsp"><img src="images/add-icon.png" class="icon">¦^­º­¶</a>

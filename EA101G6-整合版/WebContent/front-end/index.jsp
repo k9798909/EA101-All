@@ -3,7 +3,9 @@
 <%@ page import="com.shop.model.*"%>
 
 <%
-	ShopVO account = (ShopVO) session.getAttribute("account");
+	String shopno = (String)session.getAttribute("shopAccount");
+	ShopService shopSVC = new ShopService();	
+	ShopVO shopVO = shopSVC.getOneShop(shopno);
 %>
 
 <!doctype html>
@@ -80,13 +82,13 @@
 								src="<%=request.getContextPath()%>/front-end/images/User-icon.png">·|­ûµn¤J
 						</span></a>
 
-						<c:if test="${not empty account}">
+						<c:if test="${not empty shopAccount}">
 							<span class="mx-md-2 d-inline-block"></span>
-							<a href="update_shop_input.jsp" class="text-white"> <span
+							<a href="<%=request.getContextPath()%>/front-end/shop/update_shop_input.jsp" class="text-white"> <span
 								class="mr-2 text-white icon-instagram"></span> <span
-								class="d-none d-md-inline-block">${account.getShopname()}</span>
+								class="d-none d-md-inline-block"><%= shopVO.getShopname()%></span>
 						</c:if>
-						<c:if test="${empty account}">
+						<c:if test="${empty shopAccount}">
 							<a href="<%=request.getContextPath()%>/front-end/shop/login.jsp"
 								class="text-white"> <span class="d-md-inline-block"><img
 									class="icon"

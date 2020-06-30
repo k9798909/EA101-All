@@ -55,6 +55,8 @@ h4 {
 
 <h4>
 	<a href="../shop/index.jsp"><img src="images/add-icon.png" class="icon">¦^­º­¶</a>
+	<button id="test">test</button>
+	
 </h4>
 
 <jsp:include page="select_page.jsp" flush="true">
@@ -102,7 +104,11 @@ h4 {
 		</c:forEach>
 	</table>
 </div>
-
+<script  src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js">
+	$(#test).click(function(){
+		document.location.href = '<%=request.getContextPath()%>/front-end/game/addGame.jsp';
+	});
+	</script>
 
 
 </body>

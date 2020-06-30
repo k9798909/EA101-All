@@ -7,8 +7,8 @@
 
 <%
 	GmlistService gmlistSvc = new GmlistService();
-	ShopVO shopVO = (ShopVO) session.getAttribute("account");
-	List<GmlistVO> list = gmlistSvc.getSomeGmlistByShop(shopVO.getShopno());
+	String shopno = (String)session.getAttribute("account");
+	List<GmlistVO> list = gmlistSvc.getSomeGmlistByShop(shopno);
 	pageContext.setAttribute("list", list);
 %>
 <jsp:useBean id="gameSvc" scope="page"
@@ -127,7 +127,7 @@ h4 {
 								src="<%=request.getContextPath()%>/GameShowImg?gmno=${gameVO.gmno}"></td>
 							<td>							
 							<FORM METHOD="post" ACTION="gmlist.do">
-							<input type="hidden" name="shopno" value="<%=shopVO.getShopno()%>">
+							<input type="hidden" name="shopno" value="<%=shopno%>">
 							<input type="hidden" name="gmno" value="${gameVO.gmno}">
 							<input type="hidden" name="action" value="insert">
 							<input type="submit" value="·s¼W">
