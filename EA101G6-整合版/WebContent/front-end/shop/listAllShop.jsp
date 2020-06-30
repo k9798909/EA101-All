@@ -68,15 +68,6 @@ h4 {
 		</ul>
 	</c:if>
 	<div class="row">
-		<!-- 		<table> -->
-		<!-- 			<tr> -->
-		<!-- 				<th>店家名稱</th> -->
-		<!-- 				<th>位置</th> -->
-		<!-- 				<th>場地</th> -->
-		<!-- 				<th>電話</th> -->
-		<!-- 				<th>店家圖片</th> -->
-		<!-- 							<th>修改</th> -->
-		<!-- 			</tr> -->
 		<div class="container" class="col-sm-3-10">
 		<div class="card-deck">
 		<div class="row">
