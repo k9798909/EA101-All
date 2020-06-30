@@ -87,7 +87,7 @@
 								<img class="icon" src="<%=request.getContextPath()%>/front-end/images/User-icon.png">會員登入 
 							</span>
 						</a> 
-<!-- 測試 -->
+<!-- 測試4257424 -->
 						<c:if test="${not empty shopAccount}">
 							<span class="mx-md-2 d-inline-block"></span>
 							<a href="<%=request.getContextPath()%>/front-end/shop/update_shop_input.jsp" class="text-white"> <span
