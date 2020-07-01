@@ -346,6 +346,66 @@
 		<servlet-name>ShopadServlet</servlet-name>
 		<url-pattern>/shopad/shopad.do</url-pattern>
 	</servlet-mapping>
-
+	
+	
+<!-- 采庭 -->
+	<servlet>
+	  <servlet-name>EmpServlet</servlet-name>
+	  <servlet-class>com.emp.controller.EmpServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	  <servlet-name>EmpServlet</servlet-name>
+	  <url-pattern>/emp/EmpServlet</url-pattern>
+	</servlet-mapping>
+	  
+	<servlet>
+	  <servlet-name>TfcordServlet</servlet-name>
+	  <servlet-class>com.tfcord.controller.TfcordServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	  <servlet-name>TfcordServlet</servlet-name>
+	  <url-pattern>/tfcord/TfcordServlet</url-pattern>
+	</servlet-mapping>
+	  
+	<servlet>
+	  <servlet-name>FeaturesServlet</servlet-name>
+	  <servlet-class>com.features.controller.FeaturesServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	  <servlet-name>FeaturesServlet</servlet-name>
+	  <url-pattern>/features/FeaturesServlet</url-pattern>
+	</servlet-mapping>
+	  
+	<servlet>
+	  <servlet-name>AuthorityServlet</servlet-name>
+	  <servlet-class>com.authority.controller.AuthorityServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	  <servlet-name>AuthorityServlet</servlet-name>
+	  <url-pattern>/authority/AuthorityServlet</url-pattern>
+	</servlet-mapping>
+	  
+	<servlet>
+	  <servlet-name>EmpImgServlet</servlet-name>
+	  <servlet-class>com.emp.controller.EmpImgServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	  <servlet-name>EmpImgServlet</servlet-name>
+	  <url-pattern>/emp/EmpImgServlet</url-pattern>
+	</servlet-mapping>
+	  
+	<filter>
+	  	<filter-name>LoginFilterBack</filter-name>
+	  	<filter-class>com.filter.LoginFilterBack</filter-class>
+	</filter>
+	<filter-mapping>
+	 	<filter-name>LoginFilterBack</filter-name>
+	  	<url-pattern>/back-end/*</url-pattern>
+	  	<dispatcher>REQUEST</dispatcher>
+	  	<dispatcher>FORWARD</dispatcher>
+	  	<dispatcher>INCLUDE</dispatcher>
+	  	<dispatcher>ERROR</dispatcher>
+	  	<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
   
 </web-app>
