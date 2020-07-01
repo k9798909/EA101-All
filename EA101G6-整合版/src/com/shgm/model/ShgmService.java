@@ -133,6 +133,16 @@ public class ShgmService {
 		
 		dao.upcheckUpdate(upcheck, shgmno);
 	}
+	
+	public void boxstatusUpdate(Integer boxstatus, String shgmno) {
+		
+		dao.boxstatusUpdate(boxstatus, shgmno);
+	}
+	
+	public void statusUpdate(Integer status, String shgmno) {
+		
+		dao.statusUpdate(status, shgmno);
+	}
 
 	public ShgmVO sellerUpdate(String shgmno, String shgmname, Integer price, String intro, byte[] img) {
 
@@ -167,9 +177,9 @@ public class ShgmService {
 		return shgmvo;
 	}
 
-	public void soldtimeCT(String shgmno) {
+	public Timestamp soldtimeCT(String shgmno) {
 
-		dao.soldtimeCT(shgmno);
+		return dao.soldtimeCT(shgmno);
 	}
 
 	public void soldtimeNU(String shgmno) {
@@ -177,9 +187,9 @@ public class ShgmService {
 		dao.soldtimeNU(shgmno);
 	}
 
-	public void uptimeCT(String shgmno) {
+	public Timestamp uptimeCT(String shgmno) {
 
-		dao.uptimeCT(shgmno);
+		return dao.uptimeCT(shgmno);
 	}
 	
 	public void uptimeNU(String shgmno) {

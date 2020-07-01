@@ -7,10 +7,12 @@ public interface ShgmDAO_interface {
 	public void sellshgm(ShgmVO shgmvo);
 	public void update(ShgmVO shgmvo);
 	public void upcheckUpdate(Integer upcheck, String shgmno);
+	public void boxstatusUpdate(Integer boxstatus, String shgmno);
+	public void statusUpdate(Integer status, String shgmno);
 	public void sellerUpdate(ShgmVO shgmvo);
 	public void dealingshgm(ShgmVO shgmvo);
-	public void soldtimeCT(String shgmno);
-	public void uptimeCT(String shgmno);
+	public java.sql.Timestamp soldtimeCT(String shgmno);
+	public java.sql.Timestamp uptimeCT(String shgmno);
 	public void soldtimeNU(String shgmno);
 	public void uptimeNU(String shgmno);
 	public void delete(String shgmno);

@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +37,10 @@ public class ShgmJDBCDAO implements ShgmDAO_interface {
 			+ "take=?,takernm=?,takerph=?,address=?,boxstatus=?,paystatus=?,status=? WHERE shgmno=?";
 	private static final String UPCHECK_UPDATE_STMT = 
 			"UPDATE SHGM SET upcheck=? where shgmno=?";
+	private static final String BOXSTATUS_UPDATE_STMT =
+			"UPDATE SHGM SET boxstatus=? where shgmno=?";
+	private static final String STATUS_UPDATE_STMT = 
+			"UPDATE SHGM SET status=? where shgmno=?";
 	private static final String SELLER_UPDATE_STMT = 
 			"UPDATE SHGM SET shgmname=?,price=?,intro=?,img=? WHERE shgmno=?";
 	private static final String DEALING_STMT = 
@@ -343,6 +348,78 @@ public class ShgmJDBCDAO implements ShgmDAO_interface {
 			}
 		}
 	}
+	
+	@Override
+	public void boxstatusUpdate(Integer boxstatus, String shgmno) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, user, password);
+			pstmt = con.prepareStatement(BOXSTATUS_UPDATE_STMT);
+
+			pstmt.setInt(1, boxstatus);
+			pstmt.setString(2, shgmno);
+			
+			pstmt.executeUpdate();
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	@Override
+	public void statusUpdate(Integer status, String shgmno) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, user, password);
+			pstmt = con.prepareStatement(STATUS_UPDATE_STMT);
+
+			pstmt.setInt(1, status);
+			pstmt.setString(2, shgmno);
+			
+			pstmt.executeUpdate();
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 
 	@Override
 	public void sellerUpdate(ShgmVO shgmvo) {
@@ -429,9 +506,10 @@ public class ShgmJDBCDAO implements ShgmDAO_interface {
 	}
 
 	@Override
-	public void soldtimeCT(String shgmno) {
+	public Timestamp soldtimeCT(String shgmno) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
+		Timestamp soldtime = new Timestamp(System.currentTimeMillis());
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, user, password);
@@ -460,12 +538,14 @@ public class ShgmJDBCDAO implements ShgmDAO_interface {
 				}
 			}
 		}
+		return soldtime;
 	}
 
 	@Override
-	public void uptimeCT(String shgmno) {
+	public Timestamp uptimeCT(String shgmno) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
+		Timestamp uptime = new Timestamp(System.currentTimeMillis());
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, user, password);
@@ -494,6 +574,7 @@ public class ShgmJDBCDAO implements ShgmDAO_interface {
 				}
 			}
 		}
+		return uptime;
 	}
 
 	@Override
