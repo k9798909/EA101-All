@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 //用濾器的方式，就不用每一支程式都打上一段看看session內是否有account這個Attribute的程式碼
 public class LoginFilterBack implements Filter {
-	
+	//---
 	private FilterConfig config;
 	
 	@Override
