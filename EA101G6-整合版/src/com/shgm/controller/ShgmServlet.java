@@ -45,28 +45,28 @@ public class ShgmServlet extends HttpServlet {
 
 			MbrpfService mbrsvc = new MbrpfService();
 			// MbrpfService的check方法在資料庫查詢是否有相對應的資料
-			if (mbrsvc.check(mbract, mbrpw)) {
-				// true，session存入當前使用者的資料
-				MbrpfVO mbrpfvo = mbrsvc.getByActPw(mbract, mbrpw);
-				session.setAttribute("member", mbrpfvo);
-				// 測試印出姓名
-				System.out.println(mbrpfvo.getMbrname());
-
-				// 轉送到市集頁面
-				String url = "/front-end/shgm/mainPage.jsp";
-				RequestDispatcher successview = request.getRequestDispatcher(url);
-				successview.forward(request, response);
-
-			} else {
-				// false，request存入錯誤訊息
-				String error = "帳號密碼錯誤";
-				request.setAttribute("error", error);
-
-				// 轉送到登入頁面
-				String url = "/front-end/shgm/simpleLogin.jsp";
-				RequestDispatcher failedview = request.getRequestDispatcher(url);
-				failedview.forward(request, response);
-			}
+//			if (mbrsvc.check(mbract, mbrpw)) {
+//				// true，session存入當前使用者的資料
+//				MbrpfVO mbrpfvo = mbrsvc.getByActPw(mbract, mbrpw);
+//				session.setAttribute("member", mbrpfvo);
+//				// 測試印出姓名
+//				System.out.println(mbrpfvo.getMbrname());
+//
+//				// 轉送到市集頁面
+//				String url = "/front-end/shgm/mainPage.jsp";
+//				RequestDispatcher successview = request.getRequestDispatcher(url);
+//				successview.forward(request, response);
+//
+//			} else {
+//				// false，request存入錯誤訊息
+//				String error = "帳號密碼錯誤";
+//				request.setAttribute("error", error);
+//
+//				// 轉送到登入頁面
+//				String url = "/front-end/shgm/simpleLogin.jsp";
+//				RequestDispatcher failedview = request.getRequestDispatcher(url);
+//				failedview.forward(request, response);
+//			}
 		}
 
 		if ("get_one".equals(action)) {
@@ -280,7 +280,7 @@ public class ShgmServlet extends HttpServlet {
 					// 取出賣家的mbrpfvo以便對points做更動
 					MbrpfVO mbrpfvo = mbrsvc.getOneMbrpf(sellerno);
 					// 把賣家原本的points加上販售之價格
-					mbrsvc.update(sellerno, mbrpfvo.getPoints() + shgmvo.getPrice());
+					//mbrsvc.update(sellerno, mbrpfvo.getPoints() + shgmvo.getPrice());
 				} else {
 					// 正常上架未通過審查，上架、售出時間為空值
 					shgmsvc.addShgmNocheck(sellerno, buyerno, shgmname, price, intro, img, upcheck, take, takernm,
@@ -545,7 +545,7 @@ public class ShgmServlet extends HttpServlet {
 					// 取出買家的mbrpfvo以便對points做更動
 					MbrpfVO mbrpfvo = mbrsvc.getOneMbrpf(buyerno);
 					// 把買家原本的points扣掉價格
-					mbrsvc.update(buyerno, mbrpfvo.getPoints() - shgmvo.getPrice());
+					//mbrsvc.update(buyerno, mbrpfvo.getPoints() - shgmvo.getPrice());
 				}
 				
 				// 已上架的市集商品，同時也已送達、已付款、已完成，即是訂單完成，可以增加賣家的點數了
@@ -555,7 +555,7 @@ public class ShgmServlet extends HttpServlet {
 					// 取出賣家的mbrpfvo以便對points做更動
 					MbrpfVO mbrpfvo = mbrsvc.getOneMbrpf(sellerno);
 					// 把賣家原本的points加上販售之價格
-					mbrsvc.update(sellerno, mbrpfvo.getPoints() + shgmvo.getPrice());
+					//mbrsvc.update(sellerno, mbrpfvo.getPoints() + shgmvo.getPrice());
 					// 資料庫更新售出時間
 					shgmsvc.soldtimeCT(shgmno);
 				}
@@ -773,7 +773,7 @@ public class ShgmServlet extends HttpServlet {
 					// 取出賣家的mbrpfvo以便對points做更動
 					MbrpfVO mbrpfvo = mbrsvc.getOneMbrpf(sellerno);
 					// 把賣家原本的points加上販售之價格
-					mbrsvc.update(sellerno, mbrpfvo.getPoints() + shgmvo.getPrice());
+					//mbrsvc.update(sellerno, mbrpfvo.getPoints() + shgmvo.getPrice());
 					// 資料庫更新售出時間
 					if(shgm.getUptime() == null)
 						shgmsvc.uptimeCT(shgmno);

@@ -284,8 +284,6 @@
   	<filter-mapping>
   		<filter-name>LoginFilter</filter-name>
   		<url-pattern>/mbrpf/select_page.jsp</url-pattern>
-	<!--<url-pattern>/mbrpf/addMbrpf.jsp</url-pattern>-->
-	<!--<url-pattern>/mbrpf/listAllMbrpf.jsp</url-pattern> -->
   		<url-pattern>/mbrpf/listOneMbrpf.jsp</url-pattern>
   		<url-pattern>/mbrpf/update_mbrpf_input.jsp</url-pattern>
   		<dispatcher>REQUEST</dispatcher>

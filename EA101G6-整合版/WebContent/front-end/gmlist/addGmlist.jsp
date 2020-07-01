@@ -58,7 +58,7 @@ h4 {
 
 <body>
 
-<%@ include file="/front-end/front-end-nav.jsp" %>
+<%-- <%@ include file="/front-end/front-end-nav.jsp" %> --%>
 
 <h4>
 	<a href="../shop/index.jsp"><img src="images/add-icon.png"
