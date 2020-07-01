@@ -35,6 +35,8 @@ public class MbrpfJNDIDAO implements MbrpfDAO_interface {
 				"SELECT mbract,mbrpw,mbrname FROM mbrpf where mbract = ?";
 		private static final String LOGIN =
 				"SELECT * FROM mbrpf WHERE mbract = ?";
+		private static final String UPDATEPOINT = 
+				"UPDATE mbrpf set points=? where mbrno = ?";
 	@Override
 	public void insert(MbrpfVO mbrpfVO) {
 
@@ -453,5 +455,44 @@ public class MbrpfJNDIDAO implements MbrpfDAO_interface {
 		}
 		return mbrpfVO;
 	}
+	
+	@Override
+	public void updatePoint(MbrpfVO mbrpfVO, Connection conn) {
+
+		PreparedStatement pstmt = null;
+
+		try {
+
+			pstmt = conn.prepareStatement(UPDATEPOINT);
+
+			pstmt.setInt(1, mbrpfVO.getPoints());
+			pstmt.setString(2, mbrpfVO.getMbrno());
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+
+			try {
+				conn.rollback();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.getStackTrace();
+				}
+			}
+
+		}
+
+	}
+
+	
+	
+	
 
 }

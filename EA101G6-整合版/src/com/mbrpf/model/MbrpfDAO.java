@@ -9,23 +9,17 @@ public class MbrpfDAO implements MbrpfDAO_interface {
 	String userid = "EA101";
 	String passwd = "123456";
 
-	private static final String INSERT_STMT = 
-		"INSERT INTO mbrpf (mbrno,mbract,mbrpw,mbrname,mbrimg,birth,sex,mail,phone,mbrac,nickname,points,status,ratedtotal,startotal,unattend,ttattend) VALUES ('BM'||LPAD(to_char(mem_seq.NEXTVAL),5,'0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = 
-		"SELECT mbrno,mbract,mbrpw,mbrname,mbrimg,to_char(birth,'yyyy-mm-dd') birth,sex,mail,phone,mbrac,nickname,points,status,ratedtotal,startotal,unattend,ttattend FROM mbrpf order by mbrno";
-	private static final String GET_ONE_STMT = 
-		"SELECT mbrno,mbract,mbrpw,mbrname,mbrimg,to_char(birth,'yyyy-mm-dd') birth,sex,mail,phone,mbrac,nickname,points,status,ratedtotal,startotal,unattend,ttattend FROM mbrpf where mbrno = ?";
-	private static final String DELETE = 
-		"DELETE FROM mbrpf where mbrno = ?";
-	private static final String UPDATE = 
-		"UPDATE mbrpf set mbract=?,mbrpw=?,mbrname=?,mbrimg=?,birth=?,sex=?,mail=?,phone=?,mbrac=?,nickname=?,points=?,status=?,ratedtotal=?,startotal=?,unattend=?,ttattend=? where mbrno = ?";
-	private static final String FIND_BY_MBRACT = 
-		"SELECT mbract,mbrpw,mbrname FROM mbrpf where mbract = ?";
-	private static final String LOGIN =
-		"SELECT * FROM mbrpf WHERE mbract = ?";
-	
+	private static final String INSERT_STMT = "INSERT INTO mbrpf (mbrno,mbract,mbrpw,mbrname,mbrimg,birth,sex,mail,phone,mbrac,nickname,points,status,ratedtotal,startotal,unattend,ttattend) VALUES ('BM'||LPAD(to_char(mem_seq.NEXTVAL),5,'0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String GET_ALL_STMT = "SELECT mbrno,mbract,mbrpw,mbrname,mbrimg,to_char(birth,'yyyy-mm-dd') birth,sex,mail,phone,mbrac,nickname,points,status,ratedtotal,startotal,unattend,ttattend FROM mbrpf order by mbrno";
+	private static final String GET_ONE_STMT = "SELECT mbrno,mbract,mbrpw,mbrname,mbrimg,to_char(birth,'yyyy-mm-dd') birth,sex,mail,phone,mbrac,nickname,points,status,ratedtotal,startotal,unattend,ttattend FROM mbrpf where mbrno = ?";
+	private static final String DELETE = "DELETE FROM mbrpf where mbrno = ?";
+	private static final String UPDATE = "UPDATE mbrpf set mbract=?,mbrpw=?,mbrname=?,mbrimg=?,birth=?,sex=?,mail=?,phone=?,mbrac=?,nickname=?,points=?,status=?,ratedtotal=?,startotal=?,unattend=?,ttattend=? where mbrno = ?";
+	private static final String FIND_BY_MBRACT = "SELECT mbract,mbrpw,mbrname FROM mbrpf where mbract = ?";
+	private static final String LOGIN = "SELECT * FROM mbrpf WHERE mbract = ?";
+	private static final String UPDATEPOINT = "UPDATE mbrpf set points=? where mbrno = ?";
+
 	@Override
-public void insert(MbrpfVO mbrpfVO) {
+	public void insert(MbrpfVO mbrpfVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -36,8 +30,6 @@ public void insert(MbrpfVO mbrpfVO) {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			
-			
 			pstmt.setString(1, mbrpfVO.getMbract());
 			pstmt.setString(2, mbrpfVO.getMbrpw());
 			pstmt.setString(3, mbrpfVO.getMbrname());
@@ -58,12 +50,10 @@ public void insert(MbrpfVO mbrpfVO) {
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (pstmt != null) {
@@ -85,7 +75,7 @@ public void insert(MbrpfVO mbrpfVO) {
 	}
 
 	@Override
-public void update(MbrpfVO mbrpfVO) {
+	public void update(MbrpfVO mbrpfVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -95,7 +85,7 @@ public void update(MbrpfVO mbrpfVO) {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
-			
+
 			pstmt.setString(1, mbrpfVO.getMbract());
 			pstmt.setString(2, mbrpfVO.getMbrpw());
 			pstmt.setString(3, mbrpfVO.getMbrname());
@@ -117,12 +107,10 @@ public void update(MbrpfVO mbrpfVO) {
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (pstmt != null) {
@@ -144,7 +132,7 @@ public void update(MbrpfVO mbrpfVO) {
 	}
 
 	@Override
-public void delete(String mbrno) {
+	public void delete(String mbrno) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -161,12 +149,10 @@ public void delete(String mbrno) {
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (pstmt != null) {
@@ -188,7 +174,7 @@ public void delete(String mbrno) {
 	}
 
 	@Override
-public MbrpfVO findByPrimaryKey(String mbrno) {
+	public MbrpfVO findByPrimaryKey(String mbrno) {
 
 		MbrpfVO mbrpfVO = null;
 		Connection con = null;
@@ -206,7 +192,7 @@ public MbrpfVO findByPrimaryKey(String mbrno) {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// mbrpfVO  也稱為 Domain objects
+				// mbrpfVO 也稱為 Domain objects
 				mbrpfVO = new MbrpfVO();
 				mbrpfVO.setMbrno(rs.getString("mbrno"));
 				mbrpfVO.setMbract(rs.getString("mbract"));
@@ -225,17 +211,15 @@ public MbrpfVO findByPrimaryKey(String mbrno) {
 				mbrpfVO.setStartotal(rs.getInt("startotal"));
 				mbrpfVO.setUnattend(rs.getInt("unattend"));
 				mbrpfVO.setTtattend(rs.getInt("ttattend"));
-				
+
 			}
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
@@ -264,7 +248,7 @@ public MbrpfVO findByPrimaryKey(String mbrno) {
 	}
 
 	@Override
-public List<MbrpfVO> getAll() {
+	public List<MbrpfVO> getAll() {
 		List<MbrpfVO> list = new ArrayList<MbrpfVO>();
 		MbrpfVO mbrpfVO = null;
 
@@ -280,7 +264,7 @@ public List<MbrpfVO> getAll() {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// empVO  也稱為 Domain objects
+				// empVO 也稱為 Domain objects
 				mbrpfVO = new MbrpfVO();
 				mbrpfVO.setMbrno(rs.getString("mbrno"));
 				mbrpfVO.setMbract(rs.getString("mbract"));
@@ -304,12 +288,10 @@ public List<MbrpfVO> getAll() {
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
@@ -337,11 +319,9 @@ public List<MbrpfVO> getAll() {
 		return list;
 	}
 
-	
-	
-@Override
-public MbrpfVO findByMbract(String mbract) {
-		
+	@Override
+	public MbrpfVO findByMbract(String mbract) {
+
 		MbrpfVO mbrpfVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -358,23 +338,21 @@ public MbrpfVO findByMbract(String mbract) {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// mbrpfVO  也稱為 Domain objects
+				// mbrpfVO 也稱為 Domain objects
 				mbrpfVO = new MbrpfVO();
 				mbrpfVO.setMbract(rs.getString("mbract"));
 				mbrpfVO.setMbrpw(rs.getString("mbrpw"));
 				mbrpfVO.setMbrname(rs.getString("mbrname"));
 				mbrpfVO.setMbrimg(rs.getBytes("mbrimg"));
-				
+
 			}
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
@@ -402,107 +380,117 @@ public MbrpfVO findByMbract(String mbract) {
 		return mbrpfVO;
 	}
 
-@Override
-public MbrpfVO login(String mbract) {
-	
-	MbrpfVO mbrpfVO = null;
-	Connection con = null;
-	PreparedStatement pstmt = null;
-	ResultSet rs = null;
+	@Override
+	public MbrpfVO login(String mbract) {
 
-	try {
+		MbrpfVO mbrpfVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 
-		Class.forName(driver);
-		con = DriverManager.getConnection(url, userid, passwd);
-		pstmt = con.prepareStatement(LOGIN);
+		try {
 
-		pstmt.setString(1, mbract);
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(LOGIN);
 
-		rs = pstmt.executeQuery();
+			pstmt.setString(1, mbract);
 
-		while (rs.next()) {
-			// mbrpfVO  也稱為 Domain objects
-			mbrpfVO = new MbrpfVO();
-			mbrpfVO.setMbrno(rs.getString("mbrno"));
-			mbrpfVO.setMbract(rs.getString("mbract"));
-			mbrpfVO.setMbrpw(rs.getString("mbrpw"));
-			mbrpfVO.setMbrname(rs.getString("mbrname"));
-			mbrpfVO.setMbrimg(rs.getBytes("mbrimg"));
-			mbrpfVO.setBirth(rs.getDate("birth"));
-			mbrpfVO.setSex(rs.getInt("sex"));
-			mbrpfVO.setMail(rs.getString("mail"));
-			mbrpfVO.setPhone(rs.getString("phone"));
-			mbrpfVO.setMbrac(rs.getString("mbrac"));
-			mbrpfVO.setNickname(rs.getString("nickname"));
-			mbrpfVO.setPoints(rs.getInt("points"));
-			mbrpfVO.setStatus(rs.getInt("status"));
-			mbrpfVO.setRatedtotal(rs.getInt("ratedtotal"));
-			mbrpfVO.setStartotal(rs.getInt("startotal"));
-			mbrpfVO.setUnattend(rs.getInt("unattend"));
-			mbrpfVO.setTtattend(rs.getInt("ttattend"));
-			
-		}
+			rs = pstmt.executeQuery();
 
-		// Handle any driver errors
-	} catch (ClassNotFoundException e) {
-		throw new RuntimeException("Couldn't load database driver. "
-				+ e.getMessage());
-		// Handle any SQL errors
-	} catch (SQLException se) {
-		throw new RuntimeException("A database error occured. "
-				+ se.getMessage());
-		// Clean up JDBC resources
-	} finally {
-		if (rs != null) {
-			try {
-				rs.close();
-			} catch (SQLException se) {
-				se.printStackTrace(System.err);
+			while (rs.next()) {
+				// mbrpfVO 也稱為 Domain objects
+				mbrpfVO = new MbrpfVO();
+				mbrpfVO.setMbrno(rs.getString("mbrno"));
+				mbrpfVO.setMbract(rs.getString("mbract"));
+				mbrpfVO.setMbrpw(rs.getString("mbrpw"));
+				mbrpfVO.setMbrname(rs.getString("mbrname"));
+				mbrpfVO.setMbrimg(rs.getBytes("mbrimg"));
+				mbrpfVO.setBirth(rs.getDate("birth"));
+				mbrpfVO.setSex(rs.getInt("sex"));
+				mbrpfVO.setMail(rs.getString("mail"));
+				mbrpfVO.setPhone(rs.getString("phone"));
+				mbrpfVO.setMbrac(rs.getString("mbrac"));
+				mbrpfVO.setNickname(rs.getString("nickname"));
+				mbrpfVO.setPoints(rs.getInt("points"));
+				mbrpfVO.setStatus(rs.getInt("status"));
+				mbrpfVO.setRatedtotal(rs.getInt("ratedtotal"));
+				mbrpfVO.setStartotal(rs.getInt("startotal"));
+				mbrpfVO.setUnattend(rs.getInt("unattend"));
+				mbrpfVO.setTtattend(rs.getInt("ttattend"));
+
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
 			}
 		}
-		if (pstmt != null) {
-			try {
-				pstmt.close();
-			} catch (SQLException se) {
-				se.printStackTrace(System.err);
-			}
-		}
-		if (con != null) {
-			try {
-				con.close();
-			} catch (Exception e) {
-				e.printStackTrace(System.err);
-			}
-		}
+		return mbrpfVO;
 	}
-	return mbrpfVO;
+
+	@Override
+	public void updatePoint(MbrpfVO mbrpfVO, Connection conn) {
+
+		PreparedStatement pstmt = null;
+
+		try {
+
+			pstmt = conn.prepareStatement(UPDATEPOINT);
+
+			pstmt.setInt(1, mbrpfVO.getPoints());
+			pstmt.setString(2, mbrpfVO.getMbrno());
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+
+			try {
+				conn.rollback();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.getStackTrace();
+				}
+			}
+
+		}
+
+	}
+
 }
 
-	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 //public static void main(String[] args) {
 //
 //	MbrpfDAO dao = new MbrpfDAO();

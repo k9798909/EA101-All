@@ -1,5 +1,6 @@
 package com.mbrpf.model;
 
+import java.sql.Connection;
 import java.util.*;
 
 public interface MbrpfDAO_interface {
@@ -11,5 +12,6 @@ public interface MbrpfDAO_interface {
         //萬用複合查詢(傳入參數型態Map)(回傳 List)
           public MbrpfVO findByMbract(String mbract);
           public MbrpfVO login(String mbract);
-//        public List<MbrpfVO> getAll(Map<String, String[]> map); 
+//        public List<MbrpfVO> getAll(Map<String, String[]> map);
+          public void updatePoint(MbrpfVO mbrpfVO ,Connection conn);
 }
