@@ -66,52 +66,52 @@ img {
 		<table>
 			<tr>
 				<td>店家編號:</td>
-				<td><%=shopVO.getShopno()%></td>
+				<td>${shopVO.shopno}</td>
 			</tr>
 			<tr>
 				<td>店家帳號:</td>
 				<td><input type="TEXT" name="shopact" size="45"
-					value="<%=shopVO.getShopact()%>" /></td>
+					value="${shopVO.shopact}" /></td>
 			</tr>
 			<tr>
 				<td>店家密碼:</td>
 				<td><input type="password" name="shoppw" size="45"
-					value="<%=shopVO.getShoppw()%>" /></td>
+					value="${shopVO.shoppw}" /></td>
 			</tr>
 			<tr>
 				<td>店家名稱:</td>
 				<td><input type="text" name="shopname" size="45"
-					value="<%=shopVO.getShopname()%>" /></td>
+					value="${shopVO.shopname}" /></td>
 			</tr>
 			<tr>
 				<td>位置:</td>
 				<td><input type="TEXT" name="shoploc" size="45"
-					value="<%=shopVO.getShoploc()%>" /></td>
+					value="${shopVO.shoploc}" /></td>
 			</tr>
 			<tr>
 				<td>場地:</td>
 				<td><input type="TEXT" name="shopcy" size="45"
-					value="<%=shopVO.getShopcy()%>" /></td>
+					value="${shopVO.shopcy}" /></td>
 			</tr>
 			<tr>
 				<td>電話:</td>
 				<td><input type="TEXT" name="shopphone" size="45"
-					value="<%=shopVO.getShopphone()%>" /></td>
+					value="${shopVO.shopphone}" /></td>
 			</tr>
 			<tr>
 				<td>店家圖片:</td>
 				<td><input type="file" id="myFile" name="shopimg">
 					<div type="file" id="preview">
-						<img src="<%=request.getContextPath()%>/ShopShowImg?shopno=<%=shopno%>" />
+						<img src="<%=request.getContextPath()%>/ShopShowImg?shopno=${shopVO.shopno}" />
 					</div></td>
 			</tr>
-			<input type="hidden" name="status" value="<%=shopVO.getStatus()%>" />
+			<input type="hidden" name="status" value="${shopVO.status}" />
 
 
 
 		</table>
 		<br> <input type="hidden" name="action" value="update"> <input
-			type="hidden" name="shopno" value="<%=shopVO.getShopno()%>">
+			type="hidden" name="shopno" value="${shopVO.shopno}">
 		<input type="submit" value="送出修改">
 	</FORM>
 </body>

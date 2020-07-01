@@ -3,6 +3,7 @@
 <%@ page import="com.shop.model.*"%>
 <%@ include file="/front-end/front-end-nav.jsp" %>
 <%
+	ShopVO shopVO = null;
 	if(request.getParameter("shopno") != null)		
 		shopVO = (ShopVO) request.getAttribute("shopVO");	
 %>
@@ -65,11 +66,11 @@ h4 {
 		<th>©±®a¹Ï¤ù</th>
 	</tr>
 	<tr>
-		<td><%=shopVO.getShopname()%></td>
-		<td><%=shopVO.getShoploc()%></td>
-		<td><%=shopVO.getShopcy()%></td>
-		<td><%=shopVO.getShopphone()%></td>
-		<td><img src="<%=request.getContextPath()%>/ShopShowImg?shopno=<%=shopVO.getShopno()%>" /></td>
+		<td>${shopVO.shopname}</td>
+		<td>${shopVO.shoploc}</td>
+		<td>${shopVO.shopcy}</td>
+		<td>${shopVO.shopphone}</td>
+		<td><img src="<%=request.getContextPath()%>/ShopShowImg?shopno=${shopVO.shopno}" /></td>
 	</tr>
 
 </table>

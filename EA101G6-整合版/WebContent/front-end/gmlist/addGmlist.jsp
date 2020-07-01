@@ -4,11 +4,11 @@
 <%@ page import="com.gmlist.model.*"%>
 <%@ page import="com.shop.model.*"%>
 <%@ page import="com.game.model.*"%>
-
+<%@ include file="/front-end/front-end-nav.jsp"%>
 <%
 	GmlistService gmlistSvc = new GmlistService();
-	String shopno = (String)session.getAttribute("account");
-	List<GmlistVO> list = gmlistSvc.getSomeGmlistByShop(shopno);
+	ShopVO shopVO = (ShopVO)session.getAttribute("shopVO");
+	List<GmlistVO> list = gmlistSvc.getSomeGmlistByShop(shopVO.getShopno());
 	pageContext.setAttribute("list", list);
 %>
 <jsp:useBean id="gameSvc" scope="page"
@@ -127,7 +127,7 @@ h4 {
 								src="<%=request.getContextPath()%>/GameShowImg?gmno=${gameVO.gmno}"></td>
 							<td>							
 							<FORM METHOD="post" ACTION="gmlist.do">
-							<input type="hidden" name="shopno" value="<%=shopno%>">
+							<input type="hidden" name="shopno" value="${shopVO.shopno}">
 							<input type="hidden" name="gmno" value="${gameVO.gmno}">
 							<input type="hidden" name="action" value="insert">
 							<input type="submit" value="·s¼W">

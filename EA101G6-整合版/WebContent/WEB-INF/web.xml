@@ -67,26 +67,6 @@
   
   
 <!--   鴻基的 -->
-<filter>
-		<filter-name>shopLogin</filter-name>
-		<filter-class>com.shop.filter.shopLogin</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>shopLogin</filter-name>
-		<url-pattern>/front-end/shop/update_shop_input.jsp</url-pattern>
-		<url-pattern>/front-end/game/addGame.jsp</url-pattern>
-		<url-pattern>/front-end/game/update_game_input.jsp</url-pattern>
-		<url-pattern>/front-end/gmlist/addGmlist.jsp</url-pattern>
-		<url-pattern>/front-end/shopbk/addShopbk.jsp</url-pattern>
-		<url-pattern>/front-end/shopbk/update_shopbk_input.jsp</url-pattern>
-		<dispatcher>REQUEST</dispatcher>
-		<dispatcher>FORWARD</dispatcher>
-		<dispatcher>INCLUDE</dispatcher>
-		<dispatcher> ERROR </dispatcher>
-		<dispatcher> ASYNC </dispatcher>
-  </filter-mapping>
-  
-
  	 <servlet>
 		<servlet-name>ShopServlet</servlet-name>
 		<servlet-class>com.shop.controller.ShopServlet</servlet-class>
@@ -137,6 +117,24 @@
 		<url-pattern>/back-end/shoprpdt/shoprpdt.do</url-pattern>
 	</servlet-mapping>
   
+  	<filter>
+			<filter-name>shopLogin</filter-name>
+			<filter-class>com.shop.filter.shopLogin</filter-class>
+		</filter>
+		<filter-mapping>
+			<filter-name>shopLogin</filter-name>
+			<url-pattern>/front-end/shop/update_shop_input.jsp</url-pattern>
+			<url-pattern>/front-end/shopbk/addShopbk.jsp</url-pattern>
+			<url-pattern>/front-end/shopbk/update_shopbk_input.jsp</url-pattern>
+			<url-pattern>/front-end/game/addGame.jsp</url-pattern>
+			<url-pattern>/front-end/game/update_game_input.jsp</url-pattern>
+			<url-pattern>/front-end/gmlist/addGmlist.jsp</url-pattern>
+			<dispatcher>REQUEST</dispatcher>
+			<dispatcher>FORWARD</dispatcher>
+			<dispatcher>INCLUDE</dispatcher>
+			<dispatcher>ERROR</dispatcher>
+			<dispatcher>ASYNC</dispatcher>
+	  	</filter-mapping>
 <!--   柏元的 -->
   <servlet>
     <servlet-name>ShgmServlet</servlet-name>
@@ -170,6 +168,7 @@
   	<servlet-name>ShgmrpServlet</servlet-name>
   	<url-pattern>/front-end/shgm/shgmrp.do</url-pattern>
   </servlet-mapping>
+  
   <filter>
   	<filter-name>InfoPageFilter</filter-name>
   	<filter-class>com.shgm.controller.RandListFilter</filter-class>
@@ -282,7 +281,7 @@
   		<dispatcher>ASYNC</dispatcher>
   	</filter-mapping>
   	
-<!--孟辰 -->
+<!-- 孟辰  -->
 	<servlet>
 		<servlet-name>ArtServlet</servlet-name>
 		<servlet-class>com.art.controller.ArtServlet</servlet-class>

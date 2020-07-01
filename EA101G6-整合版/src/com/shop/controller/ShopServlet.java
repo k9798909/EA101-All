@@ -377,7 +377,8 @@ public class ShopServlet extends HttpServlet {
 				failureView.forward(req, res);
 				return; // �{�����_
 			}else {
-				session.setAttribute("shopAccount", shopVO.getShopno());
+				shopVO = shopSvc.getOneShop(shopVO.getShopno());
+				session.setAttribute("shopVO", shopVO);
 			      
 			       try {                                                        
 			         String location = (String) session.getAttribute("location");
