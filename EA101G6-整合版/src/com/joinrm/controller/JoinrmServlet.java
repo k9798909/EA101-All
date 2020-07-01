@@ -127,7 +127,7 @@ if ("listInfo".equals(action)) { // 來自select_page.jsp的請求
 		
 		/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 		req.setAttribute("joinrmVO", joinrmVO); // 資料庫取出的empVO物件,存入req
-		String url = "/front-end/list_findByPK.jsp";
+		String url = "/front-end/room/list_findByPK.jsp";
 		RequestDispatcher successView = req.getRequestDispatcher(url); 
 //		successView.forward(req, res);
 

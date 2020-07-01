@@ -5,7 +5,7 @@ import java.sql.*;
 public class RateJDBCDAO implements RateJDBCDAO_interface{
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "FAKE";
+	String userid = "EA101";
 	String passwd = "123456";
 	
 	private static final String INSERT_STMT ="INSERT INTO RATE(RATENO,RMNO,RATINGMBRNO,RATEDMBRNO,DETAIL,SCORE) VALUES ('SS'||LPAD(TO_CHAR(RATE_SEQ.NEXTVAL),5,'0'),?,?,?,?,?)";
@@ -63,7 +63,7 @@ public class RateJDBCDAO implements RateJDBCDAO_interface{
 		rateVO1.setRmno("SR00004");
 		rateVO1.setRatingmbrno("BM00005");
 		rateVO1.setRatedmbrno("BM00004");
-		rateVO1.setDetail("¤Ó¯«°Õ666");
+		rateVO1.setDetail("ï¿½Ó¯ï¿½ï¿½ï¿½666");
 		rateVO1.setScore(5);
 		
 		

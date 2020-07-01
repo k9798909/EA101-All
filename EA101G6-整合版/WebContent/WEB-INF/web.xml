@@ -20,7 +20,7 @@
   </resource-ref>
   
   
-<!--   辰翰的 -->
+<!--   承翰的 -->
     
   <resource-ref>
 		<description>DB Connection</description>
@@ -35,7 +35,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>RminfoServlet</servlet-name>
-		<url-pattern>/front-end/rminfo.do</url-pattern>
+		<url-pattern>/front-end/room/rminfo.do</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
@@ -44,7 +44,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>JoinrmServlet</servlet-name>
-		<url-pattern>/front-end/joinrm.do</url-pattern>
+		<url-pattern>/front-end/room/joinrm.do</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
@@ -53,7 +53,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>RateServlet</servlet-name>
-		<url-pattern>/front-end/rate.do</url-pattern>
+		<url-pattern>/front-end/room/rate.do</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
@@ -62,7 +62,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>ShoprpServlet</servlet-name>
-		<url-pattern>/front-end/shoprp.do</url-pattern>
+		<url-pattern>/front-end/room/shoprp.do</url-pattern>
 	</servlet-mapping>
   
   

@@ -6,13 +6,13 @@ import java.util.*;
 public class RminfoJDBCDAO implements RminfoDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "FAKE";
+	String userid = "EA101";
 	String passwd = "123456";
 	
 	private static final String INSERT_STMT = "INSERT INTO RMINFO(RMNO,SHOPNO,CUTOFF,NAMING,UPLIMIT,LOWLIMIT,STARTTIME,ENDTIME,MBRNO,GAME,REMARKS,RESTRICTION,CONFIRMED) VALUES ('SR'||LPAD(TO_CHAR(RMINFO_SEQ.NEXTVAL),5,'0'),?,?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String GET_ALL_STMT = "SELECT * FROM RMINFO ORDER BY RMNO DESC";
-	private static final String GET_ONE_STMT = "SELECT MBRNO, NAMING, SHOPNO, LOWLIMIT, UPLIMIT, STARTTIME, ENDTIME, GAME, CUTOFF, REMARKS, RESTRICTION, CONFIRMED FROM RMINFO WHERE RMNO = ?";
-	private static final String UPDATE = "UPDATE RMINFO SET STATUS = ? WHERE RMNO = ?";
+	private static final String GET_ONE_STMT = "SELECT * FROM RMINFO WHERE RMNO = ?";
+	private static final String UPDATE = "UPDATE RMINFO SET STATUS = ?, REPORT = ? WHERE RMNO = ?";
 
 	@Override
 	public void insert(RminfoVO rminfoVO) {
@@ -70,7 +70,7 @@ public class RminfoJDBCDAO implements RminfoDAO_interface {
 	}
 	
 	@Override
-	public void update(Integer status, String rmno) {
+	public void update(Integer status, Integer report,String rmno) {
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -82,7 +82,9 @@ public class RminfoJDBCDAO implements RminfoDAO_interface {
 			pstmt = con.prepareStatement(UPDATE);
 
 			pstmt.setInt(1, status);
-			pstmt.setString(2, rmno);
+			pstmt.setInt(2, report);
+			pstmt.setString(3, rmno);
+			
 			
 			pstmt.executeUpdate();
 
@@ -220,6 +222,7 @@ public class RminfoJDBCDAO implements RminfoDAO_interface {
 				rminfoVO.setRemarks(rs.getString("remarks"));
 				rminfoVO.setRestriction(rs.getInt("restriction"));
 				rminfoVO.setConfirmed(rs.getInt("confirmed"));
+				rminfoVO.setStatus(rs.getInt("status"));
 			}
 
 			// Handle any driver errors
@@ -261,27 +264,27 @@ public class RminfoJDBCDAO implements RminfoDAO_interface {
 	public static void main(String[] args) {
 		RminfoJDBCDAO dao = new RminfoJDBCDAO();
 		
-		//¶}©Ð
+		//ï¿½}ï¿½ï¿½
 		RminfoVO rminfoVO1 = new RminfoVO();
 		rminfoVO1.setShopno("DS00001");
 		rminfoVO1.setCutoff(java.sql.Timestamp.valueOf("2020-06-10 12:00:00"));
-		rminfoVO1.setNaming("³o¦Ñ®v¦b¤½¤T¤p");
+		rminfoVO1.setNaming("ï¿½oï¿½Ñ®vï¿½bï¿½ï¿½ï¿½Tï¿½p");
 		rminfoVO1.setUplimit(8);
 		rminfoVO1.setLowlimit(4);
 		rminfoVO1.setStarttime(java.sql.Timestamp.valueOf("2020-06-13 09:00:00"));
 		rminfoVO1.setEndtime(java.sql.Timestamp.valueOf("2020-06-13 16:30:00"));
 		rminfoVO1.setMbrno("BM00001");
-		rminfoVO1.setGame("»¡®Ñ¤H µs¹Ú³£¥« ¤T°ê±þ");
-		rminfoVO1.setRemarks("°O±o¥ýÃ±¨ì");
+		rminfoVO1.setGame("ï¿½ï¿½ï¿½Ñ¤H ï¿½sï¿½Ú³ï¿½ï¿½ï¿½ ï¿½Tï¿½ï¿½ï¿½");
+		rminfoVO1.setRemarks("ï¿½Oï¿½oï¿½ï¿½Ã±ï¿½ï¿½");
 		rminfoVO1.setRestriction(0);
 		rminfoVO1.setConfirmed(0);
 		
 		dao.insert(rminfoVO1);
 		
-		//§ïÅÜ©Ð¶¡ª¬ºA
+		//ï¿½ï¿½ï¿½Ü©Ð¶ï¿½ï¿½ï¿½ï¿½A
 //		dao.update(2, "SR00010");
 		
-		//¬d¸ß©Ð¶¡¦Cªí
+		//ï¿½dï¿½ß©Ð¶ï¿½ï¿½Cï¿½ï¿½
 //		List<RminfoVO> list = dao.getAll();
 //		for (RminfoVO aRoom : list) {
 //			System.out.print(aRoom.getMbrno()+",");
@@ -299,7 +302,7 @@ public class RminfoJDBCDAO implements RminfoDAO_interface {
 //			System.out.println();
 //		}
 		
-		//³æ¤@©Ð¶¡¸ê°T
+		//ï¿½ï¿½@ï¿½Ð¶ï¿½ï¿½ï¿½T
 //		RminfoVO rminfoVO2 = dao.findByRmno("SR00005");
 //		
 //		System.out.print(rminfoVO2.getMbrno()+",");

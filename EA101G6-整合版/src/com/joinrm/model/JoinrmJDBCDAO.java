@@ -6,7 +6,7 @@ import java.util.*;
 public class JoinrmJDBCDAO implements JoinrmDAO_interface{
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "FAKE";
+	String userid = "EA101";
 	String passwd = "123456";
 	
 	private static final String INSERT_STMT = "INSERT INTO JOINRM(MBRNO,RMNO) VALUES (?,?)";
@@ -179,13 +179,13 @@ public class JoinrmJDBCDAO implements JoinrmDAO_interface{
 
 	public static void main(String[] args) {
 		JoinrmJDBCDAO dao = new JoinrmJDBCDAO();
-		//·s¼W(·|­û¥[¤J©Ð¶¡)
+		//ï¿½sï¿½W(ï¿½|ï¿½ï¿½ï¿½[ï¿½Jï¿½Ð¶ï¿½)
 //		JoinrmVO joinrmVO1 = new JoinrmVO();
 //		joinrmVO1.setMbrno("BM00002");
 //		joinrmVO1.setRmno("SR00011");
 //		dao.insert(joinrmVO1);
 		
-		//¬d·|­û¦³¥[¤Jªº©Ð¶¡OR¬d©Ð¶¡¤ºªº·|­û
+		//ï¿½dï¿½|ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½Jï¿½ï¿½ï¿½Ð¶ï¿½ORï¿½dï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½|ï¿½ï¿½
 //		List<JoinrmVO> list = dao.findByPK("SR00001","");
 //		for(JoinrmVO rmmbr : list) {
 //			System.out.println(rmmbr.getRmno());
@@ -198,7 +198,7 @@ public class JoinrmJDBCDAO implements JoinrmDAO_interface{
 //			System.out.println(rm.getMbrno());
 //		}
 		
-		//§R°£(·|­ûÂ÷¶}©Ð¶¡)
+		//ï¿½Rï¿½ï¿½(ï¿½|ï¿½ï¿½ï¿½ï¿½ï¿½}ï¿½Ð¶ï¿½)
 		dao.delete("SR00005", "BM00010");
 	}
 	

@@ -23,26 +23,26 @@ public class RminfoServlet extends HttpServlet{
 		String action = req.getParameter("action");
 		
 		
-if ("insert".equals(action)) { // ¨Ó¦ÛaddEmp.jspªº½Ğ¨D  
+if ("insert".equals(action)) { // ä¾†è‡ªaddEmp.jspçš„è«‹æ±‚ 
 			
 			List<String> errorMsgs = new LinkedList<String>();
 
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
-				/***********************1.±µ¦¬½Ğ¨D°Ñ¼Æ - ¿é¤J®æ¦¡ªº¿ù»~³B²z*************************/
+				/***********************1.æ¥æ”¶è«‹æ±‚åƒæ•¸ - è¼¸å…¥æ ¼å¼çš„éŒ¯èª¤è™•ç†*************************/
 				
 				String shopno = req.getParameter("shopno");
 				if (shopno == null || shopno.trim().length() == 0) {
-					errorMsgs.add("©±®a: ½Ğ¿ï¾Ü©±®a");
+					errorMsgs.add("åº—å®¶: è«‹é¸æ“‡åº—å®¶");
 				}
 				
 				String naming = req.getParameter("naming");
 				String namingReg = "^(.|\\r|\\n){1,10}$";
 				if (naming == null || naming.trim().length() == 0) {
-					errorMsgs.add("½Ğ¿é¤J©Ğ¦W");
+					errorMsgs.add("è«‹è¼¸å…¥æˆ¿å");
 				} else if(!naming.trim().matches(namingReg)) { 
-					errorMsgs.add("©Ğ¦W¥u¯à¦b10­Ó¦r¤¸¥H¤º");
+					errorMsgs.add("æˆ¿ååªèƒ½åœ¨10å€‹å­—å…ƒä»¥å…§");
 	            }
 				
 				String mbrno= req.getParameter("mbrno");
@@ -50,54 +50,54 @@ if ("insert".equals(action)) { // ¨Ó¦ÛaddEmp.jspªº½Ğ¨D
 				String game= req.getParameter("game");
 				String gameReg = "^(.|\\r|\\n){1,50}$";
 				if (game == null || game.trim().length() == 0) {
-					errorMsgs.add("½Ğ¿é¤J¹Cª±¹CÀ¸");
+					errorMsgs.add("è«‹è¼¸å…¥éŠç©éŠæˆ²");
 				} else if(!game.trim().matches(gameReg)) {
-					errorMsgs.add("¹Cª±¹CÀ¸: ½Ğ±±¨î¦b50­Ó¦r¤¸¤§¤º");
+					errorMsgs.add("éŠç©éŠæˆ²: è«‹æ§åˆ¶åœ¨50å€‹å­—å…ƒä¹‹å…§");
 	            }
 				
 				String remarks= req.getParameter("remarks");
 				String remarksReg = "^(.|\\r|\\n){0,100}$";
 				if(!game.trim().matches(remarksReg)) {
-					errorMsgs.add("³Æµù: ¦r¼Æ¹L¦h");
+					errorMsgs.add("å‚™è¨»: å­—æ•¸éå¤š");
 	            }
 								
 				java.sql.Timestamp starttime = null;
 				try {
 					starttime = java.sql.Timestamp.valueOf(req.getParameter("starttime").trim());
 				} catch (IllegalArgumentException e) {
-					errorMsgs.add("½Ğ¿ï¾Ü¶}©l®É¶¡!");
+					errorMsgs.add("è«‹é¸æ“‡é–‹å§‹æ™‚é–“!");
 				}
 				
 				java.sql.Timestamp endtime = null;
 				try {
 					endtime = java.sql.Timestamp.valueOf(req.getParameter("endtime").trim());
 				} catch (IllegalArgumentException e) {
-					errorMsgs.add("½Ğ¿ï¾Üµ²§ô®É¶¡!");
+					errorMsgs.add("è«‹é¸æ“‡çµæŸæ™‚é–“!");
 				}
 				
 				if((endtime.getTime()-starttime.getTime()) <= 0) {
-					errorMsgs.add("¹Cª±®É¶¡:µ²§ô®É¶¡¤£¥i¦­©ó©Îµ¥©ó¶}©l®É¶¡!");
+					errorMsgs.add("éŠç©æ™‚é–“:çµæŸæ™‚é–“ä¸å¯æ—©æ–¼æˆ–ç­‰æ–¼é–‹å§‹æ™‚é–“!");
 				}
 				
 				java.sql.Timestamp cutoff= null;
 				try {
 					cutoff = new Timestamp(endtime.getTime()-(1000*60*60*24*4));
 				} catch (IllegalArgumentException e) {
-					errorMsgs.add("ºI¤î®É¶¡¿ù»~");
+					errorMsgs.add("æˆªæ­¢æ™‚é–“éŒ¯èª¤");
 				}
 			
 				Integer uplimit = new Integer(req.getParameter("uplimit").trim());
 				try {
 					uplimit = new Integer(req.getParameter("uplimit").trim());
 				} catch (NumberFormatException e) {
-					errorMsgs.add("½Ğ¿ï¾Ü¤H¼Æ¤W­­.");
+					errorMsgs.add("è«‹é¸æ“‡äººæ•¸ä¸Šé™.");
 				}
 				
 				Integer lowlimit = new Integer(req.getParameter("lowlimit").trim());
 				try {
 					lowlimit = new Integer(req.getParameter("lowlimit").trim());
 				} catch (NumberFormatException e) {
-					errorMsgs.add("½Ğ¿ï¾Ü¤H¼Æ¤U­­.");
+					errorMsgs.add("è«‹é¸æ“‡äººæ•¸ä¸‹é™.");
 				}
 				Integer restriction = new Integer(req.getParameter("restriction").trim());
 				Integer confirmed = new Integer(req.getParameter("confirmed").trim());
@@ -117,22 +117,22 @@ if ("insert".equals(action)) { // ¨Ó¦ÛaddEmp.jspªº½Ğ¨D
 				rminfoVO.setConfirmed(confirmed);
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
-					req.setAttribute("rminfoVO", rminfoVO); // §t¦³¿é¤J®æ¦¡¿ù»~ªºempVOª«¥ó,¤]¦s¤Jreq
-					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/create.jsp");
+					req.setAttribute("rminfoVO", rminfoVO); // å«æœ‰è¼¸å…¥æ ¼å¼éŒ¯èª¤çš„empVOç‰©ä»¶,ä¹Ÿå­˜å…¥req
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/room/create.jsp");
 					failureView.forward(req, res);
 					return;
 				}
 				
-				/***************************2.¶}©l·s¼W¸ê®Æ***************************************/
+				/***************************2.é–‹å§‹æ–°å¢è³‡æ–™***************************************/
 				RminfoService rminfoSvc = new RminfoService();
 				rminfoVO = rminfoSvc.createRm(shopno, cutoff, naming, uplimit, lowlimit, starttime, endtime, mbrno, game, remarks, restriction, confirmed);
 				
-				/***************************3.·s¼W§¹¦¨,·Ç³ÆÂà¥æ(Send the Success view)***********/
-				String url = "/front-end/create.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // ·s¼W¦¨¥\«áÂà¥ælistAllEmp.jsp
+				/***************************3.æ–°å¢å®Œæˆ,æº–å‚™è½‰äº¤(Send the Success view)***********/
+				String url = "/front-end/room/create.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // æ–°å¢æˆåŠŸå¾Œè½‰äº¤listAllEmp.jsp
 				successView.forward(req, res);				
 				
-				/***************************¨ä¥L¥i¯àªº¿ù»~³B²z**********************************/
+				/***************************å…¶ä»–å¯èƒ½çš„éŒ¯èª¤è™•ç†**********************************/
 			} catch (Exception e) {
 //				System.out.println(e);
 //				errorMsgs.add(e.getMessage());

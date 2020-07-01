@@ -8,7 +8,7 @@ import com.joinrm.model.JoinrmVO;
 public class ShoprpJDBCDAO implements ShoprpJDBCDAO_interface{
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "FAKE";
+	String userid = "EA101";
 	String passwd = "123456";
 	
 	private static final String INSERT_STMT = "INSERT INTO SHOPRP(MBRNO,RMNO,DETAIL,ATTEND) VALUES (?,?,?,?)";

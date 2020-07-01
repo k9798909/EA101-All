@@ -17,7 +17,7 @@
 
 
 
-	<form METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/joinrm.do">
+	<form METHOD="post" ACTION="joinrm.do">
 
 	  <input type="text" name="rmno" value="<%= (joinrmVO==null)? "SR00005" : joinrmVO.getRmno()%>">
       <input type="text" name="mbrno" value="<%= (joinrmVO==null)? "BM00001" : joinrmVO.getMbrno()%>">
@@ -26,7 +26,7 @@
  	  <input type="submit" value="¥[¤J">
 	</form>
 
-	<form METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/joinrm.do">
+	<form METHOD="post" ACTION="joinrm.do">
 
 	  <input type="text" name="rmno" value="<%= (joinrmVO==null)? "SR00005" : joinrmVO.getRmno()%>">
       <input type="text" name="mbrno" value="<%= (joinrmVO==null)? "BM00001" : joinrmVO.getMbrno()%>">
@@ -35,7 +35,7 @@
  	  <input type="submit" value="Â÷¶}">
 	</form>
 	
-	<form METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/joinrm.do">
+	<form METHOD="post" ACTION="joinrm.do">
 
 	  <input type="text" name="rmno">
       <input type="text" name="mbrno">

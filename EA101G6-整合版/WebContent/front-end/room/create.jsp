@@ -11,10 +11,11 @@
 	pageContext.setAttribute("list", list);
 %>
 
-
 <%
 	RminfoVO rminfoVO = (RminfoVO) request.getAttribute("rminfoVO");
 %>
+<jsp:useBean id="mbrpfSvc" scope="page" class="com.mbrpf.model.MbrpfService" />
+<jsp:useBean id="shopSvc" scope="page" class="com.shop.model.ShopService" /> 
 
 <!DOCTYPE html>
 <html>
@@ -22,185 +23,17 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<link rel="stylesheet"
-	href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
-<script
-	src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
-<style>
-#form {
-	display: none;
-}
-
-label, input {
-	display: block;
-}
-
-input.text {
-	margin-bottom: 12px;
-	width: 95%;
-	padding: .4em;
-}
-
-fieldset {
-	padding: 0;
-	border: 0;
-	margin-top: 25px;
-}
-
-h1 {
-	font-size: 1.2em;
-	margin: .6em 0;
-}
-
-div#users-contain {
-	width: 1200px;
-	margin: 20px 0;
-}
-
-div#users-contain table {
-	margin: 1em 0;
-	border-collapse: collapse;
-	width: 100%;
-}
-
-div#users-contain table th {
-	border: 1px solid #eee;
-	padding: .6em 10px;
-	text-align: left;
-}
-
-div#users-contain table td {
-	border: 1px solid #eee;
-	padding: .6em 10px;
-	text-align: center;
-}
-
-.ui-dialog .ui-state-error {
-	padding: .3em;
-}
-
-.validateTips {
-	border: 1px solid transparent;
-	padding: 0.3em;
-}
-
-.roomtitle {
-	background:;
-	font: 20px fantasy;
-	width: 312px;
-	height: 34px;
-	margin: 80px 0px 11px;
-	padding: 10px 16px;
-	text-align: center;
-}
-
-.card {
-	background-image: url("../image/p1.jpg");
-	/*    			border: 1px black solid; */
-	width: 344px;
-	height: 440px;
-	display: inline-block;
-	margin: 10px;
-	background-size: 385px 470px;
-	background-position: -10px -20px;
-}
-
-.card div {
-	padding: 2px 15px;
-}
-</style>
-<script>
-  $( function() {
-    var dialog, form,
- 
-      mbrno = $( "#mbrno" ),
-      naming = $( "#naming" ),
-      shopno = $( "#shopno" ),
-      lowlimit = $( "#lowlimit" ),
-      uplimit = $( "#uplimit" ),
-      starttime = $( "#starttime" ),
-      endtime = $( "#endtime" ),
-      game = $( "#game" ),
-      cutoff = $( "#cutoff" ),
-      remarks = $( "#remarks" ),     
-      restriction = $( "#restriction" ),
-      confirmed = $( "#confirmed" ),
-      
-      allFields = $( [] ).add( mbrno ).add( naming ).add( shopno ).add( lowlimit ).add( uplimit ).add( starttime )
-      .add( endtime ).add( game ).add( cutoff ).add( remarks ).add( restriction ).add( confirmed ),
-      tips = $( ".validateTips" );
- 
-    function updateTips( t ) {
-      tips
-        .text( t )
-        .addClass( "ui-state-highlight" );
-      setTimeout(function() {
-        tips.removeClass( "ui-state-highlight", 1500 );
-      }, 500 );
-    }
- 
-//     function addUser() {
-//       var valid = true;
-//       allFields.removeClass( "ui-state-error" );
- 
-//       if ( valid ) {
-//         $( "#users-contain h1" ).append( "<div class='card'>" +
-//           "<div class='roomtitle'>" + "<span class='titleType'>" + "<b>" + naming.val() + "</b>" + "</div>" +
-//           "<div> 房主: " + mbrno.val() + "</div>" +        
-//           "<div> 遊玩店家: " + shopno.val() + "</div>" +
-//           "<div> 人數限制: " + lowlimit.val() + "~" + uplimit.val() +"人&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;" + "<span text-align:right>" + "1/" + uplimit.val() + "</span>" + "</div>" +
-//           "<div> 遊玩時間: " + starttime.val() + "~" + endtime.val().substring(11) + "</div>" +
-//           "<div> 預計玩的遊戲: " + game.val() + "</div>" +
-//           "<div> 報名截止時間: " + cutoff.val() + "</div>" +
-//           "<div> 備註: " + remarks.val() + "</div>" +
-//           "<div> 評價限制: " + restriction.val() + "</div>" +
-//           "<div> 加入是否需審核: " + confirmed.val() + "</div>" +
-//         "</div>" );
-//         dialog.dialog( "close" );
-//       }
-//       return valid;
-//     }
- 	
-    function addUserXX() {
- 		$('#myMBRform').submit();
- 	}
- 	
-    dialog = $( "#dialog-form" ).dialog({
-      autoOpen: false,
-      height: 500,
-      width: 350,
-      modal: true,
-      buttons: {
-        "建立房間": addUserXX,
-        "取消": function() {
-          dialog.dialog( "close" );
-        }
-      },
-      close: function() {
-//     	$('#myMBRform')[0].reset();
-        allFields.removeClass( "ui-state-error" );
-      }
-    });
- 
-//     form = dialog.find( "form" ).on( "submit", function( event ) {
-//       event.preventDefault();
-//       addUser();
-//     });
- 
-    $( "#create-user" ).button().on( "click", function() {
-      dialog.dialog( "open" );
-    });
-  } );
-  </script>
-
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
+<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
+<script type="text/javascript"> var jQuery_1_12_2 = $.noConflict(true); </script>
 
 </head>
-<body onload="hasError()">
+
+<body>
 
 <%@ include file="/front-end/front-end-nav.jsp"%>
-
+<!-- 開團表單 -->
 	<div id="dialog-form" title="設定揪團資訊">
 		<!-- 	<p class="validateTips">All form fields are required.</p> -->
 		<p>有*為必填欄位</p>
@@ -214,24 +47,25 @@ div#users-contain table td {
 		</c:if>
 		<form id="myMBRform" METHOD="post" ACTION="rminfo.do">
 			<fieldset>
-				<label for="mbrno">主揪: </label> <input readonly type="text"
-					name="mbrno" id="mbrno" value="BM00001"
-					class="text ui-widget-content ui-corner-all"> <label
-					for="naming">*房名: </label> <input type="text" name="naming"
-					id="naming" value="BM00001的房間"
-					class="text ui-widget-content ui-corner-all"> <label
-					for="shopno">*地點: </label> <input type="text" name="shopno"
-					id="shopno" value="DS00001"
-					class="text ui-widget-content ui-corner-all"> *人數限制: <select
-					name="lowlimit" id="lowlimit">
-					<%
-						for (int i = 2; i <= 20; i++) {
-					%>
+				<label for="mbrno">主揪: </label> 
+				<input readonly type="text"	name="mbrno" id="mbrno" value="BM00001" class="text ui-widget-content ui-corner-all"> 
+				<label for="naming">*房名: </label>	
+				<input type="text" name="naming" id="naming" value="BM00001的房間" class="text ui-widget-content ui-corner-all">
+				*地點:
+				<select name="shopno">
+					<c:forEach var="shopVO" items="${shopSvc.getAll()}">
+						<option value="${shopVO.shopno}">${shopVO.shopname}
+					</c:forEach>
+				</select><br><br>
+				
+				*人數限制: 
+				<select name="lowlimit" id="lowlimit">
+					<%for (int i = 2; i <= 20; i++) {%>
 					<option value="<%=i%>"><%=i%></option>
-					<%
-						}
-					%>
-				</select> <font>~</font> <select name="uplimit" id="uplimit" value="4">
+					<%}%>
+				</select> 
+				<font>~</font> 
+				<select name="uplimit" id="uplimit" value="4">
 					<%
 						for (int i = 2; i <= 20; i++) {
 					%>
@@ -286,7 +120,8 @@ div#users-contain table td {
 		<button id="create-user">我要開團</button>
 	</div>
 
-
+<!-- 房間列表 -->
+<div id="allCard">
 	<c:forEach var="rminfoVO" items="${list}">
 		<div class='card' id="${rminfoVO.rmno}_info">
 			<div>
@@ -294,20 +129,20 @@ div#users-contain table td {
 					<input type="hidden" name="rmno" value="${rminfoVO.rmno}">
 					<input type="hidden" name="mbrno" value="BM00001"> 
 					<input type="hidden" name="action" value="insert"> 
-					<input type="submit" value="加入">
+					<input id="joinbutton" type="submit" value="加入">
 				</form>
 
-				<form METHOD="post" ACTION="joinrm.do">
-					<input type="hidden" name="rmno" value="${rminfoVO.rmno}">
-					<input type="hidden" name="action" value="listInfo"> 
-					<input type="submit" value="房內成員清單">
-				</form>
+<!-- 				<form METHOD="post" ACTION="joinrm.do"> -->
+<%-- 					<input type="hidden" name="rmno" value="${rminfoVO.rmno}"> --%>
+<!-- 					<input type="hidden" name="action" value="listInfo">  -->
+<!-- 					<input type="submit" value="房內成員清單"> -->
+<!-- 				</form> -->
 			</div>
 			<div class='roomtitle'>
-				<span class='titleType'><b>${rminfoVO.naming}</b>
+				<span class='titleType'><b>${rminfoVO.naming}</b></span>
 			</div>
 			<div>房主: ${rminfoVO.mbrno}</div>
-			<div>遊玩店家: ${rminfoVO.shopno}</div>
+			<div>遊玩店家: ${shopSvc.getOneShop(rminfoVO.shopno).shopname}</div>
 			<div>
 				人數限制:
 				${rminfoVO.lowlimit}~${rminfoVO.uplimit}人&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
@@ -355,10 +190,11 @@ div#users-contain table td {
 			</div>
 			<div>評價限制: ${(rminfoVO.restriction == '0')?'無':rminfoVO.restriction}</div>
 			<div>加入是否需審核: ${(rminfoVO.confirmed == '0')?'否':'是'}</div>
-			<div>備註: ${rminfoVO.remarks}</div>
+			<div class="remark">備註: ${rminfoVO.remarks}</div>
 		</div>
 
 	</c:forEach>
+</div>	
 </body>
 <%
 	java.sql.Timestamp starttime = null;
@@ -379,6 +215,7 @@ div#users-contain table td {
 	}
 %>
 <script>
+(function($){
         $.datetimepicker.setLocale('zh');
         $('#f_date2').datetimepicker({
 	       theme: '',              //theme: 'dark',
@@ -394,8 +231,7 @@ div#users-contain table td {
            minDate:               '-1970-01-01', // 去除今日(不含)之前
            //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
         });        
-  </script>
-<script>
+
         $.datetimepicker.setLocale('zh');
         $('#f_date3').datetimepicker({
 	       theme: '',              //theme: 'dark',
@@ -411,13 +247,178 @@ div#users-contain table td {
 		minDate : '-1970-01-01', // 去除今日(不含)之前
 	//maxDate:               '+1970-01-01'  // 去除今日(不含)之後
 	});
+        
+       
+        	  $( function() {
+        	    var dialog, form,
+        	 
+        	      mbrno = $( "#mbrno" ),
+        	      naming = $( "#naming" ),
+        	      shopno = $( "#shopno" ),
+        	      lowlimit = $( "#lowlimit" ),
+        	      uplimit = $( "#uplimit" ),
+        	      starttime = $( "#starttime" ),
+        	      endtime = $( "#endtime" ),
+        	      game = $( "#game" ),
+        	      cutoff = $( "#cutoff" ),
+        	      remarks = $( "#remarks" ),     
+        	      restriction = $( "#restriction" ),
+        	      confirmed = $( "#confirmed" ),
+        	      
+        	      allFields = $( [] ).add( mbrno ).add( naming ).add( shopno ).add( lowlimit ).add( uplimit ).add( starttime )
+        	      .add( endtime ).add( game ).add( cutoff ).add( remarks ).add( restriction ).add( confirmed ),
+        	      tips = $( ".validateTips" );
+        	 
+        	    function updateTips( t ) {
+        	      tips
+        	        .text( t )
+        	        .addClass( "ui-state-highlight" );
+        	      setTimeout(function() {
+        	        tips.removeClass( "ui-state-highlight", 1500 );
+        	      }, 500 );
+        	    }
+        	 	
+        	    function addUserXX() {
+        	 		$('#myMBRform').submit();
+        	 	}
+        	 	
+        	    dialog = $( "#dialog-form" ).dialog({
+        	      autoOpen: false,
+        	      height: 500,
+        	      width: 350,
+        	      modal: true,
+        	      buttons: {
+        	        "建立房間": addUserXX,
+        	        "取消": function() {
+        	          dialog.dialog( "close" );
+        	        }
+        	      },
+        	      close: function() {
+//        	     	$('#myMBRform')[0].reset();
+        	        allFields.removeClass( "ui-state-error" );
+        	      }
+        	    });
+        	 
+        	    $( "#create-user" ).button().on( "click", function() {
+        	      dialog.dialog( "open" );
+        	    });
+        	  } );
+
+
+	dialog2 = $("#dialog-form")
+	
+	$(window).load(function() {
+		<c:if test="${not empty errorMsgs}">
+			dialog2.dialog("open");
+		</c:if>
+	});
+})(jQuery_1_12_2);  	
 </script>
 <script>
-	dialog2 = $("#dialog-form")
-	<c:if test="${not empty errorMsgs}">
-	function hasError() {
-		dialog2.dialog("open");
+	var cards = document.getElementsByClassName('card');
+	for(var i = 0; i < cards.length; i++){
+		var r = Math.floor((Math.random()*4)+1);
+		cards[i].style.backgroundImage="url(<%=request.getContextPath()%>/image/poker" + r +".jpg)";
 	}
-	</c:if>
 </script>
+<style>
+#allCard{
+	margin:0px auto;
+	width:90%
+}
+#create-user{
+	float:right;
+	display: inline;
+	margin:15px 10px;
+}
+#joinbutton{
+	float:right;
+	margin:10px 10px;
+}
+#form {
+	display: none;
+}
+
+label, input {
+	display: block;
+}
+
+input.text {
+	margin-bottom: 12px;
+	width: 95%;
+	padding: .4em;
+}
+
+fieldset {
+	padding: 0;
+	border: 0;
+	margin-top: 25px;
+}
+
+h1 {
+	font-size: 1.2em;
+	margin: .6em 0;
+	display: inline-block;
+}
+
+div#users-contain {
+	width: 90%;
+	margin: 20px 10px;
+}
+
+div#users-contain table {
+	margin: 1em 0;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+div#users-contain table th {
+	border: 1px solid #eee;
+	padding: .6em 10px;
+	text-align: left;
+}
+
+div#users-contain table td {
+	border: 1px solid #eee;
+	padding: .6em 10px;
+	text-align: center;
+}
+
+.ui-dialog .ui-state-error {
+	padding: .3em;
+}
+
+.validateTips {
+	border: 1px solid transparent;
+	padding: 0.3em;
+}
+
+.roomtitle {
+	background:;
+	font: 20px fantasy;
+	width: 312px;
+	height: 34px;
+	margin: 60px 0px 30px 25px;
+	padding: 10px 16px;
+	text-align: center;
+}
+.card {
+	width: 344px;
+	height: 440px;
+	display: inline-block;
+	margin: 25px;
+	background-size: 395px 490px;
+	background-position: -25px -30px; 
+	border: none;
+}
+
+.card div {
+	padding:0px 30px;
+}
+.remark{
+	width:100%;
+	height:20%;
+	overflow: auto;
+}
+</style>
 </html>
