@@ -101,7 +101,7 @@
 
 
 				<div class="site-logo">
-					<a href="index.html" class="text-black"><span
+					<a href="<%= request.getContextPath()%>/front-end/index.jsp" class="text-black"><span
 						class="text-primary">Gameing on Board</span></a>
 				</div>
 
@@ -126,10 +126,10 @@
 								</ul></li>
 
 							<li><a href="<%=request.getContextPath()%>/front-end/mall/mallGetAllUp.jsp" class="nav-link">商城</a></li>
-							<li><a href="#shop" class="nav-link">市集</a></li>
-							<li><a href="#play" class="nav-link">揪團區</a></li>
-							<li><a href="#store" class="nav-link">店家列表</a></li>
-							<li><a href="#forum" class="nav-link">討論區</a></li>
+							<li><a href="<%=request.getContextPath()%>/front-end/shgm/mainPage.jsp" class="nav-link">市集</a></li>
+							<li><a href="<%=request.getContextPath()%>/front-end/room/joinRoom.jsp" class="nav-link">揪團區</a></li>
+							<li><a href="<%=request.getContextPath()%>/front-end/shop/listAllShop.jsp" class="nav-link">店家列表</a></li>
+							<li><a href="<%=request.getContextPath()%>/front-end/art/listAllArt.jsp" class="nav-link">討論區</a></li>
 						</ul>
 					</nav>
 

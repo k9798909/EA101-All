@@ -81,7 +81,7 @@
    	background-image: url('<%=request.getContextPath()%>/images/bg5.png');
   }
   
-  .h1-png{
+  img.h1-png{
   	position: fixed;
   	bottom: 30px;
   	right: 15px;
@@ -160,9 +160,8 @@
                   </div>
                 </div>
               </div>
-              <a href="<%=request.getContextPath()%>/font-end/art/addArt.jsp"><img class="h1-png col-md-2" src="<%=request.getContextPath()%>/images/h1.png" title="Add Article"></a>
              </FORM> </c:forEach>
-       
+       		<a href="<%=request.getContextPath()%>/front-end/art/addArt.jsp"><img class="h1-png col-md-2" src="<%=request.getContextPath()%>/images/h1.png" title="Add Article"></a>
           </div>
         </div>
       </div>
@@ -176,72 +175,6 @@
 
 	<h4><a href="select_page.jsp">回首頁</a></h4>
 
-
-
-
-
-
-<%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-	<font style="color:red">請修正以下錯誤:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
-
-<table>
-	<tr>
-		<th>文章編號</th>
-		<th>作者編號</th>
-		<th>文章標題</th>
-		<th>發文日期</th>
-		
-		<th>文章內容</th>
-		<th>文章種類</th>
-		<th>文章狀態</th>
-		<th>封面圖片</th>
-		<th>修改</th>
-		<th>刪除</th>
-	</tr>
-	
-<%-- 	<jsp:useBean id="mbrpfSvc" scope="page" class="com.mbrpf.model.MbrpfService"/> --%>
-	
-	
-	<c:forEach var="artVO" items="${list}">
-		
-		<tr>
-			<td>${artVO.artno}</td>
-			<td>${artVO.mbrno}</td>
-			<td>${artVO.arttt}</td>
-			<td>${artVO.pdate}</td>		
-			<td>${artVO.detail}</td>
-			<td>${artVO.atno}</td>
-			<td>${(artVO.status == 0) ? '正常顯示' : '隱藏文章'}</td>
-			<td><img class="img-1" src="<%=request.getContextPath()%>/art/artpic.do?artno=${artVO.artno}"/></td>
-			
-			
-			
-			<td>
-				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/font-end/art/art.do" style="margin-bottom: 0px;">
-				<input type="submit" value="修改" >
-				<input type="hidden" name="artno" value="${artVO.artno}">
-				<input type="hidden" name="action" value="getOne_For_Update">
-				</FORM>
-			</td>
-			
-			
-			<td>
-				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/font-end/art/art.do" style="margin-bottom: 0px;">
-					<input type="submit" value="刪除" ${(artVO.mbrno != mbrpfVO.mbrno) ? 'disabled' : ''}>
-					<input type="hidden" name="artno" value="${artVO.artno}">
-					<input type="hidden" name="action" value="delete_M">
-				</FORM>
-			</td>
-		</tr>
-	</c:forEach>
-</table>
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
