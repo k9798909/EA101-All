@@ -10,7 +10,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<!-- ด๚ธี -->
 	<div id="addDiv" title="mallAdd">
 
 		<form method="post" action="<%= request.getContextPath()%>/Mall/BackMallServlet" enctype="multipart/form-data">
