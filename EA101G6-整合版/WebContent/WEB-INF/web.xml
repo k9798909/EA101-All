@@ -239,29 +239,19 @@
 	</servlet-mapping>
 	
 	<!--彥志-->
-	
-	<servlet>
-		<servlet-name>Test_DataSource</servlet-name>
-		<servlet-class>Test_DataSource</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		 <servlet-name>Test_DataSource</servlet-name>
-		 <url-pattern>/Test_DataSource</url-pattern>
-	</servlet-mapping>
 	<servlet>
 		<servlet-name>MbrpfServlet</servlet-name>
 		<servlet-class>com.mbrpf.controller.MbrpfServlet</servlet-class>
 	</servlet>
-	
 	<servlet-mapping>
 		<servlet-name>MbrpfServlet</servlet-name>
 		<url-pattern>/mbrpf/mbrpf.do</url-pattern>
 	</servlet-mapping>
+	
 	<servlet>
 		<servlet-name>MbrimgServlet</servlet-name>
 		<servlet-class>com.mbrpf.controller.MbrimgServlet</servlet-class>
 	</servlet>
-	
 	<servlet-mapping>
 		<servlet-name>MbrimgServlet</servlet-name>
 		<url-pattern>/mbrpf/mbrimg.do</url-pattern>
@@ -271,7 +261,6 @@
 		<servlet-name>MsgServlet</servlet-name>
 		<servlet-class>com.msg.controller.MsgServlet</servlet-class>
 	</servlet>
-	
 	<servlet-mapping>
 		<servlet-name>MsgServlet</servlet-name>
 		<url-pattern>/msg/msg.do</url-pattern>
