@@ -3,7 +3,7 @@
 <%@ page import="com.shop.model.*"%>
 <%@ include file="/front-end/front-end-nav.jsp" %>
 <%
-	shopVO = (ShopVO) request.getAttribute("shopVO");
+	ShopVO shopVO = (ShopVO) request.getAttribute("shopVO");
 %>
 <html>
 <head>
