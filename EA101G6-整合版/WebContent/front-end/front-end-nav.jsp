@@ -69,14 +69,14 @@
 						<a href="#" class="text-white"><span class="d-md-inline-block">
 								<img class="icon"
 								src="<%=request.getContextPath()%>/front-end/images/User-icon.png">·|­ûµn¤J
-						</span></a><c:if test="${not empty shopVO}">
+						</span></a><c:if test="${not empty sessionScope.shopVO}">
 							<span class="mx-md-2 d-inline-block"></span>
 							<a href="<%=request.getContextPath()%>/front-end/shop/update_shop_input.jsp" class="text-white"> <span
 								class="mr-2 text-white icon-instagram"></span> <span
-								class="d-none d-md-inline-block">${shopVO.shopname}</span>
+								class="d-none d-md-inline-block">${sessionScope.shopVO.shopname}</span>
 														
 						</c:if>
-						<c:if test="${empty shopVO}">
+						<c:if test="${empty sessionScope.shopVO}">
 							<a href="<%=request.getContextPath()%>/front-end/shop/login.jsp"
 								class="text-white"> <span class="d-md-inline-block"><img
 									class="icon"

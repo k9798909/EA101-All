@@ -5,7 +5,7 @@
 <%@ include file="/front-end/front-end-nav.jsp" %>
 <%
 	ShopbkService shopbkSvc = new ShopbkService();
-	shopno = null;
+	String shopno = null;
 	String shoppds = null;
 	String shoppde = null;
 	List<ShopbkVO> list = null;

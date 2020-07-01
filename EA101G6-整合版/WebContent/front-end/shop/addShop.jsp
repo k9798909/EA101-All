@@ -62,7 +62,7 @@ img {
 		</ul>
 	</c:if>
 
-	<FORM METHOD="post" ACTION="shop.do" enctype="multipart/form-data">
+	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/shop/shop.do" enctype="multipart/form-data">
 		<table>
 			<tr>
 				<td>©±®a±b¸¹:</td>

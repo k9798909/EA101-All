@@ -61,7 +61,7 @@ img {
 		</ul>
 	</c:if>
 
-	<FORM METHOD="post" ACTION="shop.do" name="form1"
+	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/shop/shop.do" name="form1"
 		enctype="multipart/form-data">
 		<table>
 			<tr>

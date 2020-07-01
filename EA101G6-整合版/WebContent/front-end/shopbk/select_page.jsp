@@ -73,7 +73,7 @@ li {
 
 
 		<li>
-			<FORM METHOD="post" ACTION="shopbk.do">
+			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/shopbk/shopbk.do">
 				<b>輸入想要遊玩的時間 :</b> 起<input type="text" name="shoppds" id="f_date1">迄<input type="text" name="shoppde" id="f_date2">
 				<input type="hidden" name="action" value="getSome_For_Display">
 				<input type="submit" value="送出">
@@ -84,7 +84,7 @@ li {
 			class="com.shopbk.model.ShopbkService" />
 
 		<li>
-			<FORM METHOD="post" ACTION="shopbk.do">
+			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/shopbk/shopbk.do">
 				<b>想去哪家店玩:</b> <input type="text" name="shopno">
 				<input type="hidden" name="action" value="getSome_For_Display">
 				<input type="submit" value="送出">

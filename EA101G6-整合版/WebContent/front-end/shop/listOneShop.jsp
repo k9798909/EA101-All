@@ -57,23 +57,23 @@ h4 {
 <jsp:include page="select_page.jsp" flush="true">
 	<jsp:param name="" value="" />
 </jsp:include>
-<table>
-	<tr>
-		<th>店家名稱</th>
-		<th>位置</th>
-		<th>場地</th>
-		<th>電話</th>
-		<th>店家圖片</th>
-	</tr>
-	<tr>
-		<td>${shopVO.shopname}</td>
-		<td>${shopVO.shoploc}</td>
-		<td>${shopVO.shopcy}</td>
-		<td>${shopVO.shopphone}</td>
-		<td><img src="<%=request.getContextPath()%>/ShopShowImg?shopno=${shopVO.shopno}" /></td>
-	</tr>
+<div class="row">
+<div class="col-sm-4"></div>
+<div class="col-sm-5">
+  <h1 class="display-4" style="margin-left: auto;">${shopVO.shopname}</h1>
+  <p class="lead">
+<img src="<%=request.getContextPath()%>/ShopShowImg?shopno=${shopVO.shopno}" />  </p>
+  <hr class="my-4">
+  <p>提供座位:${shopVO.shopcy}</p>
+  <p>電話:0${shopVO.shopphone}</p>
+  <p>位置:${shopVO.shoploc}</p>
+  <p class="lead">
+    <a class="btn btn-primary btn-lg" href="#" role="button">店家遊戲</a>
+    <a class="btn btn-primary btn-lg" href="#" role="button">店家揪團</a>
+  </p>
+</div>
+</div>
 
-</table>
 
 </body>
 </html>

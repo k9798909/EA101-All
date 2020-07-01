@@ -8,7 +8,7 @@
 <%
 	GmlistService gmlistSvc = new GmlistService();
 	String gmno = request.getParameter("gmno");
-	shopno = request.getParameter("shopno");
+	String shopno = request.getParameter("shopno");
 	List<GmlistVO> list = null;
 	if(shopno != null)
 		list = gmlistSvc.getSomeGmlistByShop(shopno);

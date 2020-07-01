@@ -2,10 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
-	<style>
+<style>
 body {
 	background-position: center;
 }
+
 table {
 	width: 80%;
 	margin-top: 10px;
@@ -31,69 +32,79 @@ td {
 tr:nth-child(odd) {
 	background-color: #FFED97;
 }
+
 h3 {
 	margin-left: auto;
 	margin-rghit: auto;
 }
+
 ul {
 	margin-top: 2px;
-	margin-left: center;
-	margin-right: center;
+	margin-left: auto;
+	margin-right: auto;
 }
+
 li {
 	margin-top: 15px;
+	margin-left: auto;
+	margin-right: auto;
 }
 </style>
 </head>
 <body bgcolor='white'>
-	<h3 style="margin-left:20px;">資料查詢:</h3>
 	<%-- 錯誤表列 --%>
-	<c:if test="${not empty errorMsgs}">
-		<font style="color: red">請修正以下錯誤:</font>
-		<ul>
+	<c:if test="${not empty errorMsgs}">	
+		<div class="alert alert-danger" role="alert">
+		<h5>請修正以下錯誤:</h5>
 			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color: red">${message}</li>
+				<p style="margin-left:80px;">${message}</p>
 			</c:forEach>
-		</ul>
+		</div>
 	</c:if>
 
-	<ul>
-		<li><a href='listAllShop.jsp' >List</a> all allowed Shops. <br></li>
+	<nav class="navbar navbar-expand-lg navbar-light">
+		<!--   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> -->
+		<!--     <span class="navbar-toggler-icon"></span> -->
+		<!--   </button> -->
 
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item"><a class="nav-link" href='listAllShop.jsp'>List
+						all Shops.</a></li>
+			</ul>
+			<jsp:useBean id="shopSvc" scope="page"
+				class="com.shop.model.ShopService" />
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item">
+					<FORM METHOD="post" class="form-inline my-2 my-lg-0"
+						ACTION="<%=request.getContextPath()%>/front-end/shop/shop.do">
+						<select class="custom-select form-control mr-sm-1" name="shopno">
+							<option value="">選擇店家編號
+								<c:forEach var="shopVO" items="${shopSvc.getAllowedShop()}">
+									<option value="${shopVO.shopno}">${shopVO.shopno}
+								</c:forEach>
+						</select> <input type="hidden" name="action" value="getOne_For_Display">
+						<button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">送出</button>
+					</FORM>
+				</li>
+			</ul>
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item">
+					<FORM METHOD="post" class="form-inline my-2 my-lg-0"					
+						ACTION="<%=request.getContextPath()%>/front-end/shop/shop.do">
+						<select class="custom-select form-control mr-sm-1" name="shopno">
+							<option value="">選擇店家姓名
+								<c:forEach var="shopVO" items="${shopSvc.getAllowedShop()}">
+									<option value="${shopVO.shopno}">${shopVO.shopname}
+								</c:forEach>
+						</select> <input type="hidden" name="action" value="getOne_For_Display">
+						<button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">送出</button>
+					</FORM>
+				</li>
+			</ul>
+		</div>
+	</nav>
 
-		<li>
-			<FORM METHOD="post" ACTION="shop.do">
-				<b>輸入店家編號 (如DS00001):</b> <input type="text" name="shopno">
-				<input type="hidden" name="action" value="getOne_For_Display">
-				<input type="submit" value="送出">
-			</FORM>
-		</li>
-
-		<jsp:useBean id="shopSvc" scope="page"
-			class="com.shop.model.ShopService" />
-
-		<li>
-			<FORM METHOD="post" ACTION="shop.do">
-				<b>選擇店家編號:</b> <select size="1" name="shopno">
-					<c:forEach var="shopVO" items="${shopSvc.getAllowedShop()}">
-						<option value="${shopVO.shopno}">${shopVO.shopno}
-					</c:forEach>
-				</select> <input type="hidden" name="action" value="getOne_For_Display">
-				<input type="submit" value="送出">
-			</FORM>
-		</li>
-
-		<li>
-			<FORM METHOD="post" ACTION="shop.do">
-				<b>選擇店家姓名:</b> <select size="1" name="shopno">
-					<c:forEach var="shopVO" items="${shopSvc.getAllowedShop()}">
-						<option value="${shopVO.shopno}">${shopVO.shopname}
-					</c:forEach>
-				</select> <input type="hidden" name="action" value="getOne_For_Display">
-				<input type="submit" value="送出">
-			</FORM>
-		</li>
-	</ul>
 
 
 </body>
