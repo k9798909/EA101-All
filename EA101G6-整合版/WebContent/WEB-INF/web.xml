@@ -10,6 +10,7 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   
+  
   <!--   柏元的 -->
   <resource-ref>
   	<description>DB connection</description>
