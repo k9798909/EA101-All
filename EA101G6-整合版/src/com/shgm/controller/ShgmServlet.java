@@ -41,7 +41,7 @@ public class ShgmServlet extends HttpServlet {
 		String action = request.getParameter("action");
 
 		
-
+//
 		if ("get_one".equals(action)) {
 
 			List<String> errormsgs = new LinkedList<String>();
