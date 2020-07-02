@@ -478,37 +478,36 @@ public class MbrpfDAO implements MbrpfDAO_interface {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
-		con = ds.getConnection();
-		pstmt = con.prepareStatement(UPDATE);
-
 		try {
 
-			pstmt = conn.prepareStatement(UPDATEPOINT);
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATEPOINT);
 
 			pstmt.setInt(1, mbrpfVO.getPoints());
 			pstmt.setString(2, mbrpfVO.getMbrno());
 			pstmt.executeUpdate();
 
+			// Handle any driver errors
 		} catch (SQLException se) {
-
-			try {
-				conn.rollback();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
 		} finally {
 			if (pstmt != null) {
 				try {
 					pstmt.close();
 				} catch (SQLException se) {
-					se.getStackTrace();
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
 				}
 			}
 		}
 	}
-
 }
 
 //public static void main(String[] args) {
