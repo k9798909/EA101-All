@@ -469,9 +469,44 @@ public class MbrpfDAO implements MbrpfDAO_interface {
 					se.getStackTrace();
 				}
 			}
-
 		}
+	}
+	
+	@Override
+	public void updatePoint(MbrpfVO mbrpfVO) {
 
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		con = ds.getConnection();
+		pstmt = con.prepareStatement(UPDATE);
+
+		try {
+
+			pstmt = conn.prepareStatement(UPDATEPOINT);
+
+			pstmt.setInt(1, mbrpfVO.getPoints());
+			pstmt.setString(2, mbrpfVO.getMbrno());
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+
+			try {
+				conn.rollback();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.getStackTrace();
+				}
+			}
+		}
 	}
 
 }
