@@ -83,12 +83,12 @@
 								<img class="icon" src="<%=request.getContextPath()%>/front-end/images/User-icon.png">會員登入 
 							</span>
 						</a> 
-<!-- 測試4257424 -->
+
 						<c:if test="${not empty shopVO}">
 							<span class="mx-md-2 d-inline-block"></span>
 							<a href="<%=request.getContextPath()%>/front-end/shop/update_shop_input.jsp" class="text-white"> <span
 								class="mr-2 text-white icon-instagram"></span> <span
-								class="d-none d-md-inline-block">${shopVO.shopname}</span>
+								class="d-none d-md-inline-block">${shopVO.shopname}</span></a>
 						</c:if>
 						<c:if test="${empty shopVO}">
 							<a href="<%=request.getContextPath()%>/front-end/shop/login.jsp"
@@ -126,7 +126,7 @@
 							<li class="has-children"><a href="#about-section"
 								class="nav-link">會員專區</a>
 								<ul class="dropdown arrow-top">
-									<li><a href="#team-section" class="nav-link">查詢訂單</a></li>
+									<li><a href="<%= request.getContextPath()%>/front-end/mallOr/mbrMallOr.jsp" class="nav-link">查詢訂單</a></li>
 									<li><a href="#pricing-section" class="nav-link">Pricing</a></li>
 									<li><a href="#faq-section" class="nav-link">FAQ</a></li>
 									<li class="has-children"><a href="#">More Links</a>
@@ -139,7 +139,12 @@
 
 							<li><a href="<%=request.getContextPath()%>/front-end/mall/mallGetAllUp.jsp" class="nav-link">商城</a></li>
 							<li><a href="<%=request.getContextPath()%>/front-end/shgm/mainPage.jsp" class="nav-link">市集</a></li>
-							<li><a href="<%=request.getContextPath()%>/front-end/room/joinRoom.jsp" class="nav-link">揪團區</a></li>
+							<li class="has-children"><a href="#" class="nav-link">揪團區</a>
+								<ul class="dropdown arrow-top">
+									<li><a href="<%=request.getContextPath()%>/front-end/room/create.jsp" class="nav-link">房間列表</a></li>
+									<li><a href="<%=request.getContextPath()%>/front-end/room/myRoom.jsp" class="nav-link">我的房間</a></li>
+								</ul>
+							</li>
 							<li><a href="<%=request.getContextPath()%>/front-end/shop/listAllShop.jsp" class="nav-link">店家列表</a></li>
 							<li><a href="<%=request.getContextPath()%>/front-end/art/listAllArt.jsp" class="nav-link">討論區</a></li>
 						</ul>

@@ -88,7 +88,7 @@ h4 {
 				<th>結束時間</th>
 				<th>以小時計算</th>
 				<th>包日</th>
-				<th>修改</th>
+<!-- 				<th>修改</th> -->
 			</tr>
 			<c:forEach var="shopbkVO" items="${list}">
 				<tr>
@@ -98,13 +98,13 @@ h4 {
 					<td>${shopbkVO.shoppde}</td>
 					<td>${shopbkVO.payinfohr}</td>
 					<td>${shopbkVO.payinfoday}</td>
-					<td>
-						<FORM METHOD="post" ACTION="shopbk.do" style="margin-bottom: 0px;">
-							<input type="submit" value="修改"> <input type="hidden"
-								name="shopbkno" value="${shopbkVO.shopbkno}"> <input
-								type="hidden" name="action" value="getOne_For_Update">
-						</FORM>
-					</td>
+<!-- 					<td> -->
+<%-- 						<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/shopbk/shopbk.do" style="margin-bottom: 0px;"> --%>
+<!-- 							<input type="submit" value="修改"> <input type="hidden" -->
+<%-- 								name="shopbkno" value="${shopbkVO.shopbkno}"> <input --%>
+<!-- 								type="hidden" name="action" value="getOne_For_Update"> -->
+<!-- 						</FORM> -->
+<!-- 					</td> -->
 				</tr>
 			</c:forEach>
 		</table>

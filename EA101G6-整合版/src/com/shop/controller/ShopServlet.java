@@ -34,7 +34,7 @@ public class ShopServlet extends HttpServlet {
 				String shopno = req.getParameter("shopno");
 				String shopnoReg = "[D][S]\\d{5}";
 				if (shopno == null || (shopno.trim()).length() == 0) {
-					errorMsgs.add("店家編號不能為空");
+					errorMsgs.add("請輸入要查詢的店家");
 				} else if (!shopno.trim().matches(shopnoReg)) {
 					errorMsgs.add("店家編號格式錯誤");
 				}

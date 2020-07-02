@@ -57,9 +57,6 @@ h4 {
 		class="icon">¦^­º­¶</a>
 </h4>
 
-<%-- <jsp:include page="select_page.jsp" flush="true"> --%>
-<%-- 	<jsp:param name="" value="" /> --%>
-<%-- </jsp:include> --%>
 
 <table>
 	<tr style="background-color: #FFFFFF; border: 0px; font:;">
@@ -92,7 +89,7 @@ h4 {
 		</ul>
 	</c:if>
 
-	<FORM METHOD="post" ACTION="shopbk.do" name="form1"
+	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/shopbk/shopbk.do" name="form1"
 		enctype="multipart/form-data">
 		<table>
 			<input type="hidden" name="shopbkno"

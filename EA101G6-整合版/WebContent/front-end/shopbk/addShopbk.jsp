@@ -65,7 +65,7 @@ img {
 	<!-- 		</ul> -->
 	<%-- 	</c:if> --%>
 
-	<FORM METHOD="post" ACTION="shopbk.do">
+	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/shopbk/shopbk.do">
 		<table>
 			<tr>
 				<td>©±®a½s¸¹:</td>

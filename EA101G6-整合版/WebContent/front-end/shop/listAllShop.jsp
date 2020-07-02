@@ -34,8 +34,15 @@ h4 {
 	margin-left: 20px;
 }
 
-.container {
-}
+.class { 
+	margin-left: 200px;
+	margin-right: auto;
+ } 
+ 
+div { 
+	margin-left: auto;
+	margin-right: auto;
+ } 
 </style>
 </head>
 
@@ -55,46 +62,43 @@ h4 {
 		<tr style="background-color: #FFFFFF; border: 0px; font:;">
 			<td style="background-color: #FFFFFF; border: 0px;">
 				<h3>店家列表</h3>
+				<h5><%@ include file="page1.file" %></h5>
 			</td>
 		</tr>
 	</table>
-	<%-- 錯誤表列 --%>
-	<c:if test="${not empty errorMsgs}">
-		<font style="color: red">請修正以下錯誤:</font>
-		<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color: red">${message}</li>
-			</c:forEach>
-		</ul>
-	</c:if>
-	<div class="row">
-		<div class="container" class="col-sm-3-10">
+		<div class="container">
 		<div class="card-deck">
 		<div class="row">
-			<c:forEach var="shopVO" items="${list}">
-					<div class="col-sm-4" style="margin-bottom: 20px;">
+		
+			<c:forEach var="shopVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+					
+					<div class="col-sm-3" style="margin-bottom: 20px;margin-left: 20px;">
+						
 						<div class="card" style="width: 18rem">
 							<div class="card-body">
+							<label>
 							<img
 							src="<%=request.getContextPath()%>/ShopShowImg?shopno=${shopVO.shopno}"
 							class="card-img-top" alt="Responsive image">
 								<h5 class="card-title">${shopVO.shopname}</h5>
 								<p class="card-text">地址:${shopVO.shoploc}</p>
-								<a href="#" class="btn btn-primary">詳細資訊</a>
-							</div>
-						</div>
-					</div>
-					<!-- 				<td> -->
-					<!-- 					<FORM METHOD="post" ACTION="shop.do" style="margin-bottom: 0px;"> -->
-					<!-- 						<input type="submit" value="修改"> <input type="hidden" -->
-					<%-- 							name="shopno" value="${shopVO.shopno}"> <input --%>
-					<!-- 							type="hidden" name="action" value="getOne_For_Update"> -->
-					<!-- 					</FORM> -->
-					<!-- 				</td> -->
-					<!-- 				</tr> -->
+								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/shop/shop.do">
+								<input type="hidden" name="shopno" value="${shopVO.shopno}">
+								<input type="hidden" name="action" value="getOne_For_Display"><input
+								type="submit" value="詳細資訊" class="btn btn-primary"></FORM>
+							</label>
+							</div>					
+						</div>					
+					</div>				
 			</c:forEach>
 			</div>
-	</div>
+	<table>
+		<tr style="background-color: #FFFFFF; border: 0px; font:;">
+			<td style="background-color: #FFFFFF; border: 0px;">
+				<p><%@ include file="page2.file" %></p>
+			</td>
+		</tr>
+	</table>
 
 
 
