@@ -26,10 +26,10 @@ public class NewsDAO implements NewsDAO_interface{
 	}
 	
 	
-	private static final String INSERT_STMT = "INSERT INTO news (newsno,newstt,detail) VALUES ('MN'||LPAD(to_char(news_seq.NEXTVAL),5,'0'), ?, ?)";
-	private static final String UPDATE = "UPDATE news SET newstt = ?, detail = ? where newsno = ?";
-	private static final String GET_ONE_STMT = "SELECT newsno, newstt, detail FROM news WHERE newsno = ?";
-	private static final String GET_ALL_STMT = "SELECT newsno, newstt, detail FROM news ORDER BY newsno";
+	private static final String INSERT_STMT = "INSERT INTO news (newsno,newstt,detail,pdate) VALUES ('MN'||LPAD(to_char(news_seq.NEXTVAL),5,'0'), ?, ?, CURRENT_DATE)";
+	private static final String UPDATE = "UPDATE news SET newstt = ?, detail = ?, pdate = CURRENT_DATE where newsno = ?";
+	private static final String GET_ONE_STMT = "SELECT newsno, newstt, detail, pdate FROM news WHERE newsno = ?";
+	private static final String GET_ALL_STMT = "SELECT newsno, newstt, detail, pdate FROM news ORDER BY newsno";
 	private static final String DELETE = "DELETE FROM news WHERE newsno = ?";
 	
 
@@ -168,6 +168,7 @@ public class NewsDAO implements NewsDAO_interface{
 				newsVO.setNewsno(rs.getString("newsno"));
 				newsVO.setNewstt(rs.getString("newstt"));
 				newsVO.setDetail(rs.getString("detail"));
+				newsVO.setPdate(rs.getDate("pdate"));
 				
 			}	
 		} catch (SQLException se) {
@@ -223,6 +224,7 @@ public class NewsDAO implements NewsDAO_interface{
 				newsVO.setNewsno(rs.getString("newsno"));
 				newsVO.setNewstt(rs.getString("newstt"));
 				newsVO.setDetail(rs.getString("detail"));
+				newsVO.setPdate(rs.getDate("pdate"));
 				list.add(newsVO);
 			}	
 		} catch (SQLException se) {

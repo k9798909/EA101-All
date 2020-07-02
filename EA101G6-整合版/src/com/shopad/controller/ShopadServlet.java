@@ -61,7 +61,7 @@ public class ShopadServlet extends HttpServlet{
 				
 				if(!errorMsgs.isEmpty()) {
 					req.setAttribute("shopadVO", shopadVO);
-					RequestDispatcher failureView = req.getRequestDispatcher("/font-end/shopad/addShopad.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/shopad/addShopad.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -73,13 +73,13 @@ public class ShopadServlet extends HttpServlet{
 				
 				/*****************3.新增完成，開始轉交*********************/
 				req.setAttribute("shopadVO", shopadVO);
-				RequestDispatcher successView = req.getRequestDispatcher("/font-end/shopad/listOneShopad.jsp");
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/shopad/listOneShopad.jsp");
 				successView.forward(req, res);
 				
 				/**************4.其他可能的錯誤處理**********************/
 			} catch (Exception e) {
 				errorMsgs.add("新增資料失敗:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/font-end/shopad/addShopad.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/shopad/addShopad.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -125,7 +125,7 @@ public class ShopadServlet extends HttpServlet{
 				
 				/**************3.查詢完成，開始轉交*********************/
 				req.setAttribute("shopadVO", shopadVO);
-				RequestDispatcher successView = req.getRequestDispatcher("/font-end/shop/listOneShop.jsp");
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/shop/listOneShop.jsp");
 				successView.forward(req, res);
 				
 				/**************其他可能的錯誤處理***********************/
@@ -138,31 +138,7 @@ public class ShopadServlet extends HttpServlet{
 		
 		
 		
-		if ("getOne_Update".equals(action)) {
-			List<String> errorMsgs = new LinkedList<String>();
-			req.setAttribute("errorMsgs", errorMsgs);
-			
-			try {
-				/****************1.接收參數*********************/
-				String shopadno = req.getParameter("shopadno");
-				
-				/**************2.開始查詢資料*******************/
-				ShopadService shopadSvc = new ShopadService();
-				ShopadVO shopadVO = shopadSvc.getOneShopad(shopadno);
-				
-				
-				/**************3.查詢完成，開始轉交*********************/
-				req.setAttribute("shopadVO", shopadVO);
-				RequestDispatcher successView = req.getRequestDispatcher("/font-end/shop/UpdateShopad.jsp");
-				successView.forward(req, res);
-				
-				/**************其他可能的錯誤處理***********************/
-			} catch (Exception e) {
-				errorMsgs.add("無法取得資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("");
-				failureView.forward(req, res);
-			}
-		}
+		
 		
 		
 		if ("update".equals(action)) {
@@ -172,15 +148,16 @@ public class ShopadServlet extends HttpServlet{
 			try {
 				/****************1.接收參數*********************/
 				String shopadno = req.getParameter("shopadno");
-				
 				Integer status = new Integer(req.getParameter("status").trim());
-				
-				
 				
 				
 				/**************2.開始更新資料*******************/
 				ShopadService shopadSvc = new ShopadService();
 				shopadSvc.updateStatus(shopadno, status);
+				
+				/*****************3.更新成功，開始轉交*********************/
+				RequestDispatcher successView = req.getRequestDispatcher("/back-end/shopad/listAllShopad.jsp");
+				successView.forward(req, res);
 				
 				/**************其他可能的錯誤處理***********************/
 			} catch (Exception e) {

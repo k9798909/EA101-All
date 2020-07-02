@@ -75,7 +75,7 @@
 		
 	
 	<c:forEach var="artVO" items="${list}">
-		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/font-end/art/art.do" style="margin-bottom: 0px";">
+		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/art/art.do" style="margin-bottom: 0px";">
 		<tr>
 			<td>${artVO.artno}</td>
 			<td>${artVO.mbrno}</td>

@@ -11,17 +11,15 @@ import java.sql.*;
 
 public class MsgDAO implements MsgDAO_interface {
 	
-	
-	// 一個應用程式中,針對一個資料庫 ,共用一個DataSource即可
-		private static DataSource ds = null;
-		static {
-			try {
-				Context ctx = new InitialContext();
-				ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
-			} catch (NamingException e) {
-				e.printStackTrace();
-			}
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+		} catch (NamingException e) {
+			e.printStackTrace();
 		}
+	}
 	private static final String INSERT_STMT = 
 		"INSERT INTO msg (msgno,mbrno,detail,artno,status) VALUES ('BMS'||LPAD(to_char(msg_seq.NEXTVAL),4,'0'), ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = 
@@ -32,7 +30,14 @@ public class MsgDAO implements MsgDAO_interface {
 		"DELETE FROM msg where msgno = ?";
 	private static final String UPDATE = 
 		"UPDATE msg set mbrno=?,detail=?,artno=?,status=? where msgno = ?";
+	private static final String GET_BY_ARTNO = "SELECT msgno,mbrno,detail,artno,status FROM msg WHERE artno = ? ORDER BY msgno DESC";
 
+	
+	
+	
+	
+	
+	
 	@Override
 	public void insert(MsgVO msgVO) {
 
@@ -221,6 +226,67 @@ public class MsgDAO implements MsgDAO_interface {
 		return msgVO;
 	}
 
+	
+	@Override
+	public List<MsgVO> getAllByArtno(String artno) {
+		List<MsgVO> list = new ArrayList<MsgVO>();
+		MsgVO msgVO = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_BY_ARTNO);
+			pstmt.setString(1, artno);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// msgVO 也稱為 Domain objects
+				msgVO = new MsgVO();
+				msgVO.setMsgno(rs.getString("msgno"));
+				msgVO.setMbrno(rs.getString("mbrno"));
+				msgVO.setDetail(rs.getString("detail"));
+				msgVO.setArtno(rs.getString("artno"));
+				msgVO.setStatus(rs.getInt("status"));
+				list.add(msgVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
+	
+	
 	@Override
 	public List<MsgVO> getAll() {
 		List<MsgVO> list = new ArrayList<MsgVO>();
@@ -278,53 +344,7 @@ public class MsgDAO implements MsgDAO_interface {
 		return list;
 	}
 
-	public static void main(String[] args) {
+	
 
-		MsgDAO dao = new MsgDAO();
-
-		// 新增
-		MsgVO msgVO1 = new MsgVO();
-		msgVO1.setMsgno("555");
-		msgVO1.setMbrno("555");
-		msgVO1.setDetail("555");
-		msgVO1.setArtno("555");
-		msgVO1.setStatus(1);
-		
-		dao.insert(msgVO1);
-
-		// 修改
-		MsgVO msgVO2 = new MsgVO();
-		msgVO2.setMsgno("666");
-		msgVO2.setMbrno("555");
-		msgVO2.setDetail("555");
-		msgVO2.setArtno("555");
-		msgVO2.setStatus(1);
-		
-		dao.update(msgVO2);
-
-		// 刪除
-		dao.delete("666");
-
-		// 查詢
-		MsgVO msgVO3 = dao.findByPrimaryKey("666");
-		System.out.print(msgVO3.getMsgno() + ",");
-		System.out.print(msgVO3.getMbrno() + ",");
-		System.out.print(msgVO3.getDetail() + ",");
-		System.out.print(msgVO3.getArtno() + ",");
-		System.out.print(msgVO3.getStatus() + ",");
-		
-		System.out.println("---------------------");
-
-		// 查詢
-		List<MsgVO> list = dao.getAll();
-		for (MsgVO aMsg : list) {
-			System.out.print(msgVO3.getMsgno() + ",");
-			System.out.print(msgVO3.getMbrno() + ",");
-			System.out.print(msgVO3.getDetail() + ",");
-			System.out.print(msgVO3.getArtno() + ",");
-			System.out.print(msgVO3.getStatus() + ",");
-			
-			System.out.println();
-		}
-	}
+	
 }
