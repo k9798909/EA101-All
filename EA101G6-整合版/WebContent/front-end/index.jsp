@@ -43,6 +43,9 @@
 		width: 80%;
 		height: 40%;
 	}
+	#accordionExample{
+ 		margin-top: 50px;
+ 	}
 
 </style>
 
@@ -234,12 +237,33 @@
 
 
 	</div>
+	
+	<!-- 程穝 -->
 
-	<div class="block__73694 mb-2">
-		程穝<br> ................<br> ................<br>
-		................<br> ................<br>
+	<jsp:useBean id="newsSvc" scope="page" class="com.news.model.NewsService" />
+	
+	<div class="accordion col-md-10 offset-md-1" id="accordionExample">
+	<h1><span class="badge badge-light">程穝</span><span class="badge badge-secondary">News</span></h1>
+		<c:forEach var="newsVO" items="${newsSvc.all}">
+		<div class="card col-md-10 offset-md-1">
+			<div class="card-header">
+				<h5 class="mb-0">
+					<button class="btn btn-link" type="button" data-toggle="collapse"
+						data-target="#${newsVO.newsno}" aria-expanded="false"
+						aria-controls="${newsVO.newsno}">${newsVO.newstt}</button>	
+					<span class="d-flex justify-content-end" id="pd">${newsVO.pdate}</span>
+				</h5>	
+			</div>
+			
+			<div id="${newsVO.newsno}" class="collapse"
+				 data-parent="#accordionExample">
+				<div class="card-body">${newsVO.detail}</div>
+			</div>
+		</div></c:forEach>
 	</div>
 
+
+	<!-- 程穝坝珇 -->
 
 	<jsp:useBean id="gmTypeSvc" class="com.gmType.model.GmTypeService" scope="request"/>
 	<jsp:useBean id="mallSvc" class="com.mall.model.MallService" scope="request"/>

@@ -14,6 +14,18 @@
 <!-- ­Ó¤HCSS -->
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/mallCss/mallGetAllUpFornt.css">
 
+<style>
+	.img-bg-section{
+		width: 100%;
+		height: 120%;
+	}
+	.owl-carousel{
+		margin-bottom: 90px;
+		margin-top: 90px;
+	}
+	
+</style>
+
 </head>
 <body>
 
@@ -26,6 +38,31 @@
 	pageContext.setAttribute("gmTypeSvc", gmTypeSvc);
 	
 	%>
+	
+	<!-- additional -->
+	<jsp:useBean id="malladSvc" scope="page" class="com.mallad.model.MalladService" />
+
+		<div class="owl-carousel slide-one-item col-md-10 offset-md-1">
+		
+			<c:forEach var="malladVO" items="${malladSvc.all}">
+			<a href="<%=request.getContextPath()%>/front-end/mall/mallGetOne.jsp?commNo=${malladVO.commno}">
+			<img class="site-section-cover  img-bg-section"
+				style="background-image: url('<%=request.getContextPath()%>/mallad/malladpic.do?malladno=${malladVO.malladno}');">
+			</a>
+			
+			</c:forEach>
+			
+		</div>
+
+
+
+
+
+
+
+
+
+		<!-- original -->
 
 		<div class="seldiv">
 			<form action="<%=request.getContextPath()%>/Mall/FrontMallServlet" method="post">

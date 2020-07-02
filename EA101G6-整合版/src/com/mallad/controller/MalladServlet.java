@@ -137,7 +137,7 @@ public class MalladServlet extends HttpServlet{
 				
 				/*************3.查詢完成，開始轉交**************/
 				req.setAttribute("malladVO", malladVO);
-				RequestDispatcher successView = req.getRequestDispatcher("/front-end/mall/listOneComm.jsp");
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/mall/mallGetOne.jsp");
 				successView.forward(req, res);
 				
 				
