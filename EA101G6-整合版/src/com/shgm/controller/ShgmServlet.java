@@ -40,37 +40,7 @@ public class ShgmServlet extends HttpServlet {
 
 		String action = request.getParameter("action");
 
-		if ("login".equals(action)) {
-
-			// 請求參數取得帳號密碼
-			String mbract = request.getParameter("mbract");
-			String mbrpw = request.getParameter("mbrpw");
-
-			MbrpfService mbrsvc = new MbrpfService();
-			// MbrpfService的check方法在資料庫查詢是否有相對應的資料
-			if (mbrsvc.check(mbract, mbrpw)) {
-				// true，session存入當前使用者的資料
-				MbrpfVO mbrpfvo = mbrsvc.getByActPw(mbract, mbrpw);
-				session.setAttribute("member", mbrpfvo);
-				// 測試印出姓名
-				System.out.println(mbrpfvo.getMbrname());
-
-				// 轉送到市集頁面
-				String url = "/front-end/shgm/mainPage.jsp";
-				RequestDispatcher successview = request.getRequestDispatcher(url);
-				successview.forward(request, response);
-
-			} else {
-				// false，request存入錯誤訊息
-				String error = "帳號密碼錯誤";
-				request.setAttribute("error", error);
-
-				// 轉送到登入頁面
-				String url = "/front-end/shgm/simpleLogin.jsp";
-				RequestDispatcher failedview = request.getRequestDispatcher(url);
-				failedview.forward(request, response);
-			}
-		}
+		
 
 		if ("get_one".equals(action)) {
 
