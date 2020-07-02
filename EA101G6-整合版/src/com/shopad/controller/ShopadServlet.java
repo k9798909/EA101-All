@@ -26,7 +26,7 @@ public class ShopadServlet extends HttpServlet{
 			
 			try {
 				/***************1.接收參數******************/
-				String shopno = req.getParameter("shopad");
+				String shopno = req.getParameter("shopno");
 				
 				String shopadtt = req.getParameter("shopadtt");
 				if (shopadtt == null || shopadtt.trim().length() == 0) {

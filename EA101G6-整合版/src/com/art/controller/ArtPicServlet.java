@@ -21,7 +21,7 @@ public class ArtPicServlet extends HttpServlet{
 			byte[] buf = artVO.getApic();
 			out.write(buf);
 		} catch (Exception e) {
-			InputStream in = getServletContext().getResourceAsStream("/noData/rocket.gif");
+			InputStream in = getServletContext().getResourceAsStream("/images/rocket.gif");
 			byte[] b = new byte[in.available()];
 			in.read(b);
 			out.write(b);
