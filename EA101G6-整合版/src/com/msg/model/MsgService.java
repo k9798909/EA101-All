@@ -48,4 +48,8 @@ public class MsgService {
 	public List<MsgVO> getAll() {
 		return dao.getAll();
 	}
+	
+	public List<MsgVO> getAllByArtno(String artno){
+		return dao.getAllByArtno(artno);
+	}
 }

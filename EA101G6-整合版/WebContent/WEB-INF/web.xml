@@ -292,7 +292,7 @@
 	<servlet-mapping>
 		<servlet-name>ArtServlet</servlet-name>
 		<url-pattern>/back-end/art/art.do</url-pattern>
-		<url-pattern>/font-end/art/art.do</url-pattern>
+		<url-pattern>/front-end/art/art.do</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>

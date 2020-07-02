@@ -30,8 +30,8 @@ public class MalladDAO implements MalladDAO_interface{
 	
 	private static final String INSERT_STMT = "INSERT INTO mallad (malladno,commno,gmadtt,detail,startt,stopt) VALUES ('MMA'||LPAD(to_char(mallad_seq.NEXTVAL),4,'0'), ?, ?, ?, ?, ?)";
 	private static final String DELETE = "DELETE FROM mallad WHERE malladno = ?";
-	private static final String GET_ONE_STMT = "SELECT malladno,commno,gmadtt,detail,to_char(startt,'yyyy-mm-dd')startt,to_char(stopt,'yyyy-mm-dd')stopt FROM mallad ORDER BY malladno";
-	private static final String GET_ALL_STMT = "SELECT malladno,commno,gmadtt,detail,to_char(startt,'yyyy-mm-dd')startt,to_char(stopt,'yyyy-mm-dd')stopt FROM mallad WHERE malladno = ?";
+	private static final String GET_ALL_STMT = "SELECT malladno,commno,gmadtt,detail,to_char(startt,'yyyy-mm-dd')startt,to_char(stopt,'yyyy-mm-dd')stopt FROM mallad ORDER BY malladno";
+	private static final String GET_ONE_STMT = "SELECT malladno,commno,gmadtt,detail,to_char(startt,'yyyy-mm-dd')startt,to_char(stopt,'yyyy-mm-dd')stopt FROM mallad WHERE malladno = ?";
 	
 	
 	

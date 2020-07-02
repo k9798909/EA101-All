@@ -11,10 +11,10 @@ public class NewsJDBCDAO implements NewsDAO_interface{
 	String passwd = "123456";
 	
 	
-	private static final String INSERT_STMT = "INSERT INTO news (newsno,newstt,detail) VALUES ('MN'||LPAD(to_char(news_seq.NEXTVAL),5,'0'), ?, ?)";
-	private static final String UPDATE = "UPDATE news SET newstt = ?, detail = ? where newsno = ?";
-	private static final String GET_ONE_STMT = "SELECT newsno, newstt, detail FROM news WHERE newsno = ?";
-	private static final String GET_ALL_STMT = "SELECT newsno, newstt, detail FROM news ORDER BY newsno";
+	private static final String INSERT_STMT = "INSERT INTO news (newsno,newstt,detail,pdate) VALUES ('MN'||LPAD(to_char(news_seq.NEXTVAL),5,'0'), ?, ?, CURRENT_DATE)";
+	private static final String UPDATE = "UPDATE news SET newstt = ?, detail = ?, pdate = CURRENT_DATE where newsno = ?";
+	private static final String GET_ONE_STMT = "SELECT newsno, newstt, detail, pdate FROM news WHERE newsno = ?";
+	private static final String GET_ALL_STMT = "SELECT newsno, newstt, detail, pdate FROM news ORDER BY newsno";
 	private static final String DELETE = "DELETE FROM news WHERE newsno = ?";
 	
 
@@ -169,6 +169,7 @@ public class NewsJDBCDAO implements NewsDAO_interface{
 				newsVO.setNewsno(rs.getString("newsno"));
 				newsVO.setNewstt(rs.getString("newstt"));
 				newsVO.setDetail(rs.getString("detail"));
+				newsVO.setPdate(rs.getDate("pdate"));
 				
 			}	
 		} catch (ClassNotFoundException e) {
@@ -229,6 +230,7 @@ public class NewsJDBCDAO implements NewsDAO_interface{
 				newsVO.setNewsno(rs.getString("newsno"));
 				newsVO.setNewstt(rs.getString("newstt"));
 				newsVO.setDetail(rs.getString("detail"));
+				newsVO.setPdate(rs.getDate("pdate"));
 				list.add(newsVO);
 			}	
 		} catch (ClassNotFoundException e) {
@@ -270,19 +272,18 @@ public class NewsJDBCDAO implements NewsDAO_interface{
 		
 		//新增
 //		NewsVO n1 = new NewsVO();
-//		n1.setNewsno("MN00011");
 //		n1.setNewstt("桌遊列國的英文名字");
 //		n1.setDetail("其實是叫作 GAMING ON BOARD喔喔喔喔喔喔喔 土鳳梨酥!");
 //		dao.insert(n1);
 //		System.out.print("success");
 		
 		//修改
-//		NewsVO n2 = new NewsVO();
-//		n2.setNewsno("MN00006");
-//		n2.setNewstt("桌遊列國的英文名字");
-//		n2.setDetail("才怪!");
-//		dao.update(n2);
-//		System.out.print("success");
+		NewsVO n2 = new NewsVO();
+		n2.setNewsno("MN00006");
+		n2.setNewstt("桌遊列國的英文名字");
+		n2.setDetail("才怪!ffffffffffffffffffff");
+		dao.update(n2);
+		System.out.print("success");
 		
 		//刪除
 //		dao.delete("MN00006");
@@ -293,17 +294,19 @@ public class NewsJDBCDAO implements NewsDAO_interface{
 //		System.out.println(n3.getNewsno());
 //		System.out.println(n3.getNewstt());
 //		System.out.println(n3.getDetail());
+//		System.out.println(n3.getPdate());
 		
 		//查全部
-		List<NewsVO> list = dao.getAll();
-		for(NewsVO n4 : list) {
-			System.out.println(n4.getNewsno());
-			System.out.println(n4.getNewstt());
-			System.out.println(n4.getDetail());
-			System.out.println();
-			System.out.println("==============================");
-			System.out.println();
-		}
+//		List<NewsVO> list = dao.getAll();
+//		for(NewsVO n4 : list) {
+//			System.out.println(n4.getNewsno());
+//			System.out.println(n4.getNewstt());
+//			System.out.println(n4.getDetail());
+//			System.out.println(n4.getPdate());
+//			System.out.println();
+//			System.out.println("==============================");
+//			System.out.println();
+//		}
 	}
 
 }

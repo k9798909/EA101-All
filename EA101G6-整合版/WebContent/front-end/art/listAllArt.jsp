@@ -108,7 +108,7 @@
       	
       	
 		
-      	<form class="form-inline my-2 my-lg-0" METHOD="post" ACTION="<%=request.getContextPath()%>/font-end/art/art.do">
+      	<form class="form-inline my-2 my-lg-0" METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/art/art.do">
       		<input class="form-control mr-sm-2" type="search" placeholder="Search" name="keyWord" aria-label="Search">
       		<button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="action" value="getOne_Key_Display">Search</button>
       	</form>
@@ -117,7 +117,7 @@
       <!-- 麵包屑 -->
       <nav aria-label="breadcrumb" class="d-inline-flex">
   			<ol class="breadcrumb ">
-    			<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/index.jsp">Home</a></li>
+    			<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/front-end/index.jsp">Home</a></li>
     			<li class="breadcrumb-item active" aria-current="page">Article</li>
  			 </ol>
 	  </nav>
@@ -140,13 +140,12 @@
           <div class="row">
           
           <c:forEach var="artVO" items="${list}">
-          <FORM class="col-md-4" METHOD="post" ACTION="<%=request.getContextPath()%>/font-end/art/art.do" style="margin-bottom: 0px;">
+          <FORM class="col-md-4" METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/art/art.do" style="margin-bottom: 0px;">
             
               <div class="card mb-4 box-shadow shadow p-3 mb-5 bg-white rounded">
               	
-                <button type="submit" class="button-1" name="action" value="get_One_Detail" class="btn btn-sm btn-outline-secondary">
-                <img class="card-img-top" src="<%=request.getContextPath()%>/art/artpic.do?artno=${artVO.artno}" alt="Card image cap"></button>
-                <input type="hidden" name="artno" value="${artVO.artno}"/>
+                <a target="_self" href="<%=request.getContextPath()%>/front-end/art/art.do?action=get_One_Detail&artno=${artVO.artno}"><img class="card-img-top" src="<%=request.getContextPath()%>/art/artpic.do?artno=${artVO.artno}" alt="Card image cap"></a>
+               
                 <div class="card-body ">
                  <h5 class="card-title">${artVO.arttt}</h5>
                  <p class="card-text">${artVO.detail}</p>

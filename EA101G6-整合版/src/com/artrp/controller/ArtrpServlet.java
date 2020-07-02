@@ -8,6 +8,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
 
+import com.art.model.*;
 import com.artrp.model.*;
 
 
@@ -68,20 +69,35 @@ public class ArtrpServlet  extends HttpServlet{
 		}
 		
 		
-		if ("delete".equals(action)) {
+		if ("update".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			
 			try {
-				/*******************1.接收請求參數，處理錯誤訊息************************/
+				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 				String artrpno = req.getParameter("artrpno");
+				Integer status = new Integer(req.getParameter("status"));
 				
-				/***************************2.開始刪除資料***************************************/
+				
+				
+				ArtrpVO artrpVO = new ArtrpVO();
+				artrpVO.setArtrpno(artrpno);
+				artrpVO.setStatus(status);
+				
+				
+			
+				/***************************2.開始修改資料*****************************************/
+				
 				ArtrpService artrpSvc = new ArtrpService();
-				artrpSvc.deleteArtrp(artrpno);
 				
-				/***************************3.刪除完成,準備轉交(Send the Success view)***********/
-				RequestDispatcher successView = req.getRequestDispatcher("listAllArtrp.jsp"); 
+				artrpVO = artrpSvc.updateStatus(artrpno, status);
+				
+				
+				/***************************3.修改完成,準備轉交(Send the Success view)*************/
+				
+				
+				String url = "/back-end/artrp/listAllArtrp.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
 				
 				/***************************其他可能的錯誤處理**********************************/
@@ -95,7 +111,7 @@ public class ArtrpServlet  extends HttpServlet{
 		
 		
 		
-		if ("get_One_Display".equals(action)) {
+		if ("getOne_Display".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			
@@ -108,6 +124,8 @@ public class ArtrpServlet  extends HttpServlet{
 				/***************************2.開始查詢資料***************************************/
 				ArtrpService artrpSvc = new ArtrpService();
 				List<ArtrpVO> artrpVO = artrpSvc.getAllByArtno(artno);
+				ArtService artSvc = new ArtService();
+				ArtVO artVO = artSvc.getOneArt(artno);
 				
 				if (artrpVO == null) {
 					errorMsgs.add("查無資料!");
@@ -120,7 +138,8 @@ public class ArtrpServlet  extends HttpServlet{
 				
 				/**********************3.查詢完成，開始轉交****************************/
 				req.setAttribute("artrpVO", artrpVO);
-				RequestDispatcher successView = req.getRequestDispatcher("list_By_Artno.jsp");
+				req.setAttribute("artVO", artVO);
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/art/listOneArt.jsp");
 				successView.forward(req, res);
 				
 				/**********************其他可能的錯誤處理**********************/

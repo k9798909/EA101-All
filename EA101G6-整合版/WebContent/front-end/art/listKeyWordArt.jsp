@@ -97,7 +97,7 @@
       	
       	
 		
-      	<form class="form-inline my-2 my-lg-0" METHOD="post" ACTION="<%=request.getContextPath()%>/font-end/art/art.do">
+      	<form class="form-inline my-2 my-lg-0" METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/art/art.do">
       		<input class="form-control mr-sm-2" type="search" placeholder="Search" name="keyWord" aria-label="Search">
       		<button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="action" value="getOne_Key_Display">Search</button>
       	</form>
@@ -105,7 +105,7 @@
       <nav aria-label="breadcrumb" class="d-inline-flex">
   			<ol class="breadcrumb ">
     			<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/index.html">Home</a></li>
-    			<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/font-end/art/listAllArt.jsp">Article</a></li>
+    			<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/front-end/art/listAllArt.jsp">Article</a></li>
     			<li class="breadcrumb-item active" aria-current="page">${keyWord}</li>
  			 </ol>
 	  </nav>
@@ -116,7 +116,7 @@
           <div class="row">
           
           <c:forEach var="artVO" items="${list}">
-          <FORM class="col-md-4" METHOD="post" ACTION="<%=request.getContextPath()%>/font-end/art/art.do" style="margin-bottom: 0px;">
+          <FORM class="col-md-4" METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/art/art.do" style="margin-bottom: 0px;">
             
               <div class="card mb-4 box-shadow shadow p-3 mb-5 bg-white rounded">
               	

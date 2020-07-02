@@ -20,6 +20,10 @@ public class ArtServlet extends HttpServlet {
 		
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
+		HttpSession session = req.getSession();
+//		session.getAttribute("mbrpfVO", mbrpfVO);
+		String test = "dogjj";
+		session.setAttribute("test", test);
 		
 		
 		//後端功能
@@ -215,13 +219,13 @@ public class ArtServlet extends HttpServlet {
 			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 				String artno = req.getParameter("artno");
-				Integer artStatus = new Integer(req.getParameter("artStatus"));
+				Integer status = new Integer(req.getParameter("status"));
 				
 				
 				
 				ArtVO artVO = new ArtVO();
 				artVO.setArtno(artno);
-				artVO.setStatus(artStatus);
+				artVO.setStatus(status);
 				
 				
 				// Send the use back to the form, if there were errors
@@ -237,7 +241,7 @@ public class ArtServlet extends HttpServlet {
 				
 				ArtService artSvc = new ArtService();
 				
-				artVO = artSvc.updateArtStatus(artno, artStatus);
+				artVO = artSvc.updateArtStatus(artno, status);
 				
 				artVO = artSvc.getOneArt(artno);
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
@@ -246,7 +250,7 @@ public class ArtServlet extends HttpServlet {
 				String url = "/back-end/art/listOneArt.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
-
+				System.out.println(123);
 				/***************************其他可能的錯誤處理*************************************/
 			} catch (Exception e) {
 				
@@ -385,6 +389,8 @@ public class ArtServlet extends HttpServlet {
 				String artno = req.getParameter("artno");
 				
 				
+				
+				
 				/***********************2.開始查詢資料***************************/
 				ArtService artSvc = new ArtService();
 				ArtVO artVO = artSvc.getOneArt(artno);
@@ -393,20 +399,21 @@ public class ArtServlet extends HttpServlet {
 					errorMsgs.add("查無資料");
 				} 
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/font-end/art/listAllArt.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/art/listAllArt.jsp");
 					failureView.forward(req, res);
 					return;
 				}
 				
 				/**********************3.查詢完成，開始轉交****************************/
 				req.setAttribute("artVO", artVO);
-				RequestDispatcher successView = req.getRequestDispatcher("/font-end/art/listOneArt.jsp");
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/art/listOneArt.jsp");
 				successView.forward(req, res);
+				
 				
 				/**********************其他可能的錯誤處理**********************/
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料");
-				RequestDispatcher failureView = req.getRequestDispatcher("/font-end/art/listAllArt.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/art/listAllArt.jsp");
 				failureView.forward(req, res);
 				
 			}
@@ -431,7 +438,7 @@ public class ArtServlet extends HttpServlet {
 					errorMsgs.add("請輸入關鍵字");
 				}
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/font-end/art/select_page.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/art/select_page.jsp");
 					failureView.forward(req,  res);
 					return;
 				}
@@ -444,7 +451,7 @@ public class ArtServlet extends HttpServlet {
 				}
 				
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/font-end/art/select_page.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/art/select_page.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -458,7 +465,7 @@ public class ArtServlet extends HttpServlet {
 				}
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/font-end/art/listAllArt.jsp");
+							.getRequestDispatcher("/front-end/art/listAllArt.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -466,7 +473,7 @@ public class ArtServlet extends HttpServlet {
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("keyWord", keyWord);
 				req.setAttribute("artVO", artVO);
-				String url = "/font-end/art/listKeyWordArt.jsp";
+				String url = "/front-end/art/listKeyWordArt.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); 
 				successView.forward(req, res);
 				
@@ -476,7 +483,7 @@ public class ArtServlet extends HttpServlet {
 				
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/font-end/art/listAllArt.jsp");
+						.getRequestDispatcher("/front-end/art/listAllArt.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -534,7 +541,7 @@ public class ArtServlet extends HttpServlet {
 				
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("artVO", artVO); // 含有輸入格式錯誤的empVO物件,也存入req
-					RequestDispatcher failureView = req.getRequestDispatcher("/font-end/art/addArt.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/art/addArt.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -544,7 +551,7 @@ public class ArtServlet extends HttpServlet {
 				artVO = artSvc.addArt(mbrno, detail, arttt, status, atno, apic);
 			
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/font-end/art/listAllArt.jsp";
+				String url = "/front-end/art/listAllArt.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);				
 				
@@ -553,7 +560,7 @@ public class ArtServlet extends HttpServlet {
 			
 				errorMsgs.add(e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/font-end/art/addEmp.jsp");
+						.getRequestDispatcher("/front-end/art/addEmp.jsp");
 				failureView.forward(req, res);
 			}
 			
@@ -575,12 +582,12 @@ public class ArtServlet extends HttpServlet {
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("artVO", artVO);
-				String url = "/font-end/art/updateOne.jsp";
+				String url = "/front-end/art/updateOne.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/font-end/art/listAllArt.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/art/listAllArt.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -639,7 +646,7 @@ public class ArtServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("artVO", artVO); // 含有輸入格式錯誤的empVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/font-end/art/updateOne.jsp");
+							.getRequestDispatcher("/front-end/art/updateOne.jsp");
 					failureView.forward(req, res);
 					return; //程式中斷
 				}
@@ -647,11 +654,12 @@ public class ArtServlet extends HttpServlet {
 				/***************************2.開始修改資料*****************************************/
 				ArtService artSvc = new ArtService();
 				artVO = artSvc.updateArt(artno, mbrno, detail, arttt, atno, apic);
+				artVO = artSvc.getOneArt(artno);
 				
 			
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("artVO", artVO);
-				String url = "/font-end/art/listOneArt.jsp";
+				String url = "/front-end/art/listOneArt.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
 				
@@ -661,7 +669,7 @@ public class ArtServlet extends HttpServlet {
 			
 				errorMsgs.add("修改資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/font-end/art/updateOne.jsp");
+						.getRequestDispatcher("/front-end/art/updateOne.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -692,7 +700,7 @@ public class ArtServlet extends HttpServlet {
 				
 				errorMsgs.add("刪除資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/font-end/art/listAllArt.jsp");
+						.getRequestDispatcher("/front-end/art/listAllArt.jsp");
 				failureView.forward(req, res);
 			}
 		}

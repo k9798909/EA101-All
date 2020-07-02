@@ -53,7 +53,7 @@ public class NewsServlet extends HttpServlet{
 				newsVO = newsSvc.addNews(newstt, detail);
 				
 				/*************************3.新增完成，準備轉交******************************/
-				RequestDispatcher successView = req.getRequestDispatcher("/font-end/news/listAllNews.jsp");
+				RequestDispatcher successView = req.getRequestDispatcher("/back-end/news/listAllNews.jsp");
 				successView.forward(req, res);
 				
 				/*************************其他錯誤處理******************************/
@@ -89,7 +89,7 @@ public class NewsServlet extends HttpServlet{
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("newsVO", newsVO);
-				RequestDispatcher successView = req.getRequestDispatcher("/font-end/news/listOneNews.jsp");
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/news/listOneNews.jsp");
 				successView.forward(req, res);
 				
 				
@@ -160,12 +160,13 @@ public class NewsServlet extends HttpServlet{
 		}
 		
 		if ("update".equals(action)) {
+			
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			
 			try {
 				/********1.接收參數*********/
-				String newsno = req.getParameter("newsnop");
+				String newsno = req.getParameter("newsno");
 				
 				String newstt = req.getParameter("newstt");
 				if (newstt == null || newstt.trim().length() == 0) {
@@ -195,11 +196,12 @@ public class NewsServlet extends HttpServlet{
 				
 				/***********3.修改完成，開始轉交***********/
 				req.setAttribute("newsVO", newsVO);
-				RequestDispatcher successView = req.getRequestDispatcher("/font-end/news/listOneNews.jsp");
+				RequestDispatcher successView = req.getRequestDispatcher("/back-end/news/listAllNews.jsp");
 				successView.forward(req, res);
 				
 				/********其他可能的錯誤處理**********/
 			} catch (Exception e) {
+				
 				errorMsgs.add("修改資料失敗:" + e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/news/updateNews.jsp");
 				failureView.forward(req, res);

@@ -6,6 +6,7 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+import com.art.model.*;
 import com.msg.model.*;
 
 public class MsgServlet extends HttpServlet {
@@ -201,7 +202,7 @@ public class MsgServlet extends HttpServlet {
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-
+			
 			try {
 				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 				String mbrno = req.getParameter("mbrno");
@@ -233,36 +234,34 @@ public class MsgServlet extends HttpServlet {
 				
 				
 
-				MsgVO msgVO = new MsgVO();
-				msgVO.setMbrno(mbrno);
-				msgVO.setDetail(detail);
-				msgVO.setArtno(artno);
-				msgVO.setStatus(status);
-				
 
-				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					req.setAttribute("msgVO", msgVO); // 含有輸入格式錯誤的msgVO物件,也存入req
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("/msg/addMsg.jsp");
-					failureView.forward(req, res);
-					return;
-				}
+				
+				
 				
 				/***************************2.開始新增資料***************************************/
 				MsgService msgSvc = new MsgService();
-				msgVO = msgSvc.addMsg(mbrno, detail, artno, status);
+				msgSvc.addMsg(mbrno, detail, artno, status);
+				ArtService artSvc = new ArtService();
+				ArtVO artVO = artSvc.getOneArt(artno);
 				
+				if (!errorMsgs.isEmpty()) {
+					req.setAttribute("artVO", artVO); // 含有輸入格式錯誤的msgVO物件,也存入req
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front-end/art/listOneArt.jsp");
+					failureView.forward(req, res);
+					return;
+				}
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/msg/listAllMsg.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllMsg.jsp
+				req.setAttribute("artVO", artVO);
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/art/listOneArt.jsp"); // 新增成功後轉交listAllMsg.jsp
 				successView.forward(req, res);				
 				
 				/***************************其他可能的錯誤處理**********************************/
 			} catch (Exception e) {
+				
 				errorMsgs.add(e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/msg/addMsg.jsp");
+						.getRequestDispatcher("/front-end/art/listOneArt.jsp");
 				failureView.forward(req, res);
 			}
 		}

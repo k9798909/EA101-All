@@ -287,11 +287,11 @@ public class ShopadJDBCDAO implements ShopadDAO_interface{
 //		System.out.println("success");
 		
 		//修改
-//		ShopadVO sa2 = new ShopadVO();
-//		sa2.setStatus(new Integer(0));
-//		sa2.setShopadno("MSA0009");
-//		dao.update(sa2);
-//		System.out.println("success");
+		ShopadVO sa2 = new ShopadVO();
+		sa2.setStatus(new Integer(1));
+		sa2.setShopadno("MSA0008");
+		dao.update(sa2);
+		System.out.println("success");
 		
 		//刪除
 //		dao.delete("MSA0009");
@@ -308,18 +308,18 @@ public class ShopadJDBCDAO implements ShopadDAO_interface{
 		
 		
 		//查全部
-		List<ShopadVO> list = dao.getAll();
-		for(ShopadVO sa4 : list) {
-			System.out.print(sa4.getShopadno() + ",");
-			System.out.print(sa4.getShopno() + ",");
-			System.out.print(sa4.getShopadtt() + ",");
-			System.out.print(sa4.getStartt() + ",");
-			System.out.print(sa4.getStopt() + ",");
-			System.out.print(sa4.getStatus());
-			System.out.println();
-			System.out.println("==============================");
-			System.out.println();
-		}
+//		List<ShopadVO> list = dao.getAll();
+//		for(ShopadVO sa4 : list) {
+//			System.out.print(sa4.getShopadno() + ",");
+//			System.out.print(sa4.getShopno() + ",");
+//			System.out.print(sa4.getShopadtt() + ",");
+//			System.out.print(sa4.getStartt() + ",");
+//			System.out.print(sa4.getStopt() + ",");
+//			System.out.print(sa4.getStatus());
+//			System.out.println();
+//			System.out.println("==============================");
+//			System.out.println();
+//		}
 	}
 
 }

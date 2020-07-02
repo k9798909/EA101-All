@@ -26,6 +26,7 @@ public class NewsService {
 		newsVO.setNewsno(newsno);
 		newsVO.setNewstt(newstt);
 		newsVO.setDetail(detail);
+	
 		dao.update(newsVO);
 		
 		return newsVO;

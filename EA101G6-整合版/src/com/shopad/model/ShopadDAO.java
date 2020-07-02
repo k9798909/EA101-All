@@ -26,7 +26,7 @@ public class ShopadDAO implements ShopadDAO_interface{
 	}
 	
 	private static final String INSERT_STMT = "INSERT INTO shopad (shopadno,shopno,shopadtt,startt,stopt,status) VALUES ('MSA'||LPAD(to_char(shopad_seq.NEXTVAL),4,'0'), ?, ?, ?, ?, ?)";
-	private static final String UPDATE = "UPDATE shopas set status = ? WHERE shopadno = ?";
+	private static final String UPDATE = "UPDATE shopad set status = ? WHERE shopadno = ?";
 	private static final String DELETE = "DELETE FROM shopad WHERE shopadno = ?";
 	private static final String GET_ALL_STMT = "SELECT shopadno,shopno,shopadtt,startt,stopt,status FROM shopad ORDER BY shopadno";
 	private static final String GET_ONE_STMT = "SELECT shopadno,shopno,shopadtt,startt,stopt,status FROM shopad WHERE shopadno = ?";
