@@ -61,12 +61,12 @@ div.top-info {
 	border: green 1px solid;
 }
 
-.btn {
-	margin: 0 1%;
+#upshgm,#myshgm {
+	margin: 0 auto;
 	background-color: white;
 }
 
-.btn:hover {
+#upshgm:hover,#myshgm:hover {
 	background-color: white;
 	color: #FF8C00; /*ffa216*/
 	box-shadow: 0 0 11px rgba(33, 33, 33, .2);

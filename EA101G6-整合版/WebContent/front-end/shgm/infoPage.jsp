@@ -85,12 +85,12 @@ div.top-info {
 	text-align: left;
 }
 
-.btn {
-	margin: 10% auto;
+#rp,#rpenter,#rpcancel,#sold,#buythis {
+	margin: 0 auto;
 	background-color: white;
 }
 
-.btn:hover {
+#rp:hover,#rpenter:hover,#rpcancel:hover,#sold:hover,#buythis:hover {
 	background-color: white;
 	color: #FF8C00; /*ffa216*/
 	box-shadow: 0 0 11px rgba(33, 33, 33, .2);
@@ -148,8 +148,8 @@ div.top-info {
 
 						</div>
 						<div class="modal-footer">
-							<button type="submit" class="btn btn-primary">確定</button>
-							<button type="button" class="btn btn-primary"
+							<button id="rpenter" type="submit" class="btn btn-primary">確定</button>
+							<button id="rpcancel" type="button" class="btn btn-primary"
 								data-dismiss="modal">取消</button>
 						</div>
 						<input type="hidden" name="shgmno" value="${shgmvo.shgmno}">
