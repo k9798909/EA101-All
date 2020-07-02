@@ -66,7 +66,7 @@
 					</div>
 
 					<div class="float-right">
-						<a href="#" class="text-white"><span class="d-md-inline-block">
+						<a href="<%= request.getContextPath()%>/front-end/login.jsp" class="text-white"><span class="d-md-inline-block">
 								<img class="icon"
 								src="<%=request.getContextPath()%>/front-end/images/User-icon.png">·|­ûµn¤J
 						</span></a><c:if test="${not empty sessionScope.shopVO}">
