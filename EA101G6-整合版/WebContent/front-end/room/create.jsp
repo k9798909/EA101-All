@@ -90,7 +90,8 @@
 					name="game" maxlength="50"
 					style="resize: none; width: 280px; height: 60px;"><c:if
 						test="${not empty requestScope.rminfoVO}">${requestScope.rminfoVO.game}</c:if></textarea>
-				<br> <br> *加入是否需審核: <select name="confirmed">
+				<br> <br> *加入是否需審核: 
+				<select name="confirmed">
 					<option value="0">否</option>
 					<option value="1">是</option>
 				</select><br> <br> *評價限制: <select name="restriction">
@@ -116,8 +117,8 @@
 
 
 	<div id="users-contain" class="ui-widget">
-		<h1>房間列表:</h1>
-		<button id="create-user">我要開團</button>
+		<h3>房間列表:</h3>
+		<button id="create-user" type="button" class="btn btn-info btn-lg">我要開團</button>
 	</div>
 
 <!-- 房間列表 -->
@@ -323,13 +324,13 @@
 </script>
 <style>
 #allCard{
-	margin:0px auto;
+	margin:50px auto;
 	width:90%
 }
 #create-user{
 	float:right;
 	display: inline;
-	margin:15px 10px;
+	margin:15px 70px;
 }
 #joinbutton{
 	float:right;
@@ -355,10 +356,10 @@ fieldset {
 	margin-top: 25px;
 }
 
-h1 {
-	font-size: 1.2em;
-	margin: .6em 0;
+h3 {
+	margin: .6em 50px;
 	display: inline-block;
+	color:red;
 }
 
 div#users-contain {

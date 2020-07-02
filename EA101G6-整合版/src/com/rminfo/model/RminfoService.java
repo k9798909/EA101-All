@@ -42,4 +42,8 @@ public class RminfoService {
 	public RminfoVO getOneRm(String rmno) {
 		return dao.findByRmno(rmno);
 	}
+	
+	public List<RminfoVO> findByShopno(String shopno) {
+		return dao.findByShopno(shopno);
+	}
 }

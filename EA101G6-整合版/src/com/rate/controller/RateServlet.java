@@ -20,56 +20,64 @@ public class RateServlet extends HttpServlet{
 			throws ServletException, IOException{
 		
 		req.setCharacterEncoding("UTF-8");
-		String action = req.getParameter("action");
+		String[] action = req.getParameterValues("action");
 	
 	
-	if ("insert".equals(action)) { 
+	if ("insert".equals(action[0])) { 
 		
 		List<String> errorMsgs = new LinkedList<String>();
 
 		req.setAttribute("errorMsgs", errorMsgs);
 
 		try {
-			/***********************1.±µ¦¬½Ğ¨D°Ñ¼Æ - ¿é¤J®æ¦¡ªº¿ù»~³B²z*************************/
+			/***********************1.æ¥æ”¶è«‹æ±‚åƒæ•¸ - è¼¸å…¥æ ¼å¼çš„éŒ¯èª¤è™•ç†*************************/
 			
 
 			
-			String rmno= req.getParameter("rmno");
-			String ratingmbrno= req.getParameter("ratingmbrno");
-			String ratedmbrno= req.getParameter("ratedmbrno");
-			String detail= req.getParameter("detail");
+			String[] rmno= req.getParameterValues("rmno");
+			String[] ratingmbrno= req.getParameterValues("ratingmbrno");
+			String[] ratedmbrno= req.getParameterValues("ratedmbrno");
+			String[] detail= req.getParameterValues("detail");
+			String[] s = req.getParameterValues("score");
+			Integer[] score = new Integer[s.length];
 			
-			Integer score = new Integer(req.getParameter("score").trim());
-
-			RateVO rateVO = new RateVO();
-			rateVO.setRmno(rmno);
-			rateVO.setRatingmbrno(ratingmbrno);
-			rateVO.setRatedmbrno(ratedmbrno);
-			rateVO.setDetail(detail);
-			rateVO.setScore(score);
+			for(int i = 0; i < s.length; i++) {
+				score[i] = Integer.parseInt(s[i]);
+			}
+			for(int i = 0; i < ratedmbrno.length; i++) {
+				RateVO rateVO = new RateVO();
+				rateVO.setRmno(rmno[i]);
+				rateVO.setRatingmbrno(ratingmbrno[i]);
+				rateVO.setRatedmbrno(ratedmbrno[i]);
+				rateVO.setDetail(detail[i]);
+				rateVO.setScore(score[i]);
+				
+				RateService rateSvc = new RateService();
+				rateVO = rateSvc.sendRate(rmno[i],ratingmbrno[i],ratedmbrno[i],detail[i],score[i]);
+			}
+		
 			
 			
 			
 			
 			// Send the use back to the form, if there were errors
 //			if (!errorMsgs.isEmpty()) {
-//req.setAttribute("empVO", empVO); // §t¦³¿é¤J®æ¦¡¿ù»~ªºempVOª«¥ó,¤]¦s¤Jreq
+//req.setAttribute("empVO", empVO); // å«æœ‰è¼¸å…¥æ ¼å¼éŒ¯èª¤çš„empVOç‰©ä»¶,ä¹Ÿå­˜å…¥req
 //				RequestDispatcher failureView = req
 //						.getRequestDispatcher("/emp/addEmp.jsp");
 //				failureView.forward(req, res);
 //				return;
 //			}
 			
-			/***************************2.¶}©l·s¼W¸ê®Æ***************************************/
-			RateService rateSvc = new RateService();
-			rateVO = rateSvc.sendRate(rmno,ratingmbrno,ratedmbrno,detail,score);
+			/***************************2.é–‹å§‹æ–°å¢è³‡æ–™***************************************/
 			
-			/***************************3.·s¼W§¹¦¨,·Ç³ÆÂà¥æ(Send the Success view)***********/
-//			String url = "/front-end/create.jsp";
-//			RequestDispatcher successView = req.getRequestDispatcher(url); // ·s¼W¦¨¥\«áÂà¥ælistAllEmp.jsp
-//			successView.forward(req, res);				
 			
-			/***************************¨ä¥L¥i¯àªº¿ù»~³B²z**********************************/
+			/***************************3.æ–°å¢å®Œæˆ,æº–å‚™è½‰äº¤(Send the Success view)***********/
+			String url = "/front-end/room/myRoom.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); // æ–°å¢æˆåŠŸå¾Œè½‰äº¤listAllEmp.jsp
+			successView.forward(req, res);				
+			
+			/***************************å…¶ä»–å¯èƒ½çš„éŒ¯èª¤è™•ç†**********************************/
 		} catch (Exception e) {
 			System.out.println(e);
 //			errorMsgs.add(e.getMessage());

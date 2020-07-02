@@ -13,6 +13,7 @@ public class RminfoJDBCDAO implements RminfoDAO_interface {
 	private static final String GET_ALL_STMT = "SELECT * FROM RMINFO ORDER BY RMNO DESC";
 	private static final String GET_ONE_STMT = "SELECT * FROM RMINFO WHERE RMNO = ?";
 	private static final String UPDATE = "UPDATE RMINFO SET STATUS = ?, REPORT = ? WHERE RMNO = ?";
+	private static final String GET_ONE_BY_SHOPNO = "SELECT * FROM RMINFO WHERE SHOPNO = ?";
 
 	@Override
 	public void insert(RminfoVO rminfoVO) {
@@ -260,47 +261,123 @@ public class RminfoJDBCDAO implements RminfoDAO_interface {
 	
 		return rminfoVO;
 	}
+	
+	@Override
+	public List<RminfoVO> findByShopno(String shopno) {
+		
+		List<RminfoVO> list = new ArrayList<RminfoVO>();
+		RminfoVO rminfoVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+
+		
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ONE_BY_SHOPNO);
+			
+			pstmt.setString(1, shopno);
+			
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				rminfoVO = new RminfoVO();
+				rminfoVO.setRmno(rs.getString("rmno"));
+				rminfoVO.setMbrno(rs.getString("mbrno"));
+				rminfoVO.setNaming(rs.getString("naming"));
+				rminfoVO.setShopno(rs.getString("shopno"));
+				rminfoVO.setLowlimit(rs.getInt("lowlimit"));
+				rminfoVO.setUplimit(rs.getInt("uplimit"));
+				rminfoVO.setStarttime(rs.getTimestamp("starttime"));
+				rminfoVO.setEndtime(rs.getTimestamp("endtime"));
+				rminfoVO.setGame(rs.getString("game"));
+				rminfoVO.setCutoff(rs.getTimestamp("cutoff"));
+				rminfoVO.setRemarks(rs.getString("remarks"));
+				rminfoVO.setRestriction(rs.getInt("restriction"));
+				rminfoVO.setConfirmed(rs.getInt("confirmed"));
+				rminfoVO.setReport(rs.getInt("report"));
+				list.add(rminfoVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		return list;
+	}
 
 	public static void main(String[] args) {
 		RminfoJDBCDAO dao = new RminfoJDBCDAO();
+
+//		RminfoVO rminfoVO1 = new RminfoVO();
+//		rminfoVO1.setShopno("DS00001");
+//		rminfoVO1.setCutoff(java.sql.Timestamp.valueOf("2020-06-10 12:00:00"));
+//		rminfoVO1.setNaming("�o�Ѯv�b���T�p");
+//		rminfoVO1.setUplimit(8);
+//		rminfoVO1.setLowlimit(4);
+//		rminfoVO1.setStarttime(java.sql.Timestamp.valueOf("2020-06-13 09:00:00"));
+//		rminfoVO1.setEndtime(java.sql.Timestamp.valueOf("2020-06-13 16:30:00"));
+//		rminfoVO1.setMbrno("BM00001");
+//		rminfoVO1.setGame("���ѤH �s�ڳ��� �T���");
+//		rminfoVO1.setRemarks("�O�o��ñ��");
+//		rminfoVO1.setRestriction(0);
+//		rminfoVO1.setConfirmed(0);
+//		
+//		dao.insert(rminfoVO1);
 		
-		//�}��
-		RminfoVO rminfoVO1 = new RminfoVO();
-		rminfoVO1.setShopno("DS00001");
-		rminfoVO1.setCutoff(java.sql.Timestamp.valueOf("2020-06-10 12:00:00"));
-		rminfoVO1.setNaming("�o�Ѯv�b���T�p");
-		rminfoVO1.setUplimit(8);
-		rminfoVO1.setLowlimit(4);
-		rminfoVO1.setStarttime(java.sql.Timestamp.valueOf("2020-06-13 09:00:00"));
-		rminfoVO1.setEndtime(java.sql.Timestamp.valueOf("2020-06-13 16:30:00"));
-		rminfoVO1.setMbrno("BM00001");
-		rminfoVO1.setGame("���ѤH �s�ڳ��� �T���");
-		rminfoVO1.setRemarks("�O�o��ñ��");
-		rminfoVO1.setRestriction(0);
-		rminfoVO1.setConfirmed(0);
-		
-		dao.insert(rminfoVO1);
-		
-		//���ܩж����A
+
 //		dao.update(2, "SR00010");
 		
-		//�d�ߩж��C��
-//		List<RminfoVO> list = dao.getAll();
-//		for (RminfoVO aRoom : list) {
-//			System.out.print(aRoom.getMbrno()+",");
-//			System.out.print(aRoom.getNaming()+",");
-//			System.out.print(aRoom.getShopno()+",");
-//			System.out.print(aRoom.getLowlimit()+",");
-//			System.out.print(aRoom.getUplimit()+",");
-//			System.out.print(aRoom.getStarttime()+",");
-//			System.out.print(aRoom.getEndtime()+",");
-//			System.out.print(aRoom.getGame()+",");
-//			System.out.print(aRoom.getCutoff()+",");
-//			System.out.print(aRoom.getRemarks()+",");
-//			System.out.print(aRoom.getRestriction()+",");
-//			System.out.print(aRoom.getConfirmed());
-//			System.out.println();
-//		}
+
+		List<RminfoVO> list = dao.findByShopno("DS00001");
+		for (RminfoVO aRoom : list) {
+			System.out.print(aRoom.getMbrno()+",");
+			System.out.print(aRoom.getNaming()+",");
+			System.out.print(aRoom.getShopno()+",");
+			System.out.print(aRoom.getLowlimit()+",");
+			System.out.print(aRoom.getUplimit()+",");
+			System.out.print(aRoom.getStarttime()+",");
+			System.out.print(aRoom.getEndtime()+",");
+			System.out.print(aRoom.getGame()+",");
+			System.out.print(aRoom.getCutoff()+",");
+			System.out.print(aRoom.getRemarks()+",");
+			System.out.print(aRoom.getRestriction()+",");
+			System.out.print(aRoom.getReport()+",");
+			System.out.print(aRoom.getConfirmed());
+			System.out.println();
+		}
 		
 		//��@�ж���T
 //		RminfoVO rminfoVO2 = dao.findByRmno("SR00005");
@@ -318,7 +395,7 @@ public class RminfoJDBCDAO implements RminfoDAO_interface {
 //		System.out.print(rminfoVO2.getRestriction()+",");
 //		System.out.print(rminfoVO2.getConfirmed());
 //		System.out.println();
-//		
+////		
 	}
 	
 	

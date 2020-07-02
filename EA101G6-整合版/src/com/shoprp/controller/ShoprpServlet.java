@@ -30,44 +30,50 @@ public class ShoprpServlet extends HttpServlet{
 		req.setAttribute("errorMsgs", errorMsgs);
 
 		try {
-			/***********************1.±µ¦¬½Ğ¨D°Ñ¼Æ - ¿é¤J®æ¦¡ªº¿ù»~³B²z*************************/
+			/***********************1.æ¥æ”¶è«‹æ±‚åƒæ•¸ - è¼¸å…¥æ ¼å¼çš„éŒ¯èª¤è™•ç†*************************/
 			
 
 			
-			String mbrno = req.getParameter("mbrno");
-			String rmno = req.getParameter("rmno");
-			String detail = req.getParameter("detail");
+			String[] mbrno= req.getParameterValues("mbrno");
+			String[] rmno= req.getParameterValues("rmno");
+			String[] detail= req.getParameterValues("detail");
 			
-			Integer attend = new Integer(req.getParameter("attend").trim());
-
-			ShoprpVO shoprpVO = new ShoprpVO();
-			shoprpVO.setMbrno(mbrno);
-			shoprpVO.setRmno(rmno);
-			shoprpVO.setDetail(detail);
-			shoprpVO.setAttend(attend);
+			String[] a = req.getParameterValues("attend");
+			Integer[] attend = new Integer[a.length];
 			
-			
+			for(int i = 0; i < a.length; i++) {
+				attend[i] = Integer.parseInt(a[i]);
+			}
+			for(int i = 0; i < a.length; i++) {
+				ShoprpVO shoprpVO = new ShoprpVO();
+				shoprpVO.setMbrno(mbrno[i]);
+				shoprpVO.setRmno(rmno[i]);
+				shoprpVO.setDetail(detail[i]);
+				shoprpVO.setAttend(attend[i]);
+				
+				ShoprpService shoprpSvc = new ShoprpService();
+				shoprpVO = shoprpSvc.report(mbrno[i],rmno[i],detail[i],attend[i]);
+			}
 			
 			
 			// Send the use back to the form, if there were errors
 //			if (!errorMsgs.isEmpty()) {
-//req.setAttribute("empVO", empVO); // §t¦³¿é¤J®æ¦¡¿ù»~ªºempVOª«¥ó,¤]¦s¤Jreq
+//req.setAttribute("empVO", empVO); // å«æœ‰è¼¸å…¥æ ¼å¼éŒ¯èª¤çš„empVOç‰©ä»¶,ä¹Ÿå­˜å…¥req
 //				RequestDispatcher failureView = req
 //						.getRequestDispatcher("/emp/addEmp.jsp");
 //				failureView.forward(req, res);
 //				return;
 //			}
 			
-			/***************************2.¶}©l·s¼W¸ê®Æ***************************************/
-			ShoprpService shoprpSvc = new ShoprpService();
-			shoprpVO = shoprpSvc.report(mbrno,rmno,detail,attend);
+			/***************************2.é–‹å§‹æ–°å¢è³‡æ–™***************************************/
 			
-			/***************************3.·s¼W§¹¦¨,·Ç³ÆÂà¥æ(Send the Success view)***********/
-//			String url = "/front-end/create.jsp";
-//			RequestDispatcher successView = req.getRequestDispatcher(url); // ·s¼W¦¨¥\«áÂà¥ælistAllEmp.jsp
-//			successView.forward(req, res);				
 			
-			/***************************¨ä¥L¥i¯àªº¿ù»~³B²z**********************************/
+			/***************************3.æ–°å¢å®Œæˆ,æº–å‚™è½‰äº¤(Send the Success view)***********/
+			String url = "/front-end/room/shop_roomList.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); 
+			successView.forward(req, res);				
+			
+			/***************************å…¶ä»–å¯èƒ½çš„éŒ¯èª¤è™•ç†**********************************/
 		} catch (Exception e) {
 			System.out.println(e);
 //			errorMsgs.add(e.getMessage());

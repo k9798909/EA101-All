@@ -9,6 +9,7 @@
 	List<JoinrmVO> list = joinrmSvc.findByPK("","BM00001");
 	pageContext.setAttribute("list",list);
 %>
+
 <jsp:useBean id="rminfoSvc" scope="page" class="com.rminfo.model.RminfoService" />
 <!DOCTYPE html>
 <html>

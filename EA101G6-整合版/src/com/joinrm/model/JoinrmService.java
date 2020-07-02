@@ -20,11 +20,11 @@ public class JoinrmService {
 		return joinrmVO;
 		
 	}
-	//查會員有加入的房間OR查房間內的會員
+
 	public List<JoinrmVO> findByPK(String rmno,String mbrno){
 		return dao.findByPK(rmno,mbrno);
 	}
-	//離開房間
+
 	public void deleteMbr(String rmno,String mbrno) {
 		dao.delete(rmno, mbrno);
 	}

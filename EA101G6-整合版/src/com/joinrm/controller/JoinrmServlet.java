@@ -28,7 +28,7 @@ if ("insert".equals(action)) {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
-				/***********************1.±µ¦¬½Ğ¨D°Ñ¼Æ - ¿é¤J®æ¦¡ªº¿ù»~³B²z*************************/
+				/***********************1.æ¥æ”¶è«‹æ±‚åƒæ•¸ - è¼¸å…¥æ ¼å¼çš„éŒ¯èª¤è™•ç†*************************/
 				
 
 				
@@ -43,23 +43,23 @@ if ("insert".equals(action)) {
 				
 				// Send the use back to the form, if there were errors
 //				if (!errorMsgs.isEmpty()) {
-//req.setAttribute("empVO", empVO); // §t¦³¿é¤J®æ¦¡¿ù»~ªºempVOª«¥ó,¤]¦s¤Jreq
+//req.setAttribute("empVO", empVO); // ï¿½tï¿½ï¿½ï¿½ï¿½Jï¿½æ¦¡ï¿½ï¿½ï¿½~ï¿½ï¿½empVOï¿½ï¿½ï¿½ï¿½,ï¿½]ï¿½sï¿½Jreq
 //					RequestDispatcher failureView = req
 //							.getRequestDispatcher("/emp/addEmp.jsp");
 //					failureView.forward(req, res);
 //					return;
 //				}
 				
-				/***************************2.¶}©l·s¼W¸ê®Æ***************************************/
+				/***************************2.é–‹å§‹æ–°å¢è³‡æ–™***************************************/
 				JoinrmService joinrmSvc = new JoinrmService();
 				joinrmVO = joinrmSvc.insertMbr(rmno,mbrno);
 				
-				/***************************3.·s¼W§¹¦¨,·Ç³ÆÂà¥æ(Send the Success view)***********/
-//				String url = "/front-end/create.jsp";
-//				RequestDispatcher successView = req.getRequestDispatcher(url); // ·s¼W¦¨¥\«áÂà¥ælistAllEmp.jsp
-//				successView.forward(req, res);				
+				/***************************3.æ–°å¢å®Œæˆ,æº–å‚™è½‰äº¤(Send the Success view)***********/
+				String url = "/front-end/room/create.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);				
 				
-				/***************************¨ä¥L¥i¯àªº¿ù»~³B²z**********************************/
+				/***************************å…¶ä»–å¯èƒ½çš„éŒ¯èª¤è™•ç†**********************************/
 			} catch (Exception e) {
 				System.out.println(e);
 //				errorMsgs.add(e.getMessage());
@@ -69,7 +69,7 @@ if ("insert".equals(action)) {
 			}
 		}
 
-if ("delete".equals(action)) { // ¨Ó¦ÛlistAllEmp.jsp
+if ("delete".equals(action)) { // ï¿½Ó¦ï¿½listAllEmp.jsp
 
 	List<String> errorMsgs = new LinkedList<String>();
 	// Store this set in the request scope, in case we need to
@@ -77,29 +77,29 @@ if ("delete".equals(action)) { // ¨Ó¦ÛlistAllEmp.jsp
 	req.setAttribute("errorMsgs", errorMsgs);
 
 	try {
-		/***************************1.±µ¦¬½Ğ¨D°Ñ¼Æ***************************************/
+		/***************************1.ï¿½ï¿½ï¿½ï¿½ï¿½Ğ¨Dï¿½Ñ¼ï¿½***************************************/
 		String mbrno= req.getParameter("mbrno");
 		String rmno= req.getParameter("rmno");
-		/***************************2.¶}©l§R°£¸ê®Æ***************************************/
+		/***************************2.ï¿½}ï¿½lï¿½Rï¿½ï¿½ï¿½ï¿½ï¿½***************************************/
 		JoinrmService joinrmSvc = new JoinrmService();
 		joinrmSvc.deleteMbr(rmno, mbrno);
 		
-		/***************************3.§R°£§¹¦¨,·Ç³ÆÂà¥æ(Send the Success view)***********/								
+		/***************************3.ï¿½Rï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½Ç³ï¿½ï¿½ï¿½ï¿½(Send the Success view)***********/								
 //		String url = "/emp/listAllEmp.jsp";
-//		RequestDispatcher successView = req.getRequestDispatcher(url);// §R°£¦¨¥\«á,Âà¥æ¦^°e¥X§R°£ªº¨Ó·½ºô­¶
+//		RequestDispatcher successView = req.getRequestDispatcher(url);// ï¿½Rï¿½ï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½,ï¿½ï¿½ï¿½^ï¿½eï¿½Xï¿½Rï¿½ï¿½ï¿½ï¿½ï¿½Ó·ï¿½ï¿½ï¿½ï¿½ï¿½
 //		successView.forward(req, res);
 		
-		/***************************¨ä¥L¥i¯àªº¿ù»~³B²z**********************************/
+		/***************************ï¿½ï¿½Lï¿½iï¿½àªºï¿½ï¿½ï¿½~ï¿½Bï¿½z**********************************/
 	} catch (Exception e) {
 		System.out.println(e);
-//		errorMsgs.add("§R°£¸ê®Æ¥¢±Ñ:"+e.getMessage());
+//		errorMsgs.add("ï¿½Rï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½:"+e.getMessage());
 //		RequestDispatcher failureView = req
 //				.getRequestDispatcher("/emp/listAllEmp.jsp");
 //		failureView.forward(req, res);
 	}
 }
 
-if ("listInfo".equals(action)) { // ¨Ó¦Ûselect_page.jspªº½Ğ¨D
+if ("listInfo".equals(action)) { // ï¿½Ó¦ï¿½select_page.jspï¿½ï¿½ï¿½Ğ¨D
 
 	List<String> errorMsgs = new LinkedList<String>();
 	// Store this set in the request scope, in case we need to
@@ -107,41 +107,41 @@ if ("listInfo".equals(action)) { // ¨Ó¦Ûselect_page.jspªº½Ğ¨D
 	req.setAttribute("errorMsgs", errorMsgs);
 
 	try {
-		/***************************1.±µ¦¬½Ğ¨D°Ñ¼Æ - ¿é¤J®æ¦¡ªº¿ù»~³B²z**********************/
+		/***************************1.ï¿½ï¿½ï¿½ï¿½ï¿½Ğ¨Dï¿½Ñ¼ï¿½ - ï¿½ï¿½Jï¿½æ¦¡ï¿½ï¿½ï¿½ï¿½ï¿½~ï¿½Bï¿½z**********************/
 		String rmno= req.getParameter("rmno");
 		String mbrno= req.getParameter("mbrno");
 		
-		/***************************2.¶}©l¬d¸ß¸ê®Æ*****************************************/
+		/***************************2.ï¿½}ï¿½lï¿½dï¿½ß¸ï¿½ï¿½*****************************************/
 		JoinrmService joinrmSvc = new JoinrmService();
 		List<JoinrmVO> joinrmVO = joinrmSvc.findByPK(rmno, mbrno);
 		if (joinrmVO == null) {
-			errorMsgs.add("¬dµL¸ê®Æ");
+			errorMsgs.add("ï¿½dï¿½Lï¿½ï¿½ï¿½");
 		}
 		// Send the use back to the form, if there were errors
 //		if (!errorMsgs.isEmpty()) {
 //			RequestDispatcher failureView = req
 //					.getRequestDispatcher("/emp/select_page.jsp");
 //			failureView.forward(req, res);
-//			return;//µ{¦¡¤¤Â_
+//			return;//ï¿½{ï¿½ï¿½ï¿½ï¿½ï¿½_
 //		}
 		
-		/***************************3.¬d¸ß§¹¦¨,·Ç³ÆÂà¥æ(Send the Success view)*************/
-		req.setAttribute("joinrmVO", joinrmVO); // ¸ê®Æ®w¨ú¥XªºempVOª«¥ó,¦s¤Jreq
+		/***************************3.ï¿½dï¿½ß§ï¿½ï¿½ï¿½,ï¿½Ç³ï¿½ï¿½ï¿½ï¿½(Send the Success view)*************/
+		req.setAttribute("joinrmVO", joinrmVO); // ï¿½ï¿½Æ®wï¿½ï¿½ï¿½Xï¿½ï¿½empVOï¿½ï¿½ï¿½ï¿½,ï¿½sï¿½Jreq
 		String url = "/front-end/room/list_findByPK.jsp";
 		RequestDispatcher successView = req.getRequestDispatcher(url); 
 //		successView.forward(req, res);
 
-		/***************************¨ä¥L¥i¯àªº¿ù»~³B²z*************************************/
+		/***************************ï¿½ï¿½Lï¿½iï¿½àªºï¿½ï¿½ï¿½~ï¿½Bï¿½z*************************************/
 	} catch (Exception e) {
 		System.out.println(e);
-//		errorMsgs.add("µLªk¨ú±o¸ê®Æ:" + e.getMessage());
+//		errorMsgs.add("ï¿½Lï¿½kï¿½ï¿½ï¿½oï¿½ï¿½ï¿½:" + e.getMessage());
 //		RequestDispatcher failureView = req
 //				.getRequestDispatcher("/emp/select_page.jsp");
 //		failureView.forward(req, res);
 	}
 }
 
-if ("listInfo2".equals(action)) { // ¨Ó¦Ûselect_page.jspªº½Ğ¨D
+if ("listInfo2".equals(action)) { // ï¿½Ó¦ï¿½select_page.jspï¿½ï¿½ï¿½Ğ¨D
 
 	List<String> errorMsgs = new LinkedList<String>();
 	// Store this set in the request scope, in case we need to
@@ -149,34 +149,34 @@ if ("listInfo2".equals(action)) { // ¨Ó¦Ûselect_page.jspªº½Ğ¨D
 	req.setAttribute("errorMsgs", errorMsgs);
 
 	try {
-		/***************************1.±µ¦¬½Ğ¨D°Ñ¼Æ - ¿é¤J®æ¦¡ªº¿ù»~³B²z**********************/
+		/***************************1.ï¿½ï¿½ï¿½ï¿½ï¿½Ğ¨Dï¿½Ñ¼ï¿½ - ï¿½ï¿½Jï¿½æ¦¡ï¿½ï¿½ï¿½ï¿½ï¿½~ï¿½Bï¿½z**********************/
 		String rmno= req.getParameter("rmno");
 		String mbrno= req.getParameter("mbrno");
 		
-		/***************************2.¶}©l¬d¸ß¸ê®Æ*****************************************/
+		/***************************2.ï¿½}ï¿½lï¿½dï¿½ß¸ï¿½ï¿½*****************************************/
 		JoinrmService joinrmSvc = new JoinrmService();
 		List<JoinrmVO> joinrmVO = joinrmSvc.findByPK(rmno, mbrno);
 		if (joinrmVO == null) {
-			errorMsgs.add("¬dµL¸ê®Æ");
+			errorMsgs.add("ï¿½dï¿½Lï¿½ï¿½ï¿½");
 		}
 		// Send the use back to the form, if there were errors
 //		if (!errorMsgs.isEmpty()) {
 //			RequestDispatcher failureView = req
 //					.getRequestDispatcher("/emp/select_page.jsp");
 //			failureView.forward(req, res);
-//			return;//µ{¦¡¤¤Â_
+//			return;//ï¿½{ï¿½ï¿½ï¿½ï¿½ï¿½_
 //		}
 		
-		/***************************3.¬d¸ß§¹¦¨,·Ç³ÆÂà¥æ(Send the Success view)*************/
+		/***************************3.ï¿½dï¿½ß§ï¿½ï¿½ï¿½,ï¿½Ç³ï¿½ï¿½ï¿½ï¿½(Send the Success view)*************/
 		PrintWriter out = res.getWriter();
 		  out.append(String.valueOf(joinrmVO.size()));
 		  out.close();
 
 
-		/***************************¨ä¥L¥i¯àªº¿ù»~³B²z*************************************/
+		/***************************ï¿½ï¿½Lï¿½iï¿½àªºï¿½ï¿½ï¿½~ï¿½Bï¿½z*************************************/
 	} catch (Exception e) {
 		System.out.println(e);
-//		errorMsgs.add("µLªk¨ú±o¸ê®Æ:" + e.getMessage());
+//		errorMsgs.add("ï¿½Lï¿½kï¿½ï¿½ï¿½oï¿½ï¿½ï¿½:" + e.getMessage());
 //		RequestDispatcher failureView = req
 //				.getRequestDispatcher("/emp/select_page.jsp");
 //		failureView.forward(req, res);
