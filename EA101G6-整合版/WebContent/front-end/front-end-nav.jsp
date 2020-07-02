@@ -73,7 +73,7 @@
 							<span class="mx-md-2 d-inline-block"></span>
 							<a href="<%=request.getContextPath()%>/front-end/shop/update_shop_input.jsp" class="text-white"> <span
 								class="mr-2 text-white icon-instagram"></span> <span
-								class="d-none d-md-inline-block">${sessionScope.shopVO.shopname}</span>
+								class="d-none d-md-inline-block">${sessionScope.shopVO.shopname}</span></a>
 														
 						</c:if>
 						<c:if test="${empty sessionScope.shopVO}">
@@ -105,11 +105,11 @@
 
 						<ul
 							class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
-							<li><a href="" class="nav-link">首頁</a></li>
+							<li><a href="<%=request.getContextPath()%>/front-end/index.jsp" class="nav-link">首頁</a></li>
 
 							<li class="has-children"><a href="" class="nav-link">會員專區</a>
 								<ul class="dropdown arrow-top">
-									<li><a href="#team-section" class="nav-link">Team</a></li>
+									<li><a href="<%= request.getContextPath()%>/front-end/mallOr/mbrMallOr.jsp" class="nav-link">查詢訂單</a></li>
 									<li><a href="#pricing-section" class="nav-link">Pricing</a></li>
 									<li><a href="#faq-section" class="nav-link">FAQ</a></li>
 									<li class="has-children"><a href="#">More Links</a>
