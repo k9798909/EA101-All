@@ -14,8 +14,19 @@
 <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/mallcss.css">
 </head>
-<body>
 
+<style>
+
+div.backNav .navbar-light .navbar-nav a.nav-link, .dropdown-item {
+    width:auto;
+    margin:10px;
+    padding:0px;
+}
+
+</style>
+
+<body>
+<%@ include file="/back-end/back-end_nav.jsp" %>
 	<div id="commaction">
 		<button id="callGmType" style="margin-right:10px;">遊戲類型</button><button id="create-user">新增商品</button>
 		<div style="display:inline">收尋商品:<form method="post" action="<%= request.getContextPath()%>/Mall/BackMallServlet" style="display:inline"><input type="text" name="selName">

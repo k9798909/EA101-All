@@ -84,7 +84,7 @@ $(document).ready(function() {
 			$(intro).css({
 				"position" : "absolute",
 				"width" : "400px",
-				"top" : "15%",
+				"top" : "35%",
 				"background-color" : "#ffffff",
 				"word-break" : "break-all",
 				"word-wrap" : "break-word",

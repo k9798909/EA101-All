@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/mallcss.css">
 </head>
 <body>
-
+	<%@ include file="/back-end/back-end_nav.jsp" %>
 	<div id="commaction">
 		<button onclick="javascript:location.href='<%= request.getContextPath() %>/back-end/mall/mallGetAll.jsp'">°Ó«~­¶­±</button>
 	</div>

@@ -1,5 +1,9 @@
 #comm tbody tr:nth-child(even) {
-	background: #FFF0AC;
+	background: #ffffff;
+}
+
+#comm tbody tr:nth-child(odd) {
+	background:#F0F0F0;
 }
 
 #comm {
@@ -11,13 +15,14 @@
 }
 
 #comm thead th {
-	background-color: #FFC857;
+	background-color:#ffffff ;
 	height: 15px;
 	text-align: center;
 }
 
 #comm tbody td {
-	height: 50px;
+	height: 65px;
+	vertical-align : middle ;
 }
 
 #comm td div {
@@ -41,7 +46,7 @@
 }
 
 #commaction button {
-	width: 80px;
+	width: 90px;
 	height: 40px;
 	border-radius: 8px;
 	background-color: #555555;
@@ -50,7 +55,7 @@
 }
 
 #addDiv , #updateDiv {
-	width: 300px;
+	width: 350px;
 	height: 500px;
 	position: absolute;
 	top: 50px;
@@ -83,7 +88,7 @@
 	text-align: center;
 }
 
-fieldset {
+.commDiv fieldset {
 	border-radius: 20px;
 	background-color: aliceblue;
 	padding-left: 10px;
@@ -96,7 +101,7 @@ fieldset {
 	border-radius: 4px;
 	background-color: #e7e7e7;
 	color: #000000;
-	font-size: 12px;
+	font-size: 14px;
 }
 
 @media screen and (max-width: 476px){
@@ -112,7 +117,7 @@ fieldset {
 }
 
 
-.btn {
+button.btn,input.btn {
 	border-radius: 4px;
 	background-color: #e7e7e7;
 	color: #000000;

@@ -13,7 +13,7 @@
 </head>
 <body>
 
-	<div id="updateDiv" title="mallAdd">
+	<div class="commDiv" id="updateDiv" title="mallAdd">
 
 
 		<form method="post" action="<%=request.getContextPath()%>/Mall/BackMallServlet" enctype="multipart/form-data">

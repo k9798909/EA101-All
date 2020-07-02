@@ -16,17 +16,13 @@
 
 <title>員工管理</title>
 
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
 <!-- https://fonts.google.com/specimen/Open+Sans -->
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/fontawesome.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/backCss/fontawesome.min.css">
 <!-- https://fontawesome.com/ -->
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/bootstrap.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/backCss/bootstrap.min.css">
 <!-- https://getbootstrap.com/ -->
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/tooplate.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/backCss/tooplate.css">
 
 
 
@@ -36,7 +32,7 @@
 
 </head>
 <body class="bg03">
-	<div class="container">
+	<div class="container backNav">
 		<div class="row">
 			<div class="col-12">
 				<nav class="navbar navbar-expand-xl navbar-light bg-light">
@@ -108,7 +104,7 @@
 	
 	
 	
-	<script src="<%=request.getContextPath() %>/js/bootstrap.min.js"></script>
+	<script src="<%=request.getContextPath() %>/js/backJs/bootstrap.min.js"></script>
 	
 	<script>
 	// DOM is ready

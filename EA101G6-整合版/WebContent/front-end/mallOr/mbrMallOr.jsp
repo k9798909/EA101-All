@@ -159,8 +159,7 @@ main {
 											</tr>
 										</thead>
 										<tbody>
-											<c:forEach var="mallOrDt"
-												items="${mallOrDtSvc.getByOrNo(mallOr.mallOrNo)}">
+											<c:forEach var="mallOrDt" items="${mallOrDtSvc.getByOrNo(mallOr.mallOrNo)}">
 												<tr>
 													<td>${mallSvc.findOneByNo(mallOrDt.commNo).commName}</td>
 													<td>${mallOrDt.quantity}</td>
