@@ -24,7 +24,7 @@
 <main>
 <form class="login-form " action="<%=request.getContextPath()%>/mbrpf/mbrpf.do" method="post">
 <div class="login-form ">
-     <h1><img src="<%=request.getContextPath()%>/image/tomcat.png" width="100" height="100" border="0"></h1>
+     <h1><img src="<%=request.getContextPath()%>/images/rocket.gif" width="250" height="200" border="0"></h1>
      <div class="form-group ">
        <input type="text" class="form-control" name="account" placeholder="±b¸¹ " id="UserName">
        <i class="fa fa-user"></i>
