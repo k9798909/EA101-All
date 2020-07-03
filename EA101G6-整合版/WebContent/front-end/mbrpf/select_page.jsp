@@ -34,7 +34,7 @@
 <%@ include file="/front-end/front-end-nav.jsp"%>
 
 <table id="table-1">
-   <tr><td><img src="images/tomcat.png" width="100" height="100" border="0"><h4>( MVC )</h4></td></tr>
+   <tr><td><img src="<%= request.getContextPath()%>/images/tomcat.png" width="100" height="100" border="0"><h4>( MVC )</h4></td></tr>
 </table>
 
 <p>This is the Home page for IBM Mbrpf: Home</p>
