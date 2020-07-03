@@ -58,85 +58,89 @@ h4 {
 
 <body>
 
-<%-- <%@ include file="/front-end/front-end-nav.jsp" %> --%>
 
-<h4>
-	<a href="../shop/index.jsp"><img src="images/add-icon.png"
-		class="icon">回首頁</a>
-</h4>
 
-<table>
-	<tr style="background-color: #FFFFFF; border: 0px; font:;">
-		<td style="background-color: #FFFFFF; border: 0px;">
-			<h3>新增提供的遊戲</h3>
-		</td>
-	</tr>
-</table>
-<%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-	<font style="color: red">請修正以下錯誤:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color: red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
-<div>
-	<table>
+
+<div class="container">
+<div class="row">
+<div class="col-sm-5">
+	<table class="table table-sm">
+		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/gmlist/gmlist.do">
 		<tr>
-			<th>遊戲名稱</th>
-			<th>遊戲圖片</th>
-			<th>刪除</th>
+		<h4 class="text-dark">我的桌遊</h4>
+		<input type="hidden" name="action" value="delete">
+		<input type="submit" value="刪除" class="btn btn-primary">
 		</tr>
+		
 		<c:forEach var="gmlistVO" items="${list}">				
 			<tr>
-				<td>${gameSvc.getOneGame(gmlistVO.gmno).gmname}</td>
-				<td><img
-					src="<%=request.getContextPath()%>/GameShowImg?gmno=${gmlistVO.gmno}"></td>
-				<td><FORM METHOD="post" ACTION="gmlist.do">
-				<input type="hidden" name="shopno" value="${gmlistVO.shopno}">
-				<input type="hidden" name="gmno" value="${gmlistVO.gmno}">
-				<input type="hidden" name="action" value="delete">
-				<input type="submit" value="刪除">
-					</FORM></td>								
+			<td>
+			<div class="form-check">
+  			<input class="form-check-input" name="gmno" value="${gmlistVO.gmno}" type="checkbox" id="${gmlistVO.gmno}">
+  			<label class="form-check-label" for="${gmlistVO.gmno}"></label>
+  			</div>
+  			</td>			
+			<td>
+			<label class="form-check-label" for="${gmlistVO.gmno}">${gameSvc.getOneGame(gmlistVO.gmno).gmname}</label></td>				
+			<td>
+			<label class="form-check-label" for="${gmlistVO.gmno}"><img
+					src="<%=request.getContextPath()%>/GameShowImg?gmno=${gmlistVO.gmno}"></label></td>							
 			</tr>
 		</c:forEach>
+		</FORM>
 	</table>
 </div>
-
-<div>
-	<table>
+<div class="col-sm-5">
+	<table class="table table-sm">
+		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/gmlist/gmlist.do">
 		<tr>
-			<th>遊戲名稱</th>
-			<th>遊戲圖片</th>
-			<th>新增</th>
+			<h4 class="text-dark">其他桌遊</h4>
+			<input type="hidden" name="action" value="insert">
+			<input type="submit" value="增加" class="btn btn-primary">
 		</tr>
-			
-			<c:forEach var="gameVO" items="${gameSvc.all}">
-				<c:set var="tampbollean" value="true"/>
-				<c:forEach var="gmlistVO" items="${list}">
+				
+		<c:forEach var="gameVO" items="${gameSvc.all}">	
+		<c:set var="tampbollean" value="true"/>
+		<c:forEach var="gmlistVO" items="${list}">
 					<c:if test="${gameVO.gmno==gmlistVO.gmno}">
 						<c:set var="tampbollean" value="false"/>
 					</c:if>
-				</c:forEach>					
-						
-						<c:if test="${tampbollean}">
-						<tr>
-							<td>${gameVO.gmname}</td>
-							<td><img
-								src="<%=request.getContextPath()%>/GameShowImg?gmno=${gameVO.gmno}"></td>
-							<td>							
-							<FORM METHOD="post" ACTION="gmlist.do">
-							<input type="hidden" name="shopno" value="${shopVO.shopno}">
-							<input type="hidden" name="gmno" value="${gameVO.gmno}">
-							<input type="hidden" name="action" value="insert">
-							<input type="submit" value="新增">
-							</FORM></td>								
-						</tr>
-						</c:if>
-						
-			</c:forEach>
+				</c:forEach>
+				<c:if test="${tampbollean}">
+				<tr>
+			<td>
+			<div class="form-check">
+  			<input class="form-check-input" name="gmno2" value="${gameVO.gmno}" type="checkbox" id="${gameVO.gmno}">
+  			<label class="form-check-label" for="${gameVO.gmno}"></label>
+  			</div>
+  			</td>			
+			<td>
+			<label class="form-check-label" for="${gameVO.gmno}">${gameSvc.getOneGame(gameVO.gmno).gmname}</label></td>				
+			<td>
+			<label class="form-check-label" for="${gameVO.gmno}"><img
+					src="<%=request.getContextPath()%>/GameShowImg?gmno=${gameVO.gmno}"></label></td>							
+			</tr>
+			</c:if>			
+		</c:forEach>
+
+		</FORM>
 	</table>
 </div>
+</div>
+</div>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+	<!-- 查詢時有錯誤啟動 -->
+	<c:if test="${not empty errorMsgs}">
+		<script>
+			swal({
+				text : "${errorMsgs}"
+			});
+		</script>
+		<%
+			request.removeAttribute("errorMsgs");
+		%>
+	</c:if>
 </body>
 </html>

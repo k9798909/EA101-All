@@ -9,6 +9,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
 
 import com.gmlist.model.*;
+import com.shop.model.ShopVO;
 
 @MultipartConfig
 public class GmlistServlet extends HttpServlet {
@@ -24,10 +25,9 @@ public class GmlistServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		if ("getOne_For_Display".equals(action)) { // �Ӧ�select_page.jsp���ШD
 
-			List<String> errorMsgs = new LinkedList<String>();
+			String errorMsgs = "";
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
-			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
 				/***************************
@@ -36,9 +36,11 @@ public class GmlistServlet extends HttpServlet {
 				String gmno = req.getParameter("gmno1");
 				String gmnoReg = "[D][G]\\d{5}";
 				if (gmno == null || (gmno.trim()).length() == 0) {
-					errorMsgs.add("店家編號不能為空");
+					errorMsgs+="店家編號不能為空";
+					req.setAttribute("errorMsgs", errorMsgs);
 				} else if (!gmno.trim().matches(gmnoReg)) {
-					errorMsgs.add("店家編號格式錯誤");
+					errorMsgs+="店家編號格式錯誤";
+					req.setAttribute("errorMsgs", errorMsgs);
 				}
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req.getRequestDispatcher("listAllGmlist.jsp");
@@ -48,9 +50,11 @@ public class GmlistServlet extends HttpServlet {
 				String shopno = req.getParameter("shopno1");
 				String shopnoReg = "[D][S]\\d{5}";
 				if (shopno == null || (shopno.trim()).length() == 0) {
-					errorMsgs.add("店家編號不能為空");
+					errorMsgs+="店家編號不能為空";
+					req.setAttribute("errorMsgs", errorMsgs);
 				} else if (!shopno.trim().matches(shopnoReg)) {
-					errorMsgs.add("店家編號格式錯誤");
+					errorMsgs+="店家編號格式錯誤";
+					req.setAttribute("errorMsgs", errorMsgs);
 				}
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req.getRequestDispatcher("listAllGmlist.jsp");
@@ -64,7 +68,8 @@ public class GmlistServlet extends HttpServlet {
 				GmlistService gmlistSvc = new GmlistService();
 				GmlistVO gmlistVO = gmlistSvc.getOneGmlist(gmno, shopno);
 				if (gmlistVO == null) {
-					errorMsgs.add("查無資料");
+					errorMsgs+="查無資料";
+					req.setAttribute("errorMsgs", errorMsgs);
 				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
@@ -83,7 +88,7 @@ public class GmlistServlet extends HttpServlet {
 				 * ��L�i�઺���~�B�z
 				 *************************************/
 			} catch (Exception e) {
-				errorMsgs.add("無法取得資料:" + e.getMessage());
+				errorMsgs+="無法取得資料:" + e.getMessage();
 				RequestDispatcher failureView = req.getRequestDispatcher("listAllGmlist.jsp");
 				failureView.forward(req, res);
 			}
@@ -132,45 +137,17 @@ public class GmlistServlet extends HttpServlet {
 
 		if ("insert".equals(action)) { // addgmlist.jsp���ШD
 
-			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
-			req.setAttribute("errorMsgs", errorMsgs);
-			try {
-				/*********************** 1. *************************/
+				String errorMsgs = "";
+				// Store this set in the request scope, in case we need to
+				// send the ErrorPage view.
+				
 
-				String gmno = req.getParameter("gmno");
-				String gmnoReg = "[D][G]\\d{5}";
-				if (gmno == null || (gmno.trim()).length() == 0) {
-					errorMsgs.add("店家編號不能為空");
-				} else if (!gmno.trim().matches(gmnoReg)) {
-					errorMsgs.add("店家編號格式錯誤");
-				}
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("listAllGmlist.jsp");
-					failureView.forward(req, res);
-					return;// �{�����_
-				}
-				String shopno = req.getParameter("shopno");
-				String shopnoReg = "[D][S]\\d{5}";
-				if (shopno == null || (shopno.trim()).length() == 0) {
-					errorMsgs.add("店家編號不能為空");
-				} else if (!shopno.trim().matches(shopnoReg)) {
-					errorMsgs.add("店家編號格式錯誤");
-				}
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("listAllGmlist.jsp");
-					failureView.forward(req, res);
-					return;// �{�����_
-				}
-
-				GmlistVO gmlistVO = new GmlistVO();
-				gmlistVO.setGmno(gmno);
-				gmlistVO.setShopno(shopno);
-
-				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					req.setAttribute("gmlistVO", gmlistVO);
+				try {
+				String[] gmno = req.getParameterValues("gmno2");
+				ShopVO shopVO = (ShopVO)session.getAttribute("shopVO");
+				if(gmno == null) {
+					errorMsgs+="請選擇要增加的遊戲";
+					req.setAttribute("errorMsgs", errorMsgs);
 					RequestDispatcher failureView = req.getRequestDispatcher("addGmlist.jsp");
 					failureView.forward(req, res);
 					return;
@@ -180,50 +157,61 @@ public class GmlistServlet extends HttpServlet {
 				 * 2.�}�l�s�W���
 				 ***************************************/
 				GmlistService gmlistSvc = new GmlistService();
-				gmlistVO = gmlistSvc.addGmlist(gmno, shopno);
+				for(String s:gmno) {
+					gmlistSvc.addGmlist(s, shopVO.getShopno());
+				}
 
 				/***************************
 				 * 3.�s�W����,�ǳ����(Send the Success view)
 				 ***********/
+				
+				
+				/*************************** 3.(Send the Success view) *************/
 				String url = "addGmlist.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // �s�W���\�����listAllgmlist.jsp
+				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 
-				/*************************** ��L�i�઺���~�B�z **********************************/
-			} catch (Exception e) {
-				errorMsgs.add(e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("addGmlist.jsp");
-				failureView.forward(req, res);
-			}
+				} catch (Exception e) {
+					errorMsgs+="無法取得資料" + e.getMessage();
+					req.setAttribute("errorMsgs", errorMsgs);
+					RequestDispatcher failureView = req.getRequestDispatcher("addGmlist.jsp");
+					failureView.forward(req, res);
+				}
 		}
 		
 		if ("delete".equals(action)) { // �Ӧ�select_page.jsp���ШD
 
-			List<String> errorMsgs = new LinkedList<String>();
+			String errorMsgs = "";
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
-			req.setAttribute("errorMsgs", errorMsgs);
+			
 
 			try {
-			String shopno = req.getParameter("shopno");
-			String gmno = req.getParameter("gmno");
-					
-			// Send the use back to the form, if there were errors
-			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("listAllGmlist.jsp");
+			String[] gmno = req.getParameterValues("gmno");
+			ShopVO shopVO = (ShopVO)session.getAttribute("shopVO");
+			if(gmno == null) {
+				errorMsgs+="請選擇要刪除的遊戲";
+				req.setAttribute("errorMsgs", errorMsgs);
+				RequestDispatcher failureView = req.getRequestDispatcher("addGmlist.jsp");
 				failureView.forward(req, res);
 				return;
 			}
+			// Send the use back to the form, if there were errors
 			GmlistService gmlistSvc = new GmlistService();
-			gmlistSvc.deleteGmlist(gmno, shopno);
+			for(String s:gmno) {
+				gmlistSvc.deleteGmlist(s, shopVO.getShopno());
+			}
+			
+			
 			/*************************** 3.(Send the Success view) *************/
 			String url = "addGmlist.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 
 			} catch (Exception e) {
-				errorMsgs.add("無法取得資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("listAllGmlist.jsp");
+				errorMsgs+="無法取得資料" + e.getMessage();
+				req.setAttribute("errorMsgs", errorMsgs);
+				RequestDispatcher failureView = req.getRequestDispatcher("addGmlist.jsp");
 				failureView.forward(req, res);
 			}
 		}

@@ -51,15 +51,6 @@ img {
 
 	<h3>資料修改:</h3>
 
-	<%-- 錯誤表列 --%>
-	<c:if test="${not empty errorMsgs}">
-		<font style="color: red">請修正以下錯誤:</font>
-		<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color: red">${message}</li>
-			</c:forEach>
-		</ul>
-	</c:if>
 
 	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/shop/shop.do" name="form1"
 		enctype="multipart/form-data">
@@ -85,8 +76,11 @@ img {
 			</tr>
 			<tr>
 				<td>位置:</td>
-				<td><input type="TEXT" name="shoploc" size="45"
-					value="${shopVO.shoploc}" /></td>
+				<td>
+				<select name="city" id="縣市1"><option value=${not empty city?city:""}></select>
+				<select name="area" id="鄉鎮市區1"><option value=${not empty area?area:""}></select>
+				<input type="text" name="addr" class="addr" value="${not empty shopVO?shopVO.shoploc.substring(6):""}" placeholder="請輸入地址">
+				</td>
 			</tr>
 			<tr>
 				<td>場地:</td>
@@ -144,5 +138,25 @@ img {
 		});
 	}
 	window.onload = init;
+	
+	<c:if test="${not empty errorMsgs}">	
+ 	var erromsg="";
+	<c:forEach var="erromsg" items="${errorMsgs}">
+			erromsg+="${erromsg}\n"
+	</c:forEach>
+	swal({text:erromsg });
+	</c:if>
+
+
+   	window.onload = function () {
+       //當頁面載完之後，用AddressSeleclList.Initialize()，
+       //傳入要綁定的縣市下拉選單ID及鄉鎮市區下拉選單ID
+       AddressSeleclList.Initialize('縣市1', '鄉鎮市區1');
+       //後面四個參數分別是兩個下拉選單的預設文字跟值
+      AddressSeleclList.Initialize('縣市2', '鄉鎮市區2', 'Please Select City', '0', 'Please Select Area', '0');
+  }
 </script>
+<script
+		src="<%=request.getContextPath()%>/js/address.js"></script>	
+		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </html>

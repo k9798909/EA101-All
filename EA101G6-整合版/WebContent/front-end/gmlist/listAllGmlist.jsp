@@ -56,9 +56,6 @@ h4 {
 
 <%@ include file="/front-end/front-end-nav.jsp" %>
 
-<h4>
-	<a href="index.jsp"><img src="images/add-icon.png" class="icon">¦^­º­¶</a>
-</h4>
 
 <jsp:include page="select_page.jsp" flush="true">
 	<jsp:param name="" value="" />
@@ -96,7 +93,6 @@ h4 {
 				<td>${ shopSvc.getOneShop(gmlistVO.shopno).shoploc }</td>
 				<td>${ gameSvc.getOneGame(gmlistVO.gmno).gmname }</td>
 				<td><img style="width: 50px; height: 50px;" src="<%=request.getContextPath()%>/GameShowImg?gmno=${gmlistVO.gmno}"></td>
-
 			</tr>
 		</c:forEach>
 	</table>

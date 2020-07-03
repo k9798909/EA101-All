@@ -3,12 +3,13 @@
 <%@ page import="com.shop.model.*"%>
 <%@ include file="/front-end/front-end-nav.jsp" %>
 <%
+	java.util.HashMap<String, String> hashmap = (java.util.HashMap<String, String>) request.getAttribute("cityarea");
 	ShopVO shopVO = (ShopVO) request.getAttribute("shopVO");
 %>
 <html>
 <head>
 <meta charset="utf-8">
-
+<script src="<%=request.getContextPath()%>/js/taiwan_address_auto_change.js"></script>
 <title>註冊店家</title>
 
 <style>
@@ -52,15 +53,6 @@ img {
 			class="icon">回首頁</a>
 		<h3>店家註冊</h3>
 	</table>
-	<%-- 錯誤表列 --%>
-	<c:if test="${not empty errorMsgs}">
-		<font style="color: red">請修正以下錯誤:</font>
-		<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color: red">${message}</li>
-			</c:forEach>
-		</ul>
-	</c:if>
 
 	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/shop/shop.do" enctype="multipart/form-data">
 		<table>
@@ -77,12 +69,16 @@ img {
 			<tr>
 				<td>店家名稱:</td>
 				<td><input type="TEXT" name="shopname" size=100%
-					value="<%=(shopVO == null) ? "RRRR" : shopVO.getShopname()%>" /></td>
+					value="${(param.shopname == null) ? "123" : param.shopname }" /></td>
 			</tr>
+<%-- 			<%=(shopVO == null) ? "RRRR" : shopVO.getShopname()%> --%>
 			<tr>
 				<td>店家位置:</td>
-				<td><input type="TEXT" name="shoploc" size=100%
-					value="<%=(shopVO == null) ? "桃園市" : shopVO.getShoploc()%>" /></td>
+				<td><select name="city" id="縣市1">
+				<option value"${param.city}">${param.city}</option></select>
+				<select name="area" id="鄉鎮市區1"></select>
+				<input type="text" id="ads" name="addr" class="address" value="<%= (hashmap == null)? "":hashmap.get("addr") %>"></td>
+				<input id="address" name="address" type="hidden" value="<%= (shopVO == null)? "":shopVO.getShoploc() %>"/>			
 			</tr>
 			<tr>
 				<td>場地:</td>
@@ -135,5 +131,42 @@ img {
 		});
 	}
 	window.onload = init;
+	
+	<c:if test="${not empty errorMsgs}">	
+ 	var erromsg="";
+	<c:forEach var="erromsg" items="${errorMsgs}">
+			erromsg+="${erromsg}\n"
+	</c:forEach>
+	swal({text:erromsg });
+	</c:if>
+
+
+   	window.onload = function () {
+   		init();
+       //當頁面載完之後，用AddressSeleclList.Initialize()，
+       //傳入要綁定的縣市下拉選單ID及鄉鎮市區下拉選單ID
+   	 AddressSeleclList.Initialize('縣市1', '鄉鎮市區1'<%= (hashmap == null)? "":",'"+hashmap.get("city")+"'"%><%= (hashmap == null)? "": ",'"+hashmap.get("area")+"'"%>);
+     var addressClass = document.getElementsByClassName("address");
+     var address = document.getElementById("address");
+     
+     for (i = 0; i < addressClass.length; i++) {
+  	   addressClass[i].addEventListener("change", addressValues);
+  	}
+     function addressValues(){
+	       var city = document.getElementById("縣市1").value;
+	       console.log(city);
+	       var area = document.getElementById("鄉鎮市區1").value;
+	       console.log(area);
+	       var location = document.getElementById("ads").value;
+	       console.log(location);
+	       address.value = city + area + location;
+	       console.log(address.value);
+     };
+  }
+   	
+   	
 </script>
+	
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 </html>

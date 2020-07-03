@@ -1,19 +1,26 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*"%>
 <%@ page import="com.shop.model.*"%>
-<%@ include file="/front-end/front-end-nav.jsp" %>
+<%@ page import="com.gmlist.model.*"%>
+<%@ page import="com.game.model.*"%>
+<%@ include file="/front-end/front-end-nav.jsp"%>
 <%
+	GmlistService gmlistSvc = new GmlistService();
 	ShopVO shopVO = null;
-	if(request.getParameter("shopno") != null)		
-		shopVO = (ShopVO) request.getAttribute("shopVO");	
+	List<GmlistVO> list = null;
+	if (request.getParameter("shopno") != null) {
+		shopVO = (ShopVO) request.getAttribute("shopVO");
+		list = gmlistSvc.getSomeGmlistByShop(shopVO.getShopno());
+	}
 %>
 
 <head>
 
 <meta charset="utf-8">
 
-<title>©±®a</title>
-	<style>
+<title>åº—å®¶</title>
+<style>
 table {
 	margin-top: 10px;
 }
@@ -51,29 +58,47 @@ h4 {
 
 
 
-<h4 style="margin-left: 20px;">
-	<a href="index.jsp"><img src="images/add-icon.png" class="icon">¦^­º­¶</a>
-</h4>
-<jsp:include page="select_page.jsp" flush="true">
-	<jsp:param name="" value="" />
-</jsp:include>
-<div class="row">
-<div class="col-sm-4"></div>
-<div class="col-sm-5">
-  <h1 class="display-4" style="margin-left: auto;">${shopVO.shopname}</h1>
-  <p class="lead">
-<img src="<%=request.getContextPath()%>/ShopShowImg?shopno=${shopVO.shopno}" />  </p>
-  <hr class="my-4">
-  <p>´£¨Ñ®y¦ì:${shopVO.shopcy}</p>
-  <p>¹q¸Ü:0${shopVO.shopphone}</p>
-  <p>¦ì¸m:${shopVO.shoploc}</p>
-  <p class="lead">
-    <a class="btn btn-primary btn-lg" href="#" role="button">©±®a¹CÀ¸</a>
-    <a class="btn btn-primary btn-lg" href="#" role="button">©±®a´ª¹Î</a>
-  </p>
-</div>
-</div>
-
-
+	<h4 style="margin-left: 20px;">
+		<a href="index.jsp"><img src="images/add-icon.png" class="icon">å›é¦–é </a>
+	</h4>
+	<jsp:include page="select_page.jsp" flush="true">
+		<jsp:param name="" value="" />
+	</jsp:include>
+	<div class="row">
+		<div class="col-sm-4"></div>
+		<div class="col-sm-5">
+			<h1 class="display-4" style="margin-left: auto;">${shopVO.shopname}</h1>
+			<p class="lead">
+				<img
+					src="<%=request.getContextPath()%>/ShopShowImg?shopno=${shopVO.shopno}" />
+			</p>
+			<hr class="my-3">
+			<p>æä¾›åº§ä½:${shopVO.shopcy}</p>
+			<p>é›»è©±:0${shopVO.shopphone}</p>
+			<p>ä½ç½®:${shopVO.shoploc}</p>
+			<p class="lead">
+			<FORM id="gmlist" METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/gmlist/gmlist.do">
+				<input type="hidden" name="shopno" value="${shopVO.shopno}">
+				<input type="hidden" name="action" value="getSome_For_Display">
+				</FORM>
+				<button type="submit" class="btn btn-primary btn-lg" id="goGmlist">åº—å®¶éŠæˆ²</button>
+				<button type="submit" class="btn btn-primary btn-lg" id="goShopbk">æŸ¥çœ‹æªåœ˜</button>
+			</p>
+		</div>
+<FORM id="shopbk" METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/shopbk/shopbk.do">
+				<input type="hidden" name="shopno" value="${shopVO.shopno}">
+				<input type="hidden" name="action" value="getSome_For_Display">
+				</FORM>
+<script>
+$(document).ready(function() {
+	$("#goGmlist").click(function(){
+		$("#gmlist").submit();
+	})
+	
+	$("#goShopbk").click(function(){
+		$("#shopbk").submit();
+	})
+})
+</script>
 </body>
 </html>

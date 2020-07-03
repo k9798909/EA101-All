@@ -55,7 +55,6 @@ li {
 
 <body>
 
-<%@ include file="/front-end/front-end-nav.jsp" %>
 
 	<h3 style="margin-left:20px;">資料查詢:</h3>
 	<%-- 錯誤表列 --%>

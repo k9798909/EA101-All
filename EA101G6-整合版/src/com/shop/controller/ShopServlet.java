@@ -24,19 +24,18 @@ public class ShopServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		if ("getOne_For_Display".equals(action)) { // �Ӧ�select_page.jsp���ШD
 
-			List<String> errorMsgs = new LinkedList<String>();
+			String errorMsgs ="";
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
-			req.setAttribute("errorMsgs", errorMsgs);
+			
 
 			try {
 				/*************************** 1.�����ШD�Ѽ� - ��J�榡�����~�B�z **********************/
 				String shopno = req.getParameter("shopno");
 				String shopnoReg = "[D][S]\\d{5}";
 				if (shopno == null || (shopno.trim()).length() == 0) {
-					errorMsgs.add("請輸入要查詢的店家");
-				} else if (!shopno.trim().matches(shopnoReg)) {
-					errorMsgs.add("店家編號格式錯誤");
+					errorMsgs+="請輸入要查詢的店家";
+					req.setAttribute("errorMsgs", errorMsgs);
 				}
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req.getRequestDispatcher("listAllShop.jsp");
@@ -48,7 +47,7 @@ public class ShopServlet extends HttpServlet {
 				ShopService shopSvc = new ShopService();
 				ShopVO shopVO = shopSvc.getOneShop(shopno);
 				if (shopVO == null) {
-					errorMsgs.add("查無資料");
+					errorMsgs+="查無資料";
 				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
@@ -65,7 +64,7 @@ public class ShopServlet extends HttpServlet {
 
 				/*************************** ��L�i�઺���~�B�z *************************************/
 			} catch (Exception e) {
-				errorMsgs.add("無法取得資料:" + e.getMessage());
+				errorMsgs+="無法取得資料:" + e.getMessage()+"/n";
 				RequestDispatcher failureView = req.getRequestDispatcher("listAllShop.jsp");
 				failureView.forward(req, res);
 			}
@@ -94,10 +93,13 @@ public class ShopServlet extends HttpServlet {
 				/*************************** 2.�}�l�d�߸�� ****************************************/
 //				ShopService shopSvc = new ShopService();
 				shopVO = shopSvc.getOneShop(shopno);
-				
+				String city = shopVO.getShoploc().substring(0,2);
+				String area = shopVO.getShoploc().substring(3,5);
 
 				/*************************** 3.�d�ߧ���,�ǳ����(Send the Success view) ************/
 				req.setAttribute("shopVO", shopVO); // ��Ʈw���X��shopVO����,�s�Jreq
+				req.setAttribute("city", city);
+				req.setAttribute("area", area);
 				String url = "update_shop_input.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// ���\��� update_shop_input.jsp
 				successView.forward(req, res);
@@ -157,12 +159,21 @@ public class ShopServlet extends HttpServlet {
 					errorMsgs.add("店家密碼格式錯誤");
 				}
 
-				String shoploc = req.getParameter("shoploc");
-				String shoplocReg = "^[(\\u4e00-\\u9fa5)]{3,9}$";
-				if (shoploc == null || shoploc.trim().length() == 0) {
-					errorMsgs.add("店家位置請勿空白");
-				} else if (!shoploc.trim().matches(shoplocReg)) { // �H�U�m�ߥ��h(�W)��ܦ�(regular-expression)
-					errorMsgs.add("店家位置格式錯誤");
+				String shoploc = "";
+				String city = req.getParameter("city");
+				String area = req.getParameter("area");
+				String addr = req.getParameter("addr");
+				String addrReg = "^[(\u4e00-\u9fa5) a-zA-Z0-9_]{2,50}$";
+				if (city != null && city.trim().length() != 0 && area != null && area.trim().length() != 0
+						&& addr != null && addr.trim().length() != 0) {
+
+					shoploc = city + area.substring(3) + addr;
+					if (!shoploc.matches(addrReg)) {
+						errorMsgs.add("地址格式錯誤");
+					}
+				} else {
+					errorMsgs.add("請輸入地址");
+
 				}
 
 				String shopcy = req.getParameter("shopcy");
@@ -281,19 +292,35 @@ public class ShopServlet extends HttpServlet {
 					errorMsgs.add("店家密碼格式錯誤");
 				}
 
-				String shoploc = req.getParameter("shoploc");
-				String shoplocReg = "^[(\\u4e00-\\u9fa5)]{3,9}$";
-				if (shoploc == null || shoploc.trim().length() == 0) {
-					errorMsgs.add("店家位置請勿空白");
-				} else if (!shoploc.trim().matches(shoplocReg)) { // �H�U�m�ߥ��h(�W)��ܦ�(regular-expression)
-					errorMsgs.add("店家密碼格式錯誤");
+//				String shoploc = req.getParameter("shoploc");
+//				String shoplocReg = "^[(\\u4e00-\\u9fa5)]{3,9}$";
+//				if (shoploc == null || shoploc.trim().length() == 0) {
+//					errorMsgs.add("店家位置請勿空白");
+//				} else if (!shoploc.trim().matches(shoplocReg)) { // �H�U�m�ߥ��h(�W)��ܦ�(regular-expression)
+//					errorMsgs.add("店家密碼格式錯誤");
+//				}
+				String shoploc = "";
+				String city = req.getParameter("city");
+				String area = req.getParameter("area");
+				String addr = req.getParameter("addr");
+				String addrReg = "^[(\u4e00-\u9fa5) a-zA-Z0-9_]{2,50}$";
+				if (city != null && city.trim().length() != 0 && area != null && area.trim().length() != 0
+						&& addr != null && addr.trim().length() != 0) {
+
+					shoploc = city + area.substring(3) + addr;
+					if (!shoploc.matches(addrReg)) {
+						errorMsgs.add("地址格式錯誤");
+					}
+				} else {
+					errorMsgs.add("請輸入地址");
+
 				}
 
 				String shopcy = req.getParameter("shopcy");
 				String shopcyReg = "^[(\\u4e00-\\u9fa5)(0-9\\*)]{3,9}$";
 				if (shopcy == null || shopcy.trim().length() == 0) {
 					errorMsgs.add("店家場地請勿空白");
-				} else if (!shopcy.trim().matches(shopcyReg)) { // �H�U�m�ߥ��h(�W)��ܦ�(regular-expression)
+				} else if (!shopcy.trim().matches(shopcyReg)) { 
 					errorMsgs.add("場地格式錯誤");
 				}
 				Integer shopphone = null;
@@ -332,6 +359,11 @@ public class ShopServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("shopVO", shopVO); // �t����J�榡���~��shopVO����,�]�s�Jreq
+					HashMap<String, String> hashmap = new HashMap<String, String>();
+					hashmap.put("city", city);
+					hashmap.put("area", area);
+					hashmap.put("addr", addr);
+					req.setAttribute("cityarea", hashmap);
 					RequestDispatcher failureView = req.getRequestDispatcher("addShop.jsp");
 					failureView.forward(req, res);
 					return;

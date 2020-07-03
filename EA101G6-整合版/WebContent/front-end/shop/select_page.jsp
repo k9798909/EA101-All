@@ -53,19 +53,16 @@ li {
 </head>
 <body bgcolor='white'>
 	<%-- 錯誤表列 --%>
-	<c:if test="${not empty errorMsgs}">	
-		<div class="alert alert-danger" role="alert">
-		<h5>請修正以下錯誤:</h5>
-			<c:forEach var="message" items="${errorMsgs}">
-				<p style="margin-left:80px;">${message}</p>
-			</c:forEach>
-		</div>
-	</c:if>
+<%-- 	<c:if test="${not empty errorMsgs}">	 --%>
+<!-- 		<div class="alert alert-danger" role="alert"> -->
+<!-- 		<h5>請修正以下錯誤:</h5> -->
+<%-- 			<c:forEach var="message" items="${errorMsgs}"> --%>
+<%-- 				<p style="margin-left:80px;">${message}</p> --%>
+<%-- 			</c:forEach> --%>
+<!-- 		</div> -->
+<%-- 	</c:if> --%>
 
 	<nav class="navbar navbar-expand-lg navbar-light">
-		<!--   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> -->
-		<!--     <span class="navbar-toggler-icon"></span> -->
-		<!--   </button> -->
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
@@ -106,6 +103,18 @@ li {
 	</nav>
 
 
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+	<!-- 查詢時有錯誤啟動 -->
+	<c:if test="${not empty errorMsgs}">
+		<script>
+			swal({
+				text : "${errorMsgs}"
+			});
+		</script>
+		<%
+			request.removeAttribute("errorMsgs");
+		%>
+	</c:if>
 </body>
 </html>
