@@ -24,7 +24,7 @@ public class ArtDAO implements ArtDAO_interface {
 	}
 	
 	private static final String INSERT_STMT = "INSERT INTO art (artno,mbrno,detail,arttt,pdate,status,atno,apic) VALUES ('MA'||LPAD(to_char(art_seq.NEXTVAL),5,'0'), ?, ?, ?, CURRENT_DATE, ?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT artno,mbrno,detail,arttt,to_char(pdate,'yyyy-mm-dd')pdate,status,atno,apic FROM art order by artno DESC";
+	private static final String GET_ALL_STMT = "SELECT artno,mbrno,detail,arttt,to_char(pdate,'yyyy-mm-dd')pdate,status,atno,apic FROM art order by artno";
 	private static final String GET_ONE_STMT = "SELECT artno,mbrno,detail,arttt,to_char(pdate,'yyyy-mm-dd')pdate,status,atno,apic FROM art where artno = ?";
 
 	private static final String GET_STMT_MBRNO = "SELECT artno,mbrno,detail,arttt,to_char(pdate,'yyyy-mm-dd')pdate,status,atno,apic FROM art where mbrno = ?";

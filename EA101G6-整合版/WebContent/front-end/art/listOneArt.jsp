@@ -7,6 +7,8 @@
 
 <%
 	ArtVO artVO = (ArtVO) request.getAttribute("artVO");
+	
+	
 %>
 
 
@@ -15,6 +17,9 @@
 <title>文章資料 - listOneEmp.jsp</title>
 
 	<meta charset="utf-8">
+	
+	
+
 	
 <style>
   table#table-1 {
@@ -88,7 +93,7 @@
   	margin-top: 350px;
   }
   #d2{
-  	margin-top: 50px;
+  	margin-top: 20px;
   	margin-bottom: 33px;
   }
   .tea1{
@@ -110,6 +115,12 @@
   }
  #h33{
  	margin-top: 10px;
+ }
+ .updown1{
+ 	margin-top: 20px;
+ }
+ #bbttnn{
+ 	margin-left: 406px;
  }
   
 </style>
@@ -137,6 +148,9 @@
     <div class="card col-md-8 offset-md-2" id="d1">
     	<header class="ha1">
     		<h1 class="card-title col-md-12">${artVO.arttt}</h1>
+    		
+    		<FORM METHOD="POST"
+					ACTION="<%=request.getContextPath()%>/front-end/art/art.do">
     		<nav aria-label="breadcrumb" class="d-inline-flex breadcrunm-2 ">
   			<ol class="breadcrumb bg-white">
     			<li class="breadcrumb-item"><a target="_self" style="text-decoration:none; href="<%=request.getContextPath()%>/mbrpf/mbrpf.do?action=getOne_For_Display&mbrno=${artVO.mbrno}" class="text-black"><span class="d-md-inline-block"><img class="icon-2" src="<%=request.getContextPath()%>/images/User-icon.png">${artVO.mbrno}</span></a></li>
@@ -145,7 +159,7 @@
 			</nav>
 
 
-			<c:if test="${test == dogjj}">
+			<c:if test="${test != dogjj}">
 				<!-- Button trigger modal -->
 				<button type="button" class="btn btn-primary" data-toggle="modal"
 					data-target="#exampleModal">Report</button>
@@ -187,14 +201,13 @@
 			
 			<c:if test="${test != dogjj}">
 				<!-- 修改按鈕 -->
-				<FORM METHOD="POST"
-					ACTION="<%=request.getContextPath()%>/front-end/art/art.do">
+				
 					<button type="submit" class="btn btn-primary">修改</button>
 					<input type="hidden" name="artno" value="${artVO.artno}"> <input
 						type="hidden" name="action" value="getOne_For_Update">
-				</FORM>
+				
 			</c:if>
-
+			</FORM>
 
 
 
@@ -205,6 +218,46 @@
     		<p class="card-text">${artVO.detail}</p>	
   		</div>
 	</div>
+	
+	
+	<jsp:useBean id="artSvc" class="com.art.model.ArtService" />
+	
+	<c:forEach var="artVO2" items="${artSvc.all}" varStatus="s">
+		<script>
+			function presses${s.count}(){
+				document.open("<%=request.getContextPath()%>/front-end/art/art.do?action=get_One_Detail&artno=${artVO2.artno}", "_self" ,"");
+			}
+		</script>
+		
+		<c:if test="${artVO2.artno == artVO.artno}">
+			<input type="hidden" value="${ sc = s.count }"/>
+		</c:if>
+		
+		<c:if test="${s.first == true}">
+			<input type="hidden" value="${ fc = s.count }"/>
+		</c:if>
+		<c:if test="${s.last == true}">
+			<input type="hidden" value="${ lc = s.count }"/>
+		</c:if>
+		
+	</c:forEach>
+	
+	
+	
+	<div class="container col-md-8 offset-md-2  updown1">
+		<c:if test="${fc != sc }">
+			<a href="javascript:presses${sc-1}()"><button type="button" class="btn btn-primary col-md-4">上一篇</button></a>
+		</c:if>
+		
+		<c:if test="${lc != sc }">
+			<a href="javascript:presses${sc+1}()"><button type="button" class="btn btn-primary col-md-4" id="bbttnn">下一篇</button></a>
+		</c:if>
+	</div>
+	
+	
+	
+	
+	
 	
 	
 	
@@ -226,6 +279,8 @@
 			</FORM>
 			
 			<c:forEach var="msgVO" items="<%=msgSvc.getAllByArtno(artVO.getArtno())%>">
+				
+			
 				<div class="row">
 					<a><img  id="mem1" src="<%=request.getContextPath()%>/front-end/images/member.png"><span>${msgVO.mbrno} :</span></a>
 					<p class="artmsg"><span>${msgVO.detail}</span></p>
@@ -235,23 +290,26 @@
 		</div>
 	</footer>
     
-    
+
     <script>
-    $("#action").click(function(){
-    	if ($("#rp_detail").val() == ''){
-    		swal("Fuck you!", "請輸入檢舉內容!", "error");
-    	} else{
-    		$.ajax({
-        		url: "<%=request.getContextPath()%>/artrp/artrp.do",
-        		type: "POST",
-        		data: { action: $("#action").val(), artno: $("#artno").val(), rp_detail: $("#rp_detail").val(), mbrno: $("#mbrno").val(), status: $("#status").val()},
-        		success: function(){
-        			swal("Good job!", "檢舉成功!", "success");
-        		}
-        	})
-    	}
-    	
+    $(document).ready(function(){
+    	$("#action").click(function(){
+        	if ($("#rp_detail").val() == ''){
+        		swal("Fuck you!", "請輸入檢舉內容!", "error");
+        	} else{
+        		$.ajax({
+            		url: "<%=request.getContextPath()%>/artrp/artrp.do",
+            		type: "POST",
+            		data: { action: $("#action").val(), artno: $("#artno").val(), rp_detail: $("#rp_detail").val(), mbrno: $("#mbrno").val(), status: $("#status").val()},
+            		success: function(){
+            			swal("Good job!", "檢舉成功!", "success");
+            		}
+            	})
+        	}
+        	
+        })
     })
+    
     
     
 //     $.post("ArtrpServlet.java",
@@ -268,25 +326,6 @@
 	
 	
 	</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-
-	<script type="text/javascript" src="/js/jquery/jquery.form.js"></script> //必須
-	<script type="text/javascript" src="/js/jquery/jquery-1.8.0.min.js"></script>  //必須
 
 
 
