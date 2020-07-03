@@ -277,6 +277,11 @@
   		<url-pattern>/mbrpf/update_mbrpf_input.jsp</url-pattern>
   		<url-pattern>/front-end/mallOr/mallOr.jsp</url-pattern>
   		<url-pattern>/front-end/mallOr/mbrMallOr.jsp</url-pattern>
+  		<url-pattern>/front-end/shgm/buyPage.jsp</url-pattern>
+  		<url-pattern>/front-end/shgm/sellerPage.jsp</url-pattern>
+  		<url-pattern>/front-end/shgm/sellerUpdate.jsp</url-pattern>
+  		<url-pattern>/front-end/shgm/sellPage.jsp</url-pattern>
+  		<url-pattern>/front-end/shgm/myShgm.jsp</url-pattern>
   		<dispatcher>REQUEST</dispatcher>
   		<dispatcher>FORWARD</dispatcher>
   		<dispatcher>INCLUDE</dispatcher>

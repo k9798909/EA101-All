@@ -7,10 +7,10 @@ pageEncoding="UTF-8"%>
 <%@ page import="com.mbrpf.model.*"%>
 <%@ page import="java.util.*"%>
 <%
-	//MbrpfVO member = (MbrpfVO) session.getAttribute("member");
+	MbrpfVO mbrpfvo = (MbrpfVO) session.getAttribute("mbrpfvo");
 	ShgmService shgmsvc = new ShgmService();
-	//List<ShgmVO> shgmlist = shgmsvc.allForSeller(member.getMbrno());
-	//pageContext.setAttribute("shgmlist", shgmlist);
+	List<ShgmVO> shgmlist = shgmsvc.allForSeller(mbrpfvo.getMbrno());
+	pageContext.setAttribute("shgmlist", shgmlist);
 	ShgmrpService shgmrpsvc = new ShgmrpService();
 	pageContext.setAttribute("shgmrpsvc", shgmrpsvc);
 %>
@@ -427,14 +427,7 @@ pageEncoding="UTF-8"%>
 					</nav>
 				</div>
 			</div>
-			<input type="hidden" id="member" value="${member.mbrname}">
-
-			<script>
-				$(document).ready(function(){
-					
-				});
-			</script>
-
+			<input type="hidden" id="member" value="${mbrpfvo.mbrname}">
 
 		</body>
 		</html>

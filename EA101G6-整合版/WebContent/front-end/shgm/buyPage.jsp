@@ -4,7 +4,7 @@
 <%@ page import="com.shgm.model.*"%>
 <%@ page import="com.mbrpf.model.*"%>
 <%
-	//MbrpfVO member = (MbrpfVO) session.getAttribute("member");
+	MbrpfVO mbrpfvo = (MbrpfVO) session.getAttribute("mbrpfvo");
 	ShgmVO shgmvo = (ShgmVO) session.getAttribute("shgmvo");
 %>
 <!doctype html>
@@ -148,7 +148,7 @@ div.top-info {
 								data-dismiss="modal">取消</button>
 						</div>
 						<input type="hidden" name="shgmno" value="${shgmvo.shgmno}">
-						<input type="hidden" name="suiterno" value="${member.mbrno}">
+						<input type="hidden" name="suiterno" value="${mbrpfvo.mbrno}">
 						<input type="hidden" name="action" value="insertrp">
 					</form>
 				</div>
@@ -156,7 +156,7 @@ div.top-info {
 		</div>
 		<div class="shgm-info-allarea">
 			<div class="shgm-info-toparea container">
-				<div id="imgzoom" class="shgm-info-left col-6 ">
+				<div id="imgzoom" class="shgm-info-left">
 					<div
 						class="d-flex align-items-left flex-column bd-highlight mb-3">
 						<img
@@ -172,7 +172,7 @@ div.top-info {
 						</div>
 					</div>	
 				</div>
-				<div class="shgm-info-right col-6  justify-content-center">
+				<div class="shgm-info-right justify-content-center">
 					<div
 						class="shgm-info-right-inner  align-items-center flex-column bd-highlight mb-3">
 						<form method="post"
@@ -209,7 +209,7 @@ div.top-info {
 								<a href="<%=request.getContextPath()%>/front-end/shgm/mainPage.jsp" class="btn btn-primary">取消購買</a>
 							</div>
 							<input type="hidden" name="shgmno" value="${shgmvo.shgmno}">
-							<input type="hidden" name="buyerno" value="${member.mbrno}">
+							<input type="hidden" name="buyerno" value="${mbrpfvo.mbrno}">
 							<input type="hidden" name="action" value="dealingshgm">
 						</form>
 						<b><span class="alert">${errormap.get(5)}</span></b> <b>還有付款要處理

@@ -4,11 +4,11 @@
 <%@ page import="com.shgm.model.*"%>
 <%@ page import="com.mbrpf.model.*"%>
 <%@ page import="java.util.*"%>
-<%
-	//MbrpfVO member = (MbrpfVO) session.getAttribute("member");
+<%	
+	session.setAttribute("location", request.getRequestURI());
 	ShgmService shgmsvc = new ShgmService();
-	List<ShgmVO> shgmlist = shgmsvc.getAllForMain();
-	pageContext.setAttribute("shgmlist", shgmlist);
+	List<ShgmVO> list = shgmsvc.getAllForMain();
+	pageContext.setAttribute("shgmlist", list);
 %>
 <!doctype html>
 <html lang="en">
@@ -51,7 +51,6 @@ div.main-area {
 .awrapper {
 	width: 350px;
 	display: inline;
-	/* position: absolute; */
 	text-align: right;
 	margin-left: 70%;
 }
@@ -61,12 +60,12 @@ div.top-info {
 	border: green 1px solid;
 }
 
-#upshgm,#myshgm {
+#upshgm,#myshgm,#seller {
 	margin: 0 auto;
 	background-color: white;
 }
 
-#upshgm:hover,#myshgm:hover {
+#upshgm:hover,#myshgm:hover,#seller:hover {
 	background-color: white;
 	color: #FF8C00; /*ffa216*/
 	box-shadow: 0 0 11px rgba(33, 33, 33, .2);
@@ -130,15 +129,16 @@ div.pageselect-area {
 					<li class="breadcrumb-item active" aria-current="page">市集</li>
 					<li class="awrapper">
 					<a id="upshgm" class="btn btn-primary ml-auto" href="<%=request.getContextPath()%>/front-end/shgm/sellPage.jsp" role="button">我要上架</a>
-					<a id="myshgm" class="btn btn-primary " href="#" role="button">我的市集商品</a></li>
+					<a id="myshgm" class="btn btn-primary " href="<%=request.getContextPath()%>/front-end/shgm/myShgm.jsp" role="button">我的市集商品</a>
+					<a id="seller" class="btn btn-primary" href="<%=request.getContextPath()%>/front-end/shgm/sellerPage.jsp" role="button">賣家專區</a></li>
 				</ol>
 			</nav>
 		</div>
+		<%@ include file="page1.file" %>
 		<div class="shgm-area-wrapper">
 			<div class="shgm-area ">
 				<div class="card-deck">
-				
-					<c:forEach var="shgmvo" items="${shgmlist}">
+					<c:forEach var="shgmvo" items="${shgmlist}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 						<div class="mb-4">
 							<a target="_self" href="<%=request.getContextPath()%>/front-end/shgm/shgm.do?action=getOneToInfo&shgmno=${shgmvo.shgmno}">
 								<div class="card">
@@ -153,46 +153,12 @@ div.pageselect-area {
 							</a>
 						</div>
 					</c:forEach>
-					
 				</div>
 			</div>
 		</div>
+	<%@ include file="page2.file" %>
 	</div>
-	<div class="pageselect-area-wrapper">
-		<div class="pageselect-area ">
-			<nav aria-label="Page navigation example">
-				<ul class="pagination">
-					<li class="page-item"><a class="page-link" href="#"
-						aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-							<span class="sr-only">Previous</span>
-					</a></li>
-					<li class="page-item"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#"
-						aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
-							class="sr-only">Next</span>
-					</a></li>
-				</ul>
-			</nav>
-		</div>
-	</div>
-	<input type="hidden" id="member" value="${member.mbrname}">
-
-
-
-	<script>
-	$(document).ready(function(){
-		$("#upshgm").click(function(){
-			if($("#member").val() === ''){
-				alert('您未登入');
-				window.location.href = "<%= request.getContextPath()%>/front-end/shgm/simpleLogin.jsp";
-				return false;
-			}
-		});
-	});
-	</script>
-
+	<input type="hidden" id="member" value="${mbrpfvo.mbrname}">
 
 </body>
 </html>

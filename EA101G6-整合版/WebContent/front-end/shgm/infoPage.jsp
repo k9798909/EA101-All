@@ -5,7 +5,7 @@
 <%@ page import="com.mbrpf.model.*"%>
 <%@ page import="java.util.*"%>
 <%
-	//MbrpfVO member = (MbrpfVO) session.getAttribute("member");
+	MbrpfVO mbrpfvo = (MbrpfVO) session.getAttribute("mbrpfvo");
 	List<ShgmVO> list = (List<ShgmVO>) session.getAttribute("randlist");
 	pageContext.setAttribute("list", list);
 %>
@@ -153,7 +153,7 @@ div.top-info {
 								data-dismiss="modal">取消</button>
 						</div>
 						<input type="hidden" name="shgmno" value="${shgmvo.shgmno}">
-						<input type="hidden" name="suiterno" value="${member.mbrno}">
+						<input type="hidden" name="suiterno" value="${mbrpfvo.mbrno}">
 						<input type="hidden" name="action" value="insertrp">
 					</form>
 				</div>
@@ -249,7 +249,7 @@ div.top-info {
 				</div>
 			</div>
 		</div>
-		<input type="hidden" id="points" value="${member.points}">
+		<input type="hidden" id="points" value="${mbrpfvo.points}">
 		<input type="hidden" id="success" value="${buysuccess}">
 	</div>
 
@@ -263,16 +263,9 @@ div.top-info {
 		}
 		var $mbrname = $("#mbrname").text().substr(4);
 		$("#buythis").click(function(){
-			if($mbrname == ""){
-				alert("您未登入");
-				window.location.href = "<%= request.getContextPath()%>/front-end/shgm/simpleLogin.jsp";
-				return false;
-			};
 			var $price = parseInt($("#price").text());
 			var $points = $("#points").val();
 			if ( $price > $points ){
-				alert($("#price").text());
-				alert($("#points").val());
 				Swal.fire({
 					  icon: 'error',
 					  title: '您的餘額不足',

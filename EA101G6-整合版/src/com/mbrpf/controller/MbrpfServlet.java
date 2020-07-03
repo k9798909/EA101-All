@@ -523,7 +523,9 @@ if("tryLogin".equals(action)) {// 來自login.jsp的請求
 		/***************************3.刪除完成,準備轉交(Send the Success view)***********/
 				try {//查看是否有來源網頁
 					String location = (String)session.getAttribute("location");
+					System.out.println("enter");
 					if(location != null) {//如果有來源網頁
+						System.out.println("back to location");
 						session.removeAttribute("location");
 						res.sendRedirect(location);//重導至該網頁
 						return;
@@ -552,6 +554,7 @@ if("tryLogin".equals(action)) {// 來自login.jsp的請求
 
 
 if("logout".equals(action)) {
+	System.out.println("enter here");
 		List<String> errorMsgs = new LinkedList<String>();
 		req.setAttribute("errorMsgs", errorMsgs);
 	
@@ -561,9 +564,11 @@ if("logout".equals(action)) {
 		try {
 		HttpSession session = req.getSession();
 		session.removeAttribute("account");
+		session.removeAttribute("mbrpfvo");
 		
 		/***************************2.登出成功,準備轉交(Send the Success view)*************/
 		successMsgs.add("帳號已登出");
+		System.out.println("11111");
 		RequestDispatcher failView = req.getRequestDispatcher("/front-end/login.jsp");
 		failView.forward(req, res);
 		return;

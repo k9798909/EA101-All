@@ -59,13 +59,25 @@
 			<div class="row">
 				<div class="col-12">
 					<div class="float-left">
+						<c:choose>
+						<c:when test="${mbrpfvo.mbrname != null}">
+						<span id="mbrname" class="d-md-inline-block text-white">歡迎你！${mbrpfvo.mbrname}</span>
+						</c:when>
+						<c:otherwise>
 						<a href="" class="text-white"><span class="d-md-inline-block">
 								<img class="icon"
 								src="<%=request.getContextPath()%>/front-end/images/add-icon.png">註冊
 						</span></a>
+						</c:otherwise>
+						</c:choose>
 					</div>
 
 					<div class="float-right">
+						<c:choose>
+						<c:when test="${mbrpfvo.mbrname != null}">
+						<a href="<%= request.getContextPath()%>/mbrpf/mbrpf.do?action=logout" id="logout" class="d-md-inline-block text-white">登出</a>
+						</c:when>
+						<c:otherwise>
 						<a href="<%= request.getContextPath()%>/front-end/login.jsp" class="text-white"><span class="d-md-inline-block">
 								<img class="icon"
 								src="<%=request.getContextPath()%>/front-end/images/User-icon.png">會員登入
@@ -82,6 +94,8 @@
 									class="icon"
 									src="<%=request.getContextPath()%>/front-end/images/man-icon.png">店家登入</span></a>
 						</c:if>
+						</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 			</div>

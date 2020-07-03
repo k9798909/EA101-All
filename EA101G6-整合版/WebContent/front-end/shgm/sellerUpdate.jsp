@@ -6,7 +6,7 @@
 <%@ page import="java.util.*"%>
 
 <%
-	//MbrpfVO member = (MbrpfVO) session.getAttribute("member");
+	MbrpfVO mbrpfvo = (MbrpfVO) session.getAttribute("mbrpfvo");
 %>
 <!doctype html>
 <html lang="en">
@@ -191,7 +191,7 @@ div.top-info {
 						</div>
 						${errormap.get(5)}
 					</div>
-					<input type="hidden" name="sellerno" value="${member.mbrno}">
+					<input type="hidden" name="sellerno" value="${mbrpfvo.mbrno}">
 					<input type="hidden" name="shgmno" value="${shgmvo.shgmno}">
 					<input type="hidden" name="action" value="sellerUpdate">
 				</form>
