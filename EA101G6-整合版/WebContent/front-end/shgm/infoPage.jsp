@@ -5,6 +5,7 @@
 <%@ page import="com.mbrpf.model.*"%>
 <%@ page import="java.util.*"%>
 <%
+	session.setAttribute("pointLocation", request.getRequestURI());
 	MbrpfVO mbrpfvo = (MbrpfVO) session.getAttribute("mbrpfvo");
 	List<ShgmVO> list = (List<ShgmVO>) session.getAttribute("randlist");
 	pageContext.setAttribute("list", list);
@@ -92,7 +93,7 @@ div.top-info {
 
 #rp:hover,#rpenter:hover,#rpcancel:hover,#sold:hover,#buythis:hover {
 	background-color: white;
-	color: #FF8C00; /*ffa216*/
+	color: #FF8C00;
 	box-shadow: 0 0 11px rgba(33, 33, 33, .2);
 }
 
@@ -102,10 +103,17 @@ div.top-info {
 	object-fit: contain;
 }
 
-.slide {
+#blogCarousel {
 	height: 90px;
 	min-height: 300px;
 	background-size: cover;
+}
+
+#modal-footer>:not(:first-child) {
+    margin-left: .25rem;
+}
+#modal-footer>:not(:last-child) {
+    margin-right: .25rem;
 }
 </style>
 </head>
@@ -147,7 +155,7 @@ div.top-info {
 							</div>
 
 						</div>
-						<div class="modal-footer">
+						<div id="modal-footer"class="modal-footer">
 							<button id="rpenter" type="submit" class="btn btn-primary">確定</button>
 							<button id="rpcancel" type="button" class="btn btn-primary"
 								data-dismiss="modal">取消</button>
@@ -230,7 +238,7 @@ div.top-info {
 											<c:forEach var="i" begin="4" end="7">
 												<div class="col-md-3">
 													<a
-														href="<%=request.getContextPath()%>/shgm/shgm.do?action=getOneToInfo&shgmno=${list.get(i).shgmno}">
+														href="<%=request.getContextPath()%>/front-end/shgm/shgm.do?action=getOneToInfo&shgmno=${list.get(i).shgmno}">
 														<img src="<%=request.getContextPath()%>/shgm/displayimg?shgmno=${list.get(i).shgmno}" alt="Image"
 														style="max-width: 100%;">
 													</a>
@@ -259,25 +267,55 @@ div.top-info {
 	<script>
 	$(document).ready(function(){
 		if($("#success").val() != ''){
-			alert('您已購買成功');
+			Swal.fire({
+				  icon: 'success',
+				  title: '您已購買成功！',
+				  showConfirmButton: false,
+				  timer: 1500
+				})
 		}
 		var $mbrname = $("#mbrname").text().substr(4);
 		$("#buythis").click(function(){
-			var $price = parseInt($("#price").text());
-			var $points = $("#points").val();
-			if ( $price > $points ){
+			if($mbrname == ""){
 				Swal.fire({
-					  icon: 'error',
-					  title: '您的餘額不足',
-					  text: '請進行儲值再繼續購物',
-					  footer: '<a href>沒錢了沒錢了沒錢了沒錢了</a>'
-					});
+					  title: '您尚未登入',
+					  icon: 'info',
+					  html:'請先登入再執行動作',
+					  showCancelButton: true,
+					  focusConfirm: false,
+					  confirmButtonText:
+					    '<a style="color:white;" href="<%=request.getContextPath()%>/front-end/login.jsp" class="fa">前往登入</a>',
+					  cancelButtonText:
+					    '<span class="fa fa-thumbs-down">繼續逛逛</span>',
+					})
 				event.preventDefault();
+			} else{
+				var $price = parseInt($("#price").text());
+				var $points = $("#points").val();
+				if ( $price > $points ){
+					Swal.fire({
+						  icon: 'error',
+						  title: '您的餘額不足',
+						  text: '請進行儲值再繼續購物',
+						  footer: '<a href="<%=request.getContextPath()%>/front-end/tfcord/buyPoint.jsp">點數儲值&nbsp&nbsp</a><span>尚餘'+$points+'點</span>'
+						});
+					event.preventDefault();
+				}
 			}
 		});
 		$("#rp").click(function(){
 			if($mbrname == ""){
-				alert("您未登入");
+				Swal.fire({
+					  title: '您尚未登入',
+					  icon: 'info',
+					  html:'請先登入再執行動作',
+					  showCancelButton: true,
+					  focusConfirm: false,
+					  confirmButtonText:
+					    '<a style="color:white;" href="<%=request.getContextPath()%>/front-end/login.jsp" class="fa">前往登入</a>',
+					  cancelButtonText:
+					    '<span class="fa fa-thumbs-down">繼續逛逛</span>',
+					})
 				event.stopPropagation();
 			}
 		});
