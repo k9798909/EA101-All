@@ -62,7 +62,7 @@ div.order div{
 }
 
 div.order input.addr{
-	width:300px;
+	width:400px;
 	height:25px;
 }
 
@@ -144,7 +144,7 @@ div.order input.addr{
 				<div>取貨地點:</div>
 				<select name="city" id="縣市1"></select>
 				<select name="area" id="鄉鎮市區1"></select>
-				<input type="text" name="addr" class="addr" value="${not empty addr?addr:""}" placeholder="請輸入地址">
+				<div><input type="text" name="addr" class="addr" value="${not empty addr?addr:""}" placeholder="請輸入地址"></div>
 				<div><p id="total">總金額:${totalPrice}元</p></div>
 				<input  type="hidden" name="price" value="${totalPrice}">
 			</div>

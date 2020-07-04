@@ -14,5 +14,4 @@ public interface MbrpfDAO_interface {
           public MbrpfVO login(String mbract);
 //        public List<MbrpfVO> getAll(Map<String, String[]> map);
           public void updatePoint(MbrpfVO mbrpfVO ,Connection conn);
-          public void updatePoint(MbrpfVO mbrpfVO);
 }

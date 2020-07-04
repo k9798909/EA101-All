@@ -519,13 +519,10 @@ if("tryLogin".equals(action)) {// 來自login.jsp的請求
 			if(password.equals(mbrpwd)) {//帳號正確，取出的密碼也和輸入的一樣
 				HttpSession session =req.getSession();
 				session.setAttribute("account", account);//將帳號存進session，之後可以藉由這個取得他所擁有的權限
-				session.setAttribute("mbrpfvo",mbrpfVO);
 		/***************************3.刪除完成,準備轉交(Send the Success view)***********/
 				try {//查看是否有來源網頁
 					String location = (String)session.getAttribute("location");
-					System.out.println("enter");
 					if(location != null) {//如果有來源網頁
-						System.out.println("back to location");
 						session.removeAttribute("location");
 						res.sendRedirect(location);//重導至該網頁
 						return;
@@ -536,7 +533,6 @@ if("tryLogin".equals(action)) {// 來自login.jsp的請求
 				}
 				//沒有來源網頁的話就去首頁
 				res.sendRedirect(req.getContextPath()+"/front-end/mbrpf/select_page.jsp");
-				System.out.println(mbrpfVO.getMail());
 				return;
 			}else {
 				errorMsgs.add("帳號、密碼錯誤");
@@ -554,7 +550,6 @@ if("tryLogin".equals(action)) {// 來自login.jsp的請求
 
 
 if("logout".equals(action)) {
-	System.out.println("enter here");
 		List<String> errorMsgs = new LinkedList<String>();
 		req.setAttribute("errorMsgs", errorMsgs);
 	
@@ -564,11 +559,9 @@ if("logout".equals(action)) {
 		try {
 		HttpSession session = req.getSession();
 		session.removeAttribute("account");
-		session.removeAttribute("mbrpfvo");
 		
 		/***************************2.登出成功,準備轉交(Send the Success view)*************/
 		successMsgs.add("帳號已登出");
-		System.out.println("11111");
 		RequestDispatcher failView = req.getRequestDispatcher("/front-end/login.jsp");
 		failView.forward(req, res);
 		return;

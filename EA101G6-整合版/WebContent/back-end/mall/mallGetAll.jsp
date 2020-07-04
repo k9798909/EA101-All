@@ -15,15 +15,7 @@
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/mallcss.css">
 </head>
 
-<style>
 
-div.backNav .navbar-light .navbar-nav a.nav-link, .dropdown-item {
-    width:auto;
-    margin:10px;
-    padding:0px;
-}
-
-</style>
 
 <body>
 <%@ include file="/back-end/back-end_nav.jsp" %>

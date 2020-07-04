@@ -118,6 +118,9 @@ main {
 									<td>${mallOr.boxStatus=="1"?"已出貨":mallOr.boxStatus=="2"?"已送達":"未出貨"}</td>
 									<td>${mallOr.status=="1"?"已完成":mallOr.status=="2"?"已取消":"未完成"}</td>
 								</tr>
+								<tr>
+								<td>運送地址</td><td colspan="4" style="text-align:left;">${mallOr.address}</td>
+								</tr>
 							</tbody>
 						</table>
 						<!-- //未出貨可取消 -->

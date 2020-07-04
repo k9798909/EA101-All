@@ -82,12 +82,12 @@ div#delalert div{
 	
 		<div class="gmtypezone" title="遊戲類型">
 		<c:forEach var="gmType" items="${gmTypeSvc.getAll()}">
-  			<div class="${gmType.typeNo}"><p>${gmType.typeName}</p><button class="deltypebtn" value="${gmType.typeNo}">刪除</button></div>
+  			<div class="${gmType.typeNo}"><p>${gmType.typeName}</p><button class="deltypebtn btn btn-secondary" value="${gmType.typeNo}">刪除</button></div>
   		</c:forEach>
 
   			<div id="tampAddDiv">請輸入要新增的遊戲類型:<input id="typeNameInput" name="typeName" type="text"></div>
   			<br>
-  			<div><button class="confirm" type="submit" class="addtypebtn" >新增遊戲類型</button> <button type="button" class="typecancel">取消</button></div>
+  			<div><button type="submit" class="confirm addtypebtn btn btn-secondary" >新增遊戲類型</button> <button type="button" class="typecancel btn btn-secondary">取消</button></div>
   			
   			
   		

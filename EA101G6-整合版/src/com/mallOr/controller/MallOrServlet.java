@@ -86,7 +86,7 @@ public class MallOrServlet extends HttpServlet{
 
 				List<String> erroList = new LinkedList<String>();
 				MallOrService mallOrSvc = new MallOrService();
-
+							
 				// 時間的部分現在時間 並不是讓使用者輸入沒有錯誤驗證
 				java.sql.Timestamp orDate = new java.sql.Timestamp(System.currentTimeMillis());
 				// 取貨方式
@@ -142,6 +142,7 @@ public class MallOrServlet extends HttpServlet{
 					req.setAttribute("area", area);
 					req.setAttribute("addr", addr);
 					req.setAttribute("take", take);
+					req.setAttribute("totalPrice", price);
 					dispatcher.forward(req, res);
 					return;
 				}
@@ -154,7 +155,7 @@ public class MallOrServlet extends HttpServlet{
 						mallOrDtList,mbrpfVo);
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 				session.removeAttribute("buyCarList");
-				req.setAttribute("mallOrVo", mallOrVo);
+				req.setAttribute("mallOrDtList", mallOrDtList);
 				req.setAttribute("mallOrVo", mallOrVo);
 				req.setAttribute("mbrName", mbrpfVo.getMbrname());
 				RequestDispatcher dispatcher = req.getRequestDispatcher("/front-end/mallOr/mallOrGetOne.jsp");
@@ -298,7 +299,8 @@ public class MallOrServlet extends HttpServlet{
 			MallOrVO mallOrVo = mallOrSvc.findOneByOrNo(mallOrNo);
 			Set<MallOrDtVO> mallOrDtSet = mallOrDtSvc.getByOrNo(mallOrNo);
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			RequestDispatcher dispatcher = req.getRequestDispatcher("/back-end/mallOr/mallOrGetOne.jsp");
+			RequestDispatcher dispatcher = req.getRequestDispatcher("/back-end/mallOr/mallOrGet.jsp");
+			req.setAttribute("showDetail", true);
 			req.setAttribute("mbrpfVo", mbrpfVo);
 			req.setAttribute("mallOrVo", mallOrVo);
 			req.setAttribute("mallOrDtSet", mallOrDtSet);
