@@ -3,6 +3,8 @@ package com.tfcord.model;
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.mbrpf.model.MbrpfVO;
+
 public class TfcordService {
 	
 	private TfcordDAO_Interface dao;
@@ -18,6 +20,16 @@ public class TfcordService {
 		tfcordVO.setPrice(price);
 		tfcordVO.setTfstatus(tfstatus);
 		dao.insert(tfcordVO);
+		return tfcordVO;
+	}
+	
+	public TfcordVO addTfcordPoint(String mbrno, String tftype, Integer price, Integer tfstatus, MbrpfVO mbrpfVO) {
+		TfcordVO tfcordVO = new TfcordVO();
+		tfcordVO.setMbrno(mbrno);
+		tfcordVO.setTftype(tftype);
+		tfcordVO.setPrice(price);
+		tfcordVO.setTfstatus(tfstatus);
+		dao.insert2(tfcordVO, mbrpfVO);
 		return tfcordVO;
 	}
 	
@@ -48,6 +60,10 @@ public class TfcordService {
 	
 	public List<TfcordVO> getWhoAll(String mbrno){
 		return dao.findWhoAll(mbrno);
+	}
+	
+	public List<TfcordVO> getNotYetAll(){
+		return dao.getNotYetAll();
 	}
 	
 	public List<TfcordVO> getAll(){

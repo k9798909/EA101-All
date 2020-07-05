@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.mbrpf.model.*;
 import com.tfcord.model.*;
 
 
@@ -46,6 +47,8 @@ public class TfcordServlet extends HttpServlet {
 				HttpSession session = req.getSession();
 				session.setAttribute("mbrno", mbrno);
 				
+				System.out.println("mbrno="+mbrno);
+				
 				if(mbrno == null || (mbrno.trim()).length() == 0) {
 					errorMsgs.add("請先登入帳號");
 				}
@@ -55,12 +58,14 @@ public class TfcordServlet extends HttpServlet {
 				
 				Integer tfstatus = new Integer (req.getParameter("tfstatus"));
 				
-				Integer price = new Integer (req.getParameter("price"));
-				req.setAttribute("price", price);//給buyPoint.jsp(成功畫面)取得買多少點，後續給會員個人點數 作 加總的動作
-				
-				if(price == null || price == 0) {
+				Integer price = null;
+				if((req.getParameter("price")) != null) {
+					price = new Integer (req.getParameter("price"));
+					req.setAttribute("price", price);//給buyPoint.jsp(成功畫面)取得買多少點，後續給會員個人點數 作 加總的動作
+				}else {
 					errorMsgs.add("請選擇儲值的金額");
 				}
+				
 				
 				String card1 = req.getParameter("card1");
 				String card2 = req.getParameter("card2");
@@ -92,14 +97,32 @@ public class TfcordServlet extends HttpServlet {
 				}
 				
 				/***************************2.開始新增點數轉換紀錄*****************************************/
+				MbrpfService mbrpfSvc = new MbrpfService();
+				MbrpfVO mbrpfVO = mbrpfSvc.getOneMbrpf(mbrno);
+				mbrpfVO.setPoints( mbrpfVO.getPoints() + price);
+				
 				TfcordService TfcordSvc = new TfcordService();
-				tfcordVO = TfcordSvc.addTfcord(mbrno, tftype, price, tfstatus);
+				tfcordVO = TfcordSvc.addTfcordPoint(mbrno, tftype, price, tfstatus, mbrpfVO);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
+				try{//查看是否有來源網頁(EX:商城或市集購買東西，發現點數不夠，欲購買)
+					
+					String pointLocation = (String) session.getAttribute("pointLocation");
+					if(pointLocation != null) {//如果有來源網頁
+						session.removeAttribute("pointLocation");
+						res.sendRedirect(pointLocation);//重導至該網頁
+						return;
+					}
+				}catch(Exception e) {
+					String url = "/front-end/tfcord/listOneMbrtf.jsp";
+					RequestDispatcher successView = req.getRequestDispatcher(url);
+					successView.forward(req, res);
+				}
+				//如果沒有來源網頁，會回到會員的所有購買點數頁面
 				String url = "/front-end/tfcord/listOneMbrtf.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
-				
+
 				/***************************其他可能的錯誤處理*************************************/
 			}catch(Exception e) {
 				errorMsgs.add("購買點數失敗");
@@ -112,11 +135,14 @@ public class TfcordServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("erroMsgs", errorMsgs);
 			
+			
 			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
-				String mbrno = req.getParameter("mbrno");//先寫死的，等會員的寫好在抓session內的會員物件
+				String mbrno = req.getParameter("mbrno");
 				HttpSession session = req.getSession();
 				session.setAttribute("mbrno", mbrno);
+				
+				//System.out.println("mbrno="+mbrno);
 				
 				if(mbrno == null || (mbrno.trim()).length() == 0) {
 					errorMsgs.add("請先登入帳號");
@@ -133,8 +159,6 @@ public class TfcordServlet extends HttpServlet {
 				}
 				req.setAttribute("price", price);//給listOneMbrtf.jsp(成功畫面)新增一條取得換多少點的資料，後續給會員個人點數 作 加總的動作
 				
-				
-				
 				TfcordVO tfcordVO = new TfcordVO();
 				tfcordVO.setMbrno(mbrno);
 				tfcordVO.setPrice(price);
@@ -149,8 +173,14 @@ public class TfcordServlet extends HttpServlet {
 				}
 				
 				/***************************2.開始新增點數轉換紀錄*****************************************/
+//				會員點數換錢得需要等審核通過，完成才會扣點數，所以這邊先不扣
+				MbrpfService mbrpfSvc = new MbrpfService();
+				MbrpfVO mbrpfVO = mbrpfSvc.getOneMbrpf(mbrno);
+				mbrpfVO.setPoints( mbrpfVO.getPoints() - price);
+				
+				//且此處是新增一筆點數轉換紀錄
 				TfcordService TfcordSvc = new TfcordService();
-				tfcordVO = TfcordSvc.addTfcord(mbrno, tftype, price, tfstatus);
+				tfcordVO = TfcordSvc.addTfcordPoint(mbrno, tftype, price, tfstatus, mbrpfVO);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				String url ="/front-end/tfcord/listOneMbrtf.jsp";
@@ -170,6 +200,9 @@ public class TfcordServlet extends HttpServlet {
 				String mbrno = req.getParameter("mbrno");
 				String mbrnoReg = "^BM[0-9]{5}$";
 				
+				HttpSession session = req.getSession();
+				session.setAttribute("mbrno", mbrno);
+				
 				if(mbrno == null || (mbrno.trim()).length() == 0) {
 					errorMsgs.add("請輸入會員編號");
 				}else if(!mbrno.trim().matches(mbrnoReg)) {
@@ -185,9 +218,10 @@ public class TfcordServlet extends HttpServlet {
 				/***************************2.開始查詢資料****************************************/
 				TfcordService tfcordSvc = new TfcordService();
 				List<TfcordVO> tfcordVOAll = tfcordSvc.getWhoAll(mbrno);
-				if(tfcordVOAll == null) {
+				if(tfcordVOAll.size() == 0) {
 					errorMsgs.add("此會員沒有點數交易紀錄");
 				}
+				System.out.println(tfcordVOAll);
 				if(!errorMsgs.isEmpty()) {
 					RequestDispatcher failView = req.getRequestDispatcher("/back-end/tfcord/select_page_Tfcord.jsp");
 					failView.forward(req, res);
@@ -208,7 +242,7 @@ public class TfcordServlet extends HttpServlet {
 			}
 		}
 		
-		if("changeStatue".equals(action)) {
+		if("changeStatue".equals(action)) { // 來自 /back-end/tfcord/listAllTfcord.jsp 或  /back-end/tfcord/listOnetf.jsp 或 /back-end/tfcord/notYetTfcord.jsp 或  /back-end/tfcord/listMbrtf.jsp 的請求
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			
@@ -219,35 +253,13 @@ public class TfcordServlet extends HttpServlet {
 				String mbrno = req.getParameter("mbrno");
 				
 				String tfno = req.getParameter("tfno");
-				if(tfno == null) {
-					errorMsgs.add("該會員之兌換編號有誤");
-				}
-				
-				if(!errorMsgs.isEmpty()) {
-					RequestDispatcher failView = req.getRequestDispatcher("/back-end/tfcord/listMbrtf.jsp");
-					failView.forward(req, res);
-					return;
-				}
 				
 				/***************************2.開始修改狀態****************************************/
 				TfcordService tfcordSvc = new TfcordService();
 				tfcordSvc.changeTfcordStatus(tfno);
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
-				
-				if(requestURL.equals("/back-end/tfcord/listMbrtf.jsp")) {//如果來源網頁是從 listMbrtf.jsp 就回到 listMbrtf.jsp
-					List<TfcordVO> tfcordVOAll = tfcordSvc.getWhoAll(mbrno);
-					req.setAttribute("tfcordVOAll", tfcordVOAll);
-					String url = requestURL;
-					RequestDispatcher successView = req.getRequestDispatcher(url);
-					successView.forward(req, res);
-					return;
-				}
-				
-				//如果是從其他網頁過來的，就回到 listAllTfcord.jsp 頁面
-				List<TfcordVO> tfcordVOAll = tfcordSvc.getAll();
-				req.setAttribute("tfcordVOAll", tfcordVOAll);
-				String url = "/back-end/tfcord/listAllTfcord.jsp";
+				String url = requestURL;
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 				
@@ -305,7 +317,46 @@ public class TfcordServlet extends HttpServlet {
 			}
 		}
 		
-		
+		if("deletetf".equals(action)) {
+			
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				/***************************1.接收請求參數****************************************/
+				String tfno = req.getParameter("tfno");
+				Integer price = new Integer (req.getParameter("price"));
+				String requestURL = req.getParameter("requestURL");
+				
+				
+				/***************************2.開始刪除資料*****************************************/
+				TfcordService tfcordSvc = new TfcordService();
+				TfcordVO tfcordVO = tfcordSvc.getOneTfcord(tfno);
+				
+				String mbrno = tfcordVO.getMbrno();
+				MbrpfService mbrpfSvc = new MbrpfService();
+				MbrpfVO mbrpfVO = mbrpfSvc.getOneMbrpf(mbrno);
+				mbrpfVO.setPoints(mbrpfVO.getPoints() + price);
+				
+				mbrpfSvc.updateMbrpf(mbrpfVO);
+				tfcordSvc.deleteTfcord(tfno);
+				
+				/***************************3.刪除完成,準備轉交(Send the Success view)***********/
+				String url = requestURL;
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				
+				/***************************其他可能的錯誤處理**********************************/
+			}catch(Exception e) {
+				errorMsgs.add("取消兌換失敗" + e.getMessage());
+				RequestDispatcher failView = req.getRequestDispatcher("/front-end/tfcord/listOneMbrtf.jsp");
+				failView.forward(req, res);
+			}
+			
+			
+			
+			
+		}
 		
 		
 		

@@ -3,6 +3,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="com.tfcord.model.*" %>
+
+<%
+	String tfno = (String) request.getParameter("tfno");
+	TfcordService tfcordSvc = new TfcordService();
+	TfcordVO tfcordVO = tfcordSvc.getOneTfcord(tfno);
+	pageContext.setAttribute("tfcordVO",tfcordVO);
+%>
+
 <!DOCTYPE html>
 <html>
 <head>

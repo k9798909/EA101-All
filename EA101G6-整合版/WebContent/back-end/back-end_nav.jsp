@@ -16,23 +16,23 @@
 
 <title>員工管理</title>
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
 <!-- https://fonts.google.com/specimen/Open+Sans -->
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/backCss/fontawesome.min.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/backCss/fontawesomeOld.min.css">
 <!-- https://fontawesome.com/ -->
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/backCss/bootstrap.min.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/backCss/bootstrapOld.min.css">
 <!-- https://getbootstrap.com/ -->
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/backCss/tooplate.css">
-
-
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/backCss/tooplateOld.css">
 
 <!-- 這邊寫css!!!!!!!!! -->
 
-
-
 </head>
 <body class="bg03">
-	<div class="container backNav">
+	<div class="container">
 		<div class="row">
 			<div class="col-12">
 				<nav class="navbar navbar-expand-xl navbar-light bg-light">
@@ -48,42 +48,42 @@
 						<span class="navbar-toggler-icon"></span>
 					</button>
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
-						<ul class="navbar-nav mx-auto">
+						<ul class="navbar-nav mx-auto backnav">
 							<li class="nav-item"><a class="nav-link"
 								href="<%=request.getContextPath()%>/back-end/index.jsp">首頁 <span
 									class="sr-only">(current)</span>
 							</a></li>
-							<li class="nav-item dropdown"><a
+							<li class="nav-item dropdown backnavdown"><a
 								class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 								role="button" data-toggle="dropdown" aria-haspopup="true"
 								aria-expanded="false"> 會員管理 </a>
 								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="#">一般會員管理</a> <a
-										class="dropdown-item" href="#">店家管理</a>
+									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/emp/listOneEmp.jsp">一般會員管理</a> 
+<!-- active測試，之後換頁面  -->			<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/tfcord/listAllTfcord.jsp">店家管理</a>
 								</div></li>
 							<li class="nav-item"><a class="nav-link"
-								href="<%=request.getContextPath()%>/back-end/products.html">商城管理</a>
+								href="#">商城管理</a>
 							<!-- 目前還沒有這項 --></li>
-							<li class="nav-item active"><a class="nav-link" href="#">員工管理</a>
+							<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/emp/listAllEmp.jsp">員工管理</a>
 							</li>
-							<li class="nav-item"><a class="nav-link"
-								href="<%=request.getContextPath()%>/back-end/bazaars.html">市集管理</a>
+<!-- active測試，之後換頁面  -->	<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/back-end/emp/addEmp.jsp">市集管理</a>
 							<!-- 目前還沒有這項 --></li>
-							<li class="nav-item dropdown"><a
+							<li class="nav-item dropdown backnavdown"><a
 								class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 								role="button" data-toggle="dropdown" aria-haspopup="true"
 								aria-expanded="false"> 檢舉管理 </a>
 								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="#">店家檢舉審核</a> <a
-										class="dropdown-item" href="#">會員檢舉審核</a> <a
-										class="dropdown-item" href="#">討論區檢舉審核</a> <a
-										class="dropdown-item" href="#">市集商品檢舉審核</a>
+									<a class="dropdown-item downlist" href="#">店家檢舉審核</a> 
+									<a class="dropdown-item downlist" href="#">會員檢舉審核</a> 
+									<a class="dropdown-item downlist" href="#">討論區檢舉審核</a> 
+									<a class="dropdown-item downlist" href="#">市集商品檢舉審核</a>
 								</div></li>
 							<li class="nav-item"><a class="nav-link"
 								href="<%=request.getContextPath()%>/back-end/bazaars.html">市集管理</a>
 							<!-- 目前還沒有這項 --></li>
 							<li class="nav-item"><a class="nav-link"
-								href="<%=request.getContextPath()%>/back-end/bazaars.html">市集管理</a>
+								href="<%=request.getContextPath()%>/back-end/emp/updatePwd.jsp">修改密碼</a>
 							<!-- 目前還沒有這項 --></li>
 						</ul>
 						<ul class="navbar-nav">
@@ -104,7 +104,7 @@
 	
 	
 	
-	<script src="<%=request.getContextPath() %>/js/backJs/bootstrap.min.js"></script>
+	<script src="<%=request.getContextPath() %>/js/backJs/bootstrapOld.min.js"></script>
 	
 	<script>
 	// DOM is ready
@@ -114,5 +114,31 @@
 			});
 		})
 	</script>
+	
+	<script>
+		$(function () {
+			$(".backnav").find("li").each(function () {
+		 		var a = $(this).find("a:first")[0];
+		 		if ($(a).attr("href") === location.pathname) {
+		     		$(this).addClass("active");
+		 		} else {
+		    		 $(this).removeClass("active");
+		 		}
+			});
+		});
+
+		$(function () {
+			$(".backnavdown").find("div").each(function () {
+		 		var a = $(this).find("a")[0];
+		 		if ($(a).attr("href") === location.pathname) {
+		     		$(a).parent().parent().addClass("active");
+		     		$(a).addClass("active");
+		 		} else {
+		    		 $(this).removeClass("active");
+		 		}
+			});
+		});
+</script>
+
 </body>
 </html>

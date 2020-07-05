@@ -9,6 +9,9 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mbrpf.model.MbrpfDAO;
+import com.mbrpf.model.MbrpfVO;
+
 public class TfcordDAO_JDBC implements TfcordDAO_Interface {
 	public static final String driver = "oracle.jdbc.driver.OracleDriver";
 	public static final String url = "jdbc:oracle:thin:@localhost:1521:XE";
@@ -21,6 +24,7 @@ public class TfcordDAO_JDBC implements TfcordDAO_Interface {
 	private static final String CHANGE_BY_PK = "UPDATE TFCORD SET TFSTATUS = 1 WHERE TFNO = ?";//審核通過某筆訂單狀態
 	private static final String FIND_BY_PK = "SELECT * FROM TFCORD WHERE TFNO = ?";//查詢某筆訂單
 	private static final String GET_MBR_ALL = "SELECT * FROM TFCORD WHERE MBRNO = ?";//查某會員有哪些紀錄，也可用於帳戶管理
+	private static final String GET_NOTYET_ALL = "SELECT * FROM TFCORD WHERE TFSTATUS = 0";
 	private static final String GET_ALL = "SELECT * FROM TFCORD";//查所有點數紀錄
 	
 	@Override
@@ -296,6 +300,60 @@ public class TfcordDAO_JDBC implements TfcordDAO_Interface {
 	}
 	
 	@Override
+	public List<TfcordVO> getNotYetAll() {
+		List<TfcordVO> tfAll = new ArrayList();
+		TfcordVO tfcord = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_NOTYET_ALL);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				tfcord = new TfcordVO();
+				tfcord.setTfno(rs.getString("tfno"));
+				tfcord.setMbrno(rs.getString("mbrno"));
+				tfcord.setTftype(rs.getString("tftype"));
+				tfcord.setPrice(rs.getInt("price"));
+				tfcord.setTftime(rs.getTimestamp("tftime"));
+				tfcord.setTfstatus(rs.getInt("tfstatus"));
+				tfAll.add(tfcord);
+			}	
+		}catch(ClassNotFoundException ce) {
+			ce.printStackTrace();
+		}catch(SQLException se) {
+			se.printStackTrace();
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				}catch(SQLException se) {
+					se.printStackTrace();
+				}
+			}
+			
+			if(pstmt != null){
+				try {
+					pstmt.close();
+				}catch(SQLException se) {
+					se.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				}catch(SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+		return tfAll;
+	}
+	
+	@Override
 	public void changeStatusBytfno(String tfno) {
 		TfcordVO tfcordVO = null;
 		Connection con = null;
@@ -308,19 +366,6 @@ public class TfcordDAO_JDBC implements TfcordDAO_Interface {
 			pstmt.setString(1, tfno);
 			pstmt.executeUpdate();
 			
-//			rs = pstmt.executeQuery();
-//			
-//			while(rs.next()) {
-//				
-//				tfcordVO = new TfcordVO();
-//				
-//				tfcordVO.setTfno(rs.getString("tfno"));
-//				tfcordVO.setMbrno(rs.getString("mbrno"));
-//				tfcordVO.setTftype(rs.getString("tftype"));
-//				tfcordVO.setPrice(rs.getInt("price"));
-//				tfcordVO.setTftime(rs.getTimestamp("tftime"));
-//				tfcordVO.setTfstatus(rs.getInt("tfstatus"));
-//			}
 		}catch (ClassNotFoundException ce) {
 			ce.printStackTrace();
 		}catch (SQLException se) {
@@ -348,8 +393,58 @@ public class TfcordDAO_JDBC implements TfcordDAO_Interface {
 				}
 			}
 		}
-//		return tfcordVO;
 	}
+	
+	//傳入我要新增的tfcordVO和已經改好點數的會員mbrpfVO(修改的會員物件是在Servlet修改)
+	@Override
+	public void insert2(TfcordVO tfcordVO, MbrpfVO mbrpfVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			
+			//先將自autoCommit關掉，不然我交易過程有錯誤，會沒辦法rollback
+			con.setAutoCommit(false);
+			
+			//因為這邊我只是要更新會員的點數，會員沒有需要我的自增主鍵，所以不需要綁定出來
+			
+			//將傳入的點數物件的資訊set進去
+			pstmt = con.prepareStatement(INSERT_PSTMT);
+			pstmt.setString(1, tfcordVO.getMbrno());
+			pstmt.setString(2, tfcordVO.getTftype());
+			pstmt.setInt(3, tfcordVO.getPrice());
+			pstmt.setInt(4,tfcordVO.getTfstatus());
+			pstmt.executeUpdate();
+			
+			MbrpfDAO mbrpfDAO = new MbrpfDAO();
+			mbrpfDAO.updatePoint(mbrpfVO, con);//將傳進來更新好的會員物件和現在同一條連線，透過updatePoint()去修改
+			con.commit();//如過過程中沒有問題就commit
+		}catch(ClassNotFoundException cs) {
+			cs.printStackTrace();
+		}catch(SQLException se) {
+			try {
+				con.rollback();//如果有錯誤就rollback
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			se.printStackTrace();
+		}finally {
+				try {
+					con.setAutoCommit(true);//最後關連線之前，告知交易結束
+					if(pstmt != null) {
+						pstmt.close();
+					}
+					if(con != null) {
+						con.close();
+					}		
+				}catch(SQLException se) {
+					se.printStackTrace();
+				}			
+			}
+	}
+	
+	
 	
 	public static void main(String[] args) {
 		
@@ -417,6 +512,18 @@ public class TfcordDAO_JDBC implements TfcordDAO_Interface {
 //	    	System.out.println();    	
 //	    }
 		
+//查詢所有還沒處理的轉換紀錄測試
+		TfcordDAO_JDBC dao = new TfcordDAO_JDBC();
+		List<TfcordVO> tfcordAll = dao.getNotYetAll();
+	    for(TfcordVO tfcordVO9 : tfcordAll) {
+	    	System.out.print(tfcordVO9.getTfno() + ",");
+	    	System.out.print(tfcordVO9.getMbrno() + ",");
+	    	System.out.print(tfcordVO9.getTftype() + ",");
+	    	System.out.print(tfcordVO9.getPrice() + ",");
+	    	System.out.print(tFormat(tfcordVO9.getTftime()) + ",");
+	    	System.out.print(tfcordVO9.getTfstatus());
+	    	System.out.println();    	
+	    }
 		
 	}
 	

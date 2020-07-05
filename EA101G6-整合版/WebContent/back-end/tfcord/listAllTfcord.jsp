@@ -44,7 +44,7 @@
 	
 	<%@ include file="page1.file"%>
 	<c:forEach var="tfcordVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-		<tr>
+		<tr ${(tfcordVO.tfno == param.tfno) ?  'bgcolor=#CCCCFF' : ''} >
 			<td>${tfcordVO.tfno}</td>
 			<td>${tfcordVO.mbrno}</td>
 			<td>${tfcordVO.tftype == "M" ? "兌現" : "儲值"}</td>
@@ -57,7 +57,9 @@
 					<input type="submit" value="確認審核" ${(tfcordVO.tfstatus == 1) ? "disabled" : "" }>
 					<input type ="hidden" name="mbrno" value="${tfcordVO.mbrno}">
 					<input type ="hidden" name="tfno" value="${tfcordVO.tfno}">
+					<input type ="hidden" name="price" value="${tfcordVO.price}">
 					<input type ="hidden" name="requestURL" value="<%=request.getServletPath()%>">					
+					<input type ="hidden" name="whichPage" value="<%=whichPage%>">					
 					<input type ="hidden" name="action" value="changeStatue">
 				</form> 
 			</td>

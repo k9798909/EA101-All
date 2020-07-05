@@ -64,6 +64,8 @@
 
 <body>
 
+<%@ include file="/back-end/back-end_nav.jsp" %>
+
 <!-- 錯誤列表  -->
 	<c:if test="${not empty errorMsgs}">
 		<font style="color: red">請修正以下錯誤：</font>
@@ -73,8 +75,6 @@
 			</c:forEach>
 		</ul>
 	</c:if>
-
-<%@ include file="/back-end/back-end_nav.jsp" %>
 
 <div class="container">
 	<div class="tm-col tm-col-big" id="empall">
@@ -114,20 +114,20 @@
 						<input id="uppicbtn" type="file" name="pic" onchange="loadFile(event)"/>
 					</div>
 				</div>
+				
+				<input type="hidden" name="action" value="insert">
+				
 				<div class="row empsend">
 					<div class="col-12 col-sm-4">
 						<button type="submit" class="btn btn-primary">Add</button>
 					</div>
 				</div>
-				<input type="hidden" name="action" value="insert">
+				
 			</form>
 		</div>
 	</div>
 </div>
 
-	<h4>
-		<a href="<%=request.getContextPath()%>/back-end/emp/select_page.jsp">回首頁</a>
-	</h4>
 	
 
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.min.js"></script>
@@ -135,25 +135,6 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-<td>		<select size="1">
-				<c:forEach var="month" begin="1" end="12" step="1">
-					<option value="${month}">${month}月
-				</c:forEach>
-			</select>
-			
-			<select size="1">
-				<c:forEach var="year" begin="${year}" end="${year+15}" step="1">
-					<option value="${year}">${year}年
-				</c:forEach>
-			</select>
-</td>
 
 
 

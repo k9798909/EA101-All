@@ -4,6 +4,14 @@
 <%@ page import="com.tfcord.model.*" %>
 <%@ page import="java.util.*"%>
 
+<%
+	
+	String mbrno = (String) session.getAttribute("mbrno");
+	TfcordService tfcordSvc = new TfcordService();
+	List<TfcordVO> list = tfcordSvc.getWhoAll(mbrno);
+	pageContext.setAttribute("list",list);
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +34,7 @@
 <a href="<%=request.getContextPath()%>/back-end/tfcord/select_page_Tfcord.jsp">回後台點數轉換首頁</a>
 
 <h3>顯示某會員所有的點數交易紀錄</h3>
-
+---${param.whichPage}---${param.mbrno}---
 <table>
 	<tr>
 		<th>兌換編號</th>
@@ -37,8 +45,10 @@
 		<th>審核按鈕</th>
 	</tr>
 	
-	<c:forEach var="tfcordVO" items="${tfcordVOAll}">
-		<tr>
+	<%@ include file="page1.file"%>
+	
+	<c:forEach var="tfcordVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1 %>">
+		<tr ${(tfcordVO.tfno == param.tfno) ? 'bgcolor=#CCCCFF' : ''}><!--將審核的那一筆加入對比色-->
 			<td>${tfcordVO.tfno}</td>
 			<td>${(tfcordVO.tftype == "M") ? "兌現" : "儲值"}</td>
 			<td>${tfcordVO.price}</td>
@@ -51,12 +61,14 @@
 					<input type ="hidden" name="mbrno" value="${tfcordVO.mbrno}">
 					<input type ="hidden" name="tfno" value="${tfcordVO.tfno}">
 					<input type ="hidden" name="requestURL" value="<%=request.getServletPath()%>"><!--送出本網頁的路徑給Controller-->
+					<input type ="hidden" name="whichPage" value="<%=whichPage%>"><!--送出當前是第幾頁給Controller，給這行才有辦法回修改的頁數-->
 					<input type ="hidden" name="action" value="changeStatue">
 				</form> 
 			</td>
 		</tr>
 	</c:forEach>
 </table>
+<%@ include file="page2.file" %>
 request.getServletPath() = <%=request.getServletPath()%>
 </body>
 </html>

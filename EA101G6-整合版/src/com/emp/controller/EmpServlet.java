@@ -321,17 +321,17 @@ public class EmpServlet extends HttpServlet {
 			}
 		}
 		
-		if("tryLogin".equals(action)) {// 來自login.jsp的請求
+		if("tryLogin".equals(action)) {// 來自loginBack.jsp的請求
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			try {
 				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
-				String account = req.getParameter("account");
+				String accountBack = req.getParameter("accountBack");
 				String password = req.getParameter("password");
-				req.setAttribute("account", account);
+				req.setAttribute("accountBack", accountBack);
 				req.setAttribute("password", password);
 				
-				if(account == null || account.trim().length() == 0) {
+				if(accountBack == null || accountBack.trim().length() == 0) {
 					errorMsgs.add("請輸入帳號");
 				}
 				
@@ -340,18 +340,18 @@ public class EmpServlet extends HttpServlet {
 				}
 				
 				if(!errorMsgs.isEmpty()) {
-					RequestDispatcher failView = req.getRequestDispatcher("/login.jsp");
+					RequestDispatcher failView = req.getRequestDispatcher("/loginBack.jsp");
 					failView.forward(req, res);
 					return;
 				}
 				
 				/***************************2.開始驗證是否為員工***************************************/
-					EmpService empSvc = new EmpService();//此處的account為empno，如果可以透過這個empno取得員工物件，代表這account確實為員工
-					EmpVO empVO = empSvc.checkLogin(account);//透過傳empno進去可以取得empVO物件的方法，取得要更改密的員工物件
+					EmpService empSvc = new EmpService();//此處的accountBack為empno，如果可以透過這個empno取得員工物件，代表這accountBack確實為員工
+					EmpVO empVO = empSvc.checkLogin(accountBack);//透過傳empno進去可以取得empVO物件的方法，取得要更改密的員工物件
 					String emppwd = empVO.getEmppwd();
 					if(password.equals(emppwd)) {//帳號正確，取出的密碼也和輸入的一樣
 						HttpSession session =req.getSession();
-						session.setAttribute("account", account);//將帳號存進session，之後可以藉由這個取得他所擁有的權限
+						session.setAttribute("accountBack", accountBack);//將帳號存進session，之後可以藉由這個取得他所擁有的權限
 						
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/
 						try {//查看是否有來源網頁
@@ -370,14 +370,14 @@ public class EmpServlet extends HttpServlet {
 						return;
 					}else {
 						errorMsgs.add("帳號、密碼錯誤");
-						RequestDispatcher failView = req.getRequestDispatcher("/login.jsp");
+						RequestDispatcher failView = req.getRequestDispatcher("/loginBack.jsp");
 						failView.forward(req, res);
 					}
 					
 					/***************************其他可能的錯誤處理**********************************/
 				}catch(Exception e) {
 					errorMsgs.add(e.getMessage());
-					RequestDispatcher failureView = req.getRequestDispatcher("/login.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/loginBack.jsp");
 					failureView.forward(req, res);
 				}
 		}
@@ -388,7 +388,7 @@ public class EmpServlet extends HttpServlet {
 			try{
 				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 				HttpSession session = req.getSession();
-				String empno = (String) session.getAttribute("account");//將登入時setAttribute的account取出，accoutn為empno
+				String empno = (String) session.getAttribute("accountBack");//將登入時setAttribute的accountBack取出，accountBack為empno
 				
 				/***************************2.開始查詢員工****************************************/
 				EmpService empSvc = new EmpService();
@@ -403,7 +403,7 @@ public class EmpServlet extends HttpServlet {
 				/***************************其他可能的錯誤處理**********************************/
 			}catch(Exception e) {
 				errorMsgs.add(e.getMessage());
-				String url = "/login.jsp";
+				String url = "/loginBack.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 			}
@@ -450,8 +450,8 @@ public class EmpServlet extends HttpServlet {
 				empSvc.updateEmpPwd(emppwd, empno);
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
-				String url = "/login.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交login.jsp，重新登入
+				String url = "/loginBack.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交loginBack.jsp，重新登入
 				successView.forward(req, res);
 				
 				/***************************其他可能的錯誤處理*************************************/
@@ -505,8 +505,8 @@ public class EmpServlet extends HttpServlet {
 				empMailSvc.getNewPwd(empVO, mail, newPwd);//將上面取出的員工物件和信箱，跟上面取得的新密碼傳給empMailSvc
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
-				String url = "/login.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交login.jsp，重新登入
+				String url = "/loginBack.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交loginBack.jsp，重新登入
 				successView.forward(req, res);
 				
 				/***************************其他可能的錯誤處理*************************************/
@@ -526,20 +526,19 @@ public class EmpServlet extends HttpServlet {
 				/***************************1.登出*****************************************/
 			try {
 				HttpSession session = req.getSession();
-				session.removeAttribute("account");
+				session.removeAttribute("accountBack");
 				
 				/***************************2.登出成功,準備轉交(Send the Success view)*************/
 				successMsgs.add("帳號已登出");
-				RequestDispatcher failView = req.getRequestDispatcher("/login.jsp");
+				RequestDispatcher failView = req.getRequestDispatcher("/loginBack.jsp");
 				failView.forward(req, res);
 				return;
 				/***************************其他可能的錯誤處理*************************************/	
 			}catch(Exception e) {
 				errorMsgs.add("登出失敗");
-				RequestDispatcher failView = req.getRequestDispatcher("/login.jsp");
+				RequestDispatcher failView = req.getRequestDispatcher("/loginBack.jsp");
 				failView.forward(req, res);
-			}
-			
+			}	
 		}
 		
 		

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 //用濾器的方式，就不用每一支程式都打上一段看看session內是否有account這個Attribute的程式碼
 public class LoginFilterBack implements Filter {
-	//---
+	
 	private FilterConfig config;
 	
 	@Override
@@ -33,11 +33,11 @@ public class LoginFilterBack implements Filter {
 		HttpServletResponse res = (HttpServletResponse)response;
 		
 		HttpSession session = req.getSession();//取得session
-		Object account = session.getAttribute("account");//從session看是否有登入過，如果有通過登入EmpServlet.java會將account存進session中，354行【session.setAttribute("account", account);】
-		if(account == null) {//如果沒有登入過
+		Object accountBack = session.getAttribute("accountBack");//從session看是否有登入過，如果有通過登入EmpServlet.java會將accountBack存進session中，354行【session.setAttribute("accountBack", accountBack);】
+		if(accountBack == null) {//如果沒有登入過
 			session.setAttribute("location", req.getRequestURI());//將現在的位址，以location的名字存進session
-			res.sendRedirect(req.getContextPath()+"/login.jsp");//重導至登入頁面
-			System.out.println("首頁"); 
+			res.sendRedirect(req.getContextPath()+"/loginBack.jsp");//重導至登入頁面
+			System.out.println("後台首頁"); 
 			return;
 		}else {
 			chain.doFilter(request, response);//chain的doFilter是傳ServletRequest的request和ServletResponse的response進去
