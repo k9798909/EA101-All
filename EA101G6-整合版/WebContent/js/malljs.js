@@ -69,44 +69,39 @@ $(document).ready(function() {
 	hov();
 	// 預覽事件
 	function hov() {
-		$("#comm td div").hover(function() {
-			$(this).css({
-				"color" : "blue"
-			});
+		$("#comm td div").click(function() {
 			$("#comm").css({
 				"opacity" : "0.3"
 			});
 			let intro = document.createElement("div");
+			let button = document.createElement("button");
+			$(button).text("關閉");
 			$(intro).attr({
 				"id" : "introshow",
 			});
 			$(intro).text($(this).text());
-			$(intro).css({
-				"position" : "absolute",
-				"width" : "400px",
-				"top" : "35%",
-				"background-color" : "#ffffff",
-				"word-break" : "break-all",
-				"word-wrap" : "break-word",
-				"margin-left" : "-200px",
-				"font-size" : "24px",
-				"left" : "50%",
-				"color" : "#000000",
-			});
+			$(intro).addClass("intro");
+			$(button).addClass("btn btn-secondary");
+			$(button).css({"display":"block",
+							"margin-left":"43%",
+							"margin-top":"10px"});
+			$(intro).append(button);
 			$("body").append(intro);
-		}, function() {
-			$(this).css({
-				"color" : "block"
-			});
-			$("#comm").css({
-				"opacity" : "1"
-			});
-			$(this).css({
-				"color" : "#000000"
-			});
-			$("#introshow").remove();
+			
+			$(button).click(function() {
+				$("#comm").css({
+					"opacity" : "1"
+				});
+				$(this).css({
+					"color" : "#000000"
+				});
+				$("#introshow").remove();
 
-		})
+			})
+			
+		});
+		
+
 	}
 
 	$("#addDiv .addtypebtn").click(function() {

@@ -14,7 +14,7 @@ COLOR CODES
 */
 
 html {
-  
+  font-size: 17px;
 }
 
 body.bg03 {
@@ -102,10 +102,10 @@ div.backNav .navbar-light .navbar-nav .nav-link {
 }
 
 /* 7/4註解 */
-/* div.backNav .navbar-light .navbar-nav .nav-link, */
-/* .dropdown-item { */
-/*   padding: 15px 20px; */
-/* } */
+div.backNav .navbar-light .navbar-nav .nav-link,
+.dropdown-item {
+  padding: 15px 20px;
+}
 
 div.backNav .navbar-light .navbar-nav .active > .nav-link,
 div.backNav .navbar-light .navbar-nav .nav-link.active,
@@ -115,33 +115,33 @@ div.backNav .navbar-light .navbar-nav a:hover {
   background-color: #e6e6e6;
 }
 /* 7/4註解 */
-/* div.backNav .nav-item { */
-/*   margin-right: 30px; */
-/* } */
+div.backNav .nav-item {
+  margin-right: 30px;
+}
 
-/* div.backNav .nav-item:last-child { */
-/*   margin-right: 0; */
-/* } */
+div.backNav .nav-item:last-child {
+  margin-right: 0;
+}
 
-/* div.backNav .tm-content-row { */
-/*   justify-content: space-between; */
-/*   margin-left: -20px; */
-/*   margin-right: -20px; To offset col padding */
-/* } */
+div.backNav .tm-content-row {
+  justify-content: space-between;
+  margin-left: -20px;
+  margin-right: -20px; To offset col padding
+}
 
-/*  div.backNav .tm-col { */
-/*   padding-left: 20px; */
-/*   padding-right: 20px; */
-/*   margin-bottom: 50px; */
-/* } */
+ div.backNav .tm-col {
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-bottom: 50px;
+}
 
-/* div.backNav .tm-col-big { */
-/*   width: 39%; */
-/* } */
+div.backNav .tm-col-big {
+  width: 39%;
+}
 
-/* div.backNav .tm-col-small { */
-/*   width: 21.95%; */
-/* } */
+div.backNav .tm-col-small {
+  width: 21.95%;
+}
 
 div.backNav .tm-link-black {
   color: black;
@@ -435,7 +435,7 @@ div.backNav .tm-login-col {
 }
 
 @media (min-width: 1200px) {
-  div.backNav .container {
+  div.backNav.container {
     max-width: 1630px;
   }
 }

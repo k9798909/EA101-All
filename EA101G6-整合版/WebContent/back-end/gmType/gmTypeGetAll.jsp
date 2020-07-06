@@ -25,7 +25,7 @@ div.gmtypezone{
 	left:50%;
 	margin-left:-150px;
 	z-index:998;
-	top:50px;
+	top:100px;
 	display:none;
 }
 
