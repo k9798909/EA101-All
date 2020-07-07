@@ -492,7 +492,7 @@ public class ArtServlet extends HttpServlet {
 		if ("insert_AF".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			System.out.println(action);
+			
 			
 			try {
 				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/

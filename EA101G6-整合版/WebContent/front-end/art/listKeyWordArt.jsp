@@ -150,12 +150,7 @@
 
 
 
-<table>
-	<tr><td>
-		<h3>所有文章資料 -listKeyWordArt.jsp</h3>
-		<h4><a href="select_page.jsp">回首頁</a></h4>
-	</td></tr>
-</table>
+
 
 
 <%-- 錯誤表列 --%>
@@ -168,32 +163,7 @@
 	</ul>
 </c:if>
 
-<table>
-	<tr>
-		<th>文章編號</th>
-		<th>作者編號</th>
-		<th>文章標題</th>
-		<th>發文日期</th>
-		<th>文章內容</th>
-		<th>文章種類</th>
-		<th>封面圖片</th>
-		
-	</tr>
-	<%@ include file="page1.file" %>
-	<c:forEach var="artVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-		<tr>
-			<td>${artVO.artno}</td>
-			<td>${artVO.mbrno}</td>
-			<td>${artVO.arttt}</td>
-			<td>${artVO.pdate}</td>
-			<td>${artVO.detail}</td>
-			<td>${artVO.atno}</td>
-			<td><img class="img-1" src="<%=request.getContextPath()%>/art/artpic.do?artno=${artVO.artno}"/></td>
-				
-		</tr>
-	</c:forEach>
-</table>
-<%@ include file="page2.file" %>
+
 
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
