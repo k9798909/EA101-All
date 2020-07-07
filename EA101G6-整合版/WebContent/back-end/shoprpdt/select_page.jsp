@@ -29,9 +29,7 @@ td {
 	height: 20px;
 }
 
-tr:nth-child(odd) {
-	background-color: #FFED97;
-}
+
 h3 {
 	margin-left: auto;
 	margin-rghit: auto;

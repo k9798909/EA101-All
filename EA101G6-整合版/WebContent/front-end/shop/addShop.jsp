@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<script src="<%=request.getContextPath()%>/js/taiwan_address_auto_change.js"></script>
+<script src="<%=request.getContextPath()%>/js/address2.js"></script>
 <title>註冊店家</title>
 
 <style>
@@ -61,17 +61,16 @@ img {
 				<td><input type="TEXT" name="shopact" size=100%
 					value="<%=(shopVO == null) ? "321" : shopVO.getShopact()%>" /></td>
 			</tr>
-			<tr>
-				<td>店家密碼:</td>
-				<td><input type="TEXT" name="shoppw" size=100%
-					value="<%=(shopVO == null) ? "123" : shopVO.getShoppw()%>" /></td>
-			</tr>
+<!-- 			<tr> -->
+<!-- 				<td>店家密碼:</td> -->
+<!-- 				<td><input type="hidden" name="shoppw" size=100% -->
+<%-- 					value="<%=(shopVO == null) ? "123" : shopVO.getShoppw()%>" /></td> --%>
+<!-- 			</tr> -->
 			<tr>
 				<td>店家名稱:</td>
 				<td><input type="TEXT" name="shopname" size=100%
 					value="${(param.shopname == null) ? "123" : param.shopname }" /></td>
 			</tr>
-<%-- 			<%=(shopVO == null) ? "RRRR" : shopVO.getShopname()%> --%>
 			<tr>
 				<td>店家位置:</td>
 				<td><select name="city" id="縣市1">

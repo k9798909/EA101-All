@@ -2,6 +2,8 @@ package com.game.model;
 
 import java.util.List;
 
+import com.shop.model.ShopVO;
+
 public class GameService {
 	
 	GameDAO_interface dao;
@@ -9,14 +11,13 @@ public class GameService {
 	public GameService() {
 		dao = new GameJDBCDAO();
 	}
-	public GameVO addGame(String gmname, byte[] gmimg) {
+	public void addGame(String gmname, byte[] gmimg, ShopVO shopVO) {
 		GameVO gameVO = new GameVO();
 		
 		gameVO.setGmname(gmname);
 		gameVO.setGmimg(gmimg);
-		dao.insert(gameVO);
-		
-		return gameVO;
+		dao.insert(gameVO, shopVO);
+
 	}
 	public GameVO updateGame(String gmno, String gmname, byte[] gmimg) {
 		GameVO gameVO = new GameVO();

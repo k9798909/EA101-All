@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.game.model.GameDAO_interface;
+import com.gmlist.model.GmlistJDBCDAO;
+import com.gmlist.model.GmlistVO;
+import com.shop.model.ShopVO;
 
 public class GameJDBCDAO implements GameDAO_interface{
 
@@ -30,7 +33,7 @@ public class GameJDBCDAO implements GameDAO_interface{
 	
 
 	@Override
-	public void insert(GameVO gameVO) {
+	public void insert(GameVO gameVO, ShopVO shopVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
@@ -38,14 +41,34 @@ public class GameJDBCDAO implements GameDAO_interface{
 			
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(INSERT_STMT);
-			
+			//交易開始
+			con.setAutoCommit(false);
+			//先新增遊戲
+			String cols[] = {"GMNO"};
+			pstmt = con.prepareStatement(INSERT_STMT, cols);	
 			pstmt.setString(1, gameVO.getGmname());
 			pstmt.setBytes(2, gameVO.getGmimg());
-			
 			pstmt.executeUpdate();
+			//掘取對應的自增主鍵值
+			String next_gmno = null;
+			ResultSet rs = pstmt.getGeneratedKeys();
+			if(rs.next()) {
+				next_gmno = rs.getString(1);
+				System.out.println("自增主鍵值=" + next_gmno + "(剛新增成功)");
+			}else {
+				System.out.println("未取得自增主鍵值");
+			}
+			rs.close();
+			//同時新增gmlist
+			GmlistJDBCDAO dao = new GmlistJDBCDAO();
+			GmlistVO gmlistVO = new GmlistVO();
+			gmlistVO.setShopno(shopVO.getShopno());
+			gmlistVO.setGmno(next_gmno);
+			dao.insert2(gmlistVO, con);
 			
-			
+			//pstmt.executeUdate()之後
+			con.commit();
+			con.setAutoCommit(true);
 		}catch(ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. "
 					+ e.getMessage());
@@ -287,9 +310,11 @@ public class GameJDBCDAO implements GameDAO_interface{
 		GameService gameSvc = new GameService();
 		// �s�W
 		GameVO gameVO1 = new GameVO();
-		gameVO1.setGmname("����");
+		ShopVO shopVO = new ShopVO();
+		shopVO.setShopno("DS00001");
+		gameVO1.setGmname("123");
 		gameVO1.setGmimg(null);
-		gameSvc.addGame("安安安", null);
+		gameSvc.addGame("123",null,shopVO);
 		System.out.println("fdfasd");
 //		// �ק�
 //		GameVO gameVO2 = new GameVO();

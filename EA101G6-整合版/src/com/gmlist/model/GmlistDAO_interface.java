@@ -3,6 +3,7 @@ import java.util.List;
 
 import com.gmlist.model.GmlistVO;
 public interface GmlistDAO_interface {
+	public void insert2(GmlistVO gmlistVO, java.sql.Connection con);
 	public void insert(GmlistVO gmlistVO);
 	public void delete(String gmno, String shopno);
 	public GmlistVO findByPrimaryKey(String gmno, String shopno);
