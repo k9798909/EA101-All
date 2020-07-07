@@ -40,12 +40,16 @@
 	
 	div.imgdiv{
 		margin:5px auto;
-		width: 80%;
-		height: 40%;
+		width: 90%;
+		height: 60%;
 	}
 	#accordionExample{
  		margin-top: 50px;
  	}
+ 	
+ 	div.comm {
+    height: 250px;
+	}
 
 </style>
 
@@ -267,9 +271,10 @@
 
 	<jsp:useBean id="gmTypeSvc" class="com.gmType.model.GmTypeService" scope="request"/>
 	<jsp:useBean id="mallSvc" class="com.mall.model.MallService" scope="request"/>
-
+	<div class="accordion col-md-10 offset-md-1">
+	<h1><span class="badge badge-light">最新商品</span></h1>
+	</div>
 	<div id="services-section">
-		最新商品
 		<div class="container commMain">
 			<div class="row">
 				<c:forEach var="mallVo" items="${mallSvc.getNew()}" >

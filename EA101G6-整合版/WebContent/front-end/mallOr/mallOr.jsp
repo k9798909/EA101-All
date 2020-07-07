@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>結帳訂單</title>
 
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/model/bootstrap.min.css">
 	
@@ -53,7 +53,7 @@ div.paydiv{
 
 input.paybtn{
 	position:relative;
-	left:-10%;
+	left:-30px;
 
 }
 
@@ -88,7 +88,13 @@ div.order input.addr{
 			display: inline-block;
 			margin:0px 30px;
 			font-size: 26px;
-		}	
+		}
+		
+		input.cancel{
+			margin-left:40px;
+		}
+		
+
 
 </style>
 
@@ -100,7 +106,7 @@ div.order input.addr{
 
 <main>
 	<div class="container">
-	<div class="orTitle">訂單明細</div>
+	<div class="orTitle"><h4>訂單明細</h4></div>
 		<table class="table table-striped table-bordered">
 			<thead class="thead-light">
 				<tr>
@@ -138,7 +144,7 @@ div.order input.addr{
 	<form action="<%= request.getContextPath()%>/MallOr/MallOrServlet" method="post">
 	<div class="container  order">
 		<div class="row justify-content-center">
-			<div class="col-12 col-md-6 information border">
+			<div class="col-12 col-md-5 information border border-dark rounded">
 				<div>會員姓名:<input type="text" value="${mbrpfVo.mbrname}" readonly></div>
 				<div>取貨方式: <input name="take" type="radio" value="超商取貨" ${"超商取貨"==take?"checked":""}>超商取貨    <input name="take" type="radio" value="住家取貨" ${"住家取貨"==take?"checked":""}>住家取貨</div>	
 				<div>取貨地點:</div>
@@ -152,7 +158,7 @@ div.order input.addr{
 	</div>
 	
 	<input type="hidden" name="action" value="checkOut">
-	<div class="paydiv"><input type="submit" class="paybtn" value="確定付款"><button type="button">取消</button></div>
+	<div class="paydiv"><input type="submit" class="paybtn" value="確定付款"><a href="<%= request.getContextPath()%>/front-end/mall/mallGetAllUp.jsp"><input type="button" class="cancel" value="取消"></a></div>
 	</form>
 	
 </main>	

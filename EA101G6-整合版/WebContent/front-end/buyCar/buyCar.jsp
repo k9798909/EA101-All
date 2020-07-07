@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Gameing on Board</title>
+<title>購物車</title>
 <!-- 個人CSS -->
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/buyCarCss/buyCar.css">

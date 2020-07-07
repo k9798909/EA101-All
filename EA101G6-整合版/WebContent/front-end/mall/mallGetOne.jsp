@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Gameing on Board</title>
+<title>商品</title>
 
 <!-- 個人CSS -->
 <link rel="stylesheet"

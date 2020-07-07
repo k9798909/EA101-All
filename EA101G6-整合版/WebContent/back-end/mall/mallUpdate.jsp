@@ -82,7 +82,8 @@
 				</div>
 				<!-- 讓C確認是getone還是getall -->
 				<input type="hidden" name="isGetOne" value="${param.isGetOne}">
-				<input type="hidden" name="action" value="update"></input> 
+				<input type="hidden" name="action" value="update">
+				<input  type="hidden" name="whichPage" value="${param.whichPage}">
 				<input type="submit" value="修改" class="btn">
 				<button class="btn cancel" type="button">取消</button>
 				

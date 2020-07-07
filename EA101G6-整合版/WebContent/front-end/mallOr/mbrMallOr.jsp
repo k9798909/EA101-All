@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>會員訂單</title>
 
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/model/bootstrap.min.css">
@@ -119,7 +119,7 @@ main {
 									<td>${mallOr.status=="1"?"已完成":mallOr.status=="2"?"已取消":"未完成"}</td>
 								</tr>
 								<tr>
-								<td>運送地址</td><td colspan="4" style="text-align:left;">${mallOr.address}</td>
+								<td>運送地址</td><td colspan="4" style="text-align:left; padding-left:15px;">${mallOr.address}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -131,7 +131,7 @@ main {
 								<input type="hidden" name="payStatus" value="${mallOr.payStatus}"> 
 								<input type="hidden" name="mallOrNo" value="${mallOr.mallOrNo}">  
 								<input type="hidden" name="action" value="updateStatus"> 
-								<input type="submit" value="取消訂單">
+								<input style="margin:10px;" type="submit" value="取消訂單">
 							</form>
 						</c:if>
 						<!-- //已出貨要領貨 -->
@@ -152,7 +152,7 @@ main {
 						<div class="container dtTbDiv">
 							<div class="row">
 								<div class="col-8">
-									<table class="table table-bordered">
+									<table class="table table-bordered ">
 										<thead>
 											<tr>
 												<th>商品名稱</th>
@@ -199,6 +199,8 @@ main {
 		$(document).ready(function() {
 			$(".showDtTbBtn").click(function() {
 				$(this).next(".dtTbDiv").slideToggle();
+				let inText=$(this).text();
+				$(this).text(inText=="+"?"-":"+");
 			});
 
 		})

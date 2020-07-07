@@ -290,7 +290,6 @@ public class MallOrServlet extends HttpServlet{
 			String mbrNo= req.getParameter("mbrNo");
 			MbrpfService mbrpfSvc = new MbrpfService();
 			MbrpfVO mbrpfVo=mbrpfSvc.getOneMbrpf(mbrNo);
-
 			/***************************
 			 * 2.開始查詢,
 			 ********************************************/
