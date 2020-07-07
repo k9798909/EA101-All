@@ -67,7 +67,7 @@ h5.modal-title{
 </head>
 <body>
 
-<%@ include file="/back-end/back-end_nav.jsp" %>
+<%@ include file="/back-end/back-end-nav-susu.jsp" %>
 
 <nav class="orNav navbar navbar-expand-lg navbar-light  ">
   <a class="navbar-brand" href="#">商城訂單</a>

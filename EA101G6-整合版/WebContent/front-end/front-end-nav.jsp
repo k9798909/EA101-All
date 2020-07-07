@@ -60,8 +60,8 @@
 				<div class="col-12">
 					<div class="float-left">
 						<c:choose>
-						<c:when test="${mbrpfvo.mbrname != null}">
-						<span id="mbrname" class="d-md-inline-block text-white">歡迎你！${mbrpfvo.mbrname}</span>
+						<c:when test="${mbrpfVO.mbrname != null}">
+						<span id="mbrname" class="d-md-inline-block text-white">歡迎你！${mbrpfVO.mbrname}</span>
 						</c:when>
 						<c:otherwise>
 						<a href="" class="text-white"><span class="d-md-inline-block">
@@ -74,7 +74,7 @@
 
 					<div class="float-right">
 						<c:choose>
-						<c:when test="${mbrpfvo.mbrname != null}">
+						<c:when test="${mbrpfVO.mbrname != null}">
 						<a href="<%= request.getContextPath()%>/mbrpf/mbrpf.do?action=logout" id="logout" class="d-md-inline-block text-white">登出</a>
 						</c:when>
 						<c:otherwise>

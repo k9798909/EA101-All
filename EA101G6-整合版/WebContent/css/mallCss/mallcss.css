@@ -21,7 +21,7 @@
 }
 
 #comm tbody td {
-	height: 65px;
+	height: 80px;
 	vertical-align : middle ;
 }
 
@@ -56,10 +56,10 @@
 
 #addDiv , #updateDiv {
 	width: 350px;
-	height: 500px;
+	height: 600px;
 	position: absolute;
-	top: 50px;
-	margin-right: -150px;
+	top: 100px;
+	margin-right: -170px;
 	right: 50%;
 	display: none;
 	z-index: 999;
@@ -227,6 +227,26 @@ div.box{
 	display:inline-block;
 }
 
+div.intro{
+	position : absolute;
+	width : 400px;
+	top : 35%;
+	background-color : #ffffff;
+	word-break : break-all;
+	word-wrap : break-word;
+	margin-left : -200px;
+	font-size : 24px;
+	left : 50%;
+	color : #000000;
+	border-radius:15px;
+	padding:20px;
+	box-sizing:border-box;
+	border:solid 2px;
+}
+
+#comm td div{
+	cursor:pointer;
+}
 
 
 
