@@ -5,6 +5,7 @@
 <%
 	GameVO gameVO = (GameVO) request.getAttribute("gameVO");
 %>
+
 <html>
 <head>
 <meta charset="utf-8">

@@ -18,6 +18,8 @@ import javax.servlet.http.Part;
 import com.shop.model.ShopService;
 import com.shop.model.ShopVO;
 import com.game.model.*;
+import com.gmlist.model.GmlistService;
+import com.gmlist.model.GmlistVO;
 
 
 @MultipartConfig
@@ -224,12 +226,12 @@ public class GameServlet extends HttpServlet {
 		}
 
 		if ("insert".equals(action)) { // �Ӧ�addshop.jsp���ШD
-
+			System.out.println("test");
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-			try {
+//			try {
 				/*********************** 1.�����ШD�Ѽ� - ��J�榡�����~�B�z *************************/
 
 				String gmname = req.getParameter("gmname");
@@ -259,20 +261,22 @@ public class GameServlet extends HttpServlet {
 				}
 
 				/*************************** 2.�}�l�s�W��� ***************************************/
-				GameService gameSvc = new GameService();
-				gameVO = gameSvc.addGame(gmname, gmimg);
+				GameService gameSvc = new GameService();			
+				ShopVO shopVO = (ShopVO)session.getAttribute("shopVO");
+				gameSvc.addGame(gmname, gmimg, shopVO);
 
+				
 				/*************************** 3.�s�W����,�ǳ����(Send the Success view) ***********/
 				String url = "listAllGame.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // �s�W���\�����listAllshop.jsp
 				successView.forward(req, res);
 
 				/*************************** ��L�i�઺���~�B�z **********************************/
-			} catch (Exception e) {
-				errorMsgs.add(e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("addGame.jsp");
-				failureView.forward(req, res);
-			}
+//			} catch (Exception e) {
+//				errorMsgs.add(e.getMessage());
+//				RequestDispatcher failureView = req.getRequestDispatcher("addGame.jsp");
+//				failureView.forward(req, res);
+//			}
 		}
 	
 	}

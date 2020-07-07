@@ -285,12 +285,9 @@ public class ShopServlet extends HttpServlet {
 				}
 
 				String shoppw = req.getParameter("shoppw");
-				String shoppwReg = "^[(a-zA-Z0-9)]{3,10}$";
-				if (shoppw == null || shoppw.trim().length() == 0) {
-					errorMsgs.add("店家密碼請勿空白");
-				} else if (!shoppw.trim().matches(shoppwReg)) { // �H�U�m�ߥ��h(�W)��ܦ�(regular-expression)
-					errorMsgs.add("店家密碼格式錯誤");
-				}
+				int passwdRandom = (int)(Math.random()*99999999+1);
+				String passRandom = ""+passwdRandom;
+				
 
 //				String shoploc = req.getParameter("shoploc");
 //				String shoplocReg = "^[(\\u4e00-\\u9fa5)]{3,9}$";
@@ -348,7 +345,6 @@ public class ShopServlet extends HttpServlet {
 
 				ShopVO shopVO = new ShopVO();
 				shopVO.setShopact(shopact);
-				shopVO.setShoppw(shoppw);
 				shopVO.setShopname(shopname);
 				shopVO.setShoploc(shoploc);
 				shopVO.setShopcy(shopcy);
@@ -368,13 +364,20 @@ public class ShopServlet extends HttpServlet {
 					failureView.forward(req, res);
 					return;
 				}
-
+				
+				String to = "chizai1101@gmail.com";		      
+			    String subject = "密碼通知";			      
+			    String ch_name = "peter1";
+			    String messageText = "Hello! " + ch_name + " 請謹記此密碼: " + passRandom + "\n" +" (已經啟用)"; 
+			    System.out.println(passRandom); 
+			    ShopMailService mailService = new ShopMailService();
+			    mailService.sendMail(to, subject, messageText);
 				/*************************** 2.�}�l�s�W��� ***************************************/
 				ShopService shopSvc = new ShopService();
-				shopVO = shopSvc.addShop(shopact, shoppw, shopname, shoploc, shopcy, shopphone, shopimg, status);
+				shopVO = shopSvc.addShop(shopact, passRandom, shopname, shoploc, shopcy, shopphone, shopimg, status);
 
 				/*************************** 3.�s�W����,�ǳ����(Send the Success view) ***********/
-				String url = "listAllShop.jsp";
+				String url = "login.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // �s�W���\�����listAllshop.jsp
 				successView.forward(req, res);
 

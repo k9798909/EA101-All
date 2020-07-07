@@ -8,7 +8,6 @@ import javax.servlet.http.*;
 
 import com.rate.model.*;
 
-
 public class RateServlet extends HttpServlet{
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
@@ -20,20 +19,19 @@ public class RateServlet extends HttpServlet{
 			throws ServletException, IOException{
 		
 		req.setCharacterEncoding("UTF-8");
-		String[] action = req.getParameterValues("action");
+		String action = req.getParameter("action");
 	
-	
-	if ("insert".equals(action[0])) { 
+	if ("insert".equals(action)) { 
 		
 		List<String> errorMsgs = new LinkedList<String>();
 
 		req.setAttribute("errorMsgs", errorMsgs);
 
 		try {
-			/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
-			
-
-			
+//			/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
+//			
+//
+//			
 			String[] rmno= req.getParameterValues("rmno");
 			String[] ratingmbrno= req.getParameterValues("ratingmbrno");
 			String[] ratedmbrno= req.getParameterValues("ratedmbrno");
@@ -55,8 +53,6 @@ public class RateServlet extends HttpServlet{
 				RateService rateSvc = new RateService();
 				rateVO = rateSvc.sendRate(rmno[i],ratingmbrno[i],ratedmbrno[i],detail[i],score[i]);
 			}
-		
-			
 			
 			
 			
@@ -69,15 +65,15 @@ public class RateServlet extends HttpServlet{
 //				return;
 //			}
 			
-			/***************************2.開始新增資料***************************************/
-			
-			
-			/***************************3.新增完成,準備轉交(Send the Success view)***********/
+//			/***************************2.開始新增資料***************************************/
+//			
+//			
+//			/***************************3.新增完成,準備轉交(Send the Success view)***********/
 			String url = "/front-end/room/myRoom.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successView.forward(req, res);				
-			
-			/***************************其他可能的錯誤處理**********************************/
+//			
+//			/***************************其他可能的錯誤處理**********************************/
 		} catch (Exception e) {
 			System.out.println(e);
 //			errorMsgs.add(e.getMessage());
@@ -86,5 +82,35 @@ public class RateServlet extends HttpServlet{
 //			failureView.forward(req, res);
 		}
 		}
+	
+	if ("delete".equals(action)) { 
+
+		List<String> errorMsgs = new LinkedList<String>();
+		// Store this set in the request scope, in case we need to
+		// send the ErrorPage view.
+		req.setAttribute("errorMsgs", errorMsgs);
+
+		try {
+			/***************************1..接收請求參數 - 輸入格式的錯誤處理***************************************/
+			String rateno= req.getParameter("rateno");
+
+			/***************************2.開始新增資料***************************************/
+			RateService rateSvc = new RateService();
+			rateSvc.deleteRate(rateno);
+			
+			/***************************3.新增完成,準備轉交(Send the Success view)***********/								
+			String url = "/front-end/room/back-end_rateList.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);
+			successView.forward(req, res);
+			
+			/***************************其他可能的錯誤處理**********************************/
+		} catch (Exception e) {
+			System.out.println(e);
+//			errorMsgs.add("�R����ƥ���:"+e.getMessage());
+//			RequestDispatcher failureView = req
+//					.getRequestDispatcher("/emp/listAllEmp.jsp");
+//			failureView.forward(req, res);
+		}
+	}
 	}
 }	

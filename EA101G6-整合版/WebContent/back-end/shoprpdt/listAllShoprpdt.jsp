@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.*"%>
 <%@ page import="com.shoprpdt.model.*"%>
-
+<%@ include file="/back-end/back-end_nav.jsp"%>
 <%
 	ShoprpdtService shoprpdtSvc = new ShoprpdtService();
 	List<ShoprpdtVO> list = shoprpdtSvc.getAll();
@@ -13,9 +13,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="BIG5">
 <title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<script>			
 			$(document).ready(function(){
 				$('.sta').change(function(){
@@ -54,7 +52,10 @@ td {
 }
 
 tr:nth-child(odd) {
-	background-color: #FFED97;
+	background-color: white;
+}
+tr:nth-child(even) {
+	background-color: gray;
 }
 
 img {

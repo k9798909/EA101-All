@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ page import="com.joinrm.model.*" %>
 <%@ page import="java.util.*"%>
 <%@ page import="com.rminfo.model.*"%>
@@ -11,7 +12,7 @@
 	pageContext.setAttribute("list", list);
 %>
 
-<%-- <jsp:useBean id="joinrmSvc" scope="page" class="com.joinrm.model.JoinrmService" /> --%>
+<jsp:useBean id="joinrmSvc" scope="page" class="com.joinrm.model.JoinrmService" />
 
 <!DOCTYPE html>
 <html>
@@ -35,17 +36,20 @@
 		<th style="width:15%">玩的遊戲</th>
 		<th style="width:10%">備註</th>
 		<th style="width:10%">房間狀態</th>
+		<th style="width:10%">回報狀態</th>
 	</tr>
+
 	<c:forEach var="rminfoVO" items="${list}">
+		<c:if test="${rminfoVO.status == 3 || rminfoVO.status == 5}">
 	<tr>
 		<td>${rminfoVO.naming}</td>
 		<td>${rminfoVO.mbrno}</td>
 		<td>${rminfoVO.shopno}</td>
-		<td>${rminfoVO.lowlimit}</td>
+		<td>${fn:length(joinrmSvc.findByPK(rminfoVO.rmno,''))}</td>
 		<td><fmt:formatDate value="${rminfoVO.starttime}" pattern="yyyy-MM-dd HH:mm" />
 			~<fmt:formatDate value="${rminfoVO.endtime}" pattern="HH:mm" /></td>
 		<td>${rminfoVO.game}</td>
-		<td>${rminfoVO.remarks}</td>
+		<td>${rminfoVO.remarks}</td>	
 		<td>
 			<c:choose>
     			<c:when test="${rminfoVO.status eq 0}">
@@ -69,6 +73,16 @@
 			</c:choose>
 		</td>
 		<td>
+			<c:choose>
+    			<c:when test="${rminfoVO.report eq 0}">
+    				尚未回報
+    			</c:when>
+			    <c:otherwise>
+			    	已回報
+			    </c:otherwise>
+			</c:choose>
+		</td>
+		<td>
 			<div id="dialog_${rminfoVO.rmno}" title="到場回報">
 				<jsp:include page="/front-end/room/shop_report.jsp"><jsp:param name="rmno" value="${rminfoVO.rmno}" /></jsp:include>
 			</div><button id="opener_${rminfoVO.rmno}">到場回報</button>
@@ -77,7 +91,7 @@
 			  $( function() {
 			    $( "#dialog_${rminfoVO.rmno}" ).dialog({
 			      autoOpen: false,
-			      width:700,
+			      width:530,
 			      show: {
 			        effect: "blind",
 			        duration: 1000
@@ -96,6 +110,7 @@
 			</script>
 		</td>
 	</tr>
+	</c:if>
 	</c:forEach>
 
 </table>
@@ -107,6 +122,9 @@ table td{
 }
 table th{
 	text-align:center;
+}
+table{
+	margin:0px auto;
 }
 </style>
 </html>

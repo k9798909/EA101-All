@@ -141,6 +141,50 @@ if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 			}
 		}
 		
+		if ("update".equals(action)) { // 來自addEmp.jsp的請求 
+			
+			List<String> errorMsgs = new LinkedList<String>();
+		
+			req.setAttribute("errorMsgs", errorMsgs);
+		
+			try {
+				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
+				
+				String rmno = req.getParameter("rmno");
+				
+				Integer status = new Integer(req.getParameter("status").trim());
+				Integer report = new Integer(req.getParameter("report").trim());
+				
+				RminfoVO rminfoVO = new RminfoVO();
+				rminfoVO.setRmno(rmno);
+				rminfoVO.setStatus(status);
+				rminfoVO.setReport(report);
+				
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					req.setAttribute("rminfoVO", rminfoVO); // 含有輸入格式錯誤的empVO物件,也存入req
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/room/create.jsp");
+					failureView.forward(req, res);
+					return;
+				}
+				
+				/***************************2.開始修改資料***************************************/
+				RminfoService rminfoSvc = new RminfoService();
+				rminfoVO = rminfoSvc.update(status,report,rmno);
+				
+				/***************************3.新增完成,準備轉交(Send the Success view)***********/
+				String url = "/front-end/room/myRoom.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
+				successView.forward(req, res);				
+				
+				/***************************其他可能的錯誤處理**********************************/
+			} catch (Exception e) {
+		//		System.out.println(e);
+		//		errorMsgs.add(e.getMessage());
+		//		RequestDispatcher failureView = req.getRequestDispatcher("/front-end/create.jsp");
+		//		failureView.forward(req, res);
+			}
+		}
 		
 	}
 }

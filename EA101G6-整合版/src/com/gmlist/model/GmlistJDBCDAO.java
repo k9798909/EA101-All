@@ -71,6 +71,33 @@ public class GmlistJDBCDAO implements GmlistDAO_interface{
 			}
 		}
 	}
+	@Override
+	public void insert2(GmlistVO gmlistVO, java.sql.Connection con) {
+		PreparedStatement pstmt = null;
+		try {
+
+			pstmt = con.prepareStatement(INSERT_STMT);
+
+			pstmt.setString(1, gmlistVO.getGmno());
+			pstmt.setString(2, gmlistVO.getShopno());
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		}catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+	}
 
 	@Override
 	public void delete(String gmno, String shopno) {

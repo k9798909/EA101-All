@@ -69,7 +69,7 @@ if ("insert".equals(action)) {
 			}
 		}
 
-if ("delete".equals(action)) { // �Ӧ�listAllEmp.jsp
+if ("delete".equals(action)) { 
 
 	List<String> errorMsgs = new LinkedList<String>();
 	// Store this set in the request scope, in case we need to
@@ -77,19 +77,19 @@ if ("delete".equals(action)) { // �Ӧ�listAllEmp.jsp
 	req.setAttribute("errorMsgs", errorMsgs);
 
 	try {
-		/***************************1.�����ШD�Ѽ�***************************************/
+		/***************************1..接收請求參數 - 輸入格式的錯誤處理***************************************/
 		String mbrno= req.getParameter("mbrno");
 		String rmno= req.getParameter("rmno");
-		/***************************2.�}�l�R�����***************************************/
+		/***************************2.開始新增資料***************************************/
 		JoinrmService joinrmSvc = new JoinrmService();
 		joinrmSvc.deleteMbr(rmno, mbrno);
 		
-		/***************************3.�R������,�ǳ����(Send the Success view)***********/								
+		/***************************3.新增完成,準備轉交(Send the Success view)***********/								
 //		String url = "/emp/listAllEmp.jsp";
 //		RequestDispatcher successView = req.getRequestDispatcher(url);// �R�����\��,���^�e�X�R�����ӷ�����
 //		successView.forward(req, res);
 		
-		/***************************��L�i�઺���~�B�z**********************************/
+		/***************************其他可能的錯誤處理**********************************/
 	} catch (Exception e) {
 		System.out.println(e);
 //		errorMsgs.add("�R����ƥ���:"+e.getMessage());
@@ -99,7 +99,7 @@ if ("delete".equals(action)) { // �Ӧ�listAllEmp.jsp
 	}
 }
 
-if ("listInfo".equals(action)) { // �Ӧ�select_page.jsp���ШD
+if ("listInfo".equals(action)) { 
 
 	List<String> errorMsgs = new LinkedList<String>();
 	// Store this set in the request scope, in case we need to
@@ -107,11 +107,11 @@ if ("listInfo".equals(action)) { // �Ӧ�select_page.jsp���ШD
 	req.setAttribute("errorMsgs", errorMsgs);
 
 	try {
-		/***************************1.�����ШD�Ѽ� - ��J�榡�����~�B�z**********************/
+		/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 		String rmno= req.getParameter("rmno");
 		String mbrno= req.getParameter("mbrno");
 		
-		/***************************2.�}�l�d�߸��*****************************************/
+		/***************************2.開始新增資料*****************************************/
 		JoinrmService joinrmSvc = new JoinrmService();
 		List<JoinrmVO> joinrmVO = joinrmSvc.findByPK(rmno, mbrno);
 		if (joinrmVO == null) {
@@ -125,13 +125,13 @@ if ("listInfo".equals(action)) { // �Ӧ�select_page.jsp���ШD
 //			return;//�{�����_
 //		}
 		
-		/***************************3.�d�ߧ���,�ǳ����(Send the Success view)*************/
-		req.setAttribute("joinrmVO", joinrmVO); // ��Ʈw���X��empVO����,�s�Jreq
-		String url = "/front-end/room/list_findByPK.jsp";
-		RequestDispatcher successView = req.getRequestDispatcher(url); 
+		/***************************3.新增完成,準備轉交(Send the Success view)*************/
+//		req.setAttribute("joinrmVO", joinrmVO); // ��Ʈw���X��empVO����,�s�Jreq
+//		String url = "/front-end/room/list_findByPK.jsp";
+//		RequestDispatcher successView = req.getRequestDispatcher(url); 
 //		successView.forward(req, res);
 
-		/***************************��L�i�઺���~�B�z*************************************/
+		/***************************其他可能的錯誤處理*************************************/
 	} catch (Exception e) {
 		System.out.println(e);
 //		errorMsgs.add("�L�k���o���:" + e.getMessage());
@@ -141,47 +141,6 @@ if ("listInfo".equals(action)) { // �Ӧ�select_page.jsp���ШD
 	}
 }
 
-if ("listInfo2".equals(action)) { // �Ӧ�select_page.jsp���ШD
-
-	List<String> errorMsgs = new LinkedList<String>();
-	// Store this set in the request scope, in case we need to
-	// send the ErrorPage view.
-	req.setAttribute("errorMsgs", errorMsgs);
-
-	try {
-		/***************************1.�����ШD�Ѽ� - ��J�榡�����~�B�z**********************/
-		String rmno= req.getParameter("rmno");
-		String mbrno= req.getParameter("mbrno");
-		
-		/***************************2.�}�l�d�߸��*****************************************/
-		JoinrmService joinrmSvc = new JoinrmService();
-		List<JoinrmVO> joinrmVO = joinrmSvc.findByPK(rmno, mbrno);
-		if (joinrmVO == null) {
-			errorMsgs.add("�d�L���");
-		}
-		// Send the use back to the form, if there were errors
-//		if (!errorMsgs.isEmpty()) {
-//			RequestDispatcher failureView = req
-//					.getRequestDispatcher("/emp/select_page.jsp");
-//			failureView.forward(req, res);
-//			return;//�{�����_
-//		}
-		
-		/***************************3.�d�ߧ���,�ǳ����(Send the Success view)*************/
-		PrintWriter out = res.getWriter();
-		  out.append(String.valueOf(joinrmVO.size()));
-		  out.close();
-
-
-		/***************************��L�i�઺���~�B�z*************************************/
-	} catch (Exception e) {
-		System.out.println(e);
-//		errorMsgs.add("�L�k���o���:" + e.getMessage());
-//		RequestDispatcher failureView = req
-//				.getRequestDispatcher("/emp/select_page.jsp");
-//		failureView.forward(req, res);
-	}
-}
 		
 	}
 }

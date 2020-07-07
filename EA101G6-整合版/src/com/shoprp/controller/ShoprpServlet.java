@@ -6,6 +6,7 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+import com.rminfo.model.*;
 import com.shoprp.model.*;
 
 
@@ -55,6 +56,8 @@ public class ShoprpServlet extends HttpServlet{
 				shoprpVO = shoprpSvc.report(mbrno[i],rmno[i],detail[i],attend[i]);
 			}
 			
+			RminfoService rminfoService = new RminfoService();
+			rminfoService.update(5, 1, rmno[0]);
 			
 			// Send the use back to the form, if there were errors
 //			if (!errorMsgs.isEmpty()) {

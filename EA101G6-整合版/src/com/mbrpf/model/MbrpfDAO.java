@@ -218,7 +218,7 @@ public class MbrpfDAO implements MbrpfDAO_interface {
 				mbrpfVO.setPoints(rs.getInt("points"));
 				mbrpfVO.setStatus(rs.getInt("status"));
 				mbrpfVO.setRatedtotal(rs.getInt("ratedtotal"));
-				mbrpfVO.setStartotal(rs.getInt("satrtotal"));
+				mbrpfVO.setStartotal(rs.getInt("startotal"));
 				mbrpfVO.setUnattend(rs.getInt("unattend"));
 				mbrpfVO.setTtattend(rs.getInt("ttattend"));
 				
@@ -269,7 +269,6 @@ public class MbrpfDAO implements MbrpfDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
-
 			while (rs.next()) {
 				// mbrpfVO 也稱為 Domain objects
 				mbrpfVO = new MbrpfVO();
@@ -287,7 +286,7 @@ public class MbrpfDAO implements MbrpfDAO_interface {
 				mbrpfVO.setPoints(rs.getInt("points"));
 				mbrpfVO.setStatus(rs.getInt("status"));
 				mbrpfVO.setRatedtotal(rs.getInt("ratedtotal"));
-				mbrpfVO.setStartotal(rs.getInt("satrtotal"));
+				mbrpfVO.setStartotal(rs.getInt("startotal"));
 				mbrpfVO.setUnattend(rs.getInt("unattend"));
 				mbrpfVO.setTtattend(rs.getInt("ttattend"));
 				list.add(mbrpfVO); // Store the row in the list

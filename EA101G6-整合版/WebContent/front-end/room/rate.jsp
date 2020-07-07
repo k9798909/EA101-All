@@ -16,7 +16,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Insert title here</title>
+<title>遊玩後玩家互相評價-include用</title>
 </head>
 <body>
 <form METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/room/rate.do">
