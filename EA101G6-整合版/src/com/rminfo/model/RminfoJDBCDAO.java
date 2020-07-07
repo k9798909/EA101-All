@@ -71,7 +71,7 @@ public class RminfoJDBCDAO implements RminfoDAO_interface {
 	}
 	
 	@Override
-	public void update(Integer status, Integer report,String rmno) {
+	public void update(RminfoVO rminfoVO) {
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -82,9 +82,9 @@ public class RminfoJDBCDAO implements RminfoDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setInt(1, status);
-			pstmt.setInt(2, report);
-			pstmt.setString(3, rmno);
+			pstmt.setInt(1, rminfoVO.getStatus());
+			pstmt.setInt(2, rminfoVO.getReport());
+			pstmt.setString(3, rminfoVO.getRmno());
 			
 			
 			pstmt.executeUpdate();
@@ -224,6 +224,7 @@ public class RminfoJDBCDAO implements RminfoDAO_interface {
 				rminfoVO.setRestriction(rs.getInt("restriction"));
 				rminfoVO.setConfirmed(rs.getInt("confirmed"));
 				rminfoVO.setStatus(rs.getInt("status"));
+				rminfoVO.setReport(rs.getInt("report"));
 			}
 
 			// Handle any driver errors
@@ -300,6 +301,7 @@ public class RminfoJDBCDAO implements RminfoDAO_interface {
 				rminfoVO.setRestriction(rs.getInt("restriction"));
 				rminfoVO.setConfirmed(rs.getInt("confirmed"));
 				rminfoVO.setReport(rs.getInt("report"));
+				rminfoVO.setStatus(rs.getInt("status"));
 				list.add(rminfoVO); // Store the row in the list
 			}
 

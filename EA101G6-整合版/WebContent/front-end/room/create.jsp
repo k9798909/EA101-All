@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.rminfo.model.*"%>
 <%@ page import="com.joinrm.model.*"%>
@@ -14,13 +15,15 @@
 <%
 	RminfoVO rminfoVO = (RminfoVO) request.getAttribute("rminfoVO");
 %>
+
 <jsp:useBean id="mbrpfSvc" scope="page" class="com.mbrpf.model.MbrpfService" />
-<jsp:useBean id="shopSvc" scope="page" class="com.shop.model.ShopService" /> 
+<jsp:useBean id="shopSvc" scope="page" class="com.shop.model.ShopService" />
+<jsp:useBean id="joinrmSvc" scope="page" class="com.joinrm.model.JoinrmService" /> 
 
 <!DOCTYPE html>
 <html>
 <head>
-<title>Insert title here</title>
+<title>房間列表+開房+加入</title>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -130,51 +133,43 @@
 					<input type="hidden" name="rmno" value="${rminfoVO.rmno}">
 					<input type="hidden" name="mbrno" value="BM00001"> 
 					<input type="hidden" name="action" value="insert"> 
-					<input id="joinbutton" type="submit" value="加入">
-				</form>
-
-<!-- 				<form METHOD="post" ACTION="joinrm.do"> -->
-<%-- 					<input type="hidden" name="rmno" value="${rminfoVO.rmno}"> --%>
-<!-- 					<input type="hidden" name="action" value="listInfo">  -->
-<!-- 					<input type="submit" value="房內成員清單"> -->
-<!-- 				</form> -->
+					<input class="btn btn-danger btn-sm" type="submit" value="加入">
+				</form>				
 			</div>
+			<div id="dialog3_${rminfoVO.rmno}" title="成員列表">
+				<jsp:include page="/front-end/room/roomMember.jsp"><jsp:param name="rmno" value="${rminfoVO.rmno}" /></jsp:include>
+			</div>
+<script>
+(function($){
+  $( function() {
+    $( "#dialog3_${rminfoVO.rmno}" ).dialog({
+      autoOpen: false,
+      show: {
+        effect: "blind",
+        duration: 1000
+      },
+      hide: {
+        effect: "explode",
+        duration: 1000
+      }
+    });
+ 
+    $( "#opener3_${rminfoVO.rmno}" ).on( "click", function() {
+      $( "#dialog3_${rminfoVO.rmno}" ).dialog( "open" );
+    });
+  } );
+  
+})(jQuery_1_12_2);  
+ </script>
 			<div class='roomtitle'>
 				<span class='titleType'><b>${rminfoVO.naming}</b></span>
 			</div>
-			<div>房主: ${rminfoVO.mbrno}</div>
+			<div>房主: ${rminfoVO.mbrno}<button class="btn btn-outline-info btn-sm" id="opener3_${rminfoVO.rmno}">成員列表</button></div>
 			<div>遊玩店家: ${shopSvc.getOneShop(rminfoVO.shopno).shopname}</div>
 			<div>
 				人數限制:
 				${rminfoVO.lowlimit}~${rminfoVO.uplimit}人&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-				<span id="${rminfoVO.rmno}_people">0</span>/${rminfoVO.uplimit}
-				<form METHOD="post" ACTION="joinrm.do" id="${rminfoVO.rmno}_form">
-					<input type="hidden" name="rmno" value="${rminfoVO.rmno}">
-					<input type="hidden" name="action" value="listInfo2">
-				</form>
-				<script>
-				$('#${rminfoVO.rmno}_form').submit(function(event){
-				  event.preventDefault();
-				  var $form = $(this);
-
-				  $.ajax({
-				      type: 'POST',
-				      url: $form.attr('action'),
-				      data: $form.serialize(),
-				      success: function(data) {
-				        // Do something with the response
-				        $('#${rminfoVO.rmno}_people').text(data)
-				      },
-				      error: function(error) {
-				        // Do something with the error
-				        console.log(error)
-				      }
-				  });
-				});
-								
-				$('#${rminfoVO.rmno}_form').submit();
-				
-			</script>
+				${fn:length(joinrmSvc.findByPK(rminfoVO.rmno,''))}/${rminfoVO.uplimit}
 			</div>
 			<div>
 				遊玩時間:
@@ -323,18 +318,26 @@
 	}
 </script>
 <style>
+body{
+   	background-image: url('<%=request.getContextPath()%>/images/bg4.png');
+  }
+  
 #allCard{
-	margin:50px auto;
-	width:90%
+	margin:50px 5% 50px 15%;
+	width:80%;
 }
 #create-user{
 	float:right;
 	display: inline;
 	margin:15px 70px;
 }
-#joinbutton{
+.btn-danger{
 	float:right;
-	margin:10px 10px;
+	margin:10px 5px;
+}
+.btn-outline-info{
+	float:right;
+	margin:0px 5px;
 }
 #form {
 	display: none;

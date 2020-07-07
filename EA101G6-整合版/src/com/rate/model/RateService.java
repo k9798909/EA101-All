@@ -1,6 +1,8 @@
 package com.rate.model;
 
 import java.sql.*;
+import java.util.List;
+
 
 public class RateService {
 	private RateJDBCDAO_interface dao;
@@ -18,5 +20,13 @@ public class RateService {
 		dao.insert(rateVO);
 		
 		return rateVO;
+	}
+	
+	public void deleteRate(String rateno) {
+		dao.delete(rateno);
+	}
+	
+	public List<RateVO> getAll(){
+		return dao.getAll();
 	}
 }

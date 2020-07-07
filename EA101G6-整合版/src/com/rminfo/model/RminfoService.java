@@ -31,8 +31,15 @@ public class RminfoService {
 		return rminfoVO;
 	}
 	
-	public void update(Integer status,Integer report,String rmno) {
-		dao.update(status, report, rmno);
+	public RminfoVO update(Integer status,Integer report,String rmno) {
+		RminfoVO rminfoVO = new RminfoVO();
+		
+		rminfoVO.setStatus(status);
+		rminfoVO.setReport(report);
+		rminfoVO.setRmno(rmno);
+		dao.update(rminfoVO);
+		
+		return rminfoVO;
 	}
 	
 	public List<RminfoVO> getAll(){

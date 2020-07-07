@@ -23,7 +23,12 @@
 		<tr>
 		    <td><input type="hidden" name="rmno" value="<%=request.getParameter("rmno")%>">
 			<input type="text" name="mbrno" value="${joinrmVO2.mbrno}" readonly></td>
-			<td><input type="checkbox" value="1" name="attend"></td>
+			<td style="text-align:center">
+				<select name="attend">
+					<option value="1">¬O</option>
+					<option value="0">§_</option>
+				</select>
+			</td>
 			<td><input type="text" name="detail" value="123"></td>
 		</tr>	             		 	  
 	</c:forEach>

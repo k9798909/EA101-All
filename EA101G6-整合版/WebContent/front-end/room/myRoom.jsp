@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ page import="com.joinrm.model.*" %>
 <%@ page import="java.util.*"%>
 
@@ -11,10 +12,11 @@
 %>
 
 <jsp:useBean id="rminfoSvc" scope="page" class="com.rminfo.model.RminfoService" />
+<jsp:useBean id="joinrmSvc2" scope="page" class="com.joinrm.model.JoinrmService" />
 <!DOCTYPE html>
 <html>
 <head>
-<title>Insert title here</title>
+<title>玩家的房間列表+狀態改變</title>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -28,7 +30,7 @@
 		<th style="width:10%">房名</th>
 		<th style="width:6%">房主</th>
 		<th style="width:7%">遊玩店家</th>
-		<th style="width:5%">人數限制</th>
+		<th style="width:5%">人數限制[目前人數]</th>
 		<th style="width:15%">遊玩時間</th>
 		<th style="width:15%">玩的遊戲</th>
 		<th style="width:10%">備註</th>
@@ -39,7 +41,7 @@
 		<td>${rminfoSvc.getOneRm(joinrmVO.rmno).naming}</td>
 		<td>${rminfoSvc.getOneRm(joinrmVO.rmno).mbrno}</td>
 		<td>${rminfoSvc.getOneRm(joinrmVO.rmno).shopno}</td>
-		<td>${rminfoSvc.getOneRm(joinrmVO.rmno).lowlimit}~${rminfoSvc.getOneRm(joinrmVO.rmno).uplimit}</td>
+		<td>${rminfoSvc.getOneRm(joinrmVO.rmno).lowlimit}~${rminfoSvc.getOneRm(joinrmVO.rmno).uplimit} [${fn:length(joinrmSvc2.findByPK(joinrmVO.rmno,''))}]</td>
 		<td><fmt:formatDate value="${rminfoSvc.getOneRm(joinrmVO.rmno).starttime}" pattern="yyyy-MM-dd HH:mm" />
 			~<fmt:formatDate value="${rminfoSvc.getOneRm(joinrmVO.rmno).endtime}" pattern="HH:mm" /></td>
 		<td>${rminfoSvc.getOneRm(joinrmVO.rmno).game}</td>
@@ -72,7 +74,23 @@
 	
 		<td><div id="dialog2_${joinrmVO.rmno}" title="遊玩評價">
 		<jsp:include page="/front-end/room/rate.jsp"><jsp:param name="rmno" value="${joinrmVO.rmno}" /></jsp:include>
-	</div><button id="opener2_${joinrmVO.rmno}">團員遊玩評價</button></td>
+	</div><button id="opener2_${joinrmVO.rmno}">團員遊玩評價</button>
+			<form METHOD="post" ACTION="rminfo.do">
+				<input type="hidden" name="status" value="3">
+				<input type="hidden" name="report" value="${rminfoSvc.getOneRm(joinrmVO.rmno).report}">
+				<input type="hidden" name="rmno" value="${joinrmVO.rmno}">
+				<input type="hidden" name="action" value="update">
+				<input type="submit" value="訂位">
+			</form>
+			<form METHOD="post" ACTION="rminfo.do">
+				<input type="hidden" name="status" value="4">
+				<input type="hidden" name="report" value="${rminfoSvc.getOneRm(joinrmVO.rmno).report}">
+				<input type="hidden" name="rmno" value="${joinrmVO.rmno}">
+				<input type="hidden" name="action" value="update">
+				<input type="submit" value="取消揪團">
+			</form>
+		</td>
+	
 <script>
 (function($){
   $( function() {
@@ -122,7 +140,7 @@
 <style>
 #listAll{
 	margin:20px auto;
-	width:90%;
+	width:95%;
 
 }
 table td{
@@ -130,6 +148,12 @@ table td{
 }
 table th{
 	text-align:center;
+}
+button{
+	display:inline-block;
+}
+input{
+	display:inline-block;
 }
 </style>
 </html>

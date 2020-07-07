@@ -1,6 +1,7 @@
 package com.rate.model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class RateVO implements java.io.Serializable{
 	private String rateno;
@@ -9,7 +10,7 @@ public class RateVO implements java.io.Serializable{
 	private String ratedmbrno;
 	private String detail;
 	private Integer score;
-	private Date ratetime;
+	private Timestamp ratetime;
 	
 	public String getRateno() {
 		return rateno;
@@ -47,10 +48,10 @@ public class RateVO implements java.io.Serializable{
 	public void setScore(Integer score) {
 		this.score = score;
 	}
-	public Date getRatetime() {
+	public Timestamp getRatetime() {
 		return ratetime;
 	}
-	public void setRatetime(Date ratetime) {
+	public void setRatetime(Timestamp ratetime) {
 		this.ratetime = ratetime;
 	}
 	
