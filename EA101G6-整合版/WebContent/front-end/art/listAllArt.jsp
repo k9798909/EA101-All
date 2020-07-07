@@ -3,9 +3,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.*" %>
 <%@ page import="com.art.model.*" %>
+<%@ page import="com.mbrpf.model.*" %>
 
 
 <% 
+	
+	MbrpfVO mbrpfVO = (MbrpfVO)session.getAttribute("mbrpfVO");
 	ArtService artSvc = new ArtService();
 	List<ArtVO> list = artSvc.getAll();
 	pageContext.setAttribute("list",list);
@@ -160,7 +163,9 @@
                 </div>
               </div>
              </FORM> </c:forEach>
+       		<c:if test="${mbrpfVO != null}">
        		<a href="<%=request.getContextPath()%>/front-end/art/addArt.jsp"><img class="h1-png col-md-2" src="<%=request.getContextPath()%>/images/h1.png" title="Add Article"></a>
+       		</c:if>
           </div>
         </div>
       </div>

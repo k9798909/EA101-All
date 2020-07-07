@@ -1,9 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.art.model.*"%>
+<%@ page import="com.mbrpf.model.*" %>
 
 <%
-  ArtVO artVO = (ArtVO) request.getAttribute("artVO");
+	MbrpfVO mbrpfVO = (MbrpfVO)session.getAttribute("mbrpfVO");
+	ArtVO artVO = (ArtVO) request.getAttribute("artVO");
 %>  
 
 
@@ -103,15 +105,13 @@
 			</div>
 		</div>
 		
-		<FORM METHOD="post" class="tm-edit-product-form" ACTION="<%= request.getContextPath()%>/font-end/art/art.do" name="form1" enctype="multipart/form-data">
+		<FORM METHOD="post" class="tm-edit-product-form" ACTION="<%= request.getContextPath()%>/front-end/art/art.do" name="form1" enctype="multipart/form-data">
 		<div class="row mt-4 tm-edit-product-row">
 			<div class="col-xl-7 col-lg-7 col-md-12">			
 					
-					<div class="input-group mb-3">
-						<label for="name"
-							class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">§@ªÌ½s¸¹</label> 
-							<input type="text" name="mbrno" value="<%=(artVO == null) ? "" : artVO.getMbrno()%>" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7"/>
-					</div>
+					<input type="hidden" name="mbrno" value="${mbrpfVO.mbrno}"/>
+					
+					
 					
 					<div class="input-group mb-3">
 						<label for="name"

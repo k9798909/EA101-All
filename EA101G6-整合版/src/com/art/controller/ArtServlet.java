@@ -20,10 +20,8 @@ public class ArtServlet extends HttpServlet {
 		
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-		HttpSession session = req.getSession();
-//		session.getAttribute("mbrpfVO", mbrpfVO);
-		String test = "dogjj";
-		session.setAttribute("test", test);
+		
+
 		
 		
 		//後端功能

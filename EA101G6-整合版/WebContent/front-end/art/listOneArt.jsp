@@ -4,11 +4,14 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.*" %>
 <%@ page import="com.art.model.*" %>
+<%@ page import="com.mbrpf.model.*" %>
 
 <%
 	ArtVO artVO = (ArtVO) request.getAttribute("artVO");
+	MbrpfVO mbrpfVO = (MbrpfVO)session.getAttribute("mbrpfVO");
 	
 	
+
 %>
 
 
@@ -118,6 +121,7 @@
  }
  .updown1{
  	margin-top: 20px;
+ 	margin-bottom: 20px;
  }
  #bbttnn{
  	margin-left: 406px;
@@ -142,8 +146,11 @@
  			</ol>
 	</nav>
     
-
-
+	
+	<jsp:useBean id="mbrSvc" class="com.mbrpf.model.MbrpfService"/>
+	<%
+		MbrpfVO mbrVO = mbrSvc.getOneMbrpf(artVO.getMbrno());
+	%>
 
     <div class="card col-md-8 offset-md-2" id="d1">
     	<header class="ha1">
@@ -153,13 +160,13 @@
 					ACTION="<%=request.getContextPath()%>/front-end/art/art.do">
     		<nav aria-label="breadcrumb" class="d-inline-flex breadcrunm-2 ">
   			<ol class="breadcrumb bg-white">
-    			<li class="breadcrumb-item"><a target="_self" style="text-decoration:none; href="<%=request.getContextPath()%>/mbrpf/mbrpf.do?action=getOne_For_Display&mbrno=${artVO.mbrno}" class="text-black"><span class="d-md-inline-block"><img class="icon-2" src="<%=request.getContextPath()%>/images/User-icon.png">${artVO.mbrno}</span></a></li>
+    			<li class="breadcrumb-item"><a target="_self"  href="<%=request.getContextPath()%>/mbrpf/mbrpf.do?action=getOne_For_Display&mbrno=${artVO.mbrno}" class="text-black"><span class="d-md-inline-block"><img class="icon-2" src="<%=request.getContextPath()%>/images/User-icon.png"><%=mbrVO.getMbrname()%></span></a></li>
     			<li class="breadcrumb-item active" aria-current="page"><img class="icon-2" src="<%=request.getContextPath()%>/images/cal-icon.png">${artVO.pdate}</li>
  			</ol>
 			</nav>
 
 
-			<c:if test="${test != dogjj}">
+			<c:if test="${mbrpfVO.mbrno != artVO.mbrno && mbrpfVO != null}">
 				<!-- Button trigger modal -->
 				<button type="button" class="btn btn-primary" data-toggle="modal"
 					data-target="#exampleModal">Report</button>
@@ -199,7 +206,7 @@
 			</c:if>
 			
 			
-			<c:if test="${test != dogjj}">
+			<c:if test="${mbrpfVO.mbrno == artVO.mbrno && mbrpfVO != null}">
 				<!-- 修改按鈕 -->
 				
 					<button type="submit" class="btn btn-primary">修改</button>
@@ -253,45 +260,62 @@
 			<a href="javascript:presses${sc+1}()"><button type="button" class="btn btn-primary col-md-4" id="bbttnn">下一篇</button></a>
 		</c:if>
 	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	<jsp:useBean id="msgSvc" scope="page" class="com.msg.model.MsgService"></jsp:useBean>
-	
-	<footer>
-		
-		<div class="card col-md-8 offset-md-2" id="d2">
-			<h3 id="h33" class="col-md-12"><img id="baba" src="<%=request.getContextPath()%>/front-end/images/post.jpg">發布迴響</h3>
-			
-			<FORM METHOD="POST" ACTION="<%=request.getContextPath()%>/msg/msg.do">
-			<p>
-				<input class="col-md-11  tea1" type="text" name="detail" placeholder="說點什麼吧...">
-				<button class="btn btn-secondary" type="submit" name="action" value="insert">發表</button>
-				<input type="hidden" name="mbrno" value="BM00005">
-				<input type="hidden" name="status" value="0">
-				<input type="hidden" name="artno" value="${artVO.artno}">
-			</p>
-			</FORM>
-			
-			<c:forEach var="msgVO" items="<%=msgSvc.getAllByArtno(artVO.getArtno())%>">
-				
-			
-				<div class="row">
-					<a><img  id="mem1" src="<%=request.getContextPath()%>/front-end/images/member.png"><span>${msgVO.mbrno} :</span></a>
-					<p class="artmsg"><span>${msgVO.detail}</span></p>
-				</div>
-			</c:forEach>
-			
-		</div>
-	</footer>
-    
 
-    <script>
+
+
+
+
+
+	<c:if test="${mbrpfVO != null}">
+
+		<jsp:useBean id="msgSvc" scope="page" class="com.msg.model.MsgService"></jsp:useBean>
+
+		<footer>
+
+			<div class="card col-md-8 offset-md-2" id="d2">
+				<h3 id="h33" class="col-md-12">
+					<img id="baba"
+						src="<%=request.getContextPath()%>/front-end/images/post.jpg">發布迴響
+				</h3>
+
+				<FORM METHOD="POST"
+					ACTION="<%=request.getContextPath()%>/msg/msg.do">
+					<p>
+						<input class="col-md-11  tea1" type="text" name="detail"
+							placeholder="說點什麼吧...">
+						<button class="btn btn-secondary" type="submit" name="action"
+							value="insert">發表</button>
+						<input type="hidden" name="mbrno" value="${mbrpfVO.mbrno}">
+						<input type="hidden" name="status" value="0"> <input
+							type="hidden" name="artno" value="${artVO.artno}">
+					</p>
+				</FORM>
+
+
+				<c:forEach var="msgVO"
+					items="<%=msgSvc.getAllByArtno(artVO.getArtno())%>">
+
+
+					<input type="hidden"
+						value="${mbrname = mbrSvc.getOneMbrpf(msgVO.mbrno).mbrname}" />
+
+					<div class="row">
+						<a><img id="mem1"
+							src="<%=request.getContextPath()%>/front-end/images/member.png"><span>${mbrname}
+								:</span></a>
+						<p class="artmsg">
+							<span>${msgVO.detail}</span>
+						</p>
+					</div>
+				</c:forEach>
+
+			</div>
+		</footer>
+	</c:if>
+
+
+
+	<script>
     $(document).ready(function(){
     	$("#action").click(function(){
         	if ($("#rp_detail").val() == ''){
@@ -310,7 +334,7 @@
         })
     })
     
-    
+  
     
 //     $.post("ArtrpServlet.java",
 //     		{ action: $("#action").val(), artno: $("#artno").val(), rp_detail: $("#rp_dateil").val(), mbrno: $("#mbrno").val(), status: $("#status").val()},
