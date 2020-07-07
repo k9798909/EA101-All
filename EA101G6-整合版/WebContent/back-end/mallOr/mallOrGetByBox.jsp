@@ -103,13 +103,13 @@
 				<%@ include file="/back-end/mallOr/page1.file" %>
 				
 				<c:forEach var="mallOr" items="${mallOrSvc.findByBoxStatus(0)}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+				<!-- 有付款才可出貨 -->
+				<c:if test="${mallOr.payStatus=='1'}">
 				<tr>
 				<td>${mallOr.mallOrNo}</td>
 				<td>${mallOr.payStatus=="1"?"已付款":"未付款"}</td>
 				<td>
 				${mallOr.boxStatus=="1"?"已出貨":mallOr.boxStatus=="2"?"已送達":"未出貨"}
-				<!-- 有付款才可出貨 -->
-				<c:if test="${mallOr.payStatus=='1'}">
 				<form style="display:inline-block;" action="<%= request.getContextPath()%>/MallOr/MallOrServlet" method="post">
 				<input class="box" type="submit" value="出貨" >
 				<input type="hidden" name="mbrNo" value="${mallOr.mbrNo}" >
@@ -119,10 +119,8 @@
 				<input type="hidden" name="payStatus" value="${mallOr.payStatus}" >
 				<input type="hidden" name="action" value="updateBox" >
 				</form>
-				</c:if>
 				</td>
 				<td>${mallOr.status=="1"?"已完成":mallOr.status=="2"?"已取消":"未完成"}</td>
-
 				<td><form action="<%= request.getContextPath()%>/MallOr/MallOrServlet" method="post">
 					<input type="hidden" name="mallOrNo" value="${mallOr.mallOrNo}">
 					<input type="hidden" name="mbrNo" value="${mallOr.mbrNo}">
@@ -131,6 +129,7 @@
 					<input class="dtbtn" type="submit" value="觀看">
 				</form></td>
 				</tr>
+				</c:if>
 				</c:forEach>
 				
 				</tbody>

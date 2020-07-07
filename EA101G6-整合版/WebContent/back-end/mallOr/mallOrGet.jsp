@@ -69,7 +69,6 @@ h5.modal-title{
 
 <%@ include file="/back-end/back-end_nav.jsp" %>
 
-
 <nav class="orNav navbar navbar-expand-lg navbar-light  ">
   <a class="navbar-brand" href="#">商城訂單</a>
 
@@ -80,6 +79,9 @@ h5.modal-title{
       </li>
       <li class="nav-item ${param.active=='getAll'?'active bg-gray rounded border border-dark':''}">
         <a class="nav-link" href="<%= request.getContextPath()%>/back-end/mallOr/mallOrGet.jsp?active=getAll">所有訂單 <span class="sr-only">(current)</span></a>
+      </li>
+       	<li class="nav-item ${param.active=='getByStatus'?'active bg-gray rounded border border-dark':''}">
+        <a class="nav-link" href="<%= request.getContextPath()%>/back-end/mallOr/mallOrGet.jsp?active=getByStatus">訂單取消 <span class="sr-only">(current)</span></a>
       </li>
     </ul>
   </div>
@@ -92,6 +94,10 @@ h5.modal-title{
 
 <c:if test="${param.active=='getByBox'}">
 <%@ include file="/back-end/mallOr/mallOrGetByBox.jsp"%>
+</c:if>
+
+<c:if test="${param.active=='getByStatus'}">
+<%@ include file="/back-end/mallOr/mallOrGetByStatus.jsp"%>
 </c:if>
 
 
