@@ -3,13 +3,13 @@
 <%@ page import="com.mbrpf.model.*"%>
 
 <%
-  MbrpfVO mbrpfVO = (MbrpfVO) request.getAttribute("mbepfVO");
+  MbrpfVO mbrpfVO = (MbrpfVO) request.getAttribute("mbrpfVO");
 %>
 
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>員工資料新增 - addMbrpf.jsp</title>
+<title>新會員註冊 - addMbrpf.jsp</title>
 
 <style>
   table#table-10 {
@@ -44,7 +44,11 @@
   th, td {
     padding: 1px;
   }
+  .tdtitle{
+  min-width:105px;
+  }
   </style>
+
 
 </head>
 
@@ -53,12 +57,12 @@
 
 <%@ include file="/front-end/front-end-nav.jsp"%>
 
-<table  class="t111">
-	<tr><td>
-		 <h3>資料新增 - addMbrpf.jsp</h3></td><td>
-		 <h4><a href="select_page.jsp"><img src="images/tomcat.png" width="100" height="100" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
+<!-- <table  class="t111"> -->
+<!-- 	<tr><td> -->
+<!-- 		 <h3>新會員註冊 - addMbrpf.jsp</h3></td><td> -->
+<%-- 		 <h4><a href="select_page.jsp"><img src="<%=request.getContextPath()%>/images/tomcat.png" width="100" height="100" border="0">回首頁</a></h4> --%>
+<!-- 	</td></tr> -->
+<!-- </table> -->
 
 <h3>資料新增:</h3>
 
@@ -72,85 +76,92 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="<%= request.getContextPath()%>/mbrpf/mbrpf.do" name="form1" enctype="multipart/form-data">
+
+<div class="container">
+  <div class="row">
+    <div class="col-2">
+      預設一(2格)
+    </div>
+    <div class="col-8">
+      <FORM METHOD="post" ACTION="<%= request.getContextPath()%>/mbrpf/mbrpf.do" name="form1" enctype="multipart/form-data">
 <table>
 	<tr>
-		<td>會員頭像:</td>
-		<img id="demo1">
-		<td><input type="FILE" name="mbrimg" onchange="loadFile1(event)" size="45"  /></td>
+		<td class="tdtitle">會員頭像:</td>
+		<img id="demo1" width="150" height="150" style="position:relative;right:-200px;" src="<%= (mbrpfVO==null)? "09.jpg" : mbrpfVO.getMbract()%>">
+		<td><input type="FILE" name="mbrimg" onchange="loadFile1(event)" size="30"  /></td>
 	</tr>
 	<tr>
-		<td>一般會員帳號:</td>
+		<td class="tdtitle">一般會員帳號:</td>
 		<td><input type="TEXT" name="mbract" size="45" 
 			 value="<%= (mbrpfVO==null)? "55" : mbrpfVO.getMbract()%>" /></td>
 	</tr>
 	<tr>
-		<td>一般會員密碼:</td>
+		<td class="tdtitle">一般會員密碼:</td>
 		<td><input type="TEXT" name="mbrpw" size="45"
 			 value="<%= (mbrpfVO==null)? "555" : mbrpfVO.getMbrpw()%>" /></td>
 	</tr>
 	<tr>
-		<td>會員姓名:</td>
+		<td class="tdtitle">會員姓名:</td>
 		<td><input type="TEXT" name="mbrname" size="45"
 			 value="<%= (mbrpfVO==null)? "五五五" : mbrpfVO.getMbrname()%>" /></td>
 	</tr>
 	<tr>
-		<td>生日:</td>
+		<td class="tdtitle">生日:</td>
 		<td><input name="birth" id="f_date1" type="text"></td>
 	</tr>
 	
 	<tr>
-		<td>性別:</td>
+		<td class="tdtitle">性別:</td>
 		<td><input type="TEXT" name="sex" size="45"
 			 value="<%= (mbrpfVO==null)? "1" : mbrpfVO.getSex()%>" /></td>
 	</tr>
 	<tr>
-		<td>電子郵件:</td>
+		<td class="tdtitle">電子郵件:</td>
 		<td><input type="TEXT" name="mail" size="45"
 			 value="<%= (mbrpfVO==null)? "555@gmail.com" : mbrpfVO.getMail()%>" /></td>
 	</tr>
 	<tr>
-		<td>電話:</td>
+		<td class="tdtitle">電話:</td>
 		<td><input type="TEXT" name="phone" size="45"
 			 value="<%= (mbrpfVO==null)? "0955555555" : mbrpfVO.getPhone()%>" /></td>
 	</tr>
 	<tr>
-		<td>接收款項帳戶:</td>
+		<td class="tdtitle">接收款項帳戶:</td>
 		<td><input type="TEXT" name="mbrac" size="45"
 			 value="<%= (mbrpfVO==null)? "5555-5555-5555-5555" : mbrpfVO.getMbrac()%>" /></td>
 	</tr>
 	<tr>
-		<td>暱稱:</td>
+		<td class="tdtitle">暱稱:</td>
 		<td><input type="TEXT" name="nickname" size="45"
 			 value="<%= (mbrpfVO==null)? "V" : mbrpfVO.getNickname()%>" /></td>
 	</tr>
 	<tr>
-		<td>點數餘額:</td>
+		<td class="tdtitle">點數餘額:</td>
 		<td><input type="TEXT" name="points" size="45"
 			 value="<%= (mbrpfVO==null)? "50" : mbrpfVO.getPoints()%>" /></td>
 	</tr>
 	<tr>
-		<td>一般會員狀態:</td>
+		<td class="tdtitle">一般會員狀態:</td>
 		<td><input type="TEXT" name="status" size="45"
 			 value="<%= (mbrpfVO==null)? "1" : mbrpfVO.getStatus()%>" /></td>
 	</tr>
 	<tr>
-		<td>被評價總人數:</td>
+		<td class="tdtitle">被評價總人數:</td>
 		<td><input type="TEXT" name="ratedtotal" size="45"
 			 value="<%= (mbrpfVO==null)? "50" : mbrpfVO.getRatedtotal()%>" /></td>
 	</tr>
 	<tr>
-		<td>被評價總星數:</td>
+		<td class="tdtitle">被評價總星數:</td>
 		<td><input type="TEXT" name="startotal" size="45"
 			 value="<%= (mbrpfVO==null)? "50" : mbrpfVO.getStartotal()%>" /></td>
 	</tr>
 	<tr>
-		<td>未出席次數:</td>
+		<td class="tdtitle">未出席次數:</td>
 		<td><input type="TEXT" name="unattend" size="45"
 			 value="<%= (mbrpfVO==null)? "0" : mbrpfVO.getUnattend()%>" /></td>
 	</tr>
 	<tr>
-		<td>總參團次數:</td>
+		<td class="tdtitle">總參團次數:</td>
 		<td><input type="TEXT" name="ttattend" size="45"
 			 value="<%= (mbrpfVO==null)? "50" : mbrpfVO.getTtattend()%>" /></td>
 	</tr>
@@ -159,6 +170,14 @@
 <br>
 <input type="hidden" name="action" value="insert">
 <input type="submit" value="送出新增"></FORM>
+    </div>
+    <div class="col-2">
+      預設二(2格)
+    </div>
+  </div>
+</div>
+
+
 </body>
 
 
