@@ -47,9 +47,6 @@ h4 {
 
 <%@ include file="/front-end/front-end-nav.jsp" %>
 
-<h4 style="margin-left: 20px;">
-	<a href="index.jsp"><img src="images/add-icon.png" class="icon">回首頁</a>
-</h4>
 
 	<form method="post" action="<%=request.getContextPath()%>/front-end/shop/shop.do">
 		<div class="login-form" style="margin-top: 40px;">
@@ -71,7 +68,6 @@ h4 {
 			</span> <a class="link" href="addShop.jsp">註冊</a> <input type="submit"
 				class="log-btn" value="會員登入"> <input type="hidden"
 				name="action" value="login">
-			<!-- 			</button> -->
 		</div>
 	</form>
 

@@ -403,6 +403,7 @@ public class ShopServlet extends HttpServlet {
 			         }
 			       }catch (Exception ignored) { }
 			       res.sendRedirect(req.getContextPath()+"/front-end/index.jsp");
+			       return;
 			}
 		}
 		if ("logout".equals(action))
