@@ -411,6 +411,7 @@ public class ShopServlet extends HttpServlet {
 			String url = req.getParameter("requestURL");
 			res.sendRedirect(req.getContextPath()+url);
 			System.out.println(url);
+			return;
 	}
 
 }

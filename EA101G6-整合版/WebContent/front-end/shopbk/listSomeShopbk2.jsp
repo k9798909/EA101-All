@@ -8,6 +8,9 @@
 	String shopno = request.getParameter("shopno");
 	List<ShopbkVO> list = shopbkSvc.getShopbkByShop(shopno);
 	pageContext.setAttribute("list", list);
+// 	ShopVO ssVO = (ShopVO)session.getAttribute("shopVO");
+// 	pageContext.setAttribute("ssVO", ssVO);
+// 	ShopbkVO shopbkVO = (ShopbkVO) request.getAttribute("shopbkVO");
 %>
 
 <!doctype html>
@@ -57,7 +60,7 @@ h4 {
 		<div class="col-sm-4"></div></div>
 		<div class="col-sm-5">
 <div>
-<button id="basicModal">新增</button>
+
 	<table>
 		<tr>
 			<th>店家編號</th>
@@ -79,9 +82,12 @@ h4 {
 		</c:forEach>
 	</table>
 </div></div>
-<%-- <c:if test="${openModal!=null}"> --%>
 
-<div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+
+<button data-toggle="modal" data-target="#exampleModal">新增</button>
+<div class="modal fade" id="exampleModal" tabindex="-1"
+					role="dialog" aria-labelledby="exampleModalLabel"
+					aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 				
@@ -92,7 +98,87 @@ h4 {
 			
 			<div class="modal-body">
 <!-- =========================================以下為原listOneEmp.jsp的內容========================================== -->
-               <jsp:include page="addShopbk.jsp" />
+               <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/shopbk/shopbk.do">
+		<table>
+			<tr>
+				<td>店家編號:</td>
+				<td><input type="TEXT" name="shopno" 
+<%-- 					value="<%=(shopbkVO == null) ? "" : shopbkVO.getShopno()%>"  --%>
+					/></td>
+			</tr>
+			<tr>
+				<td>提供人數:</td>
+				<td><input type="TEXT" name="ofdtable"
+<%-- 					value="<%=(shopbkVO == null) ? "" : shopbkVO.getOfdtable()%>"  --%>
+					/></td>
+			</tr>
+			<tr>
+				<td>起:</td>
+				<td><input type="TEXT" name="shoppds"  id="f_date1"
+<%-- 					value="<%=(shopbkVO == null) ? "" : shopbkVO.getShoppds()%>"  --%>
+					/></td>
+			</tr>
+			<tr>
+				<td>迄:</td>
+				<td><input type="TEXT" name="shoppde"  id="f_date2"
+<%-- 					value="<%=(shopbkVO == null) ? "" : shopbkVO.getShoppde()%>"  --%>
+					/></td>
+			</tr>
+			<tr>
+				<td>每小時:</td>
+				<td><input type="TEXT" name="payinfohr" 
+<%-- 			value="<%=(shopbkVO == null) ? "" : shopbkVO.getPayinfohr()%>"  --%>
+				/>元</td>
+			</tr>
+			<tr>
+				<td>包日:</td>
+				<td><input type="TEXT" name="payinfoday" 
+<%-- 					value="<%=(shopbkVO == null) ? "" : shopbkVO.getPayinfoday()%>"  --%>
+					/>元</td>
+			</tr>
+		</table>
+		<br> <input type="hidden" name="action" value="insert"> <input
+			type="submit" value="送出新增">
+	</FORM>
+<!-- 	=================================datetimepicker============================ -->
+	<script>
+	$.datetimepicker.setLocale('en'); // kr ko ja en
+	$('#f_date1').datetimepicker({
+		theme : '', //theme: 'dark',
+		timepicker : true, //timepicker: false,
+		step : 30, //step: 60 (這是timepicker的預設間隔60分鐘)
+		format : 'Y-m-d H:i',
+		value : new Date(),
+		//disabledDates:    ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
+		//startDate:	        '2017/07/10',  // 起始日
+		minDate : '-1970-01-01', // 去除今日(不含)之前
+	//maxDate:           '+1970-01-01'  // 去除今日(不含)之後
+	});
+	$('#f_date2').datetimepicker({
+		theme : '', //theme: 'dark',
+		timepicker : true, //timepicker: false,
+		step : 30, //step: 60 (這是timepicker的預設間隔60分鐘)
+		format : 'Y-m-d H:i',
+		value : new Date(),
+		//disabledDates:    ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
+		//startDate:	        '2017/07/10',  // 起始日
+		minDate : '-1970-01-01', // 去除今日(不含)之前
+	//maxDate:           '+1970-01-01'  // 去除今日(不含)之後
+	});
+</script>
+<link rel="stylesheet" type="text/css"
+	href="../../datetimepicker/jquery.datetimepicker.css" />
+<script src="../../datetimepicker/jquery.js"></script>
+<script src="../../datetimepicker/jquery.datetimepicker.full.js"></script>
+<style>
+.xdsoft_datetimepicker .xdsoft_datepicker {
+	width: 300px; /* width:  300px; */
+}
+
+.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
+	height: 151px; /* height:  151px; */
+}
+</style>
 <!-- =========================================以上為原listOneEmp.jsp的內容========================================== -->
 			</div>
 			
@@ -104,9 +190,6 @@ h4 {
 		</div>
 	</div>
 </div>
-<!--         <script> -->
-<!-- //     		 $("#basicModal").click().modal({show: true}); -->
-<!--         </script> -->
-<%--  </c:if> --%>
+
 </body>
 </html>
