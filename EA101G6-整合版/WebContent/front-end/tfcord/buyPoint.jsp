@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page import="java.util.Date" %>
+<%@page import="com.mbrpf.model.*" %>
 
 <%
 	java.text.DateFormat df = new java.text.SimpleDateFormat("yyyy");
@@ -19,7 +20,15 @@
 	request.setAttribute("year", year);
 %>
 
-<!-- 此處輝先取得會員account，如果沒有代表沒登入過，得先登入才能購買 -->
+<!-- 此處濾器會先看是否有account在session，如果沒有代表沒有登入過，會先進到登入頁面 -->
+
+
+<!-- 透過account(mbract)藉由checkLogin(mbract)方法，取得會員物件，下方才能取出會員物件的資訊 -->
+<%
+	String mbract = (String) session.getAttribute("account");
+	MbrpfVO mbrpfVO = (MbrpfVO) session.getAttribute("mbrpfVO");
+	request.setAttribute("mbrpfVO", mbrpfVO);
+%>
 
 <!DOCTYPE html>
 <html>
@@ -27,7 +36,45 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/> <!--要有這條 -->
 <title>購買點數</title>
+
+<style>
+	.pointpic{
+		width:100%;
+		height:240px;
+	}
+	
+	.orangeBtn {
+		background-color: #FF8F00;
+		box-shadow: 0px 5px 0px 0px #CD6509;
+	}
+
+	.orangeBtn:hover {
+	  	background-color: #FF983C;
+	}
+
+	.pointBtn {
+		border-radius: 5px;
+		padding: 5px 5px;
+		font-size: 18px;
+		text-decoration: none;
+		margin: 20px;
+		color: black;
+		position: relative;
+		display: inline-block;
+	}
+
+	.pointBtn:active {
+	  	transform: translate(0px, 5px);
+	  	-webkit-transform: translate(0px, 5px);
+	  	box-shadow: 0px 1px 0px 0px;
+	}
+	
+	
+	
+</style>
+
 </head>
+
 <body>
 <!-- 錯誤列表  -->
 	<c:if test="${not empty errorMsgs}">
@@ -39,82 +86,84 @@
 		</ul>
 	</c:if>
 
-<a href="<%=request.getContextPath()%>/front-end/tfcord/select_page_Tfcord_front.jsp">回前台點數轉換首頁</a>
-
-<h4>請選擇欲購買之面額</h4>
-<form method="post" action="<%=request.getContextPath()%>/tfcord/TfcordServlet">
-	<table>
-		<tr>
-			<td>
-				<input type="radio" name="price" value="100" checked>100元
-			</td>
-			<td>
-				<input type="radio" name="price" value="200">200元
-			</td>
-			<td>
-				<input type="radio" name="price" value="300">300元
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<input type="radio" name="price" value="400">400元
-			</td>
-			<td>
-				<input type="radio" name="price" value="500">500元
-			</td>
-			<td>
-				<input type="radio" name="price" value="600">600元
-			</td>
-		</tr>
-		<tr>
+<%@ include file="/front-end/front-end-nav.jsp"  %>
+<div class="container">
+	<div class="row">
+		<img src="<%=request.getContextPath()%>/img/PointBanner.png">
+	</div>
+	<div class="row float-right">
+		<a href="<%=request.getContextPath()%>/front-end/tfcord/select_page_Tfcord_front.jsp" class="pointBtn orangeBtn">回前台點數轉換首頁</a>
+	</div>
+	
+	<form method="post" action="<%=request.getContextPath()%>/tfcord/TfcordServlet">
+		<div class="row" style="clear:both">
+			<div class="col-sm">
+				<label for="p100"><input type="radio" name="price" value="100" id="p100"> 儲值100點 / NT$ 100<br><img class="pointpic" src="<%=request.getContextPath()%>/img/Point/100.png"></label>
+			</div>
+			<div class="col-sm">
+				<label for="p300"><input type="radio" name="price" value="300" id="p300"> 儲值300點 / NT$ 300<br><img class="pointpic" src="<%=request.getContextPath()%>/img/Point/300.png"></label>
+			</div>
+			<div class="col-sm">
+				<label for="p500"><input type="radio" name="price" value="500" id="p500"> 儲值500點 / NT$ 500<br><img class="pointpic" src="<%=request.getContextPath()%>/img/Point/500.png"></label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm">
+				<label for="p700"><input type="radio" name="price" value="700" id="p700"> 儲值700點 / NT$ 700<br><img class="pointpic" src="<%=request.getContextPath()%>/img/Point/700.png"></label>
+			</div>
+			<div class="col-sm">
+				<label for="p900"><input type="radio" name="price" value="900" id="p900"> 儲值900點 / NT$ 900<br><img class="pointpic" src="<%=request.getContextPath()%>/img/Point/900.png"></label>
+			</div>
+			<div class="col-sm">
+				<label for="p1000"><input type="radio" name="price" value="1000" id="p1000"> 儲值1000點 / NT$ 1000<br><img class="pointpic" src="<%=request.getContextPath()%>/img/Point/1000.png"></label>
+			</div>
+		</div>
 			
-		</tr>
-	</table>
-	<br>
-	
-	<input type="hidden" name="mbrno" value="BM00001"><!-- 先寫死的員工編號 -->
-	<input type="hidden" name="tftype" value="P">
-	
-	<table>
-		<tr>
-			<th>信用卡資訊：</th>
-		</tr>
-		<tr>
-			<td>
-			<input type="text" name="card1" size="4" maxlength="4" onKeyUp="next(this, 'card2')"> -
-			<input type="text" name="card2" size="4" maxlength="4" onKeyUp="next(this, 'card3')"> -
-			<input type="text" name="card3" size="4" maxlength="4" onKeyUp="next(this, 'card4')"> -
-			<input type="text" name="card4" size="4" maxlength="4" onKeyUp="next(this)">
-			</td>
-		</tr>
-		<tr>
-			<th>有效日期：</th><th>CCV：</th>
-		</tr>
-		<tr>
-			<td><select size="1">
-				<c:forEach var="month" begin="1" end="12" step="1">
-					<option value="${month}">${month}月
-				</c:forEach>
-			</select>
-			
-			<select size="1">
-				<c:forEach var="year" begin="${year}" end="${year+15}" step="1">
-					<option value="${year}">${year}年
-				</c:forEach>
-			</select></td>
-			<td>
-				<input type="text" name="ccv" size="3" maxlength="3">
-			</td>
-		</tr>
-	</table>
-	
-	<input type="hidden" name="tfstatus" value="1">
-	
-	
-	<input type="hidden" name="action" value="addTfcord">	
-	<br><input type="submit" value="確認購買">
-
-</form>
+		<input type="hidden" name="mbrno" value="${mbrpfVO.mbrno}">
+		<input type="hidden" name="tftype" value="P">
+		
+		<div class="row d-flex justify-content-center" style="background-color:#FF8F00; margin-top:20px; border-top-left-radius:10px; border-top-right-radius:10px;">付款資訊</div>
+		
+		<div style="background-color:#FFE0B2; margin-right:-15px; margin-left:-15px; border-bottom-right-radius:10px; border-bottom-left-radius:10px;">
+			<br>
+			<div class="row d-flex justify-content-center">信用卡卡號：</div>
+			<div class="row d-flex justify-content-center" style="margin-top:20px;margin-bottom:20px;">
+				<input type="text" name="card1" size="4" maxlength="4" onKeyUp="next(this, 'card2')">&nbsp;&nbsp;-&nbsp;&nbsp; 
+				<input type="text" name="card2" size="4" maxlength="4" onKeyUp="next(this, 'card3')">&nbsp;&nbsp;-&nbsp;&nbsp; 
+				<input type="text" name="card3" size="4" maxlength="4" onKeyUp="next(this, 'card4')">&nbsp;&nbsp;-&nbsp;&nbsp; 
+				<input type="text" name="card4" size="4" maxlength="4" onKeyUp="next(this)">
+			</div>
+			<div class="row" style="margin-right:-72px">
+				<div class="col-sm d-flex justify-content-end" style="padding-right:40px">有效日期：</div>
+				<div class="col-sm d-flex justify-content-start">CCV：</div>
+			</div>
+			<div class="row d-flex justify-content-center" style="margin-bottom:20px;">
+				<div class="col-sm text-right">
+					<select size="1">
+						<c:forEach var="month" begin="1" end="12" step="1">
+							<option value="${month}">${month}月
+						</c:forEach>
+					</select>
+					<select size="1">
+						<c:forEach var="year" begin="${year}" end="${year+15}" step="1">
+							<option value="${year}">${year}年
+						</c:forEach>
+					</select>
+				</div>
+				<div class="col-sm text-left" style="margin-right:-72px">
+					<input type="text" name="ccv" size="3" maxlength="3">
+				</div>
+			</div>
+			<br>
+		</div>
+		<input type="hidden" name="tfstatus" value="1">
+		<input type="hidden" name="action" value="addTfcord">
+		
+		<div class="row d-flex justify-content-center" style="margin-top:5%;margin-bottom:5%">
+			<input type="submit" class="pointBtn orangeBtn" value="確認購買" style="border: none">
+		</div>
+	</form>
+</div>
 
 
 <!-- 讓信用卡的text 自動往下一個text移動的js -->
