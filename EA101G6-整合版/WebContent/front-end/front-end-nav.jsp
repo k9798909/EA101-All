@@ -83,10 +83,17 @@
 								src="<%=request.getContextPath()%>/front-end/images/User-icon.png">會員登入
 						</span></a><c:if test="${not empty sessionScope.shopVO}">
 							<span class="mx-md-2 d-inline-block"></span>
-							<a href="<%=request.getContextPath()%>/front-end/shop/update_shop_input.jsp" class="text-white"> <span
+							<a href="<%=request.getContextPath()%>/front-end/shop/shopArea.jsp" class="text-white"> <span
 								class="mr-2 text-white icon-instagram"></span> <span
 								class="d-none d-md-inline-block">${sessionScope.shopVO.shopname}</span></a>
-														
+							<a href="#" class="text-white" id="goLogout"> <span
+								class="mr-2 text-white"></span> <span
+								class="d-none d-md-inline-block">log out</span></a>
+							<FORM id="logout" METHOD="post"
+								ACTION="<%=request.getContextPath()%>/front-end/shop/shop.do">
+								<input type="hidden" name="action" value="logout">
+								<input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>">
+							</FORM>							
 						</c:if>
 						<c:if test="${empty sessionScope.shopVO}">
 							<a href="<%=request.getContextPath()%>/front-end/shop/login.jsp"
@@ -183,5 +190,13 @@
 	<script src="<%=request.getContextPath()%>/js/model/main.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+		<!-- 	店家登出js -->
+	<script>
+		$(document).ready(function() {
+			$("#goLogout").click(function() {
+				$("#logout").submit();
+			})
+		})
+	</script>
 </body>
 </html>

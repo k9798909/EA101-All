@@ -69,13 +69,9 @@ div {
 
 	<%@ include file="/front-end/front-end-nav.jsp"%>
 
-	<h4>
-		<a href="index.jsp"><img src="images/add-icon.png" class="icon">¦^­º­¶</a>
-	</h4>
 	
 	
-	
-	
+
 	
 	<marquee onMouseOver="this.stop()" onMouseOut="this.start()"  bgcolor=ffcc00 class="col-md-8 offset-md-2">
 		<c:forEach var="shopadVO" items="${list2}">

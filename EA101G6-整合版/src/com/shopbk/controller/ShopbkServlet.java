@@ -70,7 +70,7 @@ public class ShopbkServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
-		if ("getSome_For_Display".equals(action)) { // �Ӧ�select_page.jsp���ШD
+		if ("getSome_For_Display".equals(action)||"getSome_For_Display2".equals(action)) { // �Ӧ�select_page.jsp���ШD
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -78,6 +78,7 @@ public class ShopbkServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
+				String shopno = null;
 				String shoppds = null;
 				String shoppde = null;
 				if(req.getParameter("shopno")==null) {
@@ -85,6 +86,7 @@ public class ShopbkServlet extends HttpServlet {
 					shoppde = req.getParameter("shoppde");
 				}
 				if(req.getParameter("shopps")==null || req.getParameter("shoppe")==null) {
+					shopno = req.getParameter("shopno");
 				}
 				
 				if (!errorMsgs.isEmpty()) {
@@ -95,7 +97,11 @@ public class ShopbkServlet extends HttpServlet {
 
 				/*************************** 2.�}�l�d�߸�� *****************************************/
 				ShopbkService shopbkSvc = new ShopbkService();
-				List<ShopbkVO> shopbkVO = shopbkSvc.getShopbkByTime(shoppds, shoppde);
+				List<ShopbkVO> shopbkVO = null;
+				if(req.getParameter("shopno")==null)
+					shopbkVO = shopbkSvc.getShopbkByTime(shoppds, shoppde);
+				if(req.getParameter("shopps")==null || req.getParameter("shoppe")==null)
+					shopbkVO = shopbkSvc.getShopbkByShop(shopno);
 				if (shopbkVO == null) {
 					errorMsgs.add("查無資料");
 				}
@@ -108,7 +114,11 @@ public class ShopbkServlet extends HttpServlet {
 
 				/*************************** 3.�d�ߧ���,�ǳ����(Send the Success view) *************/
 				req.setAttribute("shopbkVO", shopbkVO); // ��Ʈw���X��shopVO����,�s�Jreq
-				String url = "listSomeShopbk.jsp";
+				String url = null;
+				if("getSome_For_Display".equals(action))
+				url = "listSomeShopbk.jsp";
+				if("getSome_For_Display2".equals(action))
+				url = "listSomeShopbk2.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // ���\��� listOneshop.jsp
 				successView.forward(req, res);
 

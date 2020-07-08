@@ -26,17 +26,17 @@ public class ShopShowImg extends HttpServlet {
 			
 			ServletOutputStream out=res.getOutputStream();	
             res.setContentType("image/jpeg");
-            
+                      
          
             try {
             	String shopno=req.getParameter("shopno");
             	ShopService shopSvc = new ShopService();
             	ShopVO shopVo = shopSvc.getOneShop(shopno);
                 byte[] buf = shopVo.getShopimg();
-                out.write(buf);            
+                out.write(buf);  
             }catch(Exception e){
             	HttpSession session = req.getSession();
-            	ShopVO shopVO = (ShopVO) session.getAttribute("account");
+            	ShopVO shopVO = (ShopVO) session.getAttribute("shopVO");
             	byte[] b = shopVO.getShopimg();
             	out.write(b);
             }		

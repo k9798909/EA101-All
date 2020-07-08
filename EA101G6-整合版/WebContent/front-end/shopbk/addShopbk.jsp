@@ -11,7 +11,7 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
-	<title>新增遊戲</title>
+	<title>新增揪團</title>
 
 	<style>
 table {
@@ -49,7 +49,7 @@ img {
 </head>
 <body bgcolor='white'>
 
-<%@ include file="/front-end/front-end-nav.jsp" %>
+<%-- <%@ include file="/front-end/front-end-nav.jsp" %> --%>
 
 	<table id="table-1">
 		<a href="index.jsp"><img src="images/add-icon.png" class="icon">回首頁</a>
@@ -142,6 +142,6 @@ img {
 		minDate : '-1970-01-01', // 去除今日(不含)之前
 	//maxDate:           '+1970-01-01'  // 去除今日(不含)之後
 	});
-
 </script>
+
 </html>

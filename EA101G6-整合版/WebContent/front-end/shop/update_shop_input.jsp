@@ -2,7 +2,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.shop.model.*"%>
 <%@ include file="/front-end/front-end-nav.jsp" %>
-
+<%
+	java.util.HashMap<String, String> hashmap = (java.util.HashMap<String, String>) request.getAttribute("cityarea");
+	ShopVO shopVO = (ShopVO) request.getAttribute("shopVO");
+%>
 <html>
 <head>
 <meta charset="utf-8">
@@ -56,10 +59,6 @@ img {
 		enctype="multipart/form-data">
 		<table>
 			<tr>
-				<td>店家編號:</td>
-				<td>${shopVO.shopno}</td>
-			</tr>
-			<tr>
 				<td>店家帳號:</td>
 				<td><input type="TEXT" name="shopact" size="45"
 					value="${shopVO.shopact}" /></td>
@@ -75,12 +74,12 @@ img {
 					value="${shopVO.shopname}" /></td>
 			</tr>
 			<tr>
-				<td>位置:</td>
-				<td>
-				<select name="city" id="縣市1"><option value=${not empty city?city:""}></select>
-				<select name="area" id="鄉鎮市區1"><option value=${not empty area?area:""}></select>
-				<input type="text" name="addr" class="addr" value="${not empty shopVO?shopVO.shoploc.substring(6):""}" placeholder="請輸入地址">
-				</td>
+				<td>店家位置:</td>
+				<td><select name="city" id="縣市1">
+				<option value"${city.city}">${city.city}</option></select>
+				<select name="area" id="鄉鎮市區1"></select>
+				<input type="text" id="ads" name="addr" class="address" value="<%= (hashmap == null)? "":hashmap.get("addr") %>"></td>
+				<input id="address" name="address" type="hidden" value="<%= (shopVO == null)? "":shopVO.getShoploc() %>"/>			
 			</tr>
 			<tr>
 				<td>場地:</td>
@@ -122,7 +121,6 @@ img {
 			if (files !== null && files.length > 0) {
 				var file = files[0];
 				if (file.type.indexOf('image') > -1) {
-					// 					filename.value = file.name;
 					var reader = new FileReader();
 					reader.addEventListener('load', function(e) {
 						var result = e.target.result;
@@ -149,14 +147,31 @@ img {
 
 
    	window.onload = function () {
+   		init();
        //當頁面載完之後，用AddressSeleclList.Initialize()，
        //傳入要綁定的縣市下拉選單ID及鄉鎮市區下拉選單ID
-       AddressSeleclList.Initialize('縣市1', '鄉鎮市區1');
-       //後面四個參數分別是兩個下拉選單的預設文字跟值
-      AddressSeleclList.Initialize('縣市2', '鄉鎮市區2', 'Please Select City', '0', 'Please Select Area', '0');
+   	 AddressSeleclList.Initialize('縣市1', '鄉鎮市區1'<%= (hashmap == null)? "":",'"+hashmap.get("city")+"'"%><%= (hashmap == null)? "": ",'"+hashmap.get("area")+"'"%>);
+     var addressClass = document.getElementsByClassName("address");
+     var address = document.getElementById("address");
+     
+     for (i = 0; i < addressClass.length; i++) {
+  	   addressClass[i].addEventListener("change", addressValues);
+  	}
+     function addressValues(){
+	       var city = document.getElementById("縣市1").value;
+	       console.log(city);
+	       var area = document.getElementById("鄉鎮市區1").value;
+	       console.log(area);
+	       var location = document.getElementById("ads").value;
+	       console.log(location);
+	       address.value = city + area + location;
+	       console.log(address.value);
+     };
   }
+   	
+   	
 </script>
 <script
-		src="<%=request.getContextPath()%>/js/address.js"></script>	
+		src="<%=request.getContextPath()%>/js/address2.js"></script>	
 		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </html>
