@@ -27,7 +27,9 @@ public class ShopadServlet extends HttpServlet{
 			try {
 				/***************1.接收參數******************/
 				String shopno = req.getParameter("shopno");
-				
+				if(shopno.isEmpty()) {
+					System.out.println(13);
+				} 
 				String shopadtt = req.getParameter("shopadtt");
 				if (shopadtt == null || shopadtt.trim().length() == 0) {
 					errorMsgs.add("標題不可空白");
@@ -73,8 +75,8 @@ public class ShopadServlet extends HttpServlet{
 				
 				/*****************3.新增完成，開始轉交*********************/
 				req.setAttribute("shopadVO", shopadVO);
-				RequestDispatcher successView = req.getRequestDispatcher("/front-end/shopad/listOneShopad.jsp");
-				successView.forward(req, res);
+//				RequestDispatcher successView = req.getRequestDispatcher("/front-end/shopad/listOneShopad.jsp");
+//				successView.forward(req, res);
 				
 				/**************4.其他可能的錯誤處理**********************/
 			} catch (Exception e) {

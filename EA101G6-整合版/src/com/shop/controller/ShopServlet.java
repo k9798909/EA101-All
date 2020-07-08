@@ -414,7 +414,7 @@ public class ShopServlet extends HttpServlet {
 			}else {
 				shopVO = shopSvc.getOneShop(shopVO.getShopno());
 				session.setAttribute("shopVO", shopVO);
-			      
+			    
 			       try {                                                        
 			         String location = (String) session.getAttribute("location");
 			         if (location != null) {
