@@ -11,7 +11,7 @@ public class RminfoService {
 		dao = new RminfoJDBCDAO();
 	}
 	
-	public RminfoVO createRm(String shopno, Timestamp cutoff, String naming, Integer uplimit, Integer lowlimit, Timestamp starttime, Timestamp endtime, String mbrno, String game, String remarks, Integer restriction, Integer confirmed ) {
+	public RminfoVO createRm(String shopno, Timestamp cutoff, String naming, Integer uplimit, Integer lowlimit, Timestamp starttime, Timestamp endtime, String mbrno, String game, String remarks, Integer restriction) {
 		RminfoVO rminfoVO = new RminfoVO();
 		
 		rminfoVO.setShopno(shopno);
@@ -25,7 +25,6 @@ public class RminfoService {
 		rminfoVO.setGame(game);
 		rminfoVO.setRemarks(remarks);
 		rminfoVO.setRestriction(restriction);
-		rminfoVO.setConfirmed(confirmed);
 		dao.insert(rminfoVO);
 		
 		return rminfoVO;

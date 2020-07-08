@@ -85,5 +85,35 @@ public class ShoprpServlet extends HttpServlet{
 //			failureView.forward(req, res);
 		}
 		}
+	if ("delete".equals(action)) { 
+
+		List<String> errorMsgs = new LinkedList<String>();
+		// Store this set in the request scope, in case we need to
+		// send the ErrorPage view.
+		req.setAttribute("errorMsgs", errorMsgs);
+
+		try {
+			/***************************1..接收請求參數 - 輸入格式的錯誤處理***************************************/
+			String rmno= req.getParameter("rmno");
+			String mbrno= req.getParameter("mbrno");
+
+			/***************************2.開始新增資料***************************************/
+			ShoprpService shoprpSvc = new ShoprpService();
+			shoprpSvc.deleteShoprp(rmno,mbrno);
+			
+			/***************************3.新增完成,準備轉交(Send the Success view)***********/								
+			String url = "/back-end/room/back-end_shoprpList.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);
+			successView.forward(req, res);
+			
+			/***************************其他可能的錯誤處理**********************************/
+		} catch (Exception e) {
+			System.out.println(e);
+//			errorMsgs.add("�R����ƥ���:"+e.getMessage());
+//			RequestDispatcher failureView = req
+//					.getRequestDispatcher("/emp/listAllEmp.jsp");
+//			failureView.forward(req, res);
+		}
+	}
 	}
 }	

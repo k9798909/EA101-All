@@ -82,6 +82,15 @@
 							<li class="nav-item"><a class="nav-link"
 								href="<%=request.getContextPath()%>/back-end/bazaars.html">市集管理</a>
 							<!-- 目前還沒有這項 --></li>
+							<li class="nav-item dropdown backnavdown"><a
+								class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+								role="button" data-toggle="dropdown" aria-haspopup="true"
+								aria-expanded="false"> 揪團管理 </a>
+								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/room/back-end_rminfoList.jsp">房間列表</a> 
+									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/room/back-end_rateList.jsp">會員評價列表</a> 
+									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/room/back-end_shoprpList.jsp">店家回報列表</a> 
+								</div></li>
 							<li class="nav-item"><a class="nav-link"
 								href="<%=request.getContextPath()%>/back-end/emp/updatePwd.jsp">修改密碼</a>
 							<!-- 目前還沒有這項 --></li>

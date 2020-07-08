@@ -99,7 +99,7 @@ public class RateServlet extends HttpServlet{
 			rateSvc.deleteRate(rateno);
 			
 			/***************************3.新增完成,準備轉交(Send the Success view)***********/								
-			String url = "/front-end/room/back-end_rateList.jsp";
+			String url = "/back-end/room/back-end_rateList.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 			

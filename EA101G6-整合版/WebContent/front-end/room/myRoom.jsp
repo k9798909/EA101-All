@@ -25,16 +25,17 @@
 <body>
 <%@ include file="/front-end/front-end-nav.jsp"%>
 <div id="listAll">
-<table>
+<table class="table table-striped">
 	<tr>
 		<th style="width:10%">房名</th>
 		<th style="width:6%">房主</th>
 		<th style="width:7%">遊玩店家</th>
-		<th style="width:5%">人數限制[目前人數]</th>
+		<th style="width:6%">人數限制[目前人數]</th>
 		<th style="width:15%">遊玩時間</th>
 		<th style="width:15%">玩的遊戲</th>
 		<th style="width:10%">備註</th>
-		<th style="width:10%">房間狀態</th>
+		<th style="width:7%">房間狀態</th>
+		<th style="width:6%"></th><th></th>
 	</tr>
 	<c:forEach var="joinrmVO" items="${list}">
 	<tr>
@@ -74,20 +75,20 @@
 	
 		<td><div id="dialog2_${joinrmVO.rmno}" title="遊玩評價">
 		<jsp:include page="/front-end/room/rate.jsp"><jsp:param name="rmno" value="${joinrmVO.rmno}" /></jsp:include>
-	</div><button id="opener2_${joinrmVO.rmno}">團員遊玩評價</button>
+	</div><button class="floatButton" id="opener2_${joinrmVO.rmno}">團員遊玩評價</button>
 			<form METHOD="post" ACTION="rminfo.do">
 				<input type="hidden" name="status" value="3">
 				<input type="hidden" name="report" value="${rminfoSvc.getOneRm(joinrmVO.rmno).report}">
 				<input type="hidden" name="rmno" value="${joinrmVO.rmno}">
 				<input type="hidden" name="action" value="update">
-				<input type="submit" value="訂位">
+				<input class="floatButton" type="submit" value="訂位">
 			</form>
 			<form METHOD="post" ACTION="rminfo.do">
 				<input type="hidden" name="status" value="4">
 				<input type="hidden" name="report" value="${rminfoSvc.getOneRm(joinrmVO.rmno).report}">
 				<input type="hidden" name="rmno" value="${joinrmVO.rmno}">
 				<input type="hidden" name="action" value="update">
-				<input type="submit" value="取消揪團">
+				<input class="floatButton" type="submit" value="取消揪團">
 			</form>
 		</td>
 	
@@ -143,17 +144,10 @@
 	width:95%;
 
 }
-table td{
-	border:1px black solid;
+.floatButton{
+	float:left;
+	margin:0px 5px;
 }
-table th{
-	text-align:center;
-}
-button{
-	display:inline-block;
-}
-input{
-	display:inline-block;
-}
+
 </style>
 </html>

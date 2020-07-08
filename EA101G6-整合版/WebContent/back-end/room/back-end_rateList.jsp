@@ -13,19 +13,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <title>後台用評價列表</title>
+
+<%-- <script src="<%=request.getContextPath()%>/js/model/jquery-3.3.1.min.js"></script> --%>
+<script src="<%=request.getContextPath()%>/js/model/popper.min.js"></script>
+<script src="<%=request.getContextPath()%>/js/model/bootstrap.min.js"></script>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/model/bootstrap.min.css">
 </head>
 <body>
-<table>
+<%@ include file="/back-end/back-end_nav.jsp" %>
+<div id="listAll">
+<table class="table table-striped">
 	<tr>
 		<th style="width:10%">評價編號</th>
-		<th style="width:6%">房間編號</th>
-		<th style="width:7%">評價人編號</th>
+		<th style="width:8%">房間編號</th>
+		<th style="width:10%">評價人編號</th>
 		<th style="width:10%">被評價人編號</th>
 		<th style="width:15%">備註</th>
-		<th style="width:5%">分數</th>
+		<th style="width:6%">分數</th>
 		<th style="width:10%">評價時間</th>
+		<th></th>
 	</tr>
 	<c:forEach var="rateVO" items="${list}">
 	<tr>
@@ -47,15 +54,13 @@
 	</c:forEach>
 
 </table>
-
+</div>
 </body>
 <style>
-
-table td{
-	border:1px black solid;
-}
-table th{
-	text-align:center;
+#listAll{
+	margin:20px auto;
+	width:89%;
+	background-color:white;
 }
 </style>
 </html>

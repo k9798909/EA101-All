@@ -1,8 +1,6 @@
 package com.shoprp.model;
 
-import java.sql.Date;
-
-import com.shoprp.model.ShoprpVO;
+import java.util.List;
 
 public class ShoprpService {
 	
@@ -24,5 +22,12 @@ public class ShoprpService {
 		return shoprpVO;
 		
 		
+	}
+	public List<ShoprpVO> getAll(){
+		return dao.getAll();
+	}
+	
+	public void deleteShoprp(String rmno,String mbrno) {
+		dao.delete(rmno,mbrno);
 	}
 }

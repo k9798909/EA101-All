@@ -1,12 +1,12 @@
 package com.shoprp.model;
 
-import java.sql.Date;
+import java.sql.*;
 
 public class ShoprpVO implements java.io.Serializable{
 	private String mbrno;
 	private String rmno;
 	private String detail;
-	private Date rpdate;
+	private Timestamp rpdate;
 	private Integer attend;
 	
 	public String getMbrno() {
@@ -27,10 +27,10 @@ public class ShoprpVO implements java.io.Serializable{
 	public void setDetail(String detail) {
 		this.detail = detail;
 	}
-	public Date getRpdate() {
+	public Timestamp getRpdate() {
 		return rpdate;
 	}
-	public void setRpdate(Date rpdate) {
+	public void setRpdate(Timestamp rpdate) {
 		this.rpdate = rpdate;
 	}
 	public Integer getAttend() {

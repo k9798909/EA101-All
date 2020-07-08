@@ -9,7 +9,7 @@ public class RminfoJDBCDAO implements RminfoDAO_interface {
 	String userid = "EA101";
 	String passwd = "123456";
 	
-	private static final String INSERT_STMT = "INSERT INTO RMINFO(RMNO,SHOPNO,CUTOFF,NAMING,UPLIMIT,LOWLIMIT,STARTTIME,ENDTIME,MBRNO,GAME,REMARKS,RESTRICTION,CONFIRMED) VALUES ('SR'||LPAD(TO_CHAR(RMINFO_SEQ.NEXTVAL),5,'0'),?,?,?,?,?,?,?,?,?,?,?,?)";
+	private static final String INSERT_STMT = "INSERT INTO RMINFO(RMNO,SHOPNO,CUTOFF,NAMING,UPLIMIT,LOWLIMIT,STARTTIME,ENDTIME,MBRNO,GAME,REMARKS,RESTRICTION) VALUES ('SR'||LPAD(TO_CHAR(RMINFO_SEQ.NEXTVAL),5,'0'),?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String GET_ALL_STMT = "SELECT * FROM RMINFO ORDER BY RMNO DESC";
 	private static final String GET_ONE_STMT = "SELECT * FROM RMINFO WHERE RMNO = ?";
 	private static final String UPDATE = "UPDATE RMINFO SET STATUS = ?, REPORT = ? WHERE RMNO = ?";
@@ -38,7 +38,6 @@ public class RminfoJDBCDAO implements RminfoDAO_interface {
 			pstmt.setString(9, rminfoVO.getGame());
 			pstmt.setString(10, rminfoVO.getRemarks());
 			pstmt.setInt(11, rminfoVO.getRestriction());
-			pstmt.setInt(12, rminfoVO.getConfirmed());
 
 			pstmt.executeUpdate();
 
@@ -150,7 +149,9 @@ public class RminfoJDBCDAO implements RminfoDAO_interface {
 				rminfoVO.setCutoff(rs.getTimestamp("cutoff"));
 				rminfoVO.setRemarks(rs.getString("remarks"));
 				rminfoVO.setRestriction(rs.getInt("restriction"));
-				rminfoVO.setConfirmed(rs.getInt("confirmed"));
+				rminfoVO.setCreatetime(rs.getTimestamp("createtime"));
+				rminfoVO.setStatus(rs.getInt("status"));
+				rminfoVO.setReport(rs.getInt("report"));
 				list.add(rminfoVO); // Store the row in the list
 			}
 
@@ -222,7 +223,6 @@ public class RminfoJDBCDAO implements RminfoDAO_interface {
 				rminfoVO.setCutoff(rs.getTimestamp("cutoff"));
 				rminfoVO.setRemarks(rs.getString("remarks"));
 				rminfoVO.setRestriction(rs.getInt("restriction"));
-				rminfoVO.setConfirmed(rs.getInt("confirmed"));
 				rminfoVO.setStatus(rs.getInt("status"));
 				rminfoVO.setReport(rs.getInt("report"));
 			}
@@ -299,7 +299,6 @@ public class RminfoJDBCDAO implements RminfoDAO_interface {
 				rminfoVO.setCutoff(rs.getTimestamp("cutoff"));
 				rminfoVO.setRemarks(rs.getString("remarks"));
 				rminfoVO.setRestriction(rs.getInt("restriction"));
-				rminfoVO.setConfirmed(rs.getInt("confirmed"));
 				rminfoVO.setReport(rs.getInt("report"));
 				rminfoVO.setStatus(rs.getInt("status"));
 				list.add(rminfoVO); // Store the row in the list
@@ -377,7 +376,6 @@ public class RminfoJDBCDAO implements RminfoDAO_interface {
 			System.out.print(aRoom.getRemarks()+",");
 			System.out.print(aRoom.getRestriction()+",");
 			System.out.print(aRoom.getReport()+",");
-			System.out.print(aRoom.getConfirmed());
 			System.out.println();
 		}
 		

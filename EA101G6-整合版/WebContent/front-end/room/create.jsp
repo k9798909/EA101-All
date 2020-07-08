@@ -18,7 +18,7 @@
 
 <jsp:useBean id="mbrpfSvc" scope="page" class="com.mbrpf.model.MbrpfService" />
 <jsp:useBean id="shopSvc" scope="page" class="com.shop.model.ShopService" />
-<jsp:useBean id="joinrmSvc" scope="page" class="com.joinrm.model.JoinrmService" /> 
+<jsp:useBean id="joinrmSvc" scope="page" class="com.joinrm.model.JoinrmService" />
 
 <!DOCTYPE html>
 <html>
@@ -93,11 +93,7 @@
 					name="game" maxlength="50"
 					style="resize: none; width: 280px; height: 60px;"><c:if
 						test="${not empty requestScope.rminfoVO}">${requestScope.rminfoVO.game}</c:if></textarea>
-				<br> <br> *加入是否需審核: 
-				<select name="confirmed">
-					<option value="0">否</option>
-					<option value="1">是</option>
-				</select><br> <br> *評價限制: <select name="restriction">
+				<br> <br>  *評價限制: <select name="restriction">
 					<option value="0">無</option>
 					<%
 						for (int i = 1; i <= 5; i++) {
@@ -185,8 +181,7 @@
 					pattern="yyyy-MM-dd HH:mm:ss" />
 			</div>
 			<div>評價限制: ${(rminfoVO.restriction == '0')?'無':rminfoVO.restriction}</div>
-			<div>加入是否需審核: ${(rminfoVO.confirmed == '0')?'否':'是'}</div>
-			<div class="remark">備註: ${rminfoVO.remarks}</div>
+			<div class="remark">${rminfoVO.remarks}</div>
 		</div>
 
 	</c:forEach>
@@ -318,9 +313,9 @@
 	}
 </script>
 <style>
-body{
-   	background-image: url('<%=request.getContextPath()%>/images/bg4.png');
-  }
+/* body{ */
+<%-- 	background-image: url('<%=request.getContextPath()%>/images/bg4.png'); --%>
+/* } */
   
 #allCard{
 	margin:50px 5% 50px 15%;

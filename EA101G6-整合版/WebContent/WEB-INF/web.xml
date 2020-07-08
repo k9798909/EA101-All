@@ -36,6 +36,7 @@
 	<servlet-mapping>
 		<servlet-name>RminfoServlet</servlet-name>
 		<url-pattern>/front-end/room/rminfo.do</url-pattern>
+		<url-pattern>/back-end/room/rminfo.do</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
@@ -54,6 +55,7 @@
 	<servlet-mapping>
 		<servlet-name>RateServlet</servlet-name>
 		<url-pattern>/front-end/room/rate.do</url-pattern>
+		<url-pattern>/back-end/room/rate.do</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
@@ -63,6 +65,7 @@
 	<servlet-mapping>
 		<servlet-name>ShoprpServlet</servlet-name>
 		<url-pattern>/front-end/room/shoprp.do</url-pattern>
+		<url-pattern>/back-end/room/shoprp.do</url-pattern>
 	</servlet-mapping>
   
   

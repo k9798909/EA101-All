@@ -16,7 +16,6 @@ public class RminfoVO implements java.io.Serializable{
 	private String game;
 	private String remarks;
 	private Integer restriction;
-	private Integer confirmed;
 	private Integer report;
 	
 	public String getRmno() {
@@ -102,12 +101,6 @@ public class RminfoVO implements java.io.Serializable{
 	}
 	public void setRestriction(Integer restriction) {
 		this.restriction = restriction;
-	}
-	public Integer getConfirmed() {
-		return confirmed;
-	}
-	public void setConfirmed(Integer confirmed) {
-		this.confirmed = confirmed;
 	}
 	public Integer getReport() {
 		return report;

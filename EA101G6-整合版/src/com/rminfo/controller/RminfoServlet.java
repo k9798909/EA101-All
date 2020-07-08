@@ -6,8 +6,9 @@ import java.sql.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-import com.rminfo.model.RminfoService;
 import com.rminfo.model.*;
+import com.joinrm.model.*;
+
 
 public class RminfoServlet extends HttpServlet{
 	
@@ -100,7 +101,6 @@ if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 					errorMsgs.add("請選擇人數下限.");
 				}
 				Integer restriction = new Integer(req.getParameter("restriction").trim());
-				Integer confirmed = new Integer(req.getParameter("confirmed").trim());
 				
 				RminfoVO rminfoVO = new RminfoVO();
 				rminfoVO.setShopno(shopno);
@@ -114,7 +114,7 @@ if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 				rminfoVO.setGame(game);
 				rminfoVO.setRemarks(remarks);
 				rminfoVO.setRestriction(restriction);
-				rminfoVO.setConfirmed(confirmed);
+
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("rminfoVO", rminfoVO); // 含有輸入格式錯誤的empVO物件,也存入req
@@ -125,7 +125,12 @@ if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 				
 				/***************************2.開始新增資料***************************************/
 				RminfoService rminfoSvc = new RminfoService();
-				rminfoVO = rminfoSvc.createRm(shopno, cutoff, naming, uplimit, lowlimit, starttime, endtime, mbrno, game, remarks, restriction, confirmed);
+				rminfoVO = rminfoSvc.createRm(shopno, cutoff, naming, uplimit, lowlimit, starttime, endtime, mbrno, game, remarks, restriction);
+				List<RminfoVO> list = rminfoSvc.getAll();
+				RminfoVO rminfo1 = list.get(0);
+				String rmno = rminfo1.getRmno();
+				JoinrmService joinrmSvc = new JoinrmService();
+				joinrmSvc.insertMbr(rmno, mbrno);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				String url = "/front-end/room/create.jsp";
@@ -134,7 +139,7 @@ if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 				
 				/***************************其他可能的錯誤處理**********************************/
 			} catch (Exception e) {
-//				System.out.println(e);
+				System.out.println(e);
 //				errorMsgs.add(e.getMessage());
 //				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/create.jsp");
 //				failureView.forward(req, res);
@@ -171,7 +176,6 @@ if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 				/***************************2.開始修改資料***************************************/
 				RminfoService rminfoSvc = new RminfoService();
 				rminfoVO = rminfoSvc.update(status,report,rmno);
-				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				String url = "/front-end/room/myRoom.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
@@ -179,7 +183,7 @@ if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 				
 				/***************************其他可能的錯誤處理**********************************/
 			} catch (Exception e) {
-		//		System.out.println(e);
+				System.out.println(e);
 		//		errorMsgs.add(e.getMessage());
 		//		RequestDispatcher failureView = req.getRequestDispatcher("/front-end/create.jsp");
 		//		failureView.forward(req, res);

@@ -26,7 +26,8 @@
 </head>
 <body>
 <%@ include file="/front-end/front-end-nav.jsp"%>
-	<table>
+<div id="listAll">
+	<table class="table table-striped">
 	<tr>
 		<th style="width:10%">房名</th>
 		<th style="width:6%">房主</th>
@@ -37,6 +38,7 @@
 		<th style="width:10%">備註</th>
 		<th style="width:10%">房間狀態</th>
 		<th style="width:10%">回報狀態</th>
+		<th></th>
 	</tr>
 
 	<c:forEach var="rminfoVO" items="${list}">
@@ -114,17 +116,17 @@
 	</c:forEach>
 
 </table>
-
+</div>
 </body>
 <style>
-table td{
-	border:1px black solid;
+	#listAll{
+	margin:20px auto;
+	width:95%;
+
 }
-table th{
-	text-align:center;
-}
-table{
-	margin:0px auto;
+.floatButton{
+	float:left;
+	margin:0px 5px;
 }
 </style>
 </html>
