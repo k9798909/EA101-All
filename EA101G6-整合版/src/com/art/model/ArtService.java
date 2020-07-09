@@ -13,7 +13,6 @@ public class ArtService {
 	public ArtVO addArt(String mbrno, String detail, String arttt, Integer status, String atno, byte[] apic) {
 		ArtVO artVO = new ArtVO();
 		
-		
 		artVO.setMbrno(mbrno);
 		artVO.setDetail(detail);
 		artVO.setArttt(arttt);

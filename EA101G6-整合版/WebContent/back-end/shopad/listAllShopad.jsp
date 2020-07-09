@@ -14,7 +14,7 @@
 
 <html>
 <head>
-<title>所有店家廣告 - listAllShopad.jsp</title>
+<title>所有店家廣告</title>
 
 <style>
   table#table-1 {

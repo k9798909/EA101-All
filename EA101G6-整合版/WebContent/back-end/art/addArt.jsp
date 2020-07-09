@@ -1,24 +1,20 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.art.model.*"%>
-<%@ page import="com.mbrpf.model.*" %>
+<%@ page import="com.emp.model.*" %>
 
 <%
-	MbrpfVO mbrpfVO = (MbrpfVO)session.getAttribute("mbrpfVO");
 	ArtVO artVO = (ArtVO) request.getAttribute("artVO");
-%>  
-
-
+	EmpVO eVO = (EmpVO) session.getAttribute("eVO");
+	pageContext.setAttribute("eVO", eVO);
+%>
 
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/ckeditor/ckeditor.js"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<title>文章資料新增 - addArt.jsp</title>
-
-
-<meta charset="utf-8">
+<title>員工資料新增 - addArt.jsp</title>
 
 <style>
   table#table-1 {
@@ -52,17 +48,14 @@
   th, td {
     padding: 1px;
   }
-   .icon{
-    width:20px;
-    height:20px;
-   }
-   .category-1{
+  .category-1{
    	margin-top:20px;
    	margin-bottom:20px;
    	
    }
    .add-1{
    	margin-top: 100px;
+   	margin-bottom: 100px;
    }
    .img-1{
    	width: 100%;
@@ -72,46 +65,42 @@
    	margin-top: 40px;
    	margin-bottom: 40px;
    }
-   body{
-   	background-image: url('<%=request.getContextPath()%>/images/bg3.png');
-   }
-  
-  
 </style>
-
+<link rel="stylesheet" href="./vendors/bootstrap/css/bootstrap.min.css">
 </head>
 
+<body bgcolor='white'>
+
+<%@ include file="/back-end/back-end_nav.jsp"%>
 
 
-<body>
 
-<%@ include file="/front-end/front-end-nav.jsp"%> 
 
-	<!-- 錯誤訊息 -->
-	  <div class="errorMsgs col-md-8 offset-md-2">
-	  	<c:if test="${not empty errorMsgs}">
-			<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color:red">${message}</li>
-			</c:forEach>
-			</ul>
-	  	</c:if>
-	  </div>
 
-	<div class="bg-white tm-block col-md-8 offset-md-2 add-1">
+<%-- 錯誤列表 --%>
+<c:if test="${not empty errorMsgs}">
+	<font style="color:red">請修正以下錯誤:</font>
+	<ul>
+		<c:forEach var="message" items="${errorMsgs}">
+			<li style="color:red">${message}</li>
+		</c:forEach>
+	</ul>
+</c:if>
+
+<div class="bg-white tm-block col-md-10 offset-md-1 add-1">
 		<div class="row">
 			<div class="col-12">
 				<h2 class="tm-block-title d-inline-block">Add Article</h2>
 			</div>
 		</div>
 		
-		<FORM METHOD="post" class="tm-edit-product-form" ACTION="<%= request.getContextPath()%>/front-end/art/art.do" name="form1" enctype="multipart/form-data">
+		<FORM METHOD="post" class="tm-edit-product-form" ACTION="<%=request.getContextPath()%>/back-end/art/art.do" name="form1" enctype="multipart/form-data">
 		<div class="row mt-4 tm-edit-product-row">
 			<div class="col-xl-7 col-lg-7 col-md-12">			
 					
-					<input type="hidden" name="mbrno" value="${mbrpfVO.mbrno}"/>
 					
 					
+					<input type="hidden" name="mbrno" value="${eVO.empno}">
 					
 					<div class="input-group mb-3">
 						<label for="name"
@@ -131,13 +120,14 @@
 						<label for="category" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">文章分類</label>
 						<jsp:useBean id="atypeSvc" scope="page" class="com.atype.model.AtypeService"/>
 						<select size="1" name="atno" class="custom-select col-xl-5 col-lg-4 col-md-4 col-sm-3">
-							
-							<option value="AT01" ${(artVO.atno=='AT01')? 'selected':''}>遊戲心得
-							<option value="AT02" ${(artVO.atno=='AT02')? 'selected':''}>遊戲百科
+							<c:forEach var="atypeVO" items="${atypeSvc.all}">
+								<option value="${atypeVO.atno}"
+									${(artVO.atno==atypeVO.atno)? 'selected':'' }>${atypeVO.atname}
+							</c:forEach>
 						</select>
 						<div class="ml-auto col-xl-2 col-lg-2 col-md-2 col-sm-1 pl-0 ">
 							<button type="submit" class="btn btn-primary">Add</button>
-							<input type="hidden" name="action" value="insert_AF">
+							<input type="hidden" name="action" value="insert">
 						</div>
 					</div>
 					
@@ -157,18 +147,6 @@
 	</div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 <script>
 	$("#upPic").change(function(){
 		readURL(this);
@@ -186,5 +164,8 @@
 </script>
 
 
+<script src="./vendors/jquery/jquery-3.4.1.min.js"></script>
+<script src="./vendors/popper/popper.min.js"></script>
+<script src="./vendors/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

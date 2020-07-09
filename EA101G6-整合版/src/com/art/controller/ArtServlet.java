@@ -359,9 +359,10 @@ public class ArtServlet extends HttpServlet {
 				
 				/***************************其他可能的錯誤處理**********************************/			 
 			} catch (Exception e) {
+				
 				errorMsgs.add(e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/art/addEmp.jsp");
+						.getRequestDispatcher("/back-end/art/addArt.jsp");
 				failureView.forward(req, res);
 			}
 			
@@ -410,6 +411,7 @@ public class ArtServlet extends HttpServlet {
 				
 				/**********************其他可能的錯誤處理**********************/
 			} catch (Exception e) {
+				
 				errorMsgs.add("無法取得資料");
 				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/art/listAllArt.jsp");
 				failureView.forward(req, res);

@@ -5,13 +5,15 @@
 <%@ page import="java.util.*" %>
 <%@ page import="com.art.model.*" %>
 <%@ page import="com.mbrpf.model.*" %>
+<%@ page import="com.emp.model.*" %>
 
 <%
 	ArtVO artVO = (ArtVO) request.getAttribute("artVO");
 	MbrpfVO mbrpfVO = (MbrpfVO)session.getAttribute("mbrpfVO");
 	
-	
-
+	EmpService empSvc = new EmpService();
+	EmpVO empVO = empSvc.getOneEmp(artVO.getMbrno());
+	pageContext.setAttribute("empVO", empVO);
 %>
 
 
@@ -150,6 +152,7 @@
 	<jsp:useBean id="mbrSvc" class="com.mbrpf.model.MbrpfService"/>
 	<%
 		MbrpfVO mbrVO = mbrSvc.getOneMbrpf(artVO.getMbrno());
+		pageContext.setAttribute("mbrVO", mbrVO);
 	%>
 
     <div class="card col-md-8 offset-md-2" id="d1">
@@ -160,7 +163,15 @@
 					ACTION="<%=request.getContextPath()%>/front-end/art/art.do">
     		<nav aria-label="breadcrumb" class="d-inline-flex breadcrunm-2 ">
   			<ol class="breadcrumb bg-white">
-    			<li class="breadcrumb-item"><a target="_self"  href="<%=request.getContextPath()%>/mbrpf/mbrpf.do?action=getOne_For_Display&mbrno=${artVO.mbrno}" class="text-black"><span class="d-md-inline-block"><img class="icon-2" src="<%=request.getContextPath()%>/images/User-icon.png"><%=mbrVO.getMbrname()%></span></a></li>
+  			
+  				<c:if test="${empVO == null}">
+  					<li class="breadcrumb-item"><a target="_self"  href="<%=request.getContextPath()%>/mbrpf/mbrpf.do?action=getOne_For_Display&mbrno=${artVO.mbrno}" class="text-black"><span class="d-md-inline-block"><img class="icon-2" src="<%=request.getContextPath()%>/images/User-icon.png">${mbrVO.mbrname}</span></a></li>
+  				</c:if>
+  				<c:if test="${empVO != null}">
+  					<li class="breadcrumb-item"><img class="icon-2" src="<%=request.getContextPath()%>/images/User-icon.png">[管理員] ${empVO.empname}</span></li>
+  				</c:if>
+    			
+    			
     			<li class="breadcrumb-item active" aria-current="page"><img class="icon-2" src="<%=request.getContextPath()%>/images/cal-icon.png">${artVO.pdate}</li>
  			</ol>
 			</nav>
