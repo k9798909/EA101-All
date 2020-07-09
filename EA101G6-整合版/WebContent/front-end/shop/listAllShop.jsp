@@ -73,16 +73,7 @@ div {
 	
 
 	
-	<marquee onMouseOver="this.stop()" onMouseOut="this.start()"  bgcolor=ffcc00 class="col-md-8 offset-md-2">
-		<c:forEach var="shopadVO" items="${list2}">
-			<input type="hidden" value="${shopVO = shopSvc.getOneShop(shopadVO.shopno)}"/>
-			<c:if test="${shopadVO.status == 1}">
-				<a target="_self" style="text-decoration:none;" href="<%=request.getContextPath()%>/front-end/shop/shop.do?action=getOne_For_Display&shopno=${shopadVO.shopno}">
-					${shopVO.shopname}
-				</a> : ${shopadVO.shopadtt} &nbsp;&nbsp;&nbsp;
-			</c:if>
-		</c:forEach>
-	</marquee>
+	
 	
 	
 
@@ -104,7 +95,16 @@ div {
 	</table>
 	
 	
-	
+	<marquee onMouseOver="this.stop()" onMouseOut="this.start()"  bgcolor=ffcc00 class="col-md-8 offset-md-2">
+		<c:forEach var="shopadVO" items="${list2}">
+			<input type="hidden" value="${shopVO = shopSvc.getOneShop(shopadVO.shopno)}"/>
+			<c:if test="${shopadVO.status == 1}">
+				<a target="_self" style="text-decoration:none;" href="<%=request.getContextPath()%>/front-end/shop/shop.do?action=getOne_For_Display&shopno=${shopadVO.shopno}">
+					${shopVO.shopname}
+				</a> : ${shopadVO.shopadtt} &nbsp;&nbsp;&nbsp;
+			</c:if>
+		</c:forEach>
+	</marquee>
 	
 	
 	

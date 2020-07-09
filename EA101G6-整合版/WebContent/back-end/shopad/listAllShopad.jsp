@@ -61,7 +61,7 @@
 <%@ include file="/back-end/back-end_nav.jsp"%>
 
 
-<table class="col-md-8 offset-md-2 t1">
+<table class="col-md-10 offset-md-1 t1">
 	<tr><td>
 		<h3>所有店家廣告 -listAllShopad.jsp</h3>
 		
@@ -79,7 +79,7 @@
 	</ul>
 </c:if>
 
-<table class="col-md-8 offset-md-2">
+<table class="col-md-10 offset-md-1 table table-striped bg-white">
 	<tr>
 		<th>店家廣告編號</th>
 		<th>店家編號</th>
@@ -120,7 +120,7 @@
 		
 	</c:forEach>
 	
-	<marquee onMouseOver="this.stop()" onMouseOut="this.start()"  bgcolor=ffcc00 class="col-md-8 offset-md-2">
+	<marquee onMouseOver="this.stop()" onMouseOut="this.start()"  bgcolor=ffcc00 class="col-md-10 offset-md-1">
 		<c:forEach var="shopadVO" items="${list}">
 			<c:if test="${shopadVO.status == 1}">
 				<a target="_self" style="text-decoration:none;" href="<%=request.getContextPath()%>/shop/shop.do?action=getOne_Detail&shopno=${shopadVO.shopno}">
