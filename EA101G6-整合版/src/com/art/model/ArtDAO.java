@@ -431,6 +431,7 @@ public class ArtDAO implements ArtDAO_interface {
 				
 				list.add(artVO);
 			}
+			
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());

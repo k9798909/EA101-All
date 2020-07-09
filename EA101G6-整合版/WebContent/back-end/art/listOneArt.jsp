@@ -12,7 +12,7 @@
 
 <html>
 <head>
-<title>文章資料 - listOneEmp.jsp</title>
+<title>文章資料</title>
 
 <style>
   table#table-1 {
@@ -54,8 +54,8 @@
 
 <table class="col-md-10 offset-md-1">
 	<tr><td>
-		<h3>文章資料 -listOneArt.jsp</h3>
-		<h4><a href="select_page.jsp">回首頁</a></h4>
+		<h3>文章資料</h3>
+		<h4><a href="listAllArt.jsp">回首頁</a></h4>
 	</td></tr>
 </table>
 

@@ -38,7 +38,7 @@ public class ArtServlet extends HttpServlet {
 					errorMsgs.add("請輸入文章編號");
 				}
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/art/select_page.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/art/listAllArt.jsp");
 					failureView.forward(req,  res);
 					return;
 				}
@@ -51,7 +51,7 @@ public class ArtServlet extends HttpServlet {
 				}
 				
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/art/select_page.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/art/listAllArt.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -64,7 +64,7 @@ public class ArtServlet extends HttpServlet {
 				}
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/art/select_page.jsp");
+							.getRequestDispatcher("/back-end/art/listAllArt.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -81,7 +81,7 @@ public class ArtServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/art/select_page.jsp");
+						.getRequestDispatcher("/back-end/art/listAllArt.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -99,7 +99,7 @@ public class ArtServlet extends HttpServlet {
 					errorMsgs.add("請輸入作者編號");
 				}
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/art/select_page.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/art/listAllArt.jsp");
 					failureView.forward(req,  res);
 					return;
 				}
@@ -112,7 +112,7 @@ public class ArtServlet extends HttpServlet {
 				}
 				
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/art/select_page.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/art/listAllArt.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -121,12 +121,13 @@ public class ArtServlet extends HttpServlet {
 				
 				ArtService artSvc = new ArtService();
 				List<ArtVO> artVO = artSvc.getArtsByMbrno(mbrno);
-				if (artVO == null) {
+				
+				if (artVO.isEmpty()) {
 					errorMsgs.add("查無資料");
-				}
+				} 
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/art/select_page.jsp");
+							.getRequestDispatcher("/back-end/art/listAllArt.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -143,7 +144,7 @@ public class ArtServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/art/select_page.jsp");
+						.getRequestDispatcher("/back-end/art/listAllArt.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -160,7 +161,7 @@ public class ArtServlet extends HttpServlet {
 					errorMsgs.add("請選擇文章類型");
 				}
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/art/select_page.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/art/listAllArt.jsp");
 					failureView.forward(req,  res);
 					return;
 				}
@@ -173,7 +174,7 @@ public class ArtServlet extends HttpServlet {
 				}
 				
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/art/select_page.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/art/listAllArt.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -187,7 +188,7 @@ public class ArtServlet extends HttpServlet {
 				}
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/art/select_page.jsp");
+							.getRequestDispatcher("/back-end/art/listAllArt.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -204,7 +205,7 @@ public class ArtServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/art/select_page.jsp");
+						.getRequestDispatcher("/back-end/art/listAllArt.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -245,10 +246,10 @@ public class ArtServlet extends HttpServlet {
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				
 				req.setAttribute("artVO", artVO); // 資料庫update成功後,正確的的empVO物件,存入req
-				String url = "/back-end/art/listOneArt.jsp";
+				String url = "/back-end/art/listAllArt.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
-				System.out.println(123);
+				
 				/***************************其他可能的錯誤處理*************************************/
 			} catch (Exception e) {
 				
@@ -308,7 +309,7 @@ public class ArtServlet extends HttpServlet {
 					errorMsgs.add("請先登入會員");
 				}
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("select_page.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("listAllArt.jsp");
 					failureView.forward(req, res);
 					return;
 				}

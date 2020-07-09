@@ -50,6 +50,20 @@
     padding: 5px;
     text-align: center;
   }
+  .ser-0{
+  	margin-top: 15px;
+  }
+  .ser-1{
+  	margin-left: 5px;
+  }
+  .ser-2{
+  	margin-left: 25px;
+  }
+  .ser-3{
+  	margin-left: 25px;
+  	margin-right: 30px;
+  }
+  
   
 </style>
 
@@ -65,18 +79,54 @@
 	</td></tr>
 </table>
 
+	<ul class="col-md-10 offset-md-1 ser-0">
 
-<%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-	<font style="color:red">請修正以下錯誤:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
+		<li class="float-left ser-1">
+			<FORM METHOD="post" ACTION="art.do">
+				<b>輸入文章編號 (如MA00001):</b> <input type="text" name="artno"> <input
+					type="hidden" name="action" value="getOne_For_Display"> <input
+					type="submit" value="送出">
+			</FORM>
+		</li>
+
+
+		<li class="float-left ser-2">
+			<FORM METHOD="post" ACTION="art.do">
+				<b>輸入作者編號 (如BM00001):</b> <input type="text" name="mbrno"> <input
+					type="hidden" name="action" value="getAW_For_Display"> <input
+					type="submit" value="送出">
+			</FORM>
+		</li>
+
+		<jsp:useBean id="atypeSvc" scope="page"
+			class="com.atype.model.AtypeService" />
+
+		<li class="float-left ser-3">
+			<FORM METHOD="post" ACTION="art.do">
+				<b>選擇文章種類:</b> <select size="1" name="atno">
+					<c:forEach var="atypeVO" items="${atypeSvc.all}">
+						<option value="${atypeVO.atno}">${atypeVO.atname}
+					</c:forEach>
+				</select> <input type="hidden" name="action" value="getAT_For_Display">
+				<input type="submit" value="送出">
+			</FORM>
+		</li>
+		<%-- 錯誤表列 --%>
+		<c:if test="${not empty errorMsgs}">
+			
+			
+				<c:forEach var="message" items="${errorMsgs}">
+					<li  style="color: red">${message}</li>
+				</c:forEach>
+			
+		</c:if>
+		
+		
 	</ul>
-</c:if>
-
-<table class="col-md-10 offset-md-1 table table-striped bg-white">
+	
+	
+	
+	<table class="col-md-10 offset-md-1 table table-striped bg-white">
 	<tr>
 		<th>文章編號</th>
 		<th>作者編號</th>

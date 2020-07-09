@@ -14,7 +14,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/ckeditor/ckeditor.js"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<title>員工資料新增 - addArt.jsp</title>
+<title>員工資料新增</title>
 
 <style>
   table#table-1 {

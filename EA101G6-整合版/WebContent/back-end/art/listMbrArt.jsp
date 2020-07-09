@@ -14,7 +14,7 @@
 
 <html>
 <head>
-<title>文章資料 - listMbrEmp.jsp</title>
+<title>文章資料</title>
 
 <style>
   table#table-1 {
@@ -61,8 +61,8 @@
 
 <table class="col-md-10 offset-md-1">
 	<tr><td>
-		<h3>文章資料 -listMbrArt.jsp</h3>
-		<h4><a href="select_page.jsp">回首頁</a></h4>
+		<h3>文章資料</h3>
+		<h4><a href="listAllArt.jsp">回首頁</a></h4>
 	</td></tr>
 </table>
 
@@ -97,6 +97,9 @@
 			
 			<c:if test="${artVO.atno == 'AT02'}">
 				<td>遊戲百科</td>
+			</c:if>
+			<c:if test="${artVO.atno == 'AT03'}">
+				<td>討論區公告</td>
 			</c:if>
 			
 			
