@@ -38,7 +38,7 @@
       <input type="hidden" name="action" value="tryLogin">
      <input type="submit" class="log-btn" value="會員登入">
      <h3>  </h3>
-     <button type="button" class="sign-btn" >會員註冊</button>
+     <button type="button" class="sign-btn" onclick="location.href='<%=request.getContextPath()%>/front-end/mbrpf/addMbrpf.jsp'" >會員註冊</button>
        <!-- <a class="linksignup" href="#">會員註冊</a> -->
      
     
