@@ -6,16 +6,16 @@
 <%
 	ShopbkService shopbkSvc = new ShopbkService();
 	String shopno = null;
-	String shoppds = null;
-	String shoppde = null;
+	java.sql.Timestamp shoppds = null;
+	java.sql.Timestamp shoppde = null;
 	List<ShopbkVO> list = null;
 	if(request.getParameter("shopps")==null || request.getParameter("shoppe")==null){
 		shopno = request.getParameter("shopno");
 		list = shopbkSvc.getShopbkByShop(shopno);
 	}
 	if(request.getParameter("shopno")==null) {
-		shoppds = request.getParameter("shoppds");
-		shoppde = request.getParameter("shoppde");
+		shoppds = java.sql.Timestamp.valueOf(request.getParameter("shoppds"));
+		shoppde = java.sql.Timestamp.valueOf(request.getParameter("shoppde"));
 		list = shopbkSvc.getShopbkByTime(shoppds, shoppde);
 	}
 	pageContext.setAttribute("list", list);

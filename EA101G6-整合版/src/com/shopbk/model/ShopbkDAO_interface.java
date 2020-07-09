@@ -1,5 +1,6 @@
 package com.shopbk.model;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import com.shopbk.model.ShopbkVO;
@@ -9,7 +10,7 @@ public interface ShopbkDAO_interface {
 	public void update(ShopbkVO shopbkVO);
 	public void delete(String shopbkno);
 	public ShopbkVO findByPrimaryKey(String shopbkno);
-	public List<ShopbkVO> findByShoppd(String shoppds, String shoppde);
+	public List<ShopbkVO> findByShoppd(Timestamp shoppds, Timestamp shoppde);
 	public List<ShopbkVO> findByShop(String shopno);
 	public List<ShopbkVO> getAll();
 }

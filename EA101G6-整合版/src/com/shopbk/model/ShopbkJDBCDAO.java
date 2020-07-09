@@ -20,13 +20,13 @@ public class ShopbkJDBCDAO implements ShopbkDAO_interface{
 	String passwd = "123456";
 	
 	private static final String INSERT_STMT =
-			"INSERT INTO SHOPBK (SHOPBKNO, SHOPNO, OFDTABLE, SHOPPDS, SHOPPDE, PAYINFOHR, PAYINFODAY) VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_SEQ.NEXTVAL), 5, '0'), ?, ?, TO_TIMESTAMP(?, 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP(?, 'YYYY-MM-DD HH24:MI:SS'), ?, ?)";
+			"INSERT INTO SHOPBK (SHOPBKNO, SHOPNO, OFDTABLE, SHOPPDS, SHOPPDE, PAYINFOHR, PAYINFODAY) VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_SEQ.NEXTVAL), 5, '0'), ?, ?, ?, ?, ?, ?)";
 	private static final String UPDATE =
-			"UPDATE SHOPBK SET SHOPNO=?, OFDTABLE=?, SHOPPDS=TO_TIMESTAMP(?, 'YYYY-MM-DD HH24:MI:SS'), SHOPPDE=TO_TIMESTAMP(?, 'YYYY-MM-DD HH24:MI:SS'), PAYINFOHR=?, PAYINFODAY=? WHERE SHOPBKNO = ?";
+			"UPDATE SHOPBK SET SHOPNO=?, OFDTABLE=?, SHOPPDS=?, SHOPPDE=?, PAYINFOHR=?, PAYINFODAY=? WHERE SHOPBKNO = ?";
 	private static final String GET_ALL_STMT =
 			"SELECT SHOPBKNO,SHOPNO,OFDTABLE,SHOPPDS,SHOPPDE,PAYINFOHR,PAYINFODAY FROM SHOPBK ORDER BY SHOPPDS";
 	private static final String GET_SOME_STMT_BY_TIME =
-			"SELECT SHOPBKNO,SHOPNO,OFDTABLE,SHOPPDS,SHOPPDE,PAYINFOHR,PAYINFODAY FROM SHOPBK WHERE SHOPPDS <=TO_TIMESTAMP(?, 'YYYY-MM-DD HH24:MI:SS') AND SHOPPDE >=TO_TIMESTAMP(?, 'YYYY-MM-DD HH24:MI:SS')";
+			"SELECT SHOPBKNO,SHOPNO,OFDTABLE,SHOPPDS,SHOPPDE,PAYINFOHR,PAYINFODAY FROM SHOPBK WHERE SHOPPDS <=? AND SHOPPDE >=?";
 	private static final String GET_SOME_STMT_BY_SHOPNO =
 			"SELECT SHOPBKNO,SHOPNO,OFDTABLE,SHOPPDS,SHOPPDE,PAYINFOHR,PAYINFODAY FROM SHOPBK WHERE SHOPNO = ?";
 	private static final String GET_ONE_STMT =
@@ -47,8 +47,8 @@ public class ShopbkJDBCDAO implements ShopbkDAO_interface{
 			
 			pstmt.setString(1, shopbkVO.getShopno());
 			pstmt.setInt(2, shopbkVO.getOfdtable());
-			pstmt.setString(3, shopbkVO.getShoppds());
-			pstmt.setString(4, shopbkVO.getShoppde());
+			pstmt.setTimestamp(3, shopbkVO.getShoppds());
+			pstmt.setTimestamp(4, shopbkVO.getShoppde());
 			pstmt.setInt(5, shopbkVO.getPayinfohr());
 			pstmt.setInt(6, shopbkVO.getPayinfoday());
 			
@@ -94,8 +94,8 @@ public class ShopbkJDBCDAO implements ShopbkDAO_interface{
 			
 			pstmt.setString(1, shopbkVO.getShopno());
 			pstmt.setInt(2, shopbkVO.getOfdtable());
-			pstmt.setString(3, shopbkVO.getShoppds());
-			pstmt.setString(4, shopbkVO.getShoppde());
+			pstmt.setTimestamp(3, shopbkVO.getShoppds());
+			pstmt.setTimestamp(4, shopbkVO.getShoppde());
 			pstmt.setInt(5, shopbkVO.getPayinfohr());
 			pstmt.setInt(6, shopbkVO.getPayinfoday());
 			pstmt.setString(7, shopbkVO.getShopbkno());
@@ -187,8 +187,8 @@ public class ShopbkJDBCDAO implements ShopbkDAO_interface{
 				shopbkVO.setShopbkno(rs.getString("shopbkno"));
 				shopbkVO.setShopno(rs.getString("shopno"));
 				shopbkVO.setOfdtable(rs.getInt("ofdtable"));
-				shopbkVO.setShoppds(rs.getString("shoppds"));
-				shopbkVO.setShoppde(rs.getString("shoppde"));
+				shopbkVO.setShoppds(rs.getTimestamp("shoppds"));
+				shopbkVO.setShoppde(rs.getTimestamp("shoppde"));
 				shopbkVO.setPayinfohr(rs.getInt("payinfohr"));
 				shopbkVO.setPayinfoday(rs.getInt("payinfoday"));			
 			}
@@ -225,7 +225,7 @@ public class ShopbkJDBCDAO implements ShopbkDAO_interface{
 	}
 
 	@Override
-	public List<ShopbkVO> findByShoppd(String shoppds, String shoppde) {
+	public List<ShopbkVO> findByShoppd(Timestamp shoppds, Timestamp shoppde) {
 		List<ShopbkVO> list = new ArrayList<ShopbkVO>();
 		ShopbkVO shopbkVO = null;
 		Connection con = null;
@@ -239,8 +239,8 @@ public class ShopbkJDBCDAO implements ShopbkDAO_interface{
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_SOME_STMT_BY_TIME);
 			
-			pstmt.setString(1, shoppds);
-			pstmt.setString(2, shoppde);
+			pstmt.setTimestamp(1, shoppds);
+			pstmt.setTimestamp(2, shoppde);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -248,8 +248,8 @@ public class ShopbkJDBCDAO implements ShopbkDAO_interface{
 				shopbkVO.setShopbkno(rs.getString("shopbkno"));
 				shopbkVO.setShopno(rs.getString("shopno"));
 				shopbkVO.setOfdtable(rs.getInt("ofdtable"));
-				shopbkVO.setShoppds(rs.getString("shoppds"));
-				shopbkVO.setShoppde(rs.getString("shoppde"));
+				shopbkVO.setShoppds(rs.getTimestamp("shoppds"));
+				shopbkVO.setShoppde(rs.getTimestamp("shoppde"));
 				shopbkVO.setPayinfohr(rs.getInt("payinfohr"));
 				shopbkVO.setPayinfoday(rs.getInt("payinfoday"));
 				list.add(shopbkVO);				
@@ -309,8 +309,8 @@ public class ShopbkJDBCDAO implements ShopbkDAO_interface{
 				shopbkVO.setShopbkno(rs.getString("shopbkno"));
 				shopbkVO.setShopno(rs.getString("shopno"));
 				shopbkVO.setOfdtable(rs.getInt("ofdtable"));
-				shopbkVO.setShoppds(rs.getString("shoppds"));
-				shopbkVO.setShoppde(rs.getString("shoppde"));
+				shopbkVO.setShoppds(rs.getTimestamp("shoppds"));
+				shopbkVO.setShoppde(rs.getTimestamp("shoppde"));
 				shopbkVO.setPayinfohr(rs.getInt("payinfohr"));
 				shopbkVO.setPayinfoday(rs.getInt("payinfoday"));
 				list.add(shopbkVO);				
@@ -368,8 +368,8 @@ public class ShopbkJDBCDAO implements ShopbkDAO_interface{
 				shopbkVO.setShopbkno(rs.getString("shopbkno"));
 				shopbkVO.setShopno(rs.getString("shopno"));
 				shopbkVO.setOfdtable(rs.getInt("ofdtable"));
-				shopbkVO.setShoppds(rs.getString("shoppds"));
-				shopbkVO.setShoppde(rs.getString("shoppde"));
+				shopbkVO.setShoppds(rs.getTimestamp("shoppds"));
+				shopbkVO.setShoppde(rs.getTimestamp("shoppde"));
 				shopbkVO.setPayinfohr(rs.getInt("payinfohr"));
 				shopbkVO.setPayinfoday(rs.getInt("payinfoday"));
 				list.add(shopbkVO);				
@@ -415,8 +415,12 @@ public class ShopbkJDBCDAO implements ShopbkDAO_interface{
 		ShopbkVO shopbkVO1 = new ShopbkVO();
 		shopbkVO1.setShopno("DS00003");
 		shopbkVO1.setOfdtable(30);
-		shopbkVO1.setShoppds("2020-07-01 12:00");
-		shopbkVO1.setShoppde("2020-07-01 20:00");
+		Timestamp t1 = new Timestamp(System.currentTimeMillis());
+		t1 = Timestamp.valueOf("2020-07-01 12:00:00");
+		Timestamp t2 = new Timestamp(System.currentTimeMillis());
+		t2 = Timestamp.valueOf("2020-07-01 20:00:00");
+		shopbkVO1.setShoppds(t1);
+		shopbkVO1.setShoppde(t2);
 		shopbkVO1.setPayinfohr(30);
 		shopbkVO1.setPayinfoday(130);
 		dao.insert(shopbkVO1);

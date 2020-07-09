@@ -1,6 +1,7 @@
 package com.shopbk.controller;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -79,11 +80,25 @@ public class ShopbkServlet extends HttpServlet {
 
 			try {
 				String shopno = null;
-				String shoppds = null;
-				String shoppde = null;
+				java.sql.Timestamp shoppds = null;
+				java.sql.Timestamp shoppde = null;
 				if(req.getParameter("shopno")==null) {
-					shoppds = req.getParameter("shoppds");
-					shoppde = req.getParameter("shoppde");
+					
+					try {
+						shoppds = java.sql.Timestamp.valueOf(req.getParameter("shoppds").trim());
+					} catch (IllegalArgumentException e) {
+						shoppds = new java.sql.Timestamp(System.currentTimeMillis());
+						errorMsgs.add("請輸入日期");
+					}
+					
+					
+					try {
+						shoppde = java.sql.Timestamp.valueOf(req.getParameter("shoppde").trim());
+					} catch (IllegalArgumentException e) {
+						shoppde = new java.sql.Timestamp(System.currentTimeMillis());
+						errorMsgs.add("請輸入日期");
+					}
+					
 				}
 				if(req.getParameter("shopps")==null || req.getParameter("shoppe")==null) {
 					shopno = req.getParameter("shopno");
@@ -176,8 +191,25 @@ public class ShopbkServlet extends HttpServlet {
 
 				String shopno = req.getParameter("shopno");
 				Integer ofdtable = new Integer(req.getParameter("ofdtable"));
-				String shoppds = req.getParameter("shoppds");
-				String shoppde = req.getParameter("shoppde");
+
+				java.sql.Timestamp shoppds = null;
+				try {
+					shoppds = java.sql.Timestamp.valueOf(req.getParameter("shoppds").trim());
+				} catch (IllegalArgumentException e) {
+					shoppds = new java.sql.Timestamp(System.currentTimeMillis());
+					errorMsgs.add("請輸入日期");
+				}
+				
+				java.sql.Timestamp shoppde = null;
+				try {
+					shoppde = java.sql.Timestamp.valueOf(req.getParameter("shoppde").trim());
+				} catch (IllegalArgumentException e) {
+					shoppde = new java.sql.Timestamp(System.currentTimeMillis());
+					errorMsgs.add("請輸入日期");
+				}
+				
+				
+				
 				Integer payinfohr = new Integer(req.getParameter("payinfohr"));
 				Integer payinfoday = new Integer(req.getParameter("payinfoday"));
 				
@@ -223,13 +255,29 @@ public class ShopbkServlet extends HttpServlet {
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-//			try {
+			try {
 				/*********************** 1.�����ШD�Ѽ� - ��J�榡�����~�B�z *************************/
 
 				String shopno = req.getParameter("shopno");
 				Integer ofdtable = new Integer(req.getParameter("ofdtable").trim());
-				String shoppds = req.getParameter("shoppds");
-				String shoppde = req.getParameter("shoppde");
+				
+				java.sql.Timestamp shoppds = null;
+				try {
+					shoppds = java.sql.Timestamp.valueOf(req.getParameter("shoppds").trim());
+				} catch (IllegalArgumentException e) {
+					shoppds = new java.sql.Timestamp(System.currentTimeMillis());
+					errorMsgs.add("請輸入日期");
+				}
+				
+				java.sql.Timestamp shoppde = null;
+				try {
+					shoppde = java.sql.Timestamp.valueOf(req.getParameter("shoppde").trim());
+				} catch (IllegalArgumentException e) {
+					shoppde = new java.sql.Timestamp(System.currentTimeMillis());
+					errorMsgs.add("請輸入日期");
+				}
+				
+				
 				Integer payinfohr = new Integer(req.getParameter("payinfohr").trim());				
 				Integer payinfoday = new Integer(req.getParameter("payinfoday").trim());
 				
@@ -245,7 +293,7 @@ public class ShopbkServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("shopbkVO", shopbkVO); // �t����J�榡���~��shopVO����,�]�s�Jreq
-					RequestDispatcher failureView = req.getRequestDispatcher("addShopbk.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("listSomeShopbk2.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -255,16 +303,16 @@ public class ShopbkServlet extends HttpServlet {
 				shopbkVO = shopbkSvc.addShopbk(shopno, ofdtable, shoppds, shoppde, payinfohr, payinfoday);
 
 				/*************************** 3.�s�W����,�ǳ����(Send the Success view) ***********/
-				String url = "listAllShopbk.jsp";
+				String url = "listSomeShopbk2.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // �s�W���\�����listAllshop.jsp
 				successView.forward(req, res);
 
 				/*************************** ��L�i�઺���~�B�z **********************************/
-//			} catch (Exception e) {
-//				errorMsgs.add(e.getMessage());
-//				RequestDispatcher failureView = req.getRequestDispatcher("addshopbk.jsp");
-//				failureView.forward(req, res);
-//			}
+			} catch (Exception e) {
+				errorMsgs.add(e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("listSomeShopbk2.jsp");
+				failureView.forward(req, res);
+			}
 		}
 	
 	}

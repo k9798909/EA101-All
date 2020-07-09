@@ -6,13 +6,17 @@
 <%@ page import="com.game.model.*"%>
 <%@ include file="/front-end/front-end-nav.jsp"%>
 <%
-	GmlistService gmlistSvc = new GmlistService();
-	ShopVO shopVO = null;
-	List<GmlistVO> list = null;
-	if (request.getParameter("shopno") != null) {
-		shopVO = (ShopVO) request.getAttribute("shopVO");
-		list = gmlistSvc.getSomeGmlistByShop(shopVO.getShopno());
-	}
+	String shopno = request.getParameter("shopno");
+	ShopService shopSvc = new ShopService();
+	ShopVO shopVO = shopSvc.getOneShop(shopno);
+	pageContext.setAttribute("shopVO", shopVO);
+// 	GmlistService gmlistSvc = new GmlistService();
+// 	ShopVO shopVO = null;
+// 	List<GmlistVO> list = null;
+// 	if (request.getParameter("shopno") != null) {
+// 		shopVO = (ShopVO) request.getAttribute("shopVO");
+// 		list = gmlistSvc.getSomeGmlistByShop(shopVO.getShopno());
+// 	}
 %>
 
 <head>
@@ -58,9 +62,6 @@ h4 {
 
 
 
-	<h4 style="margin-left: 20px;">
-		<a href="index.jsp"><img src="images/add-icon.png" class="icon">回首頁</a>
-	</h4>
 	<jsp:include page="select_page.jsp" flush="true">
 		<jsp:param name="" value="" />
 	</jsp:include>

@@ -1,11 +1,13 @@
 package com.shopbk.model;
 
+import java.sql.Timestamp;
+
 public class ShopbkVO implements java.io.Serializable{
 	private String shopbkno;
 	private String shopno;
 	private Integer ofdtable;
-	private String shoppds;
-	private String shoppde;
+	private Timestamp shoppds;
+	private Timestamp shoppde;
 	private Integer payinfohr;
 	private Integer payinfoday;
 	public String getShopbkno() {
@@ -26,16 +28,16 @@ public class ShopbkVO implements java.io.Serializable{
 	public void setOfdtable(Integer ofdtable) {
 		this.ofdtable = ofdtable;
 	}
-	public String getShoppds() {
+	public Timestamp getShoppds() {
 		return shoppds;
 	}
-	public void setShoppds(String shoppds) {
+	public void setShoppds(Timestamp shoppds) {
 		this.shoppds = shoppds;
 	}
-	public String getShoppde() {
+	public Timestamp getShoppde() {
 		return shoppde;
 	}
-	public void setShoppde(String shoppde) {
+	public void setShoppde(Timestamp shoppde) {
 		this.shoppde = shoppde;
 	}
 	public Integer getPayinfohr() {

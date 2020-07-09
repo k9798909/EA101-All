@@ -23,37 +23,14 @@ public class ShopServlet extends HttpServlet {
 		String action = req.getParameter("action");
 		HttpSession session = req.getSession();
 		if ("getOne_For_Display".equals(action)) { 
-
-			String errorMsgs ="";
-
-			
-
-			try {
+//			try {
 				/*************************** 1.�����ШD�Ѽ� - ��J�榡�����~�B�z **********************/
 				String shopno = req.getParameter("shopno");
-				String shopnoReg = "[D][S]\\d{5}";
-				if (shopno == null || (shopno.trim()).length() == 0) {
-					errorMsgs+="請輸入要查詢的店家";
-					req.setAttribute("errorMsgs", errorMsgs);
-				}
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("listAllShop.jsp");
-					failureView.forward(req, res);
-					return;// �{�����_
-				}
 
 				/*************************** 2.�}�l�d�߸�� *****************************************/
 				ShopService shopSvc = new ShopService();
 				ShopVO shopVO = shopSvc.getOneShop(shopno);
-				if (shopVO == null) {
-					errorMsgs+="查無資料";
-				}
-				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("listAllShop.jsp");
-					failureView.forward(req, res);
-					return;// �{�����_
-				}
+				
 
 				/*************************** 3.�d�ߧ���,�ǳ����(Send the Success view) *************/
 				req.setAttribute("shopVO", shopVO); // ��Ʈw���X��shopVO����,�s�Jreq
@@ -62,11 +39,11 @@ public class ShopServlet extends HttpServlet {
 				successView.forward(req, res);
 
 				/*************************** ��L�i�઺���~�B�z *************************************/
-			} catch (Exception e) {
-				errorMsgs+="無法取得資料:" + e.getMessage()+"/n";
-				RequestDispatcher failureView = req.getRequestDispatcher("listAllShop.jsp");
-				failureView.forward(req, res);
-			}
+//			} catch (Exception e) {
+//				errorMsgs+="無法取得資料:" + e.getMessage()+"/n";
+//				RequestDispatcher failureView = req.getRequestDispatcher("listAllShop.jsp");
+//				failureView.forward(req, res);
+//			}
 		}
 		if ("getOne_For_Update".equals(action)) { 
 
@@ -85,7 +62,7 @@ public class ShopServlet extends HttpServlet {
  				System.out.println(shopVO.getShoploc().substring(9));
  				
  				
-//				req.setAttribute("shopVO", shopVO); 
+				req.setAttribute("shopVO", shopVO); 
 				HashMap<String, String> hashmap = new HashMap<String, String>();
 				hashmap.put("city", city);
 				hashmap.put("area", area);
@@ -406,12 +383,14 @@ public class ShopServlet extends HttpServlet {
 			       return;
 			}
 		}
-		if ("logout".equals(action))
+		if ("logout".equals(action)) {
 			session.removeAttribute("shopVO");
 			String url = req.getParameter("requestURL");
 			res.sendRedirect(req.getContextPath()+url);
 			System.out.println(url);
 			return;
+		}
+			
 	}
 
 }

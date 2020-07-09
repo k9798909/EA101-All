@@ -49,8 +49,6 @@ img {
 
 
 	<table id="table-1">
-		<a href="index.jsp"><img src="images/add-icon.png"
-			class="icon">¦^­º­¶</a>
 		<h3>©±®aµù¥U</h3>
 	</table>
 

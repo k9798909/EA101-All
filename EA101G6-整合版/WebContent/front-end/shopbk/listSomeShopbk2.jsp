@@ -18,8 +18,6 @@
 <head>
 <meta charset="utf-8">
 
-	<title>遊戲列表</title>
-
 	<style>
 table {
 	margin-top: 10px;
@@ -47,20 +45,44 @@ img {
 	width: 50px;
 	height: 50px;
 }
-
+div { 
+	margin-left: auto;
+	margin-right: auto;
+ } 
+ .class { 
+	margin-left: 200px;
+	margin-right: auto;
+ } 
 h4 {
 	margin-left: 20px;
+}
+button{
+	margin-left: auto;
+	margin-right: auto;
+}
+.xdsoft_datetimepicker .xdsoft_datepicker {
+	width: 300px; /* width:  300px; */
+}
+
+.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
+	height: 151px; /* height:  151px; */
 }
 </style>
 </head>
 
+<link rel="stylesheet" type="text/css"
+	href="../../datetimepicker/jquery.datetimepicker.css" />
+<script src="../../datetimepicker/jquery.js"></script>
+<script src="../../datetimepicker/jquery.datetimepicker.full.js"></script>
+<!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
 <body>
 
 <div class="row">
 		<div class="col-sm-4"></div></div>
 		<div class="col-sm-5">
 <div>
-
+<div>
+<button data-toggle="modal" data-target="#exampleModal" class="btn btn-primary btn-lg">新增</button></div>
 	<table>
 		<tr>
 			<th>店家編號</th>
@@ -81,31 +103,29 @@ h4 {
 			</tr>
 		</c:forEach>
 	</table>
-</div></div>
+</div>
+</div>
 
 
-<button data-toggle="modal" data-target="#exampleModal">新增</button>
+
 <div class="modal fade" id="exampleModal" tabindex="-1"
 					role="dialog" aria-labelledby="exampleModalLabel"
 					aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-				
+	<div class="modal-dialog" role="document">
+		<div class="modal-content rp-2">				
 			<div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3 class="modal-title" id="myModalLabel">The Bootstrap modal-header</h3>
+                <h3 class="modal-title" id="exampleModalLabel">提供訂位</h3>
+                <hr class="my-3">
             </div>
 			
 			<div class="modal-body">
+				<div class="form-group">
 <!-- =========================================以下為原listOneEmp.jsp的內容========================================== -->
-               <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/shopbk/shopbk.do">
-		<table>
-			<tr>
-				<td>店家編號:</td>
-				<td><input type="TEXT" name="shopno" 
+               <FORM id="create" METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/shopbk/shopbk.do">
+			<table>
+			<input type="hidden" name="shopno" value="<%=shopno%>"/>
 <%-- 					value="<%=(shopbkVO == null) ? "" : shopbkVO.getShopno()%>"  --%>
-					/></td>
-			</tr>
+				
 			<tr>
 				<td>提供人數:</td>
 				<td><input type="TEXT" name="ofdtable"
@@ -137,9 +157,20 @@ h4 {
 					/>元</td>
 			</tr>
 		</table>
-		<br> <input type="hidden" name="action" value="insert"> <input
-			type="submit" value="送出新增">
+		<br> <input type="hidden" name="action" value="insert">
 	</FORM>
+
+<!-- =========================================以上為原listOneEmp.jsp的內容========================================== -->
+			</div></div>
+			
+			<div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="go" type="button" class="btn btn-primary">送出新增</button>
+            </div>
+		
+		</div>
+	</div>
+</div>
 <!-- 	=================================datetimepicker============================ -->
 	<script>
 	$.datetimepicker.setLocale('en'); // kr ko ja en
@@ -147,49 +178,33 @@ h4 {
 		theme : '', //theme: 'dark',
 		timepicker : true, //timepicker: false,
 		step : 30, //step: 60 (這是timepicker的預設間隔60分鐘)
-		format : 'Y-m-d H:i',
+		format : 'Y-m-d H:i:s',
 		value : new Date(),
 		//disabledDates:    ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
 		//startDate:	        '2017/07/10',  // 起始日
-		minDate : '-1970-01-01', // 去除今日(不含)之前
-	//maxDate:           '+1970-01-01'  // 去除今日(不含)之後
+		minDate : '-1970-01-01 00:00:00', // 去除今日(不含)之前
+		//maxDate:  '+1970-01-01'  // 去除今日(不含)之後
 	});
 	$('#f_date2').datetimepicker({
 		theme : '', //theme: 'dark',
 		timepicker : true, //timepicker: false,
 		step : 30, //step: 60 (這是timepicker的預設間隔60分鐘)
-		format : 'Y-m-d H:i',
+		format : 'Y-m-d H:i:s',
 		value : new Date(),
 		//disabledDates:    ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
 		//startDate:	        '2017/07/10',  // 起始日
-		minDate : '-1970-01-01', // 去除今日(不含)之前
+		minDate : '-1970-01-01 00:00:00', // 去除今日(不含)之前
 	//maxDate:           '+1970-01-01'  // 去除今日(不含)之後
 	});
-</script>
-<link rel="stylesheet" type="text/css"
-	href="../../datetimepicker/jquery.datetimepicker.css" />
-<script src="../../datetimepicker/jquery.js"></script>
-<script src="../../datetimepicker/jquery.datetimepicker.full.js"></script>
-<style>
-.xdsoft_datetimepicker .xdsoft_datepicker {
-	width: 300px; /* width:  300px; */
-}
-
-.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
-	height: 151px; /* height:  151px; */
-}
-</style>
-<!-- =========================================以上為原listOneEmp.jsp的內容========================================== -->
-			</div>
-			
-			<div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-		
-		</div>
-	</div>
-</div>
+	
+	</script>
+	<script>
+	$(document).ready(function(){
+		$("#go").click(function(){
+			$("#create").submit();
+		})
+	})	
+	</script>
 
 </body>
 </html>
