@@ -52,17 +52,18 @@ li {
 </style>
 </head>
 <body bgcolor='white'>
-	<%-- 錯誤表列 --%>
-<%-- 	<c:if test="${not empty errorMsgs}">	 --%>
-<!-- 		<div class="alert alert-danger" role="alert"> -->
-<!-- 		<h5>請修正以下錯誤:</h5> -->
-<%-- 			<c:forEach var="message" items="${errorMsgs}"> --%>
-<%-- 				<p style="margin-left:80px;">${message}</p> --%>
-<%-- 			</c:forEach> --%>
-<!-- 		</div> -->
-<%-- 	</c:if> --%>
+<!--  <nav class="navbar navbar-light bg-gradient-info shadow p-3 mb-5 rounded"> -->
+<!--       	<a class="navbar-brand">Talking on Board</a> -->
+      	
+      	
+		
+<%--       	<form class="form-inline my-2 my-lg-0" METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/art/art.do"> --%>
+<!--       		<input class="form-control mr-sm-2" type="search" placeholder="Search" name="keyWord" aria-label="Search"> -->
+<!--       		<button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="action" value="getOne_Key_Display">Search</button> -->
+<!--       	</form> -->
+<!--       </nav> -->
 
-	<nav class="navbar navbar-expand-lg navbar-light">
+	<nav class="navbar navbar-expand-lg navbar-light bg-gradient-info shadow p-3 mb-5 rounded">
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">

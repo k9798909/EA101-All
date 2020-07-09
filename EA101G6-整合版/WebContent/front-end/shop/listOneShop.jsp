@@ -62,9 +62,7 @@ h4 {
 
 
 
-	<jsp:include page="select_page.jsp" flush="true">
-		<jsp:param name="" value="" />
-	</jsp:include>
+	<jsp:include page="select_page.jsp"/>
 	<div class="row">
 		<div class="col-sm-4"></div>
 		<div class="col-sm-5">
