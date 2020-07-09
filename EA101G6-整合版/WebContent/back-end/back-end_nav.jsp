@@ -80,8 +80,8 @@
 									<a class="dropdown-item downlist" href="#">市集商品檢舉審核</a>
 								</div></li>
 							<li class="nav-item"><a class="nav-link"
-								href="<%=request.getContextPath()%>/back-end/bazaars.html">市集管理</a>
-							<!-- 目前還沒有這項 --></li>
+								href="<%=request.getContextPath()%>/back-end/art/listAllArt.jsp">討論區管理</a>
+							</li>
 							<li class="nav-item dropdown backnavdown"><a
 								class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 								role="button" data-toggle="dropdown" aria-haspopup="true"

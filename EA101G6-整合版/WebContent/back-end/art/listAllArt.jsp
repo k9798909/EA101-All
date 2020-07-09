@@ -54,7 +54,7 @@
   	margin-top: 15px;
   }
   .ser-1{
-  	margin-left: 5px;
+  	margin-left: 13px;
   }
   .ser-2{
   	margin-left: 25px;
@@ -62,6 +62,13 @@
   .ser-3{
   	margin-left: 25px;
   	margin-right: 30px;
+  }
+  .add7{
+  	position: fixed;
+  	bottom: 30px;
+  	right: 30px;
+  	width: 125px;
+  	height: 125px;
   }
   
   
@@ -189,6 +196,8 @@
 		</tr>
 	</c:forEach>
 </table>
+
+<a target="_self" href="addArt.jsp"><img class="add7" src="images/alpc.png" title="Add Article"></a>
 
 
 </body>
