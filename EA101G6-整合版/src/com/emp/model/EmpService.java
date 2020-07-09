@@ -2,6 +2,8 @@ package com.emp.model;
 
 import java.util.List;
 
+import com.authority.model.*;
+
 public class EmpService {
 	
 	private EmpDAO_Interface dao;//宣告dao的型態是介面，此處是為了框架鋪路，未來可達到0相依
@@ -71,6 +73,10 @@ public class EmpService {
 	
 	public void updateEmpPwd(String emppwd, String empno) {
 		dao.updatePwd(emppwd, empno);
+	}
+	
+	public List<AuthorityVO> getAuthorityByEmpno(String empno){
+		return dao.getAuthorityByEmpno(empno);
 	}
 	
 	public static String getRanPwd() {

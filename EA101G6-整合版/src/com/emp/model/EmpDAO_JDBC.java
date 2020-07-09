@@ -14,10 +14,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.authority.model.AuthorityVO;
+
 public class EmpDAO_JDBC implements EmpDAO_Interface {
 	public static final String driver = "oracle.jdbc.driver.OracleDriver";
 	public static final String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	public static final String userid = "EA101_G6";
+	public static final String userid = "EA101";
 	public static final String passwd = "123456";
 	
 	//一開始INSERT的是給他們驗證的帳密?
@@ -30,6 +32,7 @@ public class EmpDAO_JDBC implements EmpDAO_Interface {
 	private static final String FIND_BY_MAIL = "SELECT * FROM EMP WHERE MAIL = ? AND EMPNO = ?";
 	private static final String GET_ALL = "SELECT * FROM EMP";
 	private static final String LOGIN = "SELECT * FROM EMP WHERE EMPNO= ?";
+	private static final String GET_AUTHORITY_BY_EMPNO = "SELECT * FROM AUTHORITY WHERE EMPNO = ? ORDER BY FTNO";
 	//private static final String EMP_SEQUENCE = "SELECT 'LE'||LPAD(TO_CHAR(EMP_SEQ.CURRVAL),5,'0') FROM DUAL";//查詢目前的sequence到多少了
 																								//DUAL為：虛擬資料表，且只有1個欄位
 	//實作介面的方法
@@ -509,6 +512,58 @@ public class EmpDAO_JDBC implements EmpDAO_Interface {
 		return newPwd;
 	}
 	
+	@Override
+	public List<AuthorityVO> getAuthorityByEmpno(String empno) {
+		List<AuthorityVO> authList = new ArrayList<>();
+		AuthorityVO authorityVO = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_AUTHORITY_BY_EMPNO);
+			pstmt.setString(1, empno);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				authorityVO = new AuthorityVO();
+				authorityVO.setEmpno(rs.getString("empno"));
+				authorityVO.setFtno(rs.getString("ftno"));
+				authList.add(authorityVO);
+			}
+		}catch(ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+		}catch(SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				}catch(SQLException se) {
+					se.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				}catch(SQLException se) {
+					se.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
+			}		
+		}
+		return authList;
+	}
+	
 	
 	public static void main(String[] args) {
 //新增測試
@@ -613,7 +668,14 @@ public class EmpDAO_JDBC implements EmpDAO_Interface {
 //		EmpDAO_JDBC dao = new EmpDAO_JDBC();
 //		dao.updatePwd("A123456", "LE00001");
 
-		
+//查詢某員工所擁有的權限 測試
+//		EmpDAO_JDBC dao =new EmpDAO_JDBC();
+//		List<AuthorityVO> authList = dao.getAuthorityByEmpno("LE00001");
+//		for(AuthorityVO authorityVO : authList){
+//			System.out.print(authorityVO.getEmpno() + "：");
+//			System.out.println(authorityVO.getFtno());
+//			
+//		}	
 	}
 	public static byte[] getPicByteArray(String path) throws IOException {
 			File pic = new File(path);
@@ -663,6 +725,7 @@ public class EmpDAO_JDBC implements EmpDAO_Interface {
 			（2）String類的valueOf()方法，將char型別的陣列轉換為字串
 		*/
 	}
+	
 	
 	
 	

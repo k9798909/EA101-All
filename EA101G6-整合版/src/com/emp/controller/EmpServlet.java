@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import com.authority.model.*;
 import com.emp.model.*;
 
 //@WebServlet("/EmpServlet")此為@annotation註解 Servlet3.0 開始可以用的註冊方式
@@ -127,6 +128,8 @@ public class EmpServlet extends HttpServlet {
 		if("getOne_For_Update".equals(action)) {// 來自listAllEmp.jsp的請求
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
+//			String requestURL
+			
 			try {
 				/***************************1.接收請求參數****************************************/
 				String empno = req.getParameter("empno");
@@ -155,6 +158,9 @@ public class EmpServlet extends HttpServlet {
 		if("update".equals(action)) {// 來自update_emp.jsp的請求
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
+			
+			String requestURL = req.getParameter("requestURL");
+			
 			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 				
@@ -221,8 +227,8 @@ public class EmpServlet extends HttpServlet {
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("empVO", empVO);
-				String url = "/back-end/emp/listOneEmp.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
+				String url = requestURL;
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listAllEmp.jsp
 				successView.forward(req, res);
 				
 				/***************************其他可能的錯誤處理*************************************/
@@ -347,13 +353,15 @@ public class EmpServlet extends HttpServlet {
 				
 				/***************************2.開始驗證是否為員工***************************************/
 					EmpService empSvc = new EmpService();//此處的accountBack為empno，如果可以透過這個empno取得員工物件，代表這accountBack確實為員工
-					EmpVO empVO = empSvc.checkLogin(accountBack);//透過傳empno進去可以取得empVO物件的方法，取得要更改密的員工物件
-					String emppwd = empVO.getEmppwd();
+					EmpVO eVO = empSvc.checkLogin(accountBack);//透過傳empno進去可以取得empVO物件的方法，取得要更改密的員工物件
+					String emppwd = eVO.getEmppwd();
 					if(password.equals(emppwd)) {//帳號正確，取出的密碼也和輸入的一樣
 						HttpSession session =req.getSession();
 						session.setAttribute("accountBack", accountBack);//將帳號存進session，之後可以藉由這個取得他所擁有的權限
-						
-				/***************************3.刪除完成,準備轉交(Send the Success view)***********/
+						session.setAttribute("eVO", eVO);//將登入的員工物件存進session						
+						List<AuthorityVO> authList = empSvc.getAuthorityByEmpno(accountBack);
+						session.setAttribute("authList", authList);
+				/***************************3.查詢完成,準備轉交(Send the Success view)***********/
 						try {//查看是否有來源網頁
 							String location = (String)session.getAttribute("location");
 							if(location != null) {//如果有來源網頁
