@@ -9,7 +9,9 @@
 	List<ShoprpVO> list = shoprpSvc.getAll();
 	pageContext.setAttribute("list", list);
 %>
-
+<jsp:useBean id="mbrpfSvc" scope="page" class="com.mbrpf.model.MbrpfService" />
+<jsp:useBean id="rminfoSvc" scope="page" class="com.rminfo.model.RminfoService" />
+<jsp:useBean id="shopSvc" scope="page" class="com.shop.model.ShopService" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,6 +28,7 @@
 <div id="listAll">
 <table class="table table-striped">
 	<tr>
+		<th style="width:10%">回報店家</th>
 		<th style="width:10%">房間編號</th>
 		<th style="width:6%">會員編號</th>
 		<th style="width:15%">回報時間</th>
@@ -35,17 +38,18 @@
 	</tr>
 	<c:forEach var="shoprpVO" items="${list}">
 	<tr>
+		<td>${shopSvc.getOneShop(rminfoSvc.getOneRm(shoprpVO.rmno).shopno).shopname}</td>
 		<td>${shoprpVO.rmno}</td>
-		<td>${shoprpVO.mbrno}</td>
+		<td>${mbrpfSvc.getOneMbrpf(shoprpVO.mbrno).mbrname}[${shoprpVO.mbrno}]</td>
 		<td><fmt:formatDate value="${shoprpVO.rpdate}" pattern="yyyy-MM-dd HH:mm" /></td>
 		<td>${shoprpVO.detail}</td>
 		<td>
 			<c:choose>
     			<c:when test="${shoprpVO.attend eq 0}">
-    				未出席
+    				否
    		 		</c:when>
    		 		<c:otherwise>
-			    	有到場
+			    	是
 			    </c:otherwise>
 			</c:choose>
    		 </td>

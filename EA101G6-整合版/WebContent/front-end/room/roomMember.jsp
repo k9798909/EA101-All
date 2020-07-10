@@ -8,6 +8,7 @@
 	List<JoinrmVO> list2 = joinrmSvc2.findByPK(request.getParameter("rmno"),"");
 	pageContext.setAttribute("list2",list2);
 %>
+<jsp:useBean id="mbrpfSvc" scope="page" class="com.mbrpf.model.MbrpfService" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +18,7 @@
 <body>
 
 	<c:forEach var="joinrmVO2" items="${list2}">
-		${joinrmVO2.mbrno} <br>
+		${mbrpfSvc.getOneMbrpf(joinrmVO2.mbrno).mbrname} <br>
 	</c:forEach>
 
 </body>

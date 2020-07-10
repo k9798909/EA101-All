@@ -8,6 +8,7 @@
 	List<JoinrmVO> list2 = joinrmSvc2.findByPK(request.getParameter("rmno"),"");
 	pageContext.setAttribute("list2",list2);
 %>
+<jsp:useBean id="mbrpfSvc" scope="page" class="com.mbrpf.model.MbrpfService" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +23,7 @@
 	<c:forEach var="joinrmVO2" items="${list2}">
 		<tr>
 		    <td><input type="hidden" name="rmno" value="<%=request.getParameter("rmno")%>">
-			<input type="text" name="mbrno" value="${joinrmVO2.mbrno}" readonly></td>
+			<input type="text" name="mbrno" value="${mbrpfSvc.getOneMbrpf(joinrmVO2.mbrno).mbrname}" readonly></td>
 			<td style="text-align:center">
 				<select name="attend">
 					<option value="1">¬O</option>

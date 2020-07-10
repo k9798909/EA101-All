@@ -10,9 +10,10 @@
 	List<JoinrmVO> list = joinrmSvc.findByPK("","BM00001");
 	pageContext.setAttribute("list",list);
 %>
-
+<jsp:useBean id="mbrpfSvc" scope="page" class="com.mbrpf.model.MbrpfService" />
 <jsp:useBean id="rminfoSvc" scope="page" class="com.rminfo.model.RminfoService" />
 <jsp:useBean id="joinrmSvc2" scope="page" class="com.joinrm.model.JoinrmService" />
+<jsp:useBean id="shopSvc" scope="page" class="com.shop.model.ShopService" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,10 +39,11 @@
 		<th style="width:6%"></th><th></th>
 	</tr>
 	<c:forEach var="joinrmVO" items="${list}">
+	<c:if test="${rminfoSvc.getOneRm(joinrmVO.rmno).status != 4}">
 	<tr>
 		<td>${rminfoSvc.getOneRm(joinrmVO.rmno).naming}</td>
-		<td>${rminfoSvc.getOneRm(joinrmVO.rmno).mbrno}</td>
-		<td>${rminfoSvc.getOneRm(joinrmVO.rmno).shopno}</td>
+		<td>${mbrpfSvc.getOneMbrpf(rminfoSvc.getOneRm(joinrmVO.rmno).mbrno).mbrname}</td>
+		<td>${shopSvc.getOneShop(rminfoSvc.getOneRm(joinrmVO.rmno).shopno).shopname}</td>
 		<td>${rminfoSvc.getOneRm(joinrmVO.rmno).lowlimit}~${rminfoSvc.getOneRm(joinrmVO.rmno).uplimit} [${fn:length(joinrmSvc2.findByPK(joinrmVO.rmno,''))}]</td>
 		<td><fmt:formatDate value="${rminfoSvc.getOneRm(joinrmVO.rmno).starttime}" pattern="yyyy-MM-dd HH:mm" />
 			~<fmt:formatDate value="${rminfoSvc.getOneRm(joinrmVO.rmno).endtime}" pattern="HH:mm" /></td>
@@ -71,25 +73,37 @@
 		</td>
 		<td><div id="dialog_${joinrmVO.rmno}" title="成員列表">
 		<jsp:include page="/front-end/room/roomMember.jsp"><jsp:param name="rmno" value="${joinrmVO.rmno}" /></jsp:include>
-	</div><button id="opener_${joinrmVO.rmno}">參加成員</button></td>
+	</div>
+	
+	<button class="btn btn-outline-info btn-sm" id="opener_${joinrmVO.rmno}">參加成員</button>
+	</td>
 	
 		<td><div id="dialog2_${joinrmVO.rmno}" title="遊玩評價">
 		<jsp:include page="/front-end/room/rate.jsp"><jsp:param name="rmno" value="${joinrmVO.rmno}" /></jsp:include>
-	</div><button class="floatButton" id="opener2_${joinrmVO.rmno}">團員遊玩評價</button>
+	</div>
+		<c:if test="${rminfoSvc.getOneRm(joinrmVO.rmno).status == 5}">
+			<button class="btn btn-warning btn-sm" id="opener2_${joinrmVO.rmno}">團員遊玩評價</button>
+		</c:if>
+		<c:if test="${rminfoSvc.getOneRm(joinrmVO.rmno).status == 1 || rminfoSvc.getOneRm(joinrmVO.rmno).status == 2 && rminfoSvc.getOneRm(joinrmVO.rmno).mbrno == 'BM00001'}">
+			<c:if test="${rminfoSvc.getOneRm(joinrmVO.rmno).mbrno == 'BM00001'}">
 			<form METHOD="post" ACTION="rminfo.do">
 				<input type="hidden" name="status" value="3">
 				<input type="hidden" name="report" value="${rminfoSvc.getOneRm(joinrmVO.rmno).report}">
 				<input type="hidden" name="rmno" value="${joinrmVO.rmno}">
 				<input type="hidden" name="action" value="update">
-				<input class="floatButton" type="submit" value="訂位">
+				<input class="btn btn-success btn-sm" type="submit" value="訂位">
 			</form>
+			</c:if>
+		</c:if>
+		<c:if test="${rminfoSvc.getOneRm(joinrmVO.rmno).status <= 2}">
 			<form METHOD="post" ACTION="rminfo.do">
 				<input type="hidden" name="status" value="4">
 				<input type="hidden" name="report" value="${rminfoSvc.getOneRm(joinrmVO.rmno).report}">
 				<input type="hidden" name="rmno" value="${joinrmVO.rmno}">
 				<input type="hidden" name="action" value="update">
-				<input class="floatButton" type="submit" value="取消揪團">
+				<input class="btn btn-danger btn-sm" type="submit" value="取消揪團">
 			</form>
+		</c:if>	
 		</td>
 	
 <script>
@@ -123,7 +137,7 @@
 	        effect: "explode",
 	        duration: 1000
 	      },
-	      width: 800,
+	      width: 600,
 	    });
 	 
 	    $( "#opener2_${joinrmVO.rmno}" ).on( "click", function() {
@@ -133,6 +147,7 @@
 })(jQuery_1_12_4);  
  </script>
 	</tr>
+	</c:if>
 	</c:forEach>
 
 </table>
@@ -144,7 +159,7 @@
 	width:95%;
 
 }
-.floatButton{
+.btn{
 	float:left;
 	margin:0px 5px;
 }

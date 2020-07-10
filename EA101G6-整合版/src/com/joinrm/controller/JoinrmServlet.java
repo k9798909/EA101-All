@@ -6,6 +6,7 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import com.joinrm.model.*;
+import com.rminfo.model.*;
 
 
 public class JoinrmServlet extends HttpServlet{
@@ -53,7 +54,17 @@ if ("insert".equals(action)) {
 				/***************************2.開始新增資料***************************************/
 				JoinrmService joinrmSvc = new JoinrmService();
 				joinrmVO = joinrmSvc.insertMbr(rmno,mbrno);
+				List<JoinrmVO> memberNumber = joinrmSvc.findByPK(rmno,"");
+				RminfoService rminfoSvc = new RminfoService();
+				RminfoVO rminfoVO = rminfoSvc.getOneRm(rmno);
 				
+				if(memberNumber.size() == rminfoVO.getUplimit()) {
+					rminfoSvc.update(2, 0, rmno);
+					System.out.println("change status to 2");
+				}else if(memberNumber.size() == rminfoVO.getLowlimit()) {
+					rminfoSvc.update(1, 0, rmno);
+					System.out.println("change status to 1");
+				}
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				String url = "/front-end/room/create.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);

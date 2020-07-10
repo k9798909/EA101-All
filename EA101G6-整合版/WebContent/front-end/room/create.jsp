@@ -53,8 +53,8 @@
 				<label for="mbrno">主揪: </label> 
 				<input readonly type="text"	name="mbrno" id="mbrno" value="BM00001" class="text ui-widget-content ui-corner-all"> 
 				<label for="naming">*房名: </label>	
-				<input type="text" name="naming" id="naming" value="BM00001的房間" class="text ui-widget-content ui-corner-all">
-				*地點:
+				<input type="text" name="naming" id="naming" value="決鬥!!" class="text ui-widget-content ui-corner-all">
+				*遊玩地點:
 				<select name="shopno">
 					<c:forEach var="shopVO" items="${shopSvc.getAll()}">
 						<option value="${shopVO.shopno}">${shopVO.shopname}
@@ -123,13 +123,21 @@
 <!-- 房間列表 -->
 <div id="allCard">
 	<c:forEach var="rminfoVO" items="${list}">
+	<c:if test="${rminfoVO.status < 4}">
 		<div class='card' id="${rminfoVO.rmno}_info">
 			<div>
 				<form METHOD="post" ACTION="joinrm.do">
 					<input type="hidden" name="rmno" value="${rminfoVO.rmno}">
 					<input type="hidden" name="mbrno" value="BM00001"> 
 					<input type="hidden" name="action" value="insert"> 
-					<input class="btn btn-danger btn-sm" type="submit" value="加入">
+					<c:choose>
+		    			<c:when test="${fn:length(joinrmSvc.findByPK(rminfoVO.rmno,'')) eq rminfoVO.uplimit}">
+		    				<input class="btn btn-warning btn-sm" type="submit" value="加入" disabled>
+		   		 		</c:when>					
+						<c:otherwise>
+			    			<input class="btn btn-warning btn-sm" type="submit" value="加入">
+			    		</c:otherwise>
+					</c:choose>
 				</form>				
 			</div>
 			<div id="dialog3_${rminfoVO.rmno}" title="成員列表">
@@ -160,7 +168,7 @@
 			<div class='roomtitle'>
 				<span class='titleType'><b>${rminfoVO.naming}</b></span>
 			</div>
-			<div>房主: ${rminfoVO.mbrno}<button class="btn btn-outline-info btn-sm" id="opener3_${rminfoVO.rmno}">成員列表</button></div>
+			<div>房主: ${mbrpfSvc.getOneMbrpf(rminfoVO.mbrno).mbrname}<button class="btn btn-outline-info btn-sm" id="opener3_${rminfoVO.rmno}">參加成員</button></div>
 			<div>遊玩店家: ${shopSvc.getOneShop(rminfoVO.shopno).shopname}</div>
 			<div>
 				人數限制:
@@ -181,9 +189,9 @@
 					pattern="yyyy-MM-dd HH:mm:ss" />
 			</div>
 			<div>評價限制: ${(rminfoVO.restriction == '0')?'無':rminfoVO.restriction}</div>
-			<div class="remark">${rminfoVO.remarks}</div>
+			<div class="remark"><span style="color:red;">${rminfoVO.remarks}</span></div>
 		</div>
-
+	</c:if>
 	</c:forEach>
 </div>	
 </body>
@@ -326,7 +334,7 @@
 	display: inline;
 	margin:15px 70px;
 }
-.btn-danger{
+.btn-warning{
 	float:right;
 	margin:10px 5px;
 }
@@ -394,12 +402,13 @@ div#users-contain table td {
 
 .roomtitle {
 	background:;
-	font: 20px fantasy;
+	font-size: 24px;
 	width: 312px;
 	height: 34px;
 	margin: 60px 0px 30px 25px;
 	padding: 10px 16px;
 	text-align: center;
+	color:#42454C;
 }
 .card {
 	width: 344px;

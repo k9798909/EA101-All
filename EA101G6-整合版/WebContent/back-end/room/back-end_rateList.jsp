@@ -9,7 +9,7 @@
 	List<RateVO> list = rateSvc.getAll();
 	pageContext.setAttribute("list", list);
 %>
-
+<jsp:useBean id="mbrpfSvc" scope="page" class="com.mbrpf.model.MbrpfService" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,19 +27,19 @@
 	<tr>
 		<th style="width:10%">評價編號</th>
 		<th style="width:8%">房間編號</th>
-		<th style="width:10%">評價人編號</th>
-		<th style="width:10%">被評價人編號</th>
+		<th style="width:10%">評價人</th>
+		<th style="width:10%">被評價人</th>
 		<th style="width:15%">備註</th>
 		<th style="width:6%">分數</th>
-		<th style="width:10%">評價時間</th>
+		<th style="width:15%">評價時間</th>
 		<th></th>
 	</tr>
 	<c:forEach var="rateVO" items="${list}">
 	<tr>
 		<td>${rateVO.rateno}</td>
 		<td>${rateVO.rmno}</td>
-		<td>${rateVO.ratingmbrno}</td>
-		<td>${rateVO.ratedmbrno}</td>
+		<td>${mbrpfSvc.getOneMbrpf(rateVO.ratingmbrno).mbrname}[${rateVO.ratingmbrno}]</td>
+		<td>${mbrpfSvc.getOneMbrpf(rateVO.ratedmbrno).mbrname}[${rateVO.ratedmbrno}]</td>
 		<td>${rateVO.detail}</td>
 		<td>${rateVO.score}</td>
 		<td><fmt:formatDate value="${rateVO.ratetime}" pattern="yyyy-MM-dd HH:mm" /></td>

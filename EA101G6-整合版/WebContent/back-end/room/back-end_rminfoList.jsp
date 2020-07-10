@@ -9,6 +9,8 @@
 	List<RminfoVO> list = rminfoSvc.getAll();
 	pageContext.setAttribute("list", list);
 %>
+<jsp:useBean id="mbrpfSvc" scope="page" class="com.mbrpf.model.MbrpfService" />
+<jsp:useBean id="shopSvc" scope="page" class="com.shop.model.ShopService" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,8 +28,8 @@
 	<tr>
 		<th style="width:8%">房間編號</th>
 		<th style="width:8%">遊玩店家</th>
-		<th style="width:10%">建立時間</th>
-		<th style="width:10%">房名</th>
+		<th style="width:13%">建立時間</th>
+		<th style="width:13%">房名</th>
 		<th style="width:7%">房主</th>
 		<th style="width:7%">遊玩時間</th>
 		<th style="width:10%">遊玩遊戲</th>
@@ -36,12 +38,13 @@
 		<th></th>
 	</tr>
 	<c:forEach var="rminfoVO" items="${list}">
+	<c:if test="${rminfoVO.status != 4}">
 	<tr>
 		<td>${rminfoVO.rmno}</td>
-		<td>${rminfoVO.shopno}</td>
+		<td>${shopSvc.getOneShop(rminfoVO.shopno).shopname}[${rminfoVO.shopno}]</td>
 		<td><fmt:formatDate value="${rminfoVO.createtime}" pattern="yyyy-MM-dd HH:mm" /></td>
 		<td>${rminfoVO.naming}</td>
-		<td>${rminfoVO.mbrno}</td>
+		<td>${mbrpfSvc.getOneMbrpf(rminfoVO.mbrno).mbrname}[${rminfoVO.mbrno}]</td>
 		<td>
 			<fmt:formatDate value="${rminfoVO.starttime}" pattern="yyyy-MM-dd HH:mm" />~<fmt:formatDate value="${rminfoVO.endtime}" pattern="HH:mm" />
 		</td>
@@ -70,15 +73,18 @@
 			</c:choose>
 		</td>
 		<td>
+			
 			<form METHOD="post" ACTION="rminfo.do">
 				<input type="hidden" name="status" value="4">
 				<input type="hidden" name="report" value="${rminfoVO.report}">
 				<input type="hidden" name="rmno" value="${rminfoVO.rmno}">
 				<input type="hidden" name="action" value="update">
 				<input class="floatButton" type="submit" value="取消揪團">
-			</form>		
+			</form>
+					
 		</td>
 	</tr>
+	</c:if>
 	</c:forEach>
 
 </table>

@@ -13,7 +13,8 @@
 %>
 
 <jsp:useBean id="joinrmSvc" scope="page" class="com.joinrm.model.JoinrmService" />
-
+<jsp:useBean id="mbrpfSvc" scope="page" class="com.mbrpf.model.MbrpfService" />
+<jsp:useBean id="shopSvc" scope="page" class="com.shop.model.ShopService" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,8 +46,8 @@
 		<c:if test="${rminfoVO.status == 3 || rminfoVO.status == 5}">
 	<tr>
 		<td>${rminfoVO.naming}</td>
-		<td>${rminfoVO.mbrno}</td>
-		<td>${rminfoVO.shopno}</td>
+		<td>${mbrpfSvc.getOneMbrpf(rminfoVO.mbrno).mbrname}</td>
+		<td>${shopSvc.getOneShop(rminfoVO.shopno).shopname}</td>
 		<td>${fn:length(joinrmSvc.findByPK(rminfoVO.rmno,''))}</td>
 		<td><fmt:formatDate value="${rminfoVO.starttime}" pattern="yyyy-MM-dd HH:mm" />
 			~<fmt:formatDate value="${rminfoVO.endtime}" pattern="HH:mm" /></td>
