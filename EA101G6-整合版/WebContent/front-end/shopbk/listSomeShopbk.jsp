@@ -66,13 +66,7 @@ h4 {
 
 
 
-<h4>
-	<a href="../shop/index.jsp"><img src="images/add-icon.png" class="icon">回首頁</a>
-</h4>
-
-<jsp:include page="select_page.jsp" flush="true">
-	<jsp:param name="" value="" />
-</jsp:include>
+<jsp:include page="select_page.jsp" flush="true"/>
 
 <table>
 	<tr style="background-color: #FFFFFF; border: 0px; font:;">
@@ -93,16 +87,17 @@ h4 {
 <div>
 	<table>
 		<tr>
-			<th>店家編號</th>
+			<th>店家名稱</th>
 			<th>提供人數</th>
 			<th>開始時間</th>
 			<th>結束時間</th>
 			<th>以小時計算</th>
 			<th>包日</th>
 		</tr>
+		<jsp:useBean id="shopSvc" scope="page" class="com.shop.model.ShopService" />
 		<c:forEach var="shopbkVO" items="${list}">
 			<tr>
-				<td>${shopbkVO.shopno}</td>
+				<td>${shopSvc.getOneShop(shopbkVO.shopno).getShopname()}</td>
 				<td>${shopbkVO.ofdtable}</td>
 				<td>${shopbkVO.shoppds}</td>
 				<td>${shopbkVO.shoppde}</td>

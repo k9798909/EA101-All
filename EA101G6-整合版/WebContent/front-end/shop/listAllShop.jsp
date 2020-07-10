@@ -62,6 +62,10 @@ div {
  	width: 100px;
  	height: 100px;
  }
+ footer{
+  	margin-bottom: 50px;
+  	 position: relative;
+  }
 </style>
 </head>
 
@@ -77,9 +81,7 @@ div {
 	
 	
 
-	<jsp:include page="select_page.jsp" flush="true">
-		<jsp:param name="" value="" />
-	</jsp:include>
+	<jsp:include page="select_page.jsp" flush="true"/>
 
 	
 
@@ -89,7 +91,6 @@ div {
 		<tr style="background-color: #FFFFFF; border: 0px; font:;">
 			<td style="background-color: #FFFFFF; border: 0px;">
 				<h3>©±®a¦Cªí</h3>
-				<h5><%@ include file="page1.file" %></h5>
 			</td>
 		</tr>
 	</table>
@@ -112,7 +113,7 @@ div {
 		<div class="container">
 		<div class="card-deck">
 		<div class="row">
-		
+		<%@ include file="page1.file" %>
 			<c:forEach var="shopVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 					
 					<div class="col-sm-3" style="margin-bottom: 20px;margin-left: 20px;">
@@ -135,14 +136,29 @@ div {
 					</div>				
 			</c:forEach>
 			</div>
+			
+			
+
+    			<div class="d-flex justify-content-center container" style="margin-left: auto;margin-right: auto;">
+    				<div class="row">
+    					<div class="col-sm-12">
+    						<%@ include file="page2.file" %>
+    					</div>
+    				</div>
+    			</div> 
+  
+   			 
+   			 
 	<table>
 		<tr style="background-color: #FFFFFF; border: 0px; font:;">
 			<td style="background-color: #FFFFFF; border: 0px;">
-				<p><%@ include file="page2.file" %></p>
+				
 			</td>
 		</tr>
 	</table>
 	
+	
+	 
 	
 	
 	

@@ -384,18 +384,18 @@ public class GmlistJDBCDAO implements GmlistDAO_interface{
 		GmlistJDBCDAO dao = new GmlistJDBCDAO();
 		
 		// �s�W
-		GmlistVO gmlistVO1 = new GmlistVO();
-		gmlistVO1.setGmno("DG00003");
-		gmlistVO1.setShopno("DS00001");
-		dao.insert(gmlistVO1);
+//		GmlistVO gmlistVO1 = new GmlistVO();
+//		gmlistVO1.setGmno("DG00003");
+//		gmlistVO1.setShopno("DS00001");
+//		dao.insert(gmlistVO1);
 	
 		// �R��
-//		List<GmlistVO> list2 = dao.getAll();	
-//		for (GmlistVO gmlist : list2) {
-//			System.out.print(gmlist.getGmno() + ",");
-//			System.out.print(gmlist.getShopno());
-//			System.out.println();
-//		}
+		List<GmlistVO> list2 = dao.getAll();	
+		for (GmlistVO gmlist : list2) {
+			System.out.print(gmlist.getGmno() + ",");
+			System.out.print(gmlist.getShopno());
+			System.out.println();
+		}
 		//�d�ߦ����ǩ��a���o�ڮ�C
 //		List<GmlistVO> list = dao.findByGame("DG00001");
 //		for (GmlistVO gmlist : list) {

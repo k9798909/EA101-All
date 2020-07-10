@@ -149,7 +149,11 @@
 									<li><a href="<%=request.getContextPath()%>/front-end/room/myRoom.jsp" class="nav-link">我的房間</a></li>
 								</ul>
 							</li>
-							<li><a href="<%=request.getContextPath()%>/front-end/shop/listAllShop.jsp" class="nav-link">店家列表</a></li>
+							<li class="has-children"><a href="<%=request.getContextPath()%>/front-end/shop/listAllShop.jsp" class="nav-link">店家列表</a>
+							<ul class="dropdown arrow-top">
+							<li><a href="<%= request.getContextPath()%>/front-end/gmlist/listAllGmlist.jsp" class="nav-link">店家遊戲</a></li>
+							<li><a href="<%= request.getContextPath()%>/front-end/shopbk/listAllShopbk.jsp" class="nav-link">店家訂位</a></li>
+							</ul></li>
 							<li><a href="<%=request.getContextPath()%>/front-end/art/listAllArt.jsp" class="nav-link">討論區</a></li>
 						</ul>
 					</nav>
