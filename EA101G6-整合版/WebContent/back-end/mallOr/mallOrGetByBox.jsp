@@ -19,10 +19,11 @@
 	 text-align:center;
 	}
 	
-	div.orMain table.table td{
-		padding:0px;
-		height:30px;
-	}
+div.orMain table.table td{
+	height:10px;
+	box-sizing:border-box;
+	padding:5px;
+}
 	
 	input.dtbtn {
 	margin-top:2px;

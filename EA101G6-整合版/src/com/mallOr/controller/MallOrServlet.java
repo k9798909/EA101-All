@@ -267,12 +267,12 @@ public class MallOrServlet extends HttpServlet{
 				MallOrService mallOrSvc = new MallOrService();
 				mallOrSvc.update(mallOrNo, status, payStatus, boxStatus);
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-				RequestDispatcher dispatcher = req.getRequestDispatcher("/front-end/mallOr/mallOrGetAll.jsp");
+				RequestDispatcher dispatcher = req.getRequestDispatcher("/front-end/mallOr/mbrMallOr.jsp");
 				dispatcher.forward(req, res);
 				return;
 			} catch (Exception e) {
 				e.printStackTrace();
-				res.sendRedirect(req.getContextPath() + "/front-end/mallOr/mallOrGetAll.jsp");
+				res.sendRedirect(req.getContextPath() + "/front-end/mallOr/mbrMallOr.jsp");
 				return;
 			}
 

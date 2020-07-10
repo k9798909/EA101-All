@@ -24,16 +24,12 @@
 	href="<%=request.getContextPath()%>/css/model/jquery.fancybox.min.css">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/model/owl.carousel.min.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/model/owl.theme.default.min.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/model/aos.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/model/owl.theme.default.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/model/aos.css">
 <!-- MAIN CSS -->
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/model/style.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/model/style.css">
 
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/mallCss/mallGetAllUpFornt.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/mallCss/mallGetAllUpFornt.css">
 
 <style>
 .icon {
