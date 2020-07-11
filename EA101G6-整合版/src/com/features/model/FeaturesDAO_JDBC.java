@@ -11,7 +11,7 @@ import java.util.List;
 public class FeaturesDAO_JDBC implements FeaturesDAO_Interface{
 	public static final String driver = "oracle.jdbc.driver.OracleDriver";
 	public static final String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	public static final String userid = "EA101_G6";
+	public static final String userid = "EA101";
 	public static final String passwd = "123456";
 	
 	private static final String INSERT_PSTMT = "INSERT INTO FEATURES (FTNO, FTNAME) VALUES ('LF'||LPAD(TO_CHAR(FEATURES_SEQ.NEXTVAL),5,'0'), ?)";

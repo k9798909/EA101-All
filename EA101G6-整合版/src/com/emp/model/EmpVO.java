@@ -69,6 +69,4 @@ public class EmpVO implements Serializable{
 	public void setEmpstatus(Integer empstatus) {
 		this.empstatus = empstatus;
 	}
-	
-	
 }

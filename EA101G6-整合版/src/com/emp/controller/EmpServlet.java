@@ -2,6 +2,7 @@ package com.emp.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -128,7 +129,6 @@ public class EmpServlet extends HttpServlet {
 		if("getOne_For_Update".equals(action)) {// 來自listAllEmp.jsp的請求
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-//			String requestURL
 			
 			try {
 				/***************************1.接收請求參數****************************************/
@@ -139,10 +139,15 @@ public class EmpServlet extends HttpServlet {
 				EmpVO empVO = empSvc.getOneEmp(empno);
 				//將我們要修改的員工，藉由getOneEmp方法傳入empno，取得要修改的員工物件
 				
+				//將該員工所擁有的權限setAttribute
+				List<String> empAuthority = empSvc.getAuthorityByEmpno(empno);
+				req.setAttribute("empAuthority", empAuthority);
+				
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				//將我們要修改的員工存入req(req.setAttribute("empVO", empVO);)，轉交給 update_emp_input.jsp
 				//讓那個jsp有辦法將原有的員工資料顯示出來
 				req.setAttribute("empVO", empVO);
+				
 				String url = "/back-end/emp/update_emp.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
@@ -159,6 +164,8 @@ public class EmpServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			
+			List<String> empAuthority = new ArrayList<String>();
+			
 			String requestURL = req.getParameter("requestURL");
 			
 			try {
@@ -168,6 +175,7 @@ public class EmpServlet extends HttpServlet {
 				
 				//沒有讀圖片的方式：
 				//byte[] pic = (req.getParameter("pic")).getBytes();//將字串用getBytes()的方法，得到byte[]
+				System.out.println("111111111111111");
 				
 				byte[] pic;
 				Part picPart = req.getPart("pic");
@@ -181,7 +189,7 @@ public class EmpServlet extends HttpServlet {
 					pic = empVO.getPic();//用getPic()取出 員工物件原本的照片再放進去一次
 				}
 				in.close();
-				
+				System.out.println("22222222222222");
 				
 				String empname = req.getParameter("empname");
 				String enameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
@@ -191,6 +199,9 @@ public class EmpServlet extends HttpServlet {
 					errorMsgs.add("員工姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 				}
 				
+				System.out.println("33333333333333");
+				
+				
 				String mail = req.getParameter("mail");
 				String mailReg = "^\\w{1,63}@[a-zA-Z0-9]{2,63}\\.[a-zA-Z]{2,63}(\\.[a-zA-Z]{2,63})?$";//\w{1,63}的意思等於[a-zA-Z0-9_]{1,63}，就是允許大小寫字母，數字和底線，至少1到63個字
 				if(mail == null || mail.trim().length() == 0) {                                       //[a-zA-Z0-9]{2,63}的意思是允許大小寫字母和數字，至少2到63個字
@@ -199,13 +210,31 @@ public class EmpServlet extends HttpServlet {
 					errorMsgs.add("信箱: 請輸入正確的信箱格式");
 				}
 				
+				System.out.println("4444444444444");
+				
 				String sex = req.getParameter("sex");
 				if(sex == null) {
 					errorMsgs.add("性別: 請選擇性別");
 				}
 				
+				System.out.println("555555555555555");
+				
+				
+				
 				Integer empstatus = new Integer(req.getParameter("empstatus"));
 				
+				
+				String[] ftno = req.getParameterValues("features");
+				System.out.println("777777");
+				System.out.println("ftno長度"+ftno.length);
+				for(String ftnoStr :ftno) {
+					empAuthority.add(ftnoStr);
+					System.out.println(ftnoStr);
+				}
+				
+				
+				
+				req.setAttribute("empAuthority",empAuthority);
 				
 				EmpVO empVO = new EmpVO();
 				empVO.setEmpno(empno);
@@ -215,6 +244,7 @@ public class EmpServlet extends HttpServlet {
 				empVO.setEmpstatus(empstatus);
 				
 				if(!errorMsgs.isEmpty()) {
+					System.out.println("emter here");
 					req.setAttribute("empVO", empVO); //將含有錯誤格式的物件empVO存入req
 					RequestDispatcher failView = req.getRequestDispatcher("/back-end/emp/update_emp.jsp");
 					failView.forward(req, res);
@@ -223,7 +253,7 @@ public class EmpServlet extends HttpServlet {
 				
 				/***************************2.開始修改資料*****************************************/
 				EmpService empSvc = new EmpService();
-				empVO = empSvc.updateEmpSTAT(pic, empname, mail, sex, empstatus, empno);
+				empVO = empSvc.updateEmpSTAT(pic, empname, mail, sex, empstatus, empno, ftno);
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("empVO", empVO);
@@ -269,6 +299,14 @@ public class EmpServlet extends HttpServlet {
 				
 				Integer empstatus = new Integer(req.getParameter("empstatus"));
 				
+				String[] ftno = req.getParameterValues("features");
+				req.setAttribute("empftno", ftno);
+				
+//以下確定有取到
+//				for(String ftname : ftno) {
+//					System.out.println(ftname);
+//				}
+				
 				//送圖片讀進資料庫					
 				Part picPart = req.getPart("pic");	//透過 HttpServletRequest 的 getPart() 取得 Part 物件
 													//此處的pic即為我們於頁面上要上傳的檔案(pic為資料庫的欄位名)
@@ -312,7 +350,7 @@ public class EmpServlet extends HttpServlet {
 				
 				/***************************2.開始新增資料***************************************/
 				EmpService empSvc = new EmpService();
-				empVO = empSvc.addEmp(pic, empname, mail, sex, empstatus);
+				empVO = empSvc.addEmp(pic, empname, mail, sex, empstatus, ftno);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				String url = "/back-end/emp/listAllEmp.jsp";
@@ -359,7 +397,7 @@ public class EmpServlet extends HttpServlet {
 						HttpSession session =req.getSession();
 						session.setAttribute("accountBack", accountBack);//將帳號存進session，之後可以藉由這個取得他所擁有的權限
 						session.setAttribute("eVO", eVO);//將登入的員工物件存進session						
-						List<AuthorityVO> authList = empSvc.getAuthorityByEmpno(accountBack);
+						List<String> authList = empSvc.getAuthorityByEmpno(accountBack);
 						session.setAttribute("authList", authList);
 				/***************************3.查詢完成,準備轉交(Send the Success view)***********/
 						try {//查看是否有來源網頁

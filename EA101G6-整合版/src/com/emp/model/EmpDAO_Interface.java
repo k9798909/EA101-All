@@ -16,5 +16,5 @@ public interface EmpDAO_Interface {
 	public String forgetPwd(String mail, String empno);
 	public List<EmpVO> getAll();
 	public EmpVO login(String empact);
-	public List<AuthorityVO> getAuthorityByEmpno(String empno);
+	public List<String> getAuthorityByEmpno(String empno);
 }

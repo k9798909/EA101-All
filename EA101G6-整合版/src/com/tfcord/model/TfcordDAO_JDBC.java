@@ -15,7 +15,7 @@ import com.mbrpf.model.MbrpfVO;
 public class TfcordDAO_JDBC implements TfcordDAO_Interface {
 	public static final String driver = "oracle.jdbc.driver.OracleDriver";
 	public static final String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	public static final String userid = "EA101_G6";
+	public static final String userid = "EA101";
 	public static final String passwd = "123456";
 
 	private static final String INSERT_PSTMT = "INSERT INTO TFCORD(TFNO, MBRNO, TFTYPE, PRICE, TFTIME, TFSTATUS) VALUES (TO_CHAR(SYSDATE,'YYYYMMDD')||'-'||LPAD(TO_CHAR(TFCORD_SEQ.NEXTVAL),7,'0'), ?, ?, ?, CURRENT_TIMESTAMP, ?)";
@@ -31,16 +31,19 @@ public class TfcordDAO_JDBC implements TfcordDAO_Interface {
 	public void insert(TfcordVO tfcordVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
+		
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			
 			pstmt = con.prepareStatement(INSERT_PSTMT);
+			
 			pstmt.setString(1, tfcordVO.getMbrno());
 			pstmt.setString(2, tfcordVO.getTftype());
 			pstmt.setInt(3, tfcordVO.getPrice());
 			pstmt.setInt(4,tfcordVO.getTfstatus());
 			pstmt.executeUpdate();
+			
+			
 			
 		}catch(ClassNotFoundException cs) {
 			cs.printStackTrace();
@@ -61,7 +64,7 @@ public class TfcordDAO_JDBC implements TfcordDAO_Interface {
 					se.printStackTrace();
 				}
 			}
-		}	
+		}
 	}
 	
 	@Override
@@ -397,9 +400,11 @@ public class TfcordDAO_JDBC implements TfcordDAO_Interface {
 	
 	//傳入我要新增的tfcordVO和已經改好點數的會員mbrpfVO(修改的會員物件是在Servlet修改)
 	@Override
-	public void insert2(TfcordVO tfcordVO, MbrpfVO mbrpfVO) {
+	public String insert2(TfcordVO tfcordVO, MbrpfVO mbrpfVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sequence = null;
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
@@ -407,15 +412,26 @@ public class TfcordDAO_JDBC implements TfcordDAO_Interface {
 			//先將自autoCommit關掉，不然我交易過程有錯誤，會沒辦法rollback
 			con.setAutoCommit(false);
 			
+			String[] cols = {"TFNO"};//將要綁定出來的自增主鍵欄位名是什麼
+			
 			//因為這邊我只是要更新會員的點數，會員沒有需要我的自增主鍵，所以不需要綁定出來
 			
 			//將傳入的點數物件的資訊set進去
-			pstmt = con.prepareStatement(INSERT_PSTMT);
+			pstmt = con.prepareStatement(INSERT_PSTMT,cols);
+			//沒有 cols，就不會有自增主鍵的綁定
 			pstmt.setString(1, tfcordVO.getMbrno());
 			pstmt.setString(2, tfcordVO.getTftype());
 			pstmt.setInt(3, tfcordVO.getPrice());
 			pstmt.setInt(4,tfcordVO.getTfstatus());
 			pstmt.executeUpdate();
+			
+			rs = pstmt.getGeneratedKeys();//透過getGeneratedKeys()方法：取出自增主鍵
+			
+			if(rs.next()) {
+				sequence = rs.getString(1);
+				//如果要綁出來的自增主鍵有兩到三個
+				//就是rs.getString(1)、rs.getString(2)、rs.getString(3)...等
+			}
 			
 			MbrpfDAO mbrpfDAO = new MbrpfDAO();
 			mbrpfDAO.updatePoint(mbrpfVO, con);//將傳進來更新好的會員物件和現在同一條連線，透過updatePoint()去修改
@@ -432,6 +448,9 @@ public class TfcordDAO_JDBC implements TfcordDAO_Interface {
 		}finally {
 				try {
 					con.setAutoCommit(true);//最後關連線之前，告知交易結束
+					if(rs != null) {
+						rs.close();
+					}
 					if(pstmt != null) {
 						pstmt.close();
 					}
@@ -442,6 +461,7 @@ public class TfcordDAO_JDBC implements TfcordDAO_Interface {
 					se.printStackTrace();
 				}			
 			}
+		return sequence;
 	}
 	
 	

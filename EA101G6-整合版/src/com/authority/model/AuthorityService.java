@@ -10,11 +10,13 @@ public class AuthorityService {
 		dao = new AuthorityDAO_JDBC();
 	}
 	
-	public AuthorityVO addAuthority(String empno, String ftno) {
+	public AuthorityVO addAuthority(String empno, String[] ftno) {
 		AuthorityVO authorityVO = new AuthorityVO();
-		authorityVO.setEmpno(empno);
-		authorityVO.setFtno(ftno);
-		dao.insert(authorityVO);
+		for(String empftno : ftno) {
+			authorityVO.setEmpno(empno);
+			authorityVO.setFtno(empftno);
+			dao.insert(authorityVO);
+		}
 		return authorityVO;
 	}
 	
@@ -24,6 +26,10 @@ public class AuthorityService {
 		authorityVO.setFtno(ftno);
 		dao.delete(empno, ftno);
 		return authorityVO;
+	}
+	
+	public void deleteEmpAuth(String empno) {
+		dao.deleteEmpAuth(empno);
 	}
 	
 	public List<AuthorityVO> getEmpAuthority(String empno){
