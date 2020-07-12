@@ -103,6 +103,7 @@ public class TfcordServlet extends HttpServlet {
 				
 				TfcordService TfcordSvc = new TfcordService();
 				String tfno = TfcordSvc.addTfcordPoint(mbrno, tftype, price, tfstatus, mbrpfVO);
+				session.setAttribute("mbrPoint", mbrpfVO.getPoints());//將已經加值過的點數set進sesssion中，讓帳戶管理頁面(listOneMbrtf.jsp)可以抓到最新的點數
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				try{//查看是否有來源網頁(EX:商城或市集購買東西，發現點數不夠，欲購買)
@@ -120,9 +121,8 @@ public class TfcordServlet extends HttpServlet {
 				}
 				//如果沒有來源網頁，會回到會員的所有購買點數頁面
 				String url = "/front-end/tfcord/listOneMbrtf.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);
-				successView.forward(req, res);
-
+				res.sendRedirect(req.getContextPath() + url);
+				return;
 				/***************************其他可能的錯誤處理*************************************/
 			}catch(Exception e) {
 				errorMsgs.add("購買點數失敗");
@@ -182,6 +182,7 @@ public class TfcordServlet extends HttpServlet {
 				String tfno = TfcordSvc.addTfcordPoint(mbrno, tftype, price, tfstatus, mbrpfVO);
 //				System.out.print("Servlet tfno = " + tfno);
 				session.setAttribute("tfno",tfno);//因為下面改成重導，如果照原本的存在request中，重導過去後會取不到這個值，所以改存在session
+				session.setAttribute("mbrPoint", mbrpfVO.getPoints());//將已經加值過的點數set進sesssion中，讓帳戶管理頁面(listOneMbrtf.jsp)可以抓到最新的點數
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				//Bootstrap_modal
@@ -347,6 +348,7 @@ public class TfcordServlet extends HttpServlet {
 				
 				mbrpfSvc.updateMbrpf(mbrpfVO);
 				tfcordSvc.deleteTfcord(tfno);
+				req.setAttribute("mbrPoint", mbrpfVO.getPoints());//將已經加值過的點數set進sesssion中，讓帳戶管理頁面(listOneMbrtf.jsp)可以抓到最新的點數
 				
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/
 				if("/front-end/tfcord/listOnetf.jsp".equals(requestURL)) {

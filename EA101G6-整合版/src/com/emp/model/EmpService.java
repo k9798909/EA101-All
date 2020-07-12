@@ -27,8 +27,9 @@ public class EmpService {
 		
 		String empno = dao.insert(empVO);
 		
-		EmpMailService empMailSvc = new EmpMailService();
-		empMailSvc.getNewEmp(empVO, empno);//將員工物件傳給負責寄送訊息的EmpMailService
+		EmpMailService empMailSvc = new EmpMailService(empVO, empno);
+		empMailSvc.start();//將員工物件傳給負責寄送訊息的EmpMailService
+		
 		
 		AuthorityService authoritySvc = new AuthorityService();
 		authoritySvc.addAuthority(empno, ftno);//將員工編號及授權給他的權限陣列傳給負責增加權限的AuthorityService

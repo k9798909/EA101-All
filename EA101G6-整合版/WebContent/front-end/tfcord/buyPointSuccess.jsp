@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/> <!--要有這條 -->
-<title>購買成功頁面</title>
+<title>購買成功頁面(沒用到)</title>
 </head>
 <body>
 	

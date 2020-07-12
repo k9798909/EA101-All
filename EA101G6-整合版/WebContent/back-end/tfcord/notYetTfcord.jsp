@@ -8,7 +8,6 @@
 <%--將現在的位址，以pointLocation的名字存進session --%>
 <%-- <% session.setAttribute("pointLocation", request.getRequestURI()); %>  --%>
 
-
 <%
 	TfcordService tfcordSvc = new TfcordService();
 	List<TfcordVO> list = tfcordSvc.getNotYetAll();
@@ -21,6 +20,17 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/> <!--要有這條 -->
 <title>尚未處理的點數轉換紀錄</title>
+
+<style type="text/css">
+	.table{
+		text-align:center;
+	}
+	.tftext{
+		text-align: center;
+	}
+
+</style>
+
 </head>
 <body>
 
@@ -34,47 +44,125 @@
 	</ul>
 </c:if>
 
-<h3>此為所有還沒審核的點數交易紀錄(後台點數轉換管理)</h3>
+<!-- <h3>此為所有還沒審核的點數交易紀錄(後台點數轉換管理)</h3> -->
 
 <!-- 如果別人要從其他頁面進行購買點數的動作，會回到來源網頁 -->
 <%-- <a href="<%=request.getContextPath()%>/front-end/tfcord/buyPoint.jsp">點數儲值</a><br> --%>
 
+<%@ include file="/back-end/back-end_nav.jsp" %>
+<div class="container">
+	<div class="row tm-content-row emptop">
+		<div class="tm-col emp">
+			<div class="row">
+				<div class="col tftext">
+					<form method="post" action="<%=request.getContextPath()%>/tfcord/TfcordServlet">
+						<b>請輸入會員編號(如：BM00001)</b>
+						<input type="text" name="mbrno">
+						<input type="hidden" name="action" value="getMbr_Tfcord">
+					    <input type="submit" value="送出">
+					</form>
+				</div>
+				<div class="col tftext">
+					<form method="post" action="<%=request.getContextPath()%>/tfcord/TfcordServlet">
+						<b>請輸入兌換編號(如：20200630-0000049)</b>
+						<input type="text" name="tfno">
+						<input type="hidden" name="action" value="getOne_Tfcord">
+					    <input type="submit" value="送出">
+					</form>
+				</div>
+			</div>
+			<br>
+			<div class="bg-white tm-block">
+				<!-- 轉換紀錄清單的區塊 -->
+				<div class="row">
+					<div class="col"><!-- 轉換紀錄清單的標題 -->
+						<h2 class="tm-block-title d-inline-block">未審核之點數轉換紀錄</h2>
+					</div>
+				</div>
+				<div class="table-responsive"><!--table-striped：將畫面一行灰色，一行白色-->
+					<table class="table"><!-- listAllTfcord.jsp -->
+						<thead>
+							<tr class="tabletop">
+								<th scope="col">兌換編號</th>
+								<th scope="col">會員編號</th>
+								<th scope="col">兌換種類</th>
+								<th scope="col">兌換金額</th>
+								<th scope="col">兌換時間</th>
+								<th scope="col">審核狀態</th>
+								<th scope="col">審核按鈕</th>
+							</tr>
+						</thead>
+						<%@ include file="page1.file"%><!-- 引入換頁的程式碼 -->
+						<tbody>
+							<c:forEach var="tfcordVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex + rowsPerPage-1 %>">
+								<tr ${(tfcordVO.tfno == param.tfno) ?  'bgcolor=#CCCCFF' : ''} >
+									<td  class="align-middle">${tfcordVO.tfno}</td>
+									<td  class="align-middle">${tfcordVO.mbrno}</td>
+									<td  class="align-middle">${tfcordVO.tftype == "M" ? "兌現" : "儲值"}</td>
+									<td  class="align-middle">${tfcordVO.price}</td>
+									<td  class="align-middle"><fmt:formatDate value="${tfcordVO.tftime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+									<td  class="align-middle">${tfcordVO.tfstatus == 1 ? "已審核" : "未審核"}</td>
+									<td  class="align-middle">
+										<form method="post" action="<%=request.getContextPath()%>/tfcord/TfcordServlet">
+											<input type="submit" value="確認審核" ${(tfcordVO.tfstatus == 1) ? "disabled" : "" }>
+											<input type ="hidden" name="mbrno" value="${tfcordVO.mbrno}">
+											<input type ="hidden" name="tfno" value="${tfcordVO.tfno}">
+											<input type ="hidden" name="price" value="${tfcordVO.price}">
+											<input type ="hidden" name="requestURL" value="<%=request.getServletPath()%>">					
+											<input type ="hidden" name="whichPage" value="<%=whichPage%>">					
+											<input type ="hidden" name="action" value="changeStatue">
+										</form>
+									</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+					<%@ include file="page2.file"%>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
-<table>
-	<tr>
-		<th>兌換編號</th>
-		<th>會員編號</th>
-		<th>兌換種類</th>
-		<th>兌換金額</th>
-		<th>兌換時間</th>
-		<th>審核狀態</th>
-		<th>審核按鈕</th>
-	</tr>
+
+
+
+
+<!-- <table> -->
+<!-- 	<tr> -->
+<!-- 		<th>兌換編號</th> -->
+<!-- 		<th>會員編號</th> -->
+<!-- 		<th>兌換種類</th> -->
+<!-- 		<th>兌換金額</th> -->
+<!-- 		<th>兌換時間</th> -->
+<!-- 		<th>審核狀態</th> -->
+<!-- 		<th>審核按鈕</th> -->
+<!-- 	</tr> -->
 	
-	<%@ include file="page1.file"%>
-	<c:forEach var="tfcordVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-		<tr ${(tfcordVO.tfno == param.tfno) ?  'bgcolor=#CCCCFF' : ''} >
-			<td>${tfcordVO.tfno}</td>
-			<td>${tfcordVO.mbrno}</td>
-			<td>${tfcordVO.tftype == "M" ? "兌現" : "儲值"}</td>
-			<td>${tfcordVO.price}</td>
-			<td><fmt:formatDate value="${tfcordVO.tftime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-			<td>${tfcordVO.tfstatus == 1 ? "已審核" : "未審核"}</td>
-			<td>
-				<form method="post" action="<%=request.getContextPath()%>/tfcord/TfcordServlet">
-					<input type="submit" value="確認審核" ${(tfcordVO.tfstatus == 1) ? "disabled" : "" }>
-					<input type ="hidden" name="mbrno" value="${tfcordVO.mbrno}">
-					<input type ="hidden" name="tfno" value="${tfcordVO.tfno}">
-					<input type ="hidden" name="requestURL" value="<%=request.getServletPath()%>">					
-					<input type ="hidden" name="whichPage" value="<%=whichPage%>">					
-					<input type ="hidden" name="action" value="changeStatue">
-				</form> 
-			</td>
-		</tr>
-	</c:forEach>
+<%-- 	<%@ include file="page1.file"%> --%>
+<%-- 	<c:forEach var="tfcordVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>"> --%>
+<%-- 		<tr ${(tfcordVO.tfno == param.tfno) ?  'bgcolor=#CCCCFF' : ''} > --%>
+<%-- 			<td>${tfcordVO.tfno}</td> --%>
+<%-- 			<td>${tfcordVO.mbrno}</td> --%>
+<%-- 			<td>${tfcordVO.tftype == "M" ? "兌現" : "儲值"}</td> --%>
+<%-- 			<td>${tfcordVO.price}</td> --%>
+<%-- 			<td><fmt:formatDate value="${tfcordVO.tftime}" pattern="yyyy-MM-dd HH:mm:ss"/></td> --%>
+<%-- 			<td>${tfcordVO.tfstatus == 1 ? "已審核" : "未審核"}</td> --%>
+<!-- 			<td> -->
+<%-- 				<form method="post" action="<%=request.getContextPath()%>/tfcord/TfcordServlet"> --%>
+<%-- 					<input type="submit" value="確認審核" ${(tfcordVO.tfstatus == 1) ? "disabled" : "" }> --%>
+<%-- 					<input type ="hidden" name="mbrno" value="${tfcordVO.mbrno}"> --%>
+<%-- 					<input type ="hidden" name="tfno" value="${tfcordVO.tfno}"> --%>
+<%-- 					<input type ="hidden" name="requestURL" value="<%=request.getServletPath()%>">					 --%>
+<%-- 					<input type ="hidden" name="whichPage" value="<%=whichPage%>">					 --%>
+<!-- 					<input type ="hidden" name="action" value="changeStatue"> -->
+<!-- 				</form>  -->
+<!-- 			</td> -->
+<!-- 		</tr> -->
+<%-- 	</c:forEach> --%>
 	
-</table>
-<%@ include file="page2.file"%>
+<!-- </table> -->
+<%-- <%@ include file="page2.file"%> --%>
 
 
 </body>

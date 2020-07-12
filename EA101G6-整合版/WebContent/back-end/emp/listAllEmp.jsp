@@ -6,6 +6,7 @@
 	EmpService empSvc = new EmpService();
 	List<EmpVO> list = empSvc.getAllEmp();
 	pageContext.setAttribute("list", list);
+	
 	List<String> authList = (List<String>) session.getAttribute("authList");
 	boolean auth;
 	if(authList.contains("LF00001")){//如果今天List放的是權限物件，要用contains去比對的話，(括弧內也得放權限物件才能比對)，contains沒辦法用字串去單獨對物件內的某個屬性比對
@@ -14,6 +15,7 @@
 		auth = false;
 	}
 	pageContext.setAttribute("auth", auth);
+
 %>
 <!DOCTYPE html>
 <html>
@@ -30,6 +32,8 @@
 	.emptext{
 		text-align: center;
 	}
+
+/* 沒有可以新增員工的管理員的按鈕 */
 	#noAddEmp{
 		opacity:0.8;
 	}

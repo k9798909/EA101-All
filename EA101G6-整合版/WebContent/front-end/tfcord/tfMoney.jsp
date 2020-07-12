@@ -27,12 +27,14 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/> <!--要有這條 -->
+
 <title>轉換現金</title>
 
 <style>
 	.orangeBtn {
 		background-color: #FF8F00;
 		box-shadow: 0px 5px 0px 0px #CD6509;
+		outline:none;
 	}
 
 	.orangeBtn:hover {
@@ -48,6 +50,7 @@
 		color: black;
 		position: relative;
 		display: inline-block;
+		outline:none;
 	}
 
 	.pointBtn:active {
@@ -56,8 +59,19 @@
 	  	box-shadow: 0px 1px 0px 0px;
 	}
 	
+	.modal-title{
+		color:#ff8b00;
+	}
+	
+	.jump{
+		margin-right: 40% !important;
+		margin-top: 10% !important;
+		
+	}
 
-
+	.jumpBox{
+		width: 1200px !important;
+	}
 </style>
 </head>
 <body>
@@ -78,7 +92,7 @@
 					<div class="col-sm d-flex justify-content-end">
 						<font style="font-size:18px; line-height:80px;">請選擇兌換多少現金</font>
 					</div>
-					<div class="col-sm d-flex justify-content-start">
+					<div class="col-sm d-flex justify-content-start" style="clear:both">
 						<select size="1" name="price" style="width:200px; line-height:80px; border-radius:10px; font-size:25px;" onmousedown="if(this.options.length>5){this.size=5;}"  onchange='this.size=0;' onblur="this.size=0;">
 		<!-- 				onmousedown="if(this.options.length>5){this.size=5;}"  onchange='this.size=0;' onblur="this.size=0;" 可以將下拉式選單加上滾輪，但位置怪怪的 -->
 							<c:forEach var="price" begin="100" end="${mbrpfVO.points}" step="100">
@@ -105,11 +119,13 @@
 <c:if test="${openModal!=null}">
 	<% session.removeAttribute("openModal"); %> <!-- 此處將openModal remove掉，不然畫面回來會一直顯示listOnetf.jsp -->
 	<div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
+		<div class="modal-dialog modal-lg jump">
+			<div class="modal-content jumpBox">
 				<div class="modal-header">
-					<button type="button" class="closeTf" data-dismiss="modal" aria-hidden="true">&times;</button>
-                	<h3 class="modal-title" id="myModalLabel">The Bootstrap modal-header</h3>
+                	<h3 class="modal-title text-primary " id="myModalLabel"><b>GAMEING ON BOARD</b></h3>
+                	<div style="width:130px">
+					<a href="<%=request.getContextPath()%>/front-end/tfcord/listOneMbrtf.jsp" style="margin-right: 2%;margin-top: 1%;font-size: 20px; font-weight: bold;">前往帳戶管理</a>
+					</div>
 				</div>
 			
 				<div class="modal-body">
@@ -119,7 +135,7 @@
 				</div>
 				
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="pointBtn orangeBtn" style="border: none; font-size:18px; outline:none;" data-dismiss="modal">Close</button>
 				</div>
 			</div>
 		</div>

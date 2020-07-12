@@ -23,7 +23,7 @@ public class TfcordDAO_JDBC implements TfcordDAO_Interface {
 	private static final String DELETE_PSTMT = "DELETE FROM　TFCORD WHERE TFNO = ?"; //刪除某筆申請的換錢紀錄
 	private static final String CHANGE_BY_PK = "UPDATE TFCORD SET TFSTATUS = 1 WHERE TFNO = ?";//審核通過某筆訂單狀態
 	private static final String FIND_BY_PK = "SELECT * FROM TFCORD WHERE TFNO = ?";//查詢某筆訂單
-	private static final String GET_MBR_ALL = "SELECT * FROM TFCORD WHERE MBRNO = ?";//查某會員有哪些紀錄，也可用於帳戶管理
+	private static final String GET_MBR_ALL = "SELECT * FROM TFCORD WHERE MBRNO = ? ORDER BY TFNO DESC";//查某會員有哪些紀錄，也可用於帳戶管理
 	private static final String GET_NOTYET_ALL = "SELECT * FROM TFCORD WHERE TFSTATUS = 0";
 	private static final String GET_ALL = "SELECT * FROM TFCORD";//查所有點數紀錄
 	
