@@ -30,6 +30,10 @@
 
 <!-- 這邊寫css!!!!!!!!! -->
 
+<style>
+
+</style>
+
 </head>
 <body class="bg03">
 	<div class="container">
@@ -64,8 +68,19 @@
 							<li class="nav-item"><a class="nav-link"
 								href="#">商城管理</a>
 							<!-- 目前還沒有這項 --></li>
-							<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/emp/listAllEmp.jsp">員工管理</a>
-							</li>
+							
+							<li class="nav-item dropdown backnavdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" 
+							   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 員工管理 
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/emp/listAllEmp.jsp">員工相關</a> 								
+<!-- active測試，之後換頁面  -->		<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/emp/updatePwd.jsp">修改密碼</a>
+							</div></li>
+							
+							
+							
+							
 <!-- active測試，之後換頁面  -->	<li class="nav-item"><a class="nav-link"
 								href="<%=request.getContextPath()%>/back-end/emp/addEmp.jsp">市集管理</a>
 							<!-- 目前還沒有這項 --></li>
@@ -92,7 +107,7 @@
 									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/room/back-end_shoprpList.jsp">店家回報列表</a> 
 								</div></li>
 							<li class="nav-item"><a class="nav-link"
-								href="<%=request.getContextPath()%>/back-end/emp/updatePwd.jsp">修改密碼</a>
+								href="<%=request.getContextPath()%>/back-end/tfcord/listAllTfcord.jsp">點數管理</a>
 							<!-- 目前還沒有這項 --></li>
 						</ul>
 						<ul class="navbar-nav">
@@ -147,6 +162,8 @@
 		 		}
 			});
 		});
+		
+		
 </script>
 
 </body>
