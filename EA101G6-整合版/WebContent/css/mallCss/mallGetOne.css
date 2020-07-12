@@ -108,7 +108,8 @@
 	input.bybtn:hover{
 		background-color:#007bff;
 		color:#ffffff;
-		border:solid 1px #000000;			
+		border:1px #000000;	
+		opacity:0.8;		
 	}
 	
 	button.carbtn{
@@ -126,7 +127,8 @@
 	button.carbtn:hover{
 		background-color:#007bff;
 		color:#ffffff;
-		border:solid 1px #000000;	
+		border:1px #000000;
+		opacity:0.8;	
 	}
 	
 	div.commimg{
