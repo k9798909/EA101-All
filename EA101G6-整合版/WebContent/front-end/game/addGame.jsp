@@ -48,11 +48,6 @@ img {
 
 <body bgcolor='white'>
 
-	<table id="table-1">
-		<a href="index.jsp"><img src="images/add-icon.png"
-			class="icon">回首頁</a>
-		<h3>增加遊戲</h3>
-	</table>
 	<%-- 錯誤表列 --%>
 	<c:if test="${not empty errorMsgs}">
 		<font style="color: red">請修正以下錯誤:</font>

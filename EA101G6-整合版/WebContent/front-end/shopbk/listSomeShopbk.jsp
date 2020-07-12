@@ -7,16 +7,14 @@
 	ShopbkService shopbkSvc = new ShopbkService();
 	String shopno = null;
 	java.sql.Timestamp shoppds = null;
-	java.sql.Timestamp shoppde = null;
 	List<ShopbkVO> list = null;
-	if(request.getParameter("shopps")==null || request.getParameter("shoppe")==null){
+	if(request.getParameter("shopps")==null){
 		shopno = request.getParameter("shopno");
 		list = shopbkSvc.getShopbkByShop(shopno);
 	}
 	if(request.getParameter("shopno")==null) {
 		shoppds = java.sql.Timestamp.valueOf(request.getParameter("shoppds"));
-		shoppde = java.sql.Timestamp.valueOf(request.getParameter("shoppde"));
-		list = shopbkSvc.getShopbkByTime(shoppds, shoppde);
+		list = shopbkSvc.getShopbkByTime(shoppds);
 	}
 	pageContext.setAttribute("list", list);
 %>
@@ -75,15 +73,15 @@ h4 {
 		</td>
 	</tr>
 </table>
-<%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-	<font style="color: red">請修正以下錯誤:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color: red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
+<%-- <%-- 錯誤表列 --%>
+<%-- <c:if test="${not empty errorMsgs}"> --%>
+<!-- 	<font style="color: red">請修正以下錯誤:</font> -->
+<!-- 	<ul> -->
+<%-- 		<c:forEach var="message" items="${errorMsgs}"> --%>
+<%-- 			<li style="color: red">${message}</li> --%>
+<%-- 		</c:forEach> --%>
+<!-- 	</ul> -->
+<%-- </c:if> --%>
 <div>
 	<table>
 		<tr>
@@ -108,7 +106,18 @@ h4 {
 	</table>
 </div>
 
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<!-- 查詢時有錯誤啟動 -->
+	<c:if test="${not empty errorMsgs}">
+		<script>
+			swal({
+				text : "${errorMsgs}"
+			});
+		</script>
+		<%
+			request.removeAttribute("errorMsgs");
+		%>
+	</c:if>
 
 </body>
 </html>

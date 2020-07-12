@@ -8,9 +8,6 @@
 	String shopno = request.getParameter("shopno");
 	List<ShopbkVO> list = shopbkSvc.getShopbkByShop(shopno);
 	pageContext.setAttribute("list", list);
-// 	ShopVO ssVO = (ShopVO)session.getAttribute("shopVO");
-// 	pageContext.setAttribute("ssVO", ssVO);
-// 	ShopbkVO shopbkVO = (ShopbkVO) request.getAttribute("shopbkVO");
 %>
 
 <!doctype html>

@@ -10,6 +10,7 @@
 	ShopVO shopVO = (ShopVO)session.getAttribute("shopVO");
 	List<GmlistVO> list = gmlistSvc.getSomeGmlistByShop(shopVO.getShopno());
 	pageContext.setAttribute("list", list);
+	GameVO gameVO = (GameVO)request.getAttribute("gameVO");
 %>
 <jsp:useBean id="gameSvc" scope="page"
 	class="com.game.model.GameService" />
@@ -48,6 +49,10 @@ tr:nth-child(odd) {
 img {
 	width: 50px;
 	height: 50px;
+}
+.iimmgg img{
+	width: 200px;
+	height: 200px;
 }
 
 h4 {
@@ -92,13 +97,15 @@ h4 {
 </div>
 <div class="col-sm-5">
 	<table class="table table-sm">
-		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/gmlist/gmlist.do">
+		
 		<tr>
 			<h4 class="text-dark">其他桌遊</h4>
-			<input type="hidden" name="action" value="insert">
-			<input type="submit" value="增加" class="btn btn-primary">
+			
+			<button id="create" class="btn btn-primary">增加</button>
+			<button data-toggle="modal" data-target="#exampleModal" class="btn btn-success" style="margin-left:10px;">我有新遊戲</button>
 		</tr>
-				
+		<FORM id="goCreate" METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/gmlist/gmlist.do">		
+		<input type="hidden" name="action" value="insert">
 		<c:forEach var="gameVO" items="${gameSvc.all}">	
 		<c:set var="tampbollean" value="true"/>
 		<c:forEach var="gmlistVO" items="${list}">
@@ -142,5 +149,85 @@ h4 {
 			request.removeAttribute("errorMsgs");
 		%>
 	</c:if>
+	
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1"
+					role="dialog" aria-labelledby="exampleModalLabel"
+					aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content rp-2">				
+			<div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">新增遊戲</h3>
+                <hr class="my-3">
+            </div>
+			
+			<div class="modal-body">
+				<div class="form-group">
+<!-- =========================================以下為原addGame.jsp的內容========================================== -->
+		<FORM id="ya" METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/game/game.do" enctype="multipart/form-data">
+		<table>
+			<tr>
+				<td>遊戲名稱:</td>
+				<td><input type="TEXT" name="gmname"
+					value="<%=(gameVO == null) ? "" : gameVO.getGmname()%>" /></td>
+			</tr>
+			<tr>
+				<td>遊戲圖片:</td>
+				<td>
+					<input type="file" id="myFile" name="gmimg">				
+					<div id="preview" class="iimmgg">
+					</div>	
+				</td>
+			</tr>
+		</table>
+		<input type="hidden" name="action" value="insert">
+		</FORM>
+<!-- =========================================以上為原addGame.jsp的內容========================================== -->
+			</div></div>			
+			<div class="modal-footer">
+                <input type="submit" value="確認送出" id="go" class="btn btn-primary">
+            </div>		
+		</div>
+	</div>
+</div>
+<script>
+	function init() {
+		var myFile = document.getElementById("myFile");
+		var filename = document.getElementById("filename");
+		var preview = document.getElementById('preview');
+		myFile.addEventListener('change', function(e) {
+			var files = myFile.files;
+			if (files !== null && files.length > 0) {
+				var file = files[0];
+				if (file.type.indexOf('image') > -1) {
+					var reader = new FileReader();
+					reader.addEventListener('load', function(e) {
+						var result = e.target.result;
+						console.log(result);
+						var img = document.createElement('img');
+						img.src = result;
+						preview.innerHTML="";
+						preview.append(img);
+					});
+					reader.readAsDataURL(file);
+				}
+			}
+		});
+	}
+	window.onload = init;
+</script>
+<script>
+	$(document).ready(function(){		
+		$("#go").click(function(){
+			$("#ya").submit();
+		})
+		
+		$("#create").click(function(){
+			$("#goCreate").submit();
+		})		
+	})
+</script>
 </body>
 </html>

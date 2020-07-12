@@ -48,16 +48,15 @@ li {
 </style>
 </head>
 <body bgcolor='white'>
-	<h3 style="margin-left:20px;">資料查詢:</h3>
 	<%-- 錯誤表列 --%>
-	<c:if test="${not empty errorMsgs}">
-		<font style="color: red">請修正以下錯誤:</font>
-		<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color: red">${message}</li>
-			</c:forEach>
-		</ul>
-	</c:if>
+<%-- 	<c:if test="${not empty errorMsgs}"> --%>
+<!-- 		<font style="color: red">請修正以下錯誤:</font> -->
+<!-- 		<ul> -->
+<%-- 			<c:forEach var="message" items="${errorMsgs}"> --%>
+<%-- 				<li style="color: red">${message}</li> --%>
+<%-- 			</c:forEach> --%>
+<!-- 		</ul> -->
+<%-- 	</c:if> --%>
 
 <jsp:useBean id="gmlistSvc" scope="page" class="com.gmlist.model.GmlistService" />
 <jsp:useBean id="gameSvc" scope="page" class="com.game.model.GameService" />

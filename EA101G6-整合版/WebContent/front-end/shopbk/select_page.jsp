@@ -42,11 +42,14 @@ h3 {
 }
 ul {
 	margin-top: 2px;
-	margin-left: center;
-	margin-right: center;
+	margin-left: auto;
+	margin-right: auto;
 }
+
 li {
 	margin-top: 15px;
+	margin-left: auto;
+	margin-right: auto;
 }
 </style>
 
@@ -54,44 +57,53 @@ li {
 
 
 <body>
-
-
-	<h3 style="margin-left:20px;">資料查詢:</h3>
+<body bgcolor='white'>
+<jsp:useBean id="shopSvc" scope="page" class="com.shop.model.ShopService" />
 	<%-- 錯誤表列 --%>
-	<c:if test="${not empty errorMsgs}">
-		<font style="color: red">請修正以下錯誤:</font>
-		<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color: red">${message}</li>
-			</c:forEach>
-		</ul>
-	</c:if>
+	<%-- 	<c:if test="${not empty errorMsgs}"> --%>
+	<!-- 		<font style="color: red">請修正以下錯誤:</font> -->
+	<!-- 			<ul class="navbar-nav mr-auto"> -->
+	<%-- 			<c:forEach var="message" items="${errorMsgs}"> --%>
+	<%-- 				<li style="color: red">${message}</li> --%>
+	<%-- 			</c:forEach> --%>
+	<!-- 		</ul> -->
+	<%-- 	</c:if> --%>
+	<nav class="navbar navbar-expand-lg navbar-light bg-gradient-info shadow p-3 mb-5 rounded">
 
-	<ul>
-		<li><a href='listAllShopbk.jsp' >List</a> all shopbks. <br></li>
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 
 
-		<li>
+	<ul class="navbar-nav mr-auto">
+		<li class="nav-item"><a href='listAllShopbk.jsp' >List</a> all shopbks.</li>
+	</ul>
+	<ul class="navbar-nav mr-auto">
+		<li class="nav-item">
 			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/shopbk/shopbk.do">
-				<b>輸入想要遊玩的時間 :</b> 起<input type="text" name="shoppds" id="f_date1">迄<input type="text" name="shoppde" id="f_date2">
+				<b>輸入想要遊玩的日期 :</b><input class="custom-select form-control col-xs-1" type="text" name="shoppds" id="f_date1">
 				<input type="hidden" name="action" value="getSome_For_Display">
-				<input type="submit" value="送出">
-			</FORM>
-		</li>
-
-		<jsp:useBean id="shopbkSvc" scope="page"
-			class="com.shopbk.model.ShopbkService" />
-
-		<li>
-			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/shopbk/shopbk.do">
-				<b>想去哪家店玩:</b> <input type="text" name="shopno">
-				<input type="hidden" name="action" value="getSome_For_Display">
-				<input type="submit" value="送出">
+				<input class="btn btn-outline-secondary" type="submit" value="送出">
 			</FORM>
 		</li>
 	</ul>
-
-
+		<jsp:useBean id="shopbkSvc" scope="page"
+			class="com.shopbk.model.ShopbkService" />
+	<ul class="navbar-nav mr-auto">
+				<li class="nav-item">
+					<FORM METHOD="post" class="form-inline my-2 my-lg-0"					
+						ACTION="<%=request.getContextPath()%>/front-end/shopbk/shopbk.do">
+						<select class="custom-select form-control mr-sm-1" name="shopno">
+							<option value="">想去哪家店玩
+								<c:forEach var="shopVO" items="${shopSvc.getAllowedShop()}">
+									<option value="${shopVO.shopno}">${shopVO.shopname}
+								</c:forEach>
+						</select> <input type="hidden" name="action" value="getSome_For_Display">
+						<button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">送出</button>
+					</FORM>
+				</li>
+			</ul>
+	
+</div>
+</nav>
 </body>
 <link rel="stylesheet" type="text/css"
 	href="../../datetimepicker/jquery.datetimepicker.css" />
@@ -114,23 +126,24 @@ li {
 		theme : '', //theme: 'dark',
 		timepicker : true, //timepicker: false,
 		step : 30, //step: 60 (這是timepicker的預設間隔60分鐘)
-		format : 'Y-m-d H:i',
+		format : 'Y-m-d H:i:s',
 		value : new Date(),
 		//disabledDates:    ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
 		//startDate:	        '2017/07/10',  // 起始日
-		minDate : '-1970-01-01', // 去除今日(不含)之前
+// 		minDate : '-1970-01-01', // 去除今日(不含)之前
 	//maxDate:           '+1970-01-01'  // 去除今日(不含)之後
 	});
-	$('#f_date2').datetimepicker({
-		theme : '', //theme: 'dark',
-		timepicker : true, //timepicker: false,
-		step : 30, //step: 60 (這是timepicker的預設間隔60分鐘)
-		format : 'Y-m-d H:i',
-		value : new Date(),
-		//disabledDates:    ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
-		//startDate:	        '2017/07/10',  // 起始日
-		minDate : '-1970-01-01', // 去除今日(不含)之前
-	//maxDate:           '+1970-01-01'  // 去除今日(不含)之後
-	});
+// 	$('#f_date2').datetimepicker({
+// 		theme : '', //theme: 'dark',
+// 		timepicker : true, //timepicker: false,
+// 		step : 30, //step: 60 (這是timepicker的預設間隔60分鐘)
+// 		format : 'Y-m-d H:i:s',
+// 		value : new Date(),
+// 		//disabledDates:    ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
+// 		//startDate:	        '2017/07/10',  // 起始日
+// 		minDate : '-1970-01-01', // 去除今日(不含)之前
+// 	//maxDate:           '+1970-01-01'  // 去除今日(不含)之後
+// 	});
 </script>
+
 </html>
