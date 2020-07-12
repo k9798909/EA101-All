@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="BIG5"%>
 <%@ page import="com.mall.model.*"%>
-<%@ page import="com.buyCar.model.*"%>
 <%@ page import="com.mall.model.*"%>
 <%@ page import="com.mallOr.model.*"%>
 <%@ page import="com.mallOrDt.model.*"%>

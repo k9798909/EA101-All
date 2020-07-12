@@ -148,8 +148,8 @@ div.order input.addr{
 				<div>會員姓名:<input type="text" value="${mbrpfVo.mbrname}" readonly></div>
 				<div>取貨方式: <input name="take" type="radio" value="超商取貨" ${"超商取貨"==take?"checked":""}>超商取貨    <input name="take" type="radio" value="住家取貨" ${"住家取貨"==take?"checked":""}>住家取貨</div>	
 				<div>取貨地點:</div>
-				<select name="city" id="縣市1"></select>
-				<select name="area" id="鄉鎮市區1"></select>
+				<select name="city" id="縣市2"></select>
+				<select name="area" id="鄉鎮市區2"></select>
 				<div><input type="text" name="addr" class="addr" value="${not empty addr?addr:""}" placeholder="請輸入地址"></div>
 				<div><p id="total">總金額:${totalPrice}元</p></div>
 				<input  type="hidden" name="price" value="${totalPrice}">
@@ -188,12 +188,15 @@ div.order input.addr{
 		   window.onload = function () {
 		       //當頁面載完之後，用AddressSeleclList.Initialize()，
 		       //傳入要綁定的縣市下拉選單ID及鄉鎮市區下拉選單ID
-		       AddressSeleclList.Initialize('縣市1', '鄉鎮市區1');
+		       //AddressSeleclList.Initialize('縣市1', '鄉鎮市區1');
 		       //後面四個參數分別是兩個下拉選單的預設文字跟值
-		      AddressSeleclList.Initialize('縣市2', '鄉鎮市區2', 'Please Select City', '0', 'Please Select Area', '0');
+		      AddressSeleclList.Initialize('縣市2', '鄉鎮市區2', '請選擇縣市', '0', '請選擇地區', '0');
+		      <c:if test="${not empty erroList}">
+		      	AddressSeleclList.erroAdd("${city}","${area}")
+		      </c:if> 
 		  }
 
-		
+		  
 		
 	</script>
 
