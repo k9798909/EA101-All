@@ -63,11 +63,19 @@
 								aria-expanded="false"> 會員管理 </a>
 								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/emp/listOneEmp.jsp">一般會員管理</a> 
-<!-- active測試，之後換頁面  -->			<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/tfcord/listAllTfcord.jsp">店家管理</a>
+<!-- active測試，之後換頁面  -->			<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/shop/listAllShop.jsp">店家管理</a>
 								</div></li>
-							<li class="nav-item"><a class="nav-link"
-								href="#">商城管理</a>
-							<!-- 目前還沒有這項 --></li>
+							
+							<li class="nav-item dropdown backnavdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" 
+							   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 商城管理 
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/emp/listAllEmp.jsp">商城商品管理</a> 								
+								<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/mallad/listAllMallad.jsp">商品廣告管理</a>
+							</div></li>
+							
+							
 							
 							<li class="nav-item dropdown backnavdown">
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" 
@@ -75,11 +83,12 @@
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 								<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/emp/listAllEmp.jsp">員工相關</a> 								
-<!-- active測試，之後換頁面  -->		<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/emp/updatePwd.jsp">修改密碼</a>
+								<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/emp/updatePwd.jsp">修改密碼</a>
 							</div></li>
-<!-- active測試，之後換頁面  -->	<li class="nav-item"><a class="nav-link"
-								href="<%=request.getContextPath()%>/back-end/emp/addEmp.jsp">市集管理</a>
-							<!-- 目前還沒有這項 --></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/back-end/shgm/listAllShgm.jsp">市集管理</a>
+							</li>
+							
 							<li class="nav-item dropdown backnavdown"><a
 								class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 								role="button" data-toggle="dropdown" aria-haspopup="true"
