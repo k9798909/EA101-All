@@ -176,7 +176,7 @@
 $(document).ready(function(){
    $("#magic").click(function(){
      $("#name").val("第六組好棒棒");
-     $("#email").val("tristaea101@gmail.com");
+     $("#email").val("lct840116@gmail.com");
    });
  });
  
