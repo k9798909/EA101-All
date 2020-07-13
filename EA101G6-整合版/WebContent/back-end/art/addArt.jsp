@@ -65,6 +65,9 @@
    	margin-top: 40px;
    	margin-bottom: 40px;
    }
+   .logoutPIC{
+   	margin-top: 18%;
+   }
 </style>
 <link rel="stylesheet" href="./vendors/bootstrap/css/bootstrap.min.css">
 </head>

@@ -5,7 +5,7 @@
 <%
   MalladVO malladVO = (MalladVO) request.getAttribute("malladVO");
 %>  
-<%= malladVO==null %> -- ${malladVO.malladno}-- <!--關聯到第100行 -->
+
 <html>
 <head>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
@@ -53,7 +53,7 @@
    	
    }
    .add-1{
-   	margin-top: 100px;
+   	margin-top: 50px;
    	margin-bottom: 100px;
    }
    .img-1{
@@ -70,6 +70,12 @@
    	margin-top: 25px;
    	
    }	   
+   .logoutPIC{
+   	margin-top: 18%;
+   }
+   .errorM{
+   	margin-top: 40px;
+   }
 </style>
 <link rel="stylesheet" href="./vendors/bootstrap/css/bootstrap.min.css">
 </head>
@@ -80,17 +86,17 @@
 
 
 
-
-<%-- 錯誤列表 --%>
-<c:if test="${not empty errorMsgs}">
- <font style="color:red">請修正以下錯誤:</font>
- <ul>
-  <c:forEach var="message" items="${errorMsgs}">
-   <li style="color:red">${message}</li>
-  </c:forEach>
- </ul>
-</c:if>
-
+	<div class="col-md-10 offset-md-1 errorM">
+		<%-- 錯誤列表 --%>
+		<c:if test="${not empty errorMsgs}">
+			<font class="float-left" style="color: red">請修正以下錯誤:</font>
+			<ul class="float-left">
+				<c:forEach var="message" items="${errorMsgs}">
+					<li style="color: red">${message}</li>
+				</c:forEach>
+			</ul>
+		</c:if>
+	</div>
 
 
 	<div class="bg-white tm-block col-md-10 offset-md-1 add-1">
@@ -105,15 +111,23 @@
 			<div class="col-xl-7 col-lg-7 col-md-12">			
 					
 					<div class="input-group mb-3">
-						<label for="name"
-							class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">商品編號</label> 
-							<input type="text" name="commno" value="<%=(malladVO==null)? "" : malladVO.getCommno()%>" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7"/>
+						<label for="category" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">商品名稱</label>
+						<jsp:useBean id="mallSvc" scope="page" class="com.mall.model.MallService"/>
+						<select size="1" name="commno" class="custom-select col-xl-9 col-lg-8 col-md-8 col-sm-7">
+							<c:forEach var="mallVO" items="${mallSvc.all}">
+								<option value="${mallVO.commNo}"
+									${(mallVO.commNo==malladVO.commno)? 'selected':'' }>${mallVO.commName}
+							</c:forEach>
+						</select>
+						
+						
+
 					</div>
 					
 					<div class="input-group mb-3">
 						<label for="name"
 							class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">商城廣告標題</label> 
-							<input type="text" id="exampleFormControlInput1" placeholder="文章標題" name="gmadtt"  value="<%= (malladVO==null)? "" : malladVO.getGmadtt()%>" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7"/>
+							<input type="text"  name="gmadtt"  value="<%= (malladVO==null)? "" : malladVO.getGmadtt()%>" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7"/>
 					</div>
 
 					<div class="input-group mb-3 category-1">
@@ -125,7 +139,7 @@
 						<tr>
 							<td>結束日期: <input type="text" id="spday" name="stopt"
 								value="<%=(malladVO==null)? "" : malladVO.getStopt()%>"
-								min="${malladVO.statt}" /></td>
+								min="${malladVO.startt}" /></td>
 						</tr>
 						</tabel>
 						<div class="ml-auto col-xl-2 col-lg-2 col-md-2 col-sm-1 pl-0 ">
@@ -152,8 +166,7 @@
 
 
 
-
-
+		
 
 
 

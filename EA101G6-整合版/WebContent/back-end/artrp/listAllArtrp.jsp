@@ -14,7 +14,7 @@
 
 <html>
 <head>
-<title>所有文章檢舉資料 - listAllArtrp.jsp</title>
+<title>討論區文章檢舉審核</title>
 
 <style>
   table#table-1 {
@@ -50,6 +50,12 @@
     padding: 5px;
     text-align: center;
   }
+  .logoutPIC{
+   	margin-top: 18%;
+   }
+   .www{
+   	text-align: center;
+   }
 </style>
 
 </head>
@@ -60,7 +66,7 @@
 
 <table class="col-md-10 offset-md-1">
 	<tr><td>
-		<h3>所有文章檢舉資料 </h3>
+		<h3>討論區文章檢舉審核</h3>
 		
 	</td></tr>
 </table>
@@ -78,13 +84,13 @@
 
 <table class="col-md-10 offset-md-1 table table-striped bg-white">
 	<tr>
-		<th>文章檢舉編號</th>
-		<th>文章編號</th>
-		<th>檢舉內容</th>
-		<th>檢舉人編號</th>
-		<th>檢舉狀態</th>
+		<th class="align-middle www">文章檢舉編號</th>
+		<th class="align-middle www">文章編號</th>
+		<th class="align-middle www">檢舉內容</th>
+		<th class="align-middle www">檢舉人編號</th>
+		<th class="align-middle www">檢舉狀態</th>
 		
-		<th>修改</th>
+		<th class="align-middle www">修改</th>
 		
 	</tr>
 	
@@ -96,7 +102,7 @@
 		<tr>
 			<td>${artrpVO.artrpno}</td>
 			
-			<td><a href="<%=request.getContextPath()%>/artrp/artrp.do?action=getOne_Display&artno=${artrpVO.artno}">${artrpVO.artno}</a></td>
+			<td><a target="_blank" href="<%=request.getContextPath()%>/artrp/artrp.do?action=getOne_Display&artno=${artrpVO.artno}">${artrpVO.artno}</a></td>
 			<td>${artrpVO.detail}</td>
 			<td>${artrpVO.mbrno}</td>
 			<td><select size="1" name="status">
