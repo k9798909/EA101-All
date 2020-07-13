@@ -59,9 +59,7 @@
 			</div>
 		</div>
 
-		<a href="<%=request.getContextPath()%>/front-end/buyCar/buyCar.jsp"><button class="shopcar" >
-			<img src="<%=request.getContextPath()%>/front-end/images/supermarket.png">
-		</button></a>
+		<a href="<%=request.getContextPath()%>/front-end/buyCar/buyCar.jsp" class="shopcar"><img src="<%= request.getContextPath()%>/image/buyCar.jpg"></a>
 
 	</main>
 

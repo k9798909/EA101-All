@@ -9,6 +9,9 @@ import javax.servlet.http.*;
 
 import com.mbrpf.model.MbrpfService;
 import com.mbrpf.model.MbrpfVO;
+import com.emp.model.EmpMailService;
+import com.emp.model.EmpService;
+import com.emp.model.EmpVO;
 import com.mbrpf.model.*;
 
 @MultipartConfig
@@ -547,6 +550,61 @@ if("tryLogin".equals(action)) {// 來自login.jsp的請求
 			RequestDispatcher failureView = req.getRequestDispatcher("/front-end/login.jsp");
 			failureView.forward(req, res);
 		}
+}
+
+if("forget".equals(action)) {	
+	List<String> errorMsgs = new LinkedList<String>();
+	req.setAttribute("errorMsgs", errorMsgs);
+	try {
+		/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
+		String mbract = req.getParameter("mbract");
+		String mail = req.getParameter("mail");
+		req.setAttribute("mail", mail);
+		req.setAttribute("mbract", mbract);
+		
+		if(mbract == null || mbract.trim().length() == 0) {
+			errorMsgs.add("請輸入會員帳號");
+		}
+		
+		if(mail == null || mail.trim().length() == 0) {
+			errorMsgs.add("請輸入設定的信箱");
+		}
+		
+		MbrpfService mbrpfSvc = new MbrpfService();
+		MbrpfVO mbrpfVO = mbrpfSvc.getOneMbrByMail(mail,mbract);//透過信箱和員工編號取得相對應得員工物件
+		String mbrMbract =  mbrpfVO.getMbract();
+		String mbrMail = mbrpfVO.getMail();
+		
+		if(!mbrMbract.equals(mbract)) {
+			errorMsgs.add("查無會員帳號");
+		}
+		
+		if(!mbrMail.equals(mail)) {
+			errorMsgs.add("信箱不正確");
+		}
+		
+		if(!errorMsgs.isEmpty()) {
+			RequestDispatcher failView = req.getRequestDispatcher("/forgetPwd.jsp");
+			failView.forward(req, res);
+			return;
+		}
+		
+		/***************************2.開始取得新密碼並寄送信件*****************************************/
+		String newPwd = mbrpfSvc.getNewPwd(mail,mbract);//透過信箱更改密碼
+		MbrpfMailService mbrpfMailSvc = new MbrpfMailService(mbrpfVO, mail, newPwd);//將寄信改成用執行緒去跑，畫面會比較快顯示出來
+		mbrpfMailSvc.start();//將上面取出的員工物件和信箱，跟上面取得的新密碼傳給empMailSvc，用start()呼叫執行緒的run()啟動
+		
+		/***************************3.修改完成,準備轉交(Send the Success view)*************/
+		String url = "/login.jsp";
+		RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交login.jsp，重新登入
+		successView.forward(req, res);
+		
+		/***************************其他可能的錯誤處理*************************************/
+	}catch(Exception e) {
+		errorMsgs.add("取得新密碼失敗");
+		RequestDispatcher failView = req.getRequestDispatcher("/forgetPwd.jsp");
+		failView.forward(req, res);
+	}		
 }
 
 

@@ -61,6 +61,7 @@ h5.modal-title{
 	background-color:#E0E0E0;
 }
 
+
 </style>
 
 
@@ -69,9 +70,9 @@ h5.modal-title{
 
 <%@ include file="/back-end/back-end-nav-susu.jsp" %>
 
+<div class="bg-light navdiv">
 <nav class="orNav navbar navbar-expand-lg navbar-light  ">
-  <a class="navbar-brand" href="#">商城訂單</a>
-
+  <a class="navbar-brand" href="#"><b>商城訂單</b></a>
   <div class="collapse navbar-collapse" id="navbarText">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item ${param.active=='getByBox'?'active bg-gray rounded border border-dark':''}">
@@ -86,7 +87,7 @@ h5.modal-title{
     </ul>
   </div>
 </nav>
-
+</div>
 
 <c:if test="${param.active=='getAll'}">
 <%@ include file="/back-end/mallOr/mallOrGetAll.jsp"%>

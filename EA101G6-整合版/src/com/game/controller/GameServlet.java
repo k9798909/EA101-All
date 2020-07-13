@@ -255,7 +255,7 @@ public class GameServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("gameVO", gameVO); // �t����J�榡���~��shopVO����,�]�s�Jreq
-					RequestDispatcher failureView = req.getRequestDispatcher("addGame.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/gmlist/addGmlist.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -267,7 +267,7 @@ public class GameServlet extends HttpServlet {
 
 				
 				/*************************** 3.�s�W����,�ǳ����(Send the Success view) ***********/
-				String url = "listAllGame.jsp";
+				String url = "/front-end/gmlist/addGmlist.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // �s�W���\�����listAllshop.jsp
 				successView.forward(req, res);
 

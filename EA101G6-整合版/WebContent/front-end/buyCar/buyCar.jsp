@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="BIG5"%>
 <%@ page import="com.mall.model.*"%>
-<%@ page import="com.buyCar.model.*"%>
 <%@ page import="com.mall.model.*"%>
 <%@ page import="com.mallOr.model.*"%>
 <%@ page import="com.mallOrDt.model.*"%>
@@ -85,9 +84,10 @@
 				<p id="total">總金額:</p>
 				<form method="post" action="<%= request.getContextPath()%>/MallOr/MallOrServlet">
 				<input type="hidden" name="action" value="showCheckOut">
+				<a href="<%=request.getContextPath()%>/front-end/mall/mallGetAllUp.jsp" ><button type="button" class="back">繼續購物</button></a>
 				<input type="submit" class="checkbtn" value="結帳">
 				</form>
-				<a href="<%=request.getContextPath()%>/front-end/mall/mallGetAllUp.jsp" ><button class="back">繼續購物</button></a>
+				
 			</div>
 			
 			

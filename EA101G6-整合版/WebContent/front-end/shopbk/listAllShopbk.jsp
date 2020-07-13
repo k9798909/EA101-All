@@ -5,7 +5,7 @@
 
 <%
 	ShopbkService shopbkSvc = new ShopbkService();
-	List<ShopbkVO> list = shopbkSvc.getAll();
+	List<ShopbkVO> list = shopbkSvc.getAllAfterNow();
 	pageContext.setAttribute("list", list);
 %>
 
@@ -53,14 +53,8 @@ h4 {
 
 <%@ include file="/front-end/front-end-nav.jsp" %>
 
-	<h4>
-		<a href="../shop/index.jsp"><img src="images/add-icon.png"
-			class="icon">回首頁</a>
-	</h4>
 
-	<%-- <jsp:include page="select_page.jsp" flush="true"> --%>
-	<%-- 	<jsp:param name="" value="" /> --%>
-	<%-- </jsp:include> --%>
+<jsp:include page="select_page.jsp" flush="true"/>
 
 	<table>
 		<tr style="background-color: #FFFFFF; border: 0px; font:;">
@@ -69,20 +63,22 @@ h4 {
 			</td>
 		</tr>
 	</table>
-	<%-- 錯誤表列 --%>
-	<c:if test="${not empty errorMsgs}">
-		<font style="color: red">請修正以下錯誤:</font>
-		<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color: red">${message}</li>
-			</c:forEach>
-		</ul>
-	</c:if>
+<%-- 	<%-- 錯誤表列 --%>
+<%-- 	<c:if test="${not empty errorMsgs}"> --%>
+<!-- 		<font style="color: red">請修正以下錯誤:</font> -->
+<!-- 		<ul> -->
+<%-- 			<c:forEach var="message" items="${errorMsgs}"> --%>
+<%-- 				<li style="color: red">${message}</li> --%>
+<%-- 			</c:forEach> --%>
+<!-- 		</ul> -->
+<%-- 	</c:if> --%>
+<jsp:useBean id="shopSvc" scope="page"
+	class="com.shop.model.ShopService" />
 	<div>
 		<input type="hidden" name="shopbkno" value="${shopbkVO.shopbkno}">
 		<table>
 			<tr>
-				<th>店家編號</th>
+				<th>店家名稱</th>
 				<th>提供人數</th>
 				<th>開始時間</th>
 				<th>結束時間</th>
@@ -92,7 +88,7 @@ h4 {
 			</tr>
 			<c:forEach var="shopbkVO" items="${list}">
 				<tr>
-					<td>${shopbkVO.shopno}</td>
+					<td>${shopSvc.getOneShop(shopbkVO.shopno).shopname}</td>
 					<td>${shopbkVO.ofdtable}</td>
 					<td>${shopbkVO.shoppds}</td>
 					<td>${shopbkVO.shoppde}</td>
@@ -109,7 +105,18 @@ h4 {
 			</c:forEach>
 		</table>
 	</div>
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<!-- 查詢時有錯誤啟動 -->
+	<c:if test="${not empty errorMsgs}">
+		<script>
+			swal({
+				text : "${errorMsgs}"
+			});
+		</script>
+		<%
+			request.removeAttribute("errorMsgs");
+		%>
+	</c:if>
 
 
 </body>

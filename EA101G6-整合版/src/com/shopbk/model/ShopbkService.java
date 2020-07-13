@@ -1,6 +1,7 @@
 package com.shopbk.model;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.shopbk.model.ShopbkVO;
@@ -46,13 +47,16 @@ public class ShopbkService {
 	public ShopbkVO getOneShopbk(String Shopbkno) {
 		return dao.findByPrimaryKey(Shopbkno);
 	}
-	public List<ShopbkVO> getShopbkByTime(Timestamp Shopbkno, Timestamp shoppd) {
-		return dao.findByShoppd(Shopbkno, shoppd);
+	public List<ShopbkVO> getShopbkByTime(Timestamp shoppd) {
+		return dao.findByShoppd(shoppd);
 	}
 	public List<ShopbkVO> getShopbkByShop(String Shopno) {
 		return dao.findByShop(Shopno);
 	}
 	public List<ShopbkVO> getAll() {
 		return dao.getAll();
+	}
+	public List<ShopbkVO> getAllAfterNow(){
+		return dao.getAllAfterNow();
 	}
 }

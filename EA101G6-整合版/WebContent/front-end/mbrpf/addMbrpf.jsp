@@ -75,7 +75,7 @@
 		</c:forEach>
 	</ul>
 </c:if>
-
+<!-- background-color:#FFD382; -->
 
 <div class="container">
   <div class="row">
@@ -135,34 +135,34 @@
 		<td><input type="TEXT" name="nickname" size="45"
 			 value="<%= (mbrpfVO==null)? "V" : mbrpfVO.getNickname()%>" /></td>
 	</tr>
-	<tr>
+	<tr style="display:none">
 		<td class="tdtitle">翴计緇肂:</td>
 		<td><input type="TEXT" name="points" size="45"
 			 value="<%= (mbrpfVO==null)? "50" : mbrpfVO.getPoints()%>" /></td>
 	</tr>
-	<tr>
+	<tr style="display:none">
 		<td class="tdtitle">穦篈:</td>
 		<td><input type="TEXT" name="status" size="45"
 			 value="<%= (mbrpfVO==null)? "1" : mbrpfVO.getStatus()%>" /></td>
 	</tr>
-	<tr>
+	<tr style="display:none">
 		<td class="tdtitle">砆蝶基羆计:</td>
 		<td><input type="TEXT" name="ratedtotal" size="45"
 			 value="<%= (mbrpfVO==null)? "50" : mbrpfVO.getRatedtotal()%>" /></td>
 	</tr>
-	<tr>
+	<tr style="display:none">
 		<td class="tdtitle">砆蝶基羆琍计:</td>
 		<td><input type="TEXT" name="startotal" size="45"
 			 value="<%= (mbrpfVO==null)? "50" : mbrpfVO.getStartotal()%>" /></td>
 	</tr>
-	<tr>
+	<tr style="display:none">
 		<td class="tdtitle">ゼ畊Ω计:</td>
 		<td><input type="TEXT" name="unattend" size="45"
-			 value="<%= (mbrpfVO==null)? "0" : mbrpfVO.getUnattend()%>" /></td>
+			 value="<%= (mbrpfVO==null)? "50" : mbrpfVO.getUnattend()%>" /></td>
 	</tr>
-	<tr>
+	<tr style="display:none">
 		<td class="tdtitle">羆把刮Ω计:</td>
-		<td><input type="TEXT" name="ttattend" size="45"
+		<td><input type="TEXT" name="ttattend"  size="45"
 			 value="<%= (mbrpfVO==null)? "50" : mbrpfVO.getTtattend()%>" /></td>
 	</tr>
 

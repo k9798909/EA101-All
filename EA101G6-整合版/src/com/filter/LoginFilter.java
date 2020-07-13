@@ -41,7 +41,6 @@ public class LoginFilter implements Filter {
 		}else {
 			chain.doFilter(request, response);//chain的doFilter是傳ServletRequest的request和ServletResponse的response進去
 			//此動作是將控制權交給下一個濾器，如果沒有下一個濾器了，就是將控制權交給請求的目標網頁
-			System.out.println("目標網頁"); 
 		}
 	}
 

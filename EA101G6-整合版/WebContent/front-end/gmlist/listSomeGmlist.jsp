@@ -61,9 +61,6 @@ h4 {
 
 
 
-<h4>
-	<a href="../shop/index.jsp"><img src="images/add-icon.png" class="icon">回首頁</a>
-</h4>
 
 <jsp:include page="select_page.jsp" flush="true">
 	<jsp:param name="" value="" />
@@ -108,6 +105,18 @@ h4 {
 	</table>
 </div>
 
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<!-- 查詢時有錯誤啟動 -->
+	<c:if test="${not empty errorMsgs}">
+		<script>
+			swal({
+				text : "${errorMsgs}"
+			});
+		</script>
+		<%
+			request.removeAttribute("errorMsgs");
+		%>
+	</c:if>
 
 
 </body>

@@ -75,8 +75,9 @@ main {
 	margin-top: 10px;
 }
 
-input.btn{
-	
+.bg-myColor{
+	background-color:#FF5809;
+
 }
 </style>
 
@@ -104,7 +105,7 @@ input.btn{
 				<div class="col-12">
 					<c:forEach var="mallOr" items="${mallOrSvc.findByMbrNo(mbrpfVo.mbrno)}">
 						<table class="table table-bordered">
-							<thead class="bg-warning">
+							<thead class="bg-primary">
 								<tr>
 									<th>訂單編號</th>
 									<th>下訂日期</th>
@@ -161,12 +162,12 @@ input.btn{
 							<div class="row">
 								<div class="col-8">
 									<table class="table table-bordered ">
-										<thead>
+										<thead class="bg-warning">
 											<tr>
-												<th>商品名稱</th>
-												<th>數量</th>
-												<th>價錢</th>
-												<th>小計</th>
+												<td>商品名稱</td>
+												<td>數量</td>
+												<td>價錢</td>
+												<td>小計</td>
 											</tr>
 										</thead>
 										<tbody>
