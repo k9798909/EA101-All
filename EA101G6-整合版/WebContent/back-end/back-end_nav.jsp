@@ -71,11 +71,9 @@
 							   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 商城管理 
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/emp/listAllEmp.jsp">商城商品管理</a> 								
+								<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/mall/mallGetAll.jsp">商城商品管理</a> 								
 								<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/mallad/listAllMallad.jsp">商品廣告管理</a>
 							</div></li>
-							
-							
 							
 							<li class="nav-item dropdown backnavdown">
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" 
@@ -94,10 +92,10 @@
 								role="button" data-toggle="dropdown" aria-haspopup="true"
 								aria-expanded="false"> 檢舉管理 </a>
 								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-									<a class="dropdown-item downlist" href="#">店家檢舉審核</a> 
-									<a class="dropdown-item downlist" href="#">會員檢舉審核</a> 
-									<a class="dropdown-item downlist" href="#">討論區檢舉審核</a> 
-									<a class="dropdown-item downlist" href="#">市集商品檢舉審核</a>
+									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/shoprpdt/listAllShoprpdt.jsp">店家檢舉審核</a> 
+									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/msgrp/listAllMsgrp.jsp">討論區留言檢舉審核</a> 
+									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/artrp/listAllArtrp.jsp">討論區文章檢舉審核</a> 
+									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/shgmrp/listAllShgmrp.jsp">市集商品檢舉審核</a>
 								</div></li>
 							<li class="nav-item"><a class="nav-link"
 								href="<%=request.getContextPath()%>/back-end/art/listAllArt.jsp">討論區管理</a>
