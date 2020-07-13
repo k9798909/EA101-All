@@ -100,13 +100,15 @@
 		</div>
 
 
+<%@ include file="/back-end/gmType/gmTypeGetAll.jsp" %>
+
 <c:if test="${param.call=='addModel'}">
 <%@ include file="/back-end/mall/mallAdd.jsp" %>
 </c:if>
 <c:if test="${param.call=='updateModel'}">
 <%@ include file="/back-end/mall/mallUpdate.jsp" %>
 </c:if>
-<%@ include file="/back-end/gmType/gmTypeGetAll.jsp" %>
+
 
 
 <script>var ctx ="<%=request.getContextPath()%>"</script>
