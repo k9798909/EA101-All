@@ -840,7 +840,7 @@ public class ShgmServlet extends HttpServlet {
 			String url = null;
 			try {
 				String shgmno = request.getParameter("shgmno");
-
+				System.out.println(shgmno);
 				ShgmService shgmsvc = new ShgmService();
 				ShgmVO shgmvo = shgmsvc.getOneShgm(shgmno);
 				String address = shgmvo.getAddress();
@@ -859,6 +859,7 @@ public class ShgmServlet extends HttpServlet {
 					// 來自前台買家的修改請求
 				} else if (requestURL.equals("/front-end/shgm/myShgm.jsp"))
 					url = "/front-end/shgm/buyerUpdate.jsp";
+				System.out.println(url);
 				RequestDispatcher successview = request.getRequestDispatcher(url);
 				successview.forward(request, response);
 

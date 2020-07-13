@@ -16,7 +16,9 @@ $(document).ready(function() {
 	});
 
 	$("#showMsg").click(function() {
+		console.log('showMsg cliked');
 		var showMsgText = $("#showMsg").text();
+		console.log(showMsgText);
 		$(".toast").toggle("fast", function() {
 			if (showMsgText == "隱藏訊息") {
 				// 顯示轉隱藏
@@ -32,5 +34,7 @@ $(document).ready(function() {
 		});
 	});
 
-	$('#toastShgm').toast('hide');
+	$('.toast').toast('show',function(){
+		console.log('toast open');
+	});
 });

@@ -5,31 +5,13 @@
 <%@ page import="com.mbrpf.model.*"%>
 <%@ page import="java.util.*"%>
 <%
-	MbrpfVO member = (MbrpfVO) session.getAttribute("member");
+	MbrpfVO mbrpfVO = (MbrpfVO) session.getAttribute("mbrpfVO");
 %>
 <!doctype html>
 <html lang="en">
 <head>
 <title>personalMkt</title>
 <meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link
-	href="https://fonts.googleapis.com/css?family=Rubik:300,400,700|Oswald:400,700"
-	rel="stylesheet">
-<!-- 登入圖示 -->
-<link rel="stylesheet" href="fonts/icomoon/style.css">
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/jquery.fancybox.min.css">
-<link rel="stylesheet" href="css/owl.carousel.min.css">
-<link rel="stylesheet" href="css/owl.theme.default.min.css">
-<link rel="stylesheet" href="css/aos.css">
-<!-- MAIN CSS -->
-<link rel="stylesheet" href="css/style.css">
-
-<!-- 顯示訊息的css -->
-<link rel="stylesheet" href="css/cssForShgm/alert-area.css">
-
 </head>
 <style>
 body {
@@ -66,9 +48,19 @@ div.card-body{
 }
 
 .awrapper {
-	display: inline;
+	display: block;
 	text-align: right;
-	margin-left: 42%;
+	width: 80%;
+}
+@media (max-width: 1496px) {
+	.awrapper {
+		width:60%;
+	}
+}
+@media (max-width: 936px) {
+	.awrapper {
+		width:40%;
+	}
 }
 
 div.top-info {
@@ -135,7 +127,7 @@ div.pageselect-area {
 </style>
 <body data-offset="300" background="images/bgimage3.jpg">
 
-<%@ include file="/front-end/front-end-nav.jsp"%>
+<jsp:include page="/front-end/front-end-nav.jsp"></jsp:include>
 
 	<div class="main-area container col-10 align-self-center">
 		<div class="top-info-wrapper">
@@ -144,8 +136,7 @@ div.pageselect-area {
 					<li class="breadcrumb-item"><a href="#">首頁</a></li>
 					<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/front-end/shgm/mainPage.jsp">市集</a>
 					<li class="breadcrumb-item active" aria-current="page">${sellerinfo.nickname}的個人市集</li>
-					<li class="awrapper" style="width:40%;">
-					<a id="upshgm" class="btn btn-primary" href="<%=request.getContextPath()%>/front-end/shgm/sellPage.jsp" role="button">我要上架</a>
+					<li class="awrapper">
 					<a id="myshgm" class="btn btn-primary" href="<%=request.getContextPath()%>/front-end/shgm/myShgm.jsp" role="button">我的市集商品</a>
 					<a id="seller" class="btn btn-primary" href="<%=request.getContextPath()%>/front-end/shgm/sellerPage.jsp" role="button">賣家專區</a></li>
 				</ol>
@@ -176,12 +167,10 @@ div.pageselect-area {
 		<div style="margin:20% 0; width:100%; text-align:center;">很抱歉！並沒有符合的搜尋結果</div>
 		</c:if>
 	</div>
-	<input type="hidden" id="member" value="${member.mbrname}">
+	<input type="hidden" id="mbrpfVO" value="${mbrpfVO.mbrname}">
 	
-	<%@ include file="/front-end/shgm/alert-area.jsp"%>
+<jsp:include page="/front-end/shgm/alert-area.jsp"></jsp:include>
 	
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/ajaxForMbrmsgs.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/wsForShgm.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/jsForAlert-area.js"></script>
@@ -189,7 +178,7 @@ div.pageselect-area {
 	<script>
 	$(document).ready(function(){
 		$("#upshgm,#myshgm,#seller").click(function(){
-			if($('#member').val() === ''){
+			if($('#mbrpfVO').val() === ''){
 				alert('您未登入');
 				window.location.href = "<%= request.getContextPath()%>/front-end/shgm/simpleLogin.jsp";
 				return false;
@@ -197,26 +186,5 @@ div.pageselect-area {
 		});
 	});
 	</script>
-	<script src="js/jquery-3.3.1.min.js"></script>
-	<!-- 看起來沒屁用 -->
-	<script src="js/popper.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<!-- 重要廣告界面 -->
-	<script src="js/owl.carousel.min.js"></script>
-	<!-- 看起來沒屁用 -->
-	<script src="js/jquery.sticky.js"></script>
-	<script src="js/jquery.waypoints.min.js"></script>
-	<script src="js/jquery.animateNumber.min.js"></script>
-	<script src="js/jquery.fancybox.min.js"></script>
-
-
-	<!-- 上介面連結動畫 -->
-	<script src="js/jquery.easing.1.3.js"></script>
-
-	<!-- 重要廣告界面 -->
-	<script src="js/aos.js"></script>
-
-	<script src="js/main.js"></script>
-
 </body>
 </html>

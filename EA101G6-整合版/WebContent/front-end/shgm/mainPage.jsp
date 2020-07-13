@@ -14,9 +14,6 @@
 <head>
 <title>main_page</title>
 <meta charset="utf-8">
-<!-- 顯示訊息的css -->
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/cssForShgm/alert-area.css">
-
 </head>
 <style>
 body {
@@ -184,7 +181,6 @@ footer{
 </style>
 <body data-offset="300" background="images/bgimage3.jpg">
 
-<%-- <%@ include file="/front-end/front-end-nav.jsp"%> --%>
 <jsp:include page="/front-end/front-end-nav.jsp"></jsp:include>
 
 	<div class="main-area container col-10 align-self-center">
@@ -244,7 +240,7 @@ footer{
 	</div>
 	<input type="hidden" id="MbrpfVO" value="${mbrpfVO.mbrname}">
 	
-	<%@ include file="/front-end/shgm/alert-area.jsp"%>
+	<jsp:include page="/front-end/shgm/alert-area.jsp"></jsp:include>
 	
 	<footer class="top-bar">
 		<div class="wrap">
@@ -260,8 +256,6 @@ footer{
 		</div>
 	</footer>
 	
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/ajaxForMbrmsgs.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/wsForShgm.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/jsForAlert-area.js"></script>
@@ -281,8 +275,6 @@ footer{
 			}
 		});
 	});
-
 	</script>
-
 </body>
 </html>

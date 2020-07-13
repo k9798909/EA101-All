@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Gameing on Board</title>
+<title>Gaming on Board</title>
 
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -31,6 +31,8 @@
 <!-- MAIN CSS -->
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/model/style.css">
+<!-- 顯示訊息的css -->
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/cssForShgm/alert-area.css">
 
 <style>
 .icon {
@@ -78,6 +80,7 @@
 						<c:choose>
 						<c:when test="${mbrpfVO.mbrname != null}">
 						<span id="mbrname" class="d-md-inline-block text-white">歡迎你！${mbrpfVO.mbrname}</span>
+						<input type="hidden" id="mbrno" value="${mbrpfVO.mbrno}"/>
 						</c:when>
 						<c:otherwise>
 						<a href="<%=request.getContextPath()%>/front-end/mbrpf/addMbrpf.jsp" class="text-white"><span class="d-md-inline-block">
@@ -186,19 +189,17 @@
 		</div>
 	</header>
 
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/js/model/jquery-3.3.1.min.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/js/model/popper.min.js"></script>
 	<script
-		src="<%=request.getContextPath()%>/js/model/bootstrap.min.js"></script>
-	<!-- 重要廣告界面 -->
-	<script
 		src="<%=request.getContextPath()%>/js/model/owl.carousel.min.js"></script>
 	<!--...-->
 	<script
 		src="<%=request.getContextPath()%>/js/model/jquery.sticky.js"></script>
-	<script
+	<script	
 		src="<%=request.getContextPath()%>/js/model/jquery.waypoints.min.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/js/model/jquery.animateNumber.min.js"></script>
@@ -211,6 +212,10 @@
 	<script src="<%=request.getContextPath()%>/js/model/aos.js"></script>
 	<script src="<%=request.getContextPath()%>/js/model/main.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+	<script
+		src="<%=request.getContextPath()%>/js/model/bootstrap.min.js"></script>
+	<!-- 重要廣告界面 -->
 
 		<!-- 	店家登出js -->
 	<script>

@@ -7,38 +7,18 @@
 <%@ page import="com.mbrpf.model.*"%>
 <%@ page import="java.util.*"%>
 <%
-	MbrpfVO member = (MbrpfVO) session.getAttribute("member");
+	MbrpfVO mbrpfVO = (MbrpfVO) session.getAttribute("mbrpfVO");
 	ShgmService shgmsvc = new ShgmService();
-	Set<ShgmVO> shgmset = shgmsvc.allForSeller(member.getMbrno());
-	pageContext.setAttribute("shgmset", shgmset);
+	Set<ShgmVO> set = shgmsvc.allForSeller(mbrpfVO.getMbrno());
+	pageContext.setAttribute("shgmset", set);
 	ShgmrpService shgmrpsvc = new ShgmrpService();
 	pageContext.setAttribute("shgmrpsvc", shgmrpsvc);
 %>
 
 <html lang="en">
 <head>
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <title>sellerPage</title>
 <meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link
-	href="https://fonts.googleapis.com/css?family=Rubik:300,400,700|Oswald:400,700"
-	rel="stylesheet">
-<!-- 登入圖示 -->
-<link rel="stylesheet" href="fonts/icomoon/style.css">
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/jquery.fancybox.min.css">
-<link rel="stylesheet" href="css/owl.carousel.min.css">
-<link rel="stylesheet" href="css/owl.theme.default.min.css">
-<link rel="stylesheet" href="css/aos.css">
-<!-- MAIN CSS -->
-<link rel="stylesheet" href="css/style.css">
-
-<!-- 顯示訊息的css -->
-<link rel="stylesheet" href="css/cssForShgm/alert-area.css">
 </head>
 <style>
 body {
@@ -174,7 +154,7 @@ div.pageselect-area {
 </style>
 <body data-offset="300" background="images/bgimage3.jpg">
 
-<%@ include file="/front-end/front-end-nav.jsp"%>
+<jsp:include page="/front-end/front-end-nav.jsp"></jsp:include>
 
 	<div class="main-area container col-10 align-self-center">
 		<div class="top-info-wrapper">
@@ -501,12 +481,10 @@ div.pageselect-area {
 		</div>
 	</div>
 	
-	<input type="hidden" id="member" value="${member.mbrname}">
+	<input type="hidden" id="mbrpfVO" value="${mbrpfVO.mbrname}">
 	
-	<%@ include file="/front-end/shgm/alert-area.jsp"%>
+<jsp:include page="/front-end/shgm/alert-area.jsp"></jsp:include>
 	
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/ajaxForMbrmsgs.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/wsForShgm.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/jsForAlert-area.js"></script>
@@ -636,26 +614,6 @@ div.pageselect-area {
 			});
 		});
 	});
-</script>
-	<script src="js/jquery-3.3.1.min.js"></script>
-	<!-- 看起來沒屁用 -->
-	<script src="js/popper.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<!-- 重要廣告界面 -->
-	<script src="js/owl.carousel.min.js"></script>
-	<!-- 看起來沒屁用 -->
-	<script src="js/jquery.sticky.js"></script>
-	<script src="js/jquery.waypoints.min.js"></script>
-	<script src="js/jquery.animateNumber.min.js"></script>
-	<script src="js/jquery.fancybox.min.js"></script>
-
-
-	<!-- 上介面連結動畫 -->
-	<script src="js/jquery.easing.1.3.js"></script>
-
-	<!-- 重要廣告界面 -->
-	<script src="js/aos.js"></script>
-
-	<script src="js/main.js"></script>
+	</script>
 </body>
 </html>

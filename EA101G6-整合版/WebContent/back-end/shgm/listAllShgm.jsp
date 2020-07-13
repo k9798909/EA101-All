@@ -74,7 +74,9 @@
 </style>
 </head>
 <body>
-<%@ include file="/back-end/back-end_nav.jsp"%>
+
+<jsp:include page="/back-end/back-end_nav.jsp"></jsp:include>
+
 <ul>
 	<c:if test="${not empty errormsgs}">
 		<c:forEach var="error" items="${errormsgs}">
@@ -248,8 +250,12 @@
 		</tr>
 		</c:forEach>
 	</table>
+	<input type="hidden" id="mbrno" value="shgmBackEnd">
+	<input type="hidden" id="wsShgmno" value="${param.shgmno}">
 </div>
-		<%@ include file="page2.file" %>
+	<%@ include file="page2.file" %>
+		
+	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/wsForShgm.js"></script>
 	<script>
 	function showmodal(){
 		$(this).modal("show");

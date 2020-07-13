@@ -22,7 +22,7 @@
 						<input type="hidden" id="last" value="${count.index}" >
 						<div id="circle" class="circle">${count.index+1}</div>
 					</c:if>
-					<div id="toastShgm" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false" style="display:none;">
+					<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false" style="display:none;">
 					  <div class="toast-header">
 					    <img src="<%=request.getContextPath() %>/image/alertMsg.png" class="rounded mr-2" style="width:20px;height:20px;">
 					    <strong class="mr-auto">市集新訊</strong>

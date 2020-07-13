@@ -5,7 +5,7 @@
 <%@ page import="com.mbrpf.model.*"%>
 <%
 	java.util.HashMap<String, String> hashmap = (java.util.HashMap<String, String>) request.getAttribute("cityarea");
-	MbrpfVO member = (MbrpfVO) session.getAttribute("member");
+	MbrpfVO mbrpfVO = (MbrpfVO) session.getAttribute("mbrpfVO");
 	ShgmVO shgmvo = (ShgmVO) request.getAttribute("shgmvo");
 %>
 <!doctype html>
@@ -13,28 +13,6 @@
 <head>
 <title>buyerUpdate</title>
 <meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-<link
-	href="https://fonts.googleapis.com/css?family=Rubik:300,400,700|Oswald:400,700"
-	rel="stylesheet">
-<!-- 登入圖示 -->
-<link rel="stylesheet" href="fonts/icomoon/style.css">
-
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/jquery.fancybox.min.css">
-<link rel="stylesheet" href="css/owl.carousel.min.css">
-<link rel="stylesheet" href="css/owl.theme.default.min.css">
-
-<link rel="stylesheet" href="css/aos.css">
-
-<!-- MAIN CSS -->
-<link rel="stylesheet" href="css/style.css">
-
-<!-- 顯示訊息的css -->
-<link rel="stylesheet" href="css/cssForShgm/alert-area.css">
-
 </head>
 <style>
 body {
@@ -141,7 +119,7 @@ div.top-info {
 
 <body data-offset="300" background="images/bgimage3.jpg">
 
-	<%@ include file="/front-end/front-end-nav.jsp"%>
+	<jsp:include page="/front-end/front-end-nav.jsp"></jsp:include>
 
 	<div class="main-area container col-10 align-self-center">
 		<div class="top-info-wrapper">
@@ -184,7 +162,7 @@ div.top-info {
 								data-dismiss="modal">取消</button>
 						</div>
 						<input type="hidden" name="shgmno" value="${shgmvo.shgmno}">
-						<input type="hidden" name="suiterno" value="${member.mbrno}">
+						<input type="hidden" name="suiterno" value="${mbrpfVO.mbrno}">
 						<input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
 						<input type="hidden" name="action" value="insertrp">
 					</form>
@@ -244,7 +222,7 @@ div.top-info {
 								<a href="<%=request.getContextPath()%>/front-end/shgm/myShgm.jsp" class="btn btn-primary">取消修改</a>
 							</div>
 							<input type="hidden" name="shgmno" value="${shgmvo.shgmno}">
-							<input type="hidden" name="buyerno" value="${member.mbrno}">
+							<input type="hidden" name="buyerno" value="${mbrpfVO.mbrno}">
 							<input type="hidden" name="action" value="buyerUpdate">
 						</form>
 						<b><span class="alert">${errormap.get("error")}</span></b>
@@ -255,10 +233,8 @@ div.top-info {
 	</div>
 	<div class="random-area"></div>
 
-	<%@ include file="/front-end/shgm/alert-area.jsp"%>
+<jsp:include page="/front-end/shgm/alert-area.jsp"></jsp:include>
 	
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/taiwan_address_auto_change.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/ajaxForMbrmsgs.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/wsForShgm.js"></script>
@@ -284,26 +260,5 @@ div.top-info {
 	       };
 	  }
 	</script>
-	<script src="js/jquery-3.3.1.min.js"></script>
-	<!-- 看起來沒屁用 -->
-	<script src="js/popper.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<!-- 重要廣告界面 -->
-	<script src="js/owl.carousel.min.js"></script>
-	<!-- 看起來沒屁用 -->
-	<script src="js/jquery.sticky.js"></script>
-	<script src="js/jquery.waypoints.min.js"></script>
-	<script src="js/jquery.animateNumber.min.js"></script>
-	<script src="js/jquery.fancybox.min.js"></script>
-
-
-	<!-- 上介面連結動畫 -->
-	<script src="js/jquery.easing.1.3.js"></script>
-
-	<!-- 重要廣告界面 -->
-	<script src="js/aos.js"></script>
-
-	<script src="js/main.js"></script>
-
 </body>
 </html>
