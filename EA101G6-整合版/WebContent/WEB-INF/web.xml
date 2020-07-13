@@ -293,6 +293,7 @@
   		<url-pattern>/front-end/shgm/sellerUpdate.jsp</url-pattern>
   		<url-pattern>/front-end/shgm/sellPage.jsp</url-pattern>
   		<url-pattern>/front-end/shgm/myShgm.jsp</url-pattern>
+  		<url-pattern>/front-end/tfcord/*</url-pattern>
   		<dispatcher>REQUEST</dispatcher>
   		<dispatcher>FORWARD</dispatcher>
   		<dispatcher>INCLUDE</dispatcher>
