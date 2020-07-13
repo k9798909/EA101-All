@@ -42,6 +42,9 @@
 
 </head>
 <body>
+
+<%@ include file="/back-end/back-end_nav.jsp" %>
+
 <%-- 錯誤列表 --%>
 	<c:if test="${not empty errorMsgs}">
 		<font style="color: red">請修正以下錯誤:</font>
@@ -52,7 +55,7 @@
 		</ul>
 	</c:if>
 
-<%@ include file="/back-end/back-end_nav.jsp" %>
+
 	
 	<div class="container">
 		<div class="row tm-content-row emptop">

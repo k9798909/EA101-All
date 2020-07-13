@@ -98,23 +98,6 @@
 
 <!-- <h3>此為某會員的所有點數交易紀錄(前台帳戶管理)</h3> -->
 <div class="container">
-	
-<!-- 	<div class="table-responsive"> -->
-<!-- 		<table class="table"> -->
-<!-- 			<thead> -->
-<!-- 				<tr class="tabletop"> -->
-<!-- 					<th>會員帳號</th> -->
-<!-- 					<th>會員可用餘額</th> -->
-<!-- 				</tr> -->
-<!-- 			</thead> -->
-<!-- 			<tbody> -->
-<!-- 				<tr> -->
-<%-- 					<td>${mbrpfVO.mbract}</td> --%>
-<%-- 					<td>${mbrpfVO.points}</td> --%>
-<!-- 				</tr> -->
-<!-- 			</tbody> -->
-<!-- 		</table> -->
-<!-- 	</div> -->
 
 	<div class="row">
 		<h4><b>會員帳戶管理</b></h4>
