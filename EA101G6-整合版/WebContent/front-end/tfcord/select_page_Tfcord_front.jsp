@@ -12,11 +12,11 @@
 </head>
 <body>
 
-<a href="<%=request.getContextPath()%>/front-end/tfcord/listOneMbrtf.jsp">個人點數交易紀錄</a>
+<a href="<%=request.getContextPath()%>/front-end/tfcord/listOneMbrtf.jsp">個人點數交易紀錄</a><br>
 
-<a href="<%=request.getContextPath()%>/front-end/tfcord/buyPoint.jsp">點數儲值</a>
+<a href="<%=request.getContextPath()%>/front-end/tfcord/buyPoint.jsp">點數儲值</a><br>
 
-<a href="<%=request.getContextPath()%>/front-end/tfcord/tfMoney.jsp">兌換現金</a>
+<a href="<%=request.getContextPath()%>/front-end/tfcord/tfMoney.jsp">兌換現金</a><br>
 
 
 </body>

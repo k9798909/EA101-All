@@ -24,10 +24,6 @@ import com.mbrpf.model.MbrpfVO;
 
 public class MallOrServlet extends HttpServlet{
 
-	public MallOrServlet() {
-
-	}
-
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);
 	}
@@ -51,7 +47,7 @@ public class MallOrServlet extends HttpServlet{
 				Integer totalPrice=buyCarList.stream()
 						.mapToInt(p -> p.getPrice()*p.getQuantity())
 						.sum();
-				req.setAttribute("totalPrice", totalPrice);
+				session.setAttribute("totalPrice", totalPrice);
 				RequestDispatcher dispatcher = req.getRequestDispatcher("/front-end/mallOr/mallOr.jsp");
 				dispatcher.forward(req, res);
 				return;

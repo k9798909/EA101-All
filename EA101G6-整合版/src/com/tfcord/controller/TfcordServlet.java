@@ -102,7 +102,8 @@ public class TfcordServlet extends HttpServlet {
 				mbrpfVO.setPoints( mbrpfVO.getPoints() + price);
 				
 				TfcordService TfcordSvc = new TfcordService();
-				tfcordVO = TfcordSvc.addTfcordPoint(mbrno, tftype, price, tfstatus, mbrpfVO);
+				String tfno = TfcordSvc.addTfcordPoint(mbrno, tftype, price, tfstatus, mbrpfVO);
+				session.setAttribute("mbrPoint", mbrpfVO.getPoints());//將已經加值過的點數set進sesssion中，讓帳戶管理頁面(listOneMbrtf.jsp)可以抓到最新的點數
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				try{//查看是否有來源網頁(EX:商城或市集購買東西，發現點數不夠，欲購買)
@@ -120,9 +121,8 @@ public class TfcordServlet extends HttpServlet {
 				}
 				//如果沒有來源網頁，會回到會員的所有購買點數頁面
 				String url = "/front-end/tfcord/listOneMbrtf.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);
-				successView.forward(req, res);
-
+				res.sendRedirect(req.getContextPath() + url);
+				return;
 				/***************************其他可能的錯誤處理*************************************/
 			}catch(Exception e) {
 				errorMsgs.add("購買點數失敗");
@@ -134,7 +134,7 @@ public class TfcordServlet extends HttpServlet {
 		if("addTfMoney".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("erroMsgs", errorMsgs);
-			
+			String url = req.getParameter("requestURL");
 			
 			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
@@ -173,20 +173,28 @@ public class TfcordServlet extends HttpServlet {
 				}
 				
 				/***************************2.開始新增點數轉換紀錄*****************************************/
-//				會員點數換錢得需要等審核通過，完成才會扣點數，所以這邊先不扣
 				MbrpfService mbrpfSvc = new MbrpfService();
 				MbrpfVO mbrpfVO = mbrpfSvc.getOneMbrpf(mbrno);
 				mbrpfVO.setPoints( mbrpfVO.getPoints() - price);
 				
 				//且此處是新增一筆點數轉換紀錄
 				TfcordService TfcordSvc = new TfcordService();
-				tfcordVO = TfcordSvc.addTfcordPoint(mbrno, tftype, price, tfstatus, mbrpfVO);
+				String tfno = TfcordSvc.addTfcordPoint(mbrno, tftype, price, tfstatus, mbrpfVO);
+//				System.out.print("Servlet tfno = " + tfno);
+				session.setAttribute("tfno",tfno);//因為下面改成重導，如果照原本的存在request中，重導過去後會取不到這個值，所以改存在session
+				session.setAttribute("mbrPoint", mbrpfVO.getPoints());//將已經加值過的點數set進sesssion中，讓帳戶管理頁面(listOneMbrtf.jsp)可以抓到最新的點數
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url ="/front-end/tfcord/listOneMbrtf.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);
-				successView.forward(req, res);
+				//Bootstrap_modal
+				boolean openModal = true;
+				session.setAttribute("openModal", openModal);//因為下面改成重導，如果照原本的存在request中，重導過去後會取不到這個值，所以改存在session
 
+				res.sendRedirect(req.getContextPath()+url);//原本是forward改成重導
+				return;
+//				將原本的forward改成重導，這樣重新整理時，就不會再做一次兌換現金的動作
+//				RequestDispatcher successView = req.getRequestDispatcher(url);
+//				successView.forward(req, res);
+				
 			}catch(Exception e) {
 				errorMsgs.add("兌換現金失敗：" + e.getMessage());
 			}
@@ -210,7 +218,7 @@ public class TfcordServlet extends HttpServlet {
 				}
 				
 				if(!errorMsgs.isEmpty()) {
-					RequestDispatcher failView = req.getRequestDispatcher("/back-end/tfcord/select_page_Tfcord.jsp");
+					RequestDispatcher failView = req.getRequestDispatcher("/back-end/tfcord/listAllTfcord.jsp");
 					failView.forward(req, res);
 					return;
 				}
@@ -223,7 +231,7 @@ public class TfcordServlet extends HttpServlet {
 				}
 				System.out.println(tfcordVOAll);
 				if(!errorMsgs.isEmpty()) {
-					RequestDispatcher failView = req.getRequestDispatcher("/back-end/tfcord/select_page_Tfcord.jsp");
+					RequestDispatcher failView = req.getRequestDispatcher("/back-end/tfcord/listAllTfcord.jsp");
 					failView.forward(req, res);
 					return;
 				}
@@ -237,7 +245,7 @@ public class TfcordServlet extends HttpServlet {
 				/***************************其他可能的錯誤處理*************************************/	
 			}catch(Exception e) {
 				errorMsgs.add("查詢紀錄失敗" + e.getMessage());
-				RequestDispatcher failView = req.getRequestDispatcher("/back-end/tfcord/select_page_Tfcord.jsp");
+				RequestDispatcher failView = req.getRequestDispatcher("/back-end/tfcord/listAllTfcord.jsp");
 				failView.forward(req, res);
 			}
 		}
@@ -266,7 +274,7 @@ public class TfcordServlet extends HttpServlet {
 				/***************************其他可能的錯誤處理*************************************/
 			}catch(Exception e) {
 				errorMsgs.add("確認審核失敗" + e.getMessage());
-				RequestDispatcher failView = req.getRequestDispatcher("/back-end/tfcord/listMbrtf.jsp");
+				RequestDispatcher failView = req.getRequestDispatcher("/back-end/tfcord/listAllTfcord.jsp");
 				failView.forward(req, res);
 			}		
 		}
@@ -286,7 +294,7 @@ public class TfcordServlet extends HttpServlet {
 				}
 				
 				if(!errorMsgs.isEmpty()) {
-					RequestDispatcher failView = req.getRequestDispatcher("/back-end/tfcord/select_page_Tfcord.jsp");
+					RequestDispatcher failView = req.getRequestDispatcher("/back-end/tfcord/listAllTfcord.jsp");
 					failView.forward(req, res);
 					return;
 				}
@@ -298,7 +306,7 @@ public class TfcordServlet extends HttpServlet {
 					errorMsgs.add("此兌換編號無效");
 				}
 				if(!errorMsgs.isEmpty()) {
-					RequestDispatcher failView = req.getRequestDispatcher("/back-end/tfcord/select_page_Tfcord.jsp");
+					RequestDispatcher failView = req.getRequestDispatcher("/back-end/tfcord/listAllTfcord.jsp");
 					failView.forward(req, res);
 					return;
 				}
@@ -312,7 +320,7 @@ public class TfcordServlet extends HttpServlet {
 				/***************************其他可能的錯誤處理*************************************/	
 			}catch(Exception e) {
 				errorMsgs.add("查詢紀錄失敗" + e.getMessage());
-				RequestDispatcher failView = req.getRequestDispatcher("/back-end/tfcord/select_page_Tfcord.jsp");
+				RequestDispatcher failView = req.getRequestDispatcher("/back-end/tfcord/listAllTfcord.jsp");
 				failView.forward(req, res);
 			}
 		}
@@ -340,8 +348,15 @@ public class TfcordServlet extends HttpServlet {
 				
 				mbrpfSvc.updateMbrpf(mbrpfVO);
 				tfcordSvc.deleteTfcord(tfno);
+				req.setAttribute("mbrPoint", mbrpfVO.getPoints());//將已經加值過的點數set進sesssion中，讓帳戶管理頁面(listOneMbrtf.jsp)可以抓到最新的點數
 				
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/
+				if("/front-end/tfcord/listOnetf.jsp".equals(requestURL)) {
+					RequestDispatcher successView = req.getRequestDispatcher("/front-end/tfcord/listOneMbrtf.jsp");
+					successView.forward(req, res);
+					return;
+				}
+				
 				String url = requestURL;
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
@@ -352,17 +367,6 @@ public class TfcordServlet extends HttpServlet {
 				RequestDispatcher failView = req.getRequestDispatcher("/front-end/tfcord/listOneMbrtf.jsp");
 				failView.forward(req, res);
 			}
-			
-			
-			
-			
 		}
-		
-		
-		
-		
-		
-		
-		
 	}
 }

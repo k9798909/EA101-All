@@ -81,7 +81,6 @@ public class ShopbkServlet extends HttpServlet {
 			try {
 				String shopno = null;
 				java.sql.Timestamp shoppds = null;
-				java.sql.Timestamp shoppde = null;
 				if(req.getParameter("shopno")==null) {
 					
 					try {
@@ -91,13 +90,6 @@ public class ShopbkServlet extends HttpServlet {
 						errorMsgs.add("請輸入日期");
 					}
 					
-					
-					try {
-						shoppde = java.sql.Timestamp.valueOf(req.getParameter("shoppde").trim());
-					} catch (IllegalArgumentException e) {
-						shoppde = new java.sql.Timestamp(System.currentTimeMillis());
-						errorMsgs.add("請輸入日期");
-					}
 					
 				}
 				if(req.getParameter("shopps")==null || req.getParameter("shoppe")==null) {
@@ -114,7 +106,7 @@ public class ShopbkServlet extends HttpServlet {
 				ShopbkService shopbkSvc = new ShopbkService();
 				List<ShopbkVO> shopbkVO = null;
 				if(req.getParameter("shopno")==null)
-					shopbkVO = shopbkSvc.getShopbkByTime(shoppds, shoppde);
+					shopbkVO = shopbkSvc.getShopbkByTime(shoppds);
 				if(req.getParameter("shopps")==null || req.getParameter("shoppe")==null)
 					shopbkVO = shopbkSvc.getShopbkByShop(shopno);
 				if (shopbkVO == null) {

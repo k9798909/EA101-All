@@ -10,17 +10,50 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-public class EmpMailService {
-	
-		public void getNewPwd(EmpVO empVO, String mail, String newPwd) {
+public class EmpMailService extends Thread {
+		private EmpVO empVO;
+		private String mail;
+		private String newPwd;
+		private String empno;
+		private String action;//此action讓下面判斷現在要寄的信件是新員工的信還是忘記密碼的信
+		
+		public EmpMailService(){
+			
+		}
+		
+		//透過傳進不同的參數，來分辨是新進員工的信件還是忘記密碼的信件
+		//將傳進的參數指定給全域變數
+		public EmpMailService(EmpVO empVO, String mail, String newPwd){
+			this.empVO = empVO;
+			this.mail = mail;
+			this.newPwd = newPwd;
+			this.action = "getNewPwd";
+		}
+		
+		public EmpMailService(EmpVO empVO, String empno){
+			this.empVO = empVO;
+			this.empno = empno;
+			this.action = "getNewEmp";
+		}
+		
+		//分辨是哪種信件後，呼叫各自需要的方法
+		public void run(){
+			if("getNewPwd".equals(action)) {
+				getNewPwd();
+			}else {
+				getNewEmp();
+			}
+		}
+		
+		//本來參數是由EmpMailService()接到後傳給方法，方法拿這些參數利用，現在的方法變成可以，直接去全域變數取得方法內部所要的參數
+		public void getNewPwd() {
 			String name = empVO.getEmpname();
 			String subject = "忘記密碼通知";
 			String messageText = "Hello! " + name + " 請謹記此新密碼: " + newPwd ;
-			EmpMailService mailSvc = new EmpMailService();
-			mailSvc.sendMail(mail, subject, messageText);
+			sendMail(mail, subject, messageText);
 		}
 	
-		public void getNewEmp(EmpVO empVO, String empno) {
+		public void getNewEmp() {
 		
 			String name = empVO.getEmpname();
 			String mail = empVO.getMail();
@@ -29,8 +62,7 @@ public class EmpMailService {
 			String subject = "密碼通知";
 			String messageText = "Hello! " + name + " 請謹記此密碼: " + ranPwd + "\n" +" (已經啟用)" + "您的原編為：" + empno;
 			
-			EmpMailService mailSvc = new EmpMailService();
-			mailSvc.sendMail(mail, subject, messageText);
+			sendMail(mail, subject, messageText);
 		}
 		
 	// 設定傳送郵件:至收信人的Email信箱,Email主旨,Email內容

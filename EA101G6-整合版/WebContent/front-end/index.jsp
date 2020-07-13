@@ -33,8 +33,14 @@
 
 <style>
 .icon {
-	width: 20px;
-	height: 20px;
+	width: 30px;
+	height: 30px;
+	margin-right: 3px;
+}
+.reg1{
+	width: 30px;
+	height: 30px;
+	margin-right: 10px;
 }
 
 .imgdiv img {
@@ -63,6 +69,12 @@ div.comm {
 <body data-spy="scroll" data-target=".site-navbar-target"
 	data-offset="300">
 
+<%
+	HttpServletRequest req = (HttpServletRequest)request;
+	HttpServletResponse res = (HttpServletResponse)response;
+	
+	session.setAttribute("location",req.getRequestURI());	
+%>
 
 
 	<div class="site-wrap" id="home-section">
@@ -85,30 +97,34 @@ div.comm {
 			<div class="row">
 				<div class="col-12">
 					<div class="float-left">
-						<a
-							href="<%=request.getContextPath()%>/front-end/mbrpf/addMbrpf.jsp"
-							class="text-white"> <img class="icon"
-							src="<%=request.getContextPath()%>/front-end/images/add-icon.png">註冊
-							</span></a>
+						<c:choose>
+						<c:when test="${mbrpfVO.mbrname != null}">
+						<span id="mbrname" class="d-md-inline-block text-white">歡迎你！${mbrpfVO.mbrname}</span>
+						</c:when>
+						<c:otherwise>
+						<a href="" class="text-white"><span class="d-md-inline-block">
+								<img class="icon reg1"
+								src="<%=request.getContextPath()%>/images/reg3.png">註冊
+						</span></a>
+						</c:otherwise>
+						</c:choose>
 					</div>
 
 					<div class="float-right">
-
-						<a href="<%=request.getContextPath()%>/front-end/login.jsp"
-							class="text-white"> <span class="d-md-inline-block"> <img
-								class="icon"
-								src="<%=request.getContextPath()%>/front-end/images/User-icon.png">會員登入
-						</span>
-						</a>
-
-						<c:if test="${not empty sessionScope.shopVO}">
+						<c:choose>
+						<c:when test="${mbrpfVO.mbrname != null}">
+						<a href="<%= request.getContextPath()%>/mbrpf/mbrpf.do?action=logout" id="logout" class="d-md-inline-block text-white"><img class="icon"
+								src="<%=request.getContextPath()%>/images/logout.png">登出</a>
+						</c:when>
+						<c:otherwise>
+						<a href="<%= request.getContextPath()%>/front-end/login.jsp" class="text-white"><span class="d-md-inline-block">
+								<img class="icon"
+								src="<%=request.getContextPath()%>/images/ghost.png">會員登入
+						</span></a><c:if test="${not empty sessionScope.shopVO}">
 							<span class="mx-md-2 d-inline-block"></span>
-							<a
-								href="<%=request.getContextPath()%>/front-end/shop/shopArea.jsp"
-								class="text-white"> <span
+							<a href="<%=request.getContextPath()%>/front-end/shop/shopArea.jsp" class="text-white"> <span
 								class="mr-2 text-white icon-instagram"></span> <span
 								class="d-none d-md-inline-block">${sessionScope.shopVO.shopname}</span></a>
-							<span class="mx-md-2 d-inline-block"></span>
 							<a href="#" class="text-white" id="goLogout"> <span
 								class="mr-2 text-white"></span> <span
 								class="d-none d-md-inline-block">log out</span></a>
@@ -116,21 +132,19 @@ div.comm {
 								ACTION="<%=request.getContextPath()%>/front-end/shop/shop.do">
 								<input type="hidden" name="action" value="logout">
 								<input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>">
-							</FORM>
-
+							</FORM>							
 						</c:if>
 						<c:if test="${empty sessionScope.shopVO}">
 							<a href="<%=request.getContextPath()%>/front-end/shop/login.jsp"
 								class="text-white"> <span class="d-md-inline-block"><img
 									class="icon"
-									src="<%=request.getContextPath()%>/front-end/images/man-icon.png">店家登入</span></a>
+									src="<%=request.getContextPath()%>/images/shop.png">店家登入</span></a>
 						</c:if>
+						</c:otherwise>
+						</c:choose>
 					</div>
-
 				</div>
-
 			</div>
-
 		</div>
 	</div>
 
@@ -162,8 +176,8 @@ div.comm {
 									<li><a
 										href="<%=request.getContextPath()%>/front-end/mallOr/mbrMallOr.jsp"
 										class="nav-link">查詢訂單</a></li>
-									<li><a href="#pricing-section" class="nav-link">Pricing</a></li>
-									<li><a href="#faq-section" class="nav-link">FAQ</a></li>
+									<li><a href="<%=request.getContextPath()%>/front-end/tfcord/buyPoint.jsp" class="nav-link">購買點數</a></li>
+									<li><a href="<%=request.getContextPath()%>/front-end/tfcord/tfMoney.jsp" class="nav-link">兌換現金</a></li>
 									<li class="has-children"><a href="#">More Links</a>
 										<ul class="dropdown">
 											<li><a href="#">Menu One</a></li>

@@ -17,6 +17,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%@ include file="/back-end/back-end_nav.jsp" %>
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
 	<font style="color: red">請修正以下錯誤:</font>

@@ -51,6 +51,12 @@
   	width:400px;
   	height:500px;	
   }
+  .www{
+  	text-align: center;
+  }
+  .logoutPIC{
+   	margin-top: 18%;
+   }
 </style>
 
 </head>
@@ -68,15 +74,15 @@
 
 <table class="col-md-10 offset-md-1 table table-striped bg-white">
 	<tr>
-		<th>文章編號</th>
-		<th>作者編號</th>
-		<th>文章標題</th>
-		<th>發文日期</th>
-		<th>文章狀態</th>
-		<th>文章種類</th>
+		<th class="www">文章編號</th>
+		<th class="www">作者編號</th>
+		<th class="www">文章標題</th>
+		<th class="www">發文日期</th>
+		<th class="www">文章狀態</th>
+		<th class="www">文章種類</th>
 		
-		<th>修改</th>
-		<th>刪除</th>
+		<th class="www">修改</th>
+		<th class="www">刪除</th>
 	
 		
 	

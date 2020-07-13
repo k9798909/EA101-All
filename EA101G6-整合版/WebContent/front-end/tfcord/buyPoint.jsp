@@ -76,6 +76,8 @@
 </head>
 
 <body>
+
+<%@ include file="/front-end/front-end-nav.jsp"  %>
 <!-- 錯誤列表  -->
 	<c:if test="${not empty errorMsgs}">
 		<font style="color: red">請修正以下錯誤：</font>
@@ -86,13 +88,13 @@
 		</ul>
 	</c:if>
 
-<%@ include file="/front-end/front-end-nav.jsp"  %>
+
 <div class="container">
 	<div class="row">
 		<img src="<%=request.getContextPath()%>/img/PointBanner.png">
 	</div>
 	<div class="row float-right">
-		<a href="<%=request.getContextPath()%>/front-end/tfcord/select_page_Tfcord_front.jsp" class="pointBtn orangeBtn">回前台點數轉換首頁</a>
+		<a href="<%=request.getContextPath()%>/front-end/tfcord/tfMoney.jsp" class="pointBtn orangeBtn">前往兌換現金</a>
 	</div>
 	
 	<form method="post" action="<%=request.getContextPath()%>/tfcord/TfcordServlet">
@@ -128,10 +130,10 @@
 			<br>
 			<div class="row d-flex justify-content-center">信用卡卡號：</div>
 			<div class="row d-flex justify-content-center" style="margin-top:20px;margin-bottom:20px;">
-				<input type="text" name="card1" size="4" maxlength="4" onKeyUp="next(this, 'card2')">&nbsp;&nbsp;-&nbsp;&nbsp; 
-				<input type="text" name="card2" size="4" maxlength="4" onKeyUp="next(this, 'card3')">&nbsp;&nbsp;-&nbsp;&nbsp; 
-				<input type="text" name="card3" size="4" maxlength="4" onKeyUp="next(this, 'card4')">&nbsp;&nbsp;-&nbsp;&nbsp; 
-				<input type="text" name="card4" size="4" maxlength="4" onKeyUp="next(this)">
+				<input type="text" name="card1" id="card1" size="4" maxlength="4" onKeyUp="next(this, 'card2')">&nbsp;&nbsp;-&nbsp;&nbsp; 
+				<input type="text" name="card2" id="card2" size="4" maxlength="4" onKeyUp="next(this, 'card3')">&nbsp;&nbsp;-&nbsp;&nbsp; 
+				<input type="text" name="card3" id="card3" size="4" maxlength="4" onKeyUp="next(this, 'card4')">&nbsp;&nbsp;-&nbsp;&nbsp; 
+				<input type="text" name="card4" id="card4" size="4" maxlength="4" onKeyUp="next(this)">
 			</div>
 			<div class="row" style="margin-right:-72px">
 				<div class="col-sm d-flex justify-content-end" style="padding-right:40px">有效日期：</div>
@@ -151,7 +153,7 @@
 					</select>
 				</div>
 				<div class="col-sm text-left" style="margin-right:-72px">
-					<input type="text" name="ccv" size="3" maxlength="3">
+					<input type="text" name="ccv" id="ccv" size="3" maxlength="3">
 				</div>
 			</div>
 			<br>
@@ -161,6 +163,7 @@
 		
 		<div class="row d-flex justify-content-center" style="margin-top:5%;margin-bottom:5%">
 			<input type="submit" class="pointBtn orangeBtn" value="確認購買" style="border: none">
+			<button type="button" id="magic" class="btn btn-outline-warning" style="height: 40px;margin-top: 2%;">神奇小按鈕</button>
 		</div>
 	</form>
 </div>
@@ -172,6 +175,16 @@
 	    if (obj.value.length == obj.maxLength)  //注意此處maxLength的大小寫  
 	        obj.form.elements[next].focus();      
 	}  
+	
+	$(document).ready(function(){
+		   	 $("#magic").click(function(){
+		     $("#card1").val("4477");
+		     $("#card2").val("5487");
+		     $("#card3").val("0487");
+		     $("#card4").val("9487");
+		     $("#ccv").val("987");		     
+		   });
+		 });
 </script>
 
 </body>

@@ -2,11 +2,26 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.emp.model.*"%>
+<%@ page import="java.util.*"%>
 
 <!-- EmpServlet.java (Controller) 存入req的empVO物件(req.getAttribute("empVO")) -->
 <!-- 包含取出要更新的員工物件，以及輸入錯誤資料時，set進去(包含錯誤資訊)的員工物件empVO -->
 <%
-	EmpVO empVO = (EmpVO) request.getAttribute("empVO");  
+	EmpVO empVO = (EmpVO) request.getAttribute("empVO"); 
+	
+	//取得登入的員工所擁有的權限
+	List<String> authList = (List<String>) session.getAttribute("authList");
+	boolean auth;
+	if(authList.contains("LF00001")){//如果今天List放的是權限物件，要用contains去比對的話，(括弧內也得放權限物件才能比對)，contains沒辦法用字串去單獨對物件內的某個屬性比對
+		auth = true;//一定要一樣的東西才能比對
+	}else{
+		auth = false;
+	}
+	pageContext.setAttribute("auth", auth);
+	
+	//取得於getOne_For_Update和Update時set的Attribute，給下方使用
+	List<String> empAuthority = (List<String>) request.getAttribute("empAuthority");
+	request.setAttribute("empAuthority", empAuthority);
 %>
 <!DOCTYPE html>
 <html>
@@ -49,8 +64,8 @@
 		width:200px;
 	}
 	.sexpng{
-		height:80px;
-		width:80px;
+		height:50px;
+		width:50px;
 	}
 	
 	#empdata{
@@ -147,8 +162,45 @@
 								<option value="0" ${(empVO.empstatus == 0) ? "selected" : "" }>離職</option>
 							</select>
 						</div>
+						
+						<jsp:useBean id="featuresSvc" scope="page" class="com.features.model.FeaturesService" />
+						
+						<div class="form-group">
+							<label>員工權限：</label>
+							<br>
+							<c:forEach var="featuresVO" items="${featuresSvc.all}">
+								<c:set var="emphave" value="false"/> <!-- 先設一個變數設成false讓下面做判斷 -->
+								<c:forEach var="empAuth" items="${empAuthority}"><!-- empAuthority為內含字串的陣列 -->
+										<c:if test="${featuresVO.ftno == empAuth}"><!-- 如果陣列內的字串和權限的字串相同 -->
+											<c:set var="emphave" value="true"/><!-- 將變數設成true讓下面做判斷 -->
+										</c:if>
+								</c:forEach>
+								
+<!-- 								原本用看是否為超級管理員決定核取方塊是否為disable，但如果是disable，就沒辦法傳遞核取方塊的value給後台!!! -->
+<!--								所以用了以下的方法																	  -->
+
+<!-- 								 line:189----用choose判斷是否為超級管理員 															  -->
+<!--								 line:190----如果是超級管理員，顯示可以選擇的核取方塊，後台也接的到值 -->
+<!-- 								 line:191----給超級管理員看可以按的核取方塊 -->
+<!-- 								 line:193----如果是一般管理員 -->
+<!--								 line:194----將該員工所擁有的權限用forEach跑出來，並用hidden的方式傳給後台接 -->
+<!--								 line:197----給一般管理員看可以不能按的核取方塊，注意：如果是disable，此處的value沒辦法傳給後台，所以才用上方的hidden傳送 -->
+						
+								<c:choose>
+									<c:when test="${auth}">
+										<input type="checkbox" name="features" value="${featuresVO.ftno}" ${ emphave ? "checked" : ""} ${ auth ? "" : "disabled"}>${featuresVO.ftname}
+									</c:when>
+									<c:otherwise>
+										<c:forEach var="smauth" items="${authList}">
+											<input type="hidden" name="features" value="${smauth}">
+										</c:forEach>
+										<input type="checkbox" value="${featuresVO.ftno}" ${ emphave ? "checked" : ""} ${ auth ? "" : "disabled"}>${featuresVO.ftname}
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+
+						</div>
 					</div>
-					
 					<div class="col-6 bg-white tm-block rightfrom">
 						<label for="pic">員工照片：</label><br>
 						<img class="empPic" src="<%=request.getContextPath()%>/emp/EmpImgServlet?empno=${empVO.empno}">
@@ -169,10 +221,10 @@
 						<input id="uppicbtn" type="file" name="pic" onchange="loadFile(event)"/>
 					</div>
 				</div>
-				
-				<input type="hidden" name="action" value="update">
+				<input type="hidden" name="requestURL"	value="${param.requestURL}">
+			    <input type="hidden" name="whichPage"	value="${param.whichPage}"> 
 				<input type="hidden" name="empno" value="<%=empVO.getEmpno()%>">
-				
+				<input type="hidden" name="action" value="update">
 				<div class="row empsend">
 					<div class="col-12 col-sm-4">
 						<button type="submit" class="btn btn-primary">送出修改</button>

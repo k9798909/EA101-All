@@ -9,12 +9,12 @@ public class EmpService {
 	private EmpDAO_Interface dao;//宣告dao的型態是介面，此處是為了框架鋪路，未來可達到0相依
 	
 	public EmpService(){
-		dao = new EmpDAO_JDBC();
+		dao = new EmpDAO();
 	}
 	
 	//因為empno是sequence產生，所以不用set
     //之後會有sequence產生的同時，也可以拿來用的做法
-	public EmpVO addEmp(byte[] pic, String empname, String mail, String sex, Integer empstatus) {
+	public EmpVO addEmp(byte[] pic, String empname, String mail, String sex, Integer empstatus, String[] ftno) {
 		
 		EmpVO empVO = new EmpVO();
 		
@@ -27,13 +27,17 @@ public class EmpService {
 		
 		String empno = dao.insert(empVO);
 		
-		EmpMailService empMailSvc = new EmpMailService();
-		empMailSvc.getNewEmp(empVO, empno);//將員工物件傳給負責寄送訊息的EmpMailService
+		EmpMailService empMailSvc = new EmpMailService(empVO, empno);
+		empMailSvc.start();//將員工物件傳給負責寄送訊息的EmpMailService
+		
+		
+		AuthorityService authoritySvc = new AuthorityService();
+		authoritySvc.addAuthority(empno, ftno);//將員工編號及授權給他的權限陣列傳給負責增加權限的AuthorityService
 		
 		return empVO;
 	}
 	
-	public EmpVO updateEmpSTAT(byte[] pic, String empname, String mail, String sex, Integer empstatus, String empno) {
+	public EmpVO updateEmpSTAT(byte[] pic, String empname, String mail, String sex, Integer empstatus, String empno, String[] ftno) {
 		EmpVO empVO = new EmpVO();
 		empVO.setPic(pic);
 		empVO.setEmpname(empname);
@@ -43,7 +47,11 @@ public class EmpService {
 		empVO.setEmpno(empno);
 		
 		dao.update(empVO);
-
+		
+		AuthorityService authoritySvc = new AuthorityService();
+		authoritySvc.deleteEmpAuth(empno);
+		authoritySvc.addAuthority(empno, ftno);
+		
 		return empVO;
 	}
 	
@@ -75,7 +83,7 @@ public class EmpService {
 		dao.updatePwd(emppwd, empno);
 	}
 	
-	public List<AuthorityVO> getAuthorityByEmpno(String empno){
+	public List<String> getAuthorityByEmpno(String empno){
 		return dao.getAuthorityByEmpno(empno);
 	}
 	

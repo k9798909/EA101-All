@@ -6,6 +6,16 @@
 	EmpService empSvc = new EmpService();
 	List<EmpVO> list = empSvc.getAllEmp();
 	pageContext.setAttribute("list", list);
+	
+	List<String> authList = (List<String>) session.getAttribute("authList");
+	boolean auth;
+	if(authList.contains("LF00001")){//如果今天List放的是權限物件，要用contains去比對的話，(括弧內也得放權限物件才能比對)，contains沒辦法用字串去單獨對物件內的某個屬性比對
+		auth = true;				 //一定要一樣的東西才能比對
+	}else{
+		auth = false;
+	}
+	pageContext.setAttribute("auth", auth);
+
 %>
 <!DOCTYPE html>
 <html>
@@ -22,11 +32,19 @@
 	.emptext{
 		text-align: center;
 	}
+
+/* 沒有可以新增員工的管理員的按鈕 */
+	#noAddEmp{
+		opacity:0.8;
+	}
 </style>
 
 
 </head>
 <body>
+
+<%@ include file="/back-end/back-end_nav.jsp" %>
+
 <%-- 錯誤列表 --%>
 	<c:if test="${not empty errorMsgs}">
 		<font style="color: red">請修正以下錯誤:</font>
@@ -37,7 +55,7 @@
 		</ul>
 	</c:if>
 
-<%@ include file="/back-end/back-end_nav.jsp" %>
+
 	
 	<div class="container">
 		<div class="row tm-content-row emptop">
@@ -69,7 +87,13 @@
 						</div>
 						<div class="col"><!-- 新增員工 -->
 							<form method="post" action="<%=request.getContextPath()%>/back-end/emp/addEmp.jsp">
-								 <input type="submit" id="addEmp" value="新增員工" >
+								<c:if test="${auth == false}">
+									<input type="submit" id="noAddEmp" value="新增員工" style="display:none" disabled>
+								</c:if>
+								<c:if test="${auth == true}">
+									<input type="submit" id="addEmp" value="新增員工" >
+								</c:if>
+								 
 							</form>
 						</div>
 					</div>
@@ -83,13 +107,14 @@
 				                    <th scope="col">Email</th>
 				                    <th scope="col">員工性別</th>
 				                    <th scope="col">員工狀態</th>
+				                    <th scope="col">員工權限</th>
 				                    <th scope="col">相關修改</th>
                 				</tr>
 							</thead>
 								<%@ include file="page1.file"%><!-- 引入換頁的程式碼 -->
 							<tbody>
 								<c:forEach var="empVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex + rowsPerPage-1 %>">
-									<tr>
+									<tr ${(empVO.empno == param.empno) ?  'bgcolor=#e6e6e6' : ''}>
 										<td class="align-middle">
 											<div class="emp_pic align-middle">
 												<img src="<%=request.getContextPath()%>/emp/EmpImgServlet?empno=${empVO.empno}">
@@ -100,10 +125,33 @@
 						                <td  class="align-middle">${empVO.mail}</td>
 						                <td  class="align-middle">${empVO.sex}</td>
 						                <td  class="align-middle">${(empVO.empstatus== 0)? "離職" : (empVO.getEmpstatus() == 1)? "在職" : "未到職"}</td>
+						                
+						                <jsp:useBean id="authoritySvc" scope="page" class="com.authority.model.AuthorityService" />
+						                <jsp:useBean id="featuresSvc" scope="page" class="com.features.model.FeaturesService" />
+						                
+						                <td class="align-middle">
+						                	<c:forEach var="authorityVO" items="${authoritySvc.all}"><!--取出全部的權限VO，給下面比對每個權限的內容 -->
+						                		<c:if test="${authorityVO.empno == empVO.empno}"><!--如果權限的員工編號和員工的員工編號一樣 -->
+						                			<c:forEach var="featuresVO" items="${featuresSvc.all}"><!--取出全部的功能VO，給下面比對每個功能的內容 -->
+						                				<c:if test="${authorityVO.ftno == featuresVO.ftno}"><!--如果權限的編號和功能的編號一樣 -->
+						                					${featuresVO.ftname} <br><!--就印出功能的中文名 -->
+						                				</c:if>
+						                			</c:forEach>
+						                		</c:if>
+						                	</c:forEach>
+						                </td>
 						                <td  class="align-middle">
 						                	<form method="post" action="<%=request.getContextPath()%>/emp/EmpServlet">
-						                		<input type="submit" value="修改" class="btn-outline-secondary" style="border:1px solid;color:black;"> 
+						                		<c:if test="${auth == true}">
+													<input type="submit" value="修改" class="btn-outline-secondary" style="border:1px solid;color:black;" >
+												</c:if>
+												<c:if test="${auth == false}">
+													<input type="submit" value="修改" class="btn-outline-secondary" ${empVO.empno == accountBack ? "style='border:1px solid;color:black;'" : "style='display:none'"}>
+												</c:if>
+<!-- 						                		<input type="submit" value="修改" class="btn-outline-secondary" style="border:1px solid;color:black;" >  -->
 												<input type="hidden" name="empno" value="${empVO.empno}"> 
+												<input type="hidden" name="requestURL" value="<%=request.getServletPath()%>"> 
+												<input type="hidden" name="whichPage" value="<%=whichPage%>"> 
 												<input type="hidden" name="action" value="getOne_For_Update">
 											</form>
 						                </td>

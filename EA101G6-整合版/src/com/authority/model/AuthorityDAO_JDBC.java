@@ -12,12 +12,13 @@ public class AuthorityDAO_JDBC implements AuthorityDAO_Interface {
 	
 	public static final String driver = "oracle.jdbc.driver.OracleDriver";
 	public static final String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	public static final String userid = "EA101_G6";
+	public static final String userid = "EA101";
 	public static final String passwd = "123456";
 	
 	private static final String INSERT_PSTMT = "INSERT INTO AUTHORITY (EMPNO, FTNO) VALUES (?, ?)";	
 	private static final String DELETE_PSTMT = "DELETE FROM AUTHORITY WHERE EMPNO = ? AND FTNO = ?";
-	private static final String FIND_BY_EMP = "SELECT * FROM AUTHORITY WHERE EMPNO = ?";
+	private static final String DELETE_EMP_AUTH_PSTMT = "DELETE FROM AUTHORITY WHERE EMPNO = ?";
+	private static final String FIND_BY_EMP = "SELECT * FROM AUTHORITY WHERE EMPNO = ?";//找某員工有哪些權限
 	private static final String FIND_BY_FT = "SELECT * FROM AUTHORITY WHERE FTNO = ?";
 	private static final String GET_ALL = "SELECT * FROM AUTHORITY";
 
@@ -70,6 +71,41 @@ public class AuthorityDAO_JDBC implements AuthorityDAO_Interface {
 			pstmt.setString(1, empno);
 			pstmt.setString(2, ftno);
 			
+		
+			pstmt.executeUpdate();
+		}catch(ClassNotFoundException ce) {
+			ce.printStackTrace();
+		}catch(SQLException se) {
+			se.printStackTrace();
+		}finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				}catch(SQLException se) {
+					se.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				}catch(SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}		
+	}
+	
+	@Override
+	public void deleteEmpAuth(String empno) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(DELETE_EMP_AUTH_PSTMT);
+
+			pstmt.setString(1, empno);
 		
 			pstmt.executeUpdate();
 		}catch(ClassNotFoundException ce) {

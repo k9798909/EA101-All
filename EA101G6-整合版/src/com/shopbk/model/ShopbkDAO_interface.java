@@ -10,7 +10,8 @@ public interface ShopbkDAO_interface {
 	public void update(ShopbkVO shopbkVO);
 	public void delete(String shopbkno);
 	public ShopbkVO findByPrimaryKey(String shopbkno);
-	public List<ShopbkVO> findByShoppd(Timestamp shoppds, Timestamp shoppde);
+	public List<ShopbkVO> findByShoppd(Timestamp shoppds);
 	public List<ShopbkVO> findByShop(String shopno);
 	public List<ShopbkVO> getAll();
+	public List<ShopbkVO> getAllAfterNow();
 }

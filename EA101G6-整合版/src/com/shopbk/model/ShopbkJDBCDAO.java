@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,10 +24,12 @@ public class ShopbkJDBCDAO implements ShopbkDAO_interface{
 			"INSERT INTO SHOPBK (SHOPBKNO, SHOPNO, OFDTABLE, SHOPPDS, SHOPPDE, PAYINFOHR, PAYINFODAY) VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_SEQ.NEXTVAL), 5, '0'), ?, ?, ?, ?, ?, ?)";
 	private static final String UPDATE =
 			"UPDATE SHOPBK SET SHOPNO=?, OFDTABLE=?, SHOPPDS=?, SHOPPDE=?, PAYINFOHR=?, PAYINFODAY=? WHERE SHOPBKNO = ?";
+	private static final String GET_ALL_AFTER_NOW_STMT =
+			"SELECT SHOPBKNO,SHOPNO,OFDTABLE,SHOPPDS,SHOPPDE,PAYINFOHR,PAYINFODAY FROM SHOPBK WHERE SHOPPDS >= SYSDATE ORDER BY SHOPPDS";
 	private static final String GET_ALL_STMT =
-			"SELECT SHOPBKNO,SHOPNO,OFDTABLE,SHOPPDS,SHOPPDE,PAYINFOHR,PAYINFODAY FROM SHOPBK ORDER BY SHOPPDS";
+			"SELECT SHOPBKNO,SHOPNO,OFDTABLE,SHOPPDS,SHOPPDE,PAYINFOHR,PAYINFODAY FROM SHOPBK WHERE ORDER BY SHOPPDS";
 	private static final String GET_SOME_STMT_BY_TIME =
-			"SELECT SHOPBKNO,SHOPNO,OFDTABLE,SHOPPDS,SHOPPDE,PAYINFOHR,PAYINFODAY FROM SHOPBK WHERE SHOPPDS <=? AND SHOPPDE >=?";
+			"SELECT SHOPBKNO,SHOPNO,OFDTABLE,SHOPPDS,SHOPPDE,PAYINFOHR,PAYINFODAY FROM SHOPBK WHERE SHOPPDS >=? AND SHOPPDE >=? ORDER BY SHOPPDS";
 	private static final String GET_SOME_STMT_BY_SHOPNO =
 			"SELECT SHOPBKNO,SHOPNO,OFDTABLE,SHOPPDS,SHOPPDE,PAYINFOHR,PAYINFODAY FROM SHOPBK WHERE SHOPNO = ?";
 	private static final String GET_ONE_STMT =
@@ -225,7 +228,7 @@ public class ShopbkJDBCDAO implements ShopbkDAO_interface{
 	}
 
 	@Override
-	public List<ShopbkVO> findByShoppd(Timestamp shoppds, Timestamp shoppde) {
+	public List<ShopbkVO> findByShoppd(Timestamp shoppds) {
 		List<ShopbkVO> list = new ArrayList<ShopbkVO>();
 		ShopbkVO shopbkVO = null;
 		Connection con = null;
@@ -240,7 +243,7 @@ public class ShopbkJDBCDAO implements ShopbkDAO_interface{
 			pstmt = con.prepareStatement(GET_SOME_STMT_BY_TIME);
 			
 			pstmt.setTimestamp(1, shoppds);
-			pstmt.setTimestamp(2, shoppde);
+			pstmt.setTimestamp(2, shoppds);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -406,24 +409,85 @@ public class ShopbkJDBCDAO implements ShopbkDAO_interface{
 		}
 		return list;
 	}
+	
+	@Override
+	public List<ShopbkVO> getAllAfterNow() {
+		List<ShopbkVO> list = new ArrayList<ShopbkVO>();
+		ShopbkVO shopbkVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ALL_AFTER_NOW_STMT);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				shopbkVO = new ShopbkVO();
+				shopbkVO.setShopbkno(rs.getString("shopbkno"));
+				shopbkVO.setShopno(rs.getString("shopno"));
+				shopbkVO.setOfdtable(rs.getInt("ofdtable"));
+				shopbkVO.setShoppds(rs.getTimestamp("shoppds"));
+				shopbkVO.setShoppde(rs.getTimestamp("shoppde"));
+				shopbkVO.setPayinfohr(rs.getInt("payinfohr"));
+				shopbkVO.setPayinfoday(rs.getInt("payinfoday"));
+				list.add(shopbkVO);				
+			}
+									
+		}catch(ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+		}catch(SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		}finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
 	public static void main(String[] args) {
 		ShopbkJDBCDAO dao = new ShopbkJDBCDAO();
 
 		
 		
 		// �s�W
-		ShopbkVO shopbkVO1 = new ShopbkVO();
-		shopbkVO1.setShopno("DS00003");
-		shopbkVO1.setOfdtable(30);
-		Timestamp t1 = new Timestamp(System.currentTimeMillis());
-		t1 = Timestamp.valueOf("2020-07-01 12:00:00");
-		Timestamp t2 = new Timestamp(System.currentTimeMillis());
-		t2 = Timestamp.valueOf("2020-07-01 20:00:00");
-		shopbkVO1.setShoppds(t1);
-		shopbkVO1.setShoppde(t2);
-		shopbkVO1.setPayinfohr(30);
-		shopbkVO1.setPayinfoday(130);
-		dao.insert(shopbkVO1);
+//		ShopbkVO shopbkVO1 = new ShopbkVO();
+//		shopbkVO1.setShopno("DS00003");
+//		shopbkVO1.setOfdtable(30);
+//		Timestamp t1 = new Timestamp(System.currentTimeMillis());
+//		t1 = Timestamp.valueOf("2020-07-01 12:00:00");
+//		Timestamp t2 = new Timestamp(System.currentTimeMillis());
+//		t2 = Timestamp.valueOf("2020-07-01 20:00:00");
+//		shopbkVO1.setShoppds(t1);
+//		shopbkVO1.setShoppde(t2);
+//		shopbkVO1.setPayinfohr(30);
+//		shopbkVO1.setPayinfoday(130);
+//		dao.insert(shopbkVO1);
 		// �ק�
 //		ShopbkVO shopbkVO = new ShopbkVO();
 //		shopbkVO.setShopbkno("DB00001");
@@ -437,7 +501,9 @@ public class ShopbkJDBCDAO implements ShopbkDAO_interface{
 		// �R��
 //		dao.delete("DB00011");
 		// �d��
-//		List<ShopbkVO> list = dao.findByShoppd("2020-06-30 13:00", "2020-06-30 18:00");
+//		Timestamp t1 = new Timestamp(System.currentTimeMillis());
+//		t1 = Timestamp.valueOf("2020-07-01 12:00:00");
+//		List<ShopbkVO> list = dao.findByShoppd(t1);
 //		for(ShopbkVO shopbk : list) {
 //			System.out.println(shopbk.getShopbkno() + ",");
 //			System.out.println(shopbk.getShopno() + ",");
@@ -471,7 +537,10 @@ public class ShopbkJDBCDAO implements ShopbkDAO_interface{
 //			System.out.println(shopbk.getPayinfoday() + ",");
 //			System.out.println();
 //		}
+		System.out.println(LocalDateTime.now().getClass());
 	}
+
+	
 
 
 }

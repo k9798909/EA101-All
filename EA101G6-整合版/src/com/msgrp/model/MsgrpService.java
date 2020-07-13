@@ -10,7 +10,7 @@ public class MsgrpService {
 		dao = new MsgrpDAO();
 	}
 
-	public MsgrpVO addMsgrp(String msgrpno,String msgno,String detail,String mbrno,Integer status) {
+	public MsgrpVO addMsgrp(String msgno,String detail,String mbrno,Integer status) {
 
 		MsgrpVO msgrpVO = new MsgrpVO();
 
@@ -23,7 +23,7 @@ public class MsgrpService {
 		return msgrpVO;
 	}
 
-	public MsgrpVO updateMsg(String msgrpno,String msgno,String detail,String mbrno,Integer status) {
+	public MsgrpVO updateMsgrp(String msgrpno,String msgno,String detail,String mbrno,Integer status) {
 
 		MsgrpVO msgrpVO = new MsgrpVO();
 

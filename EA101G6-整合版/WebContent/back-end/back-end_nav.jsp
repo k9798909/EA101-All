@@ -30,6 +30,10 @@
 
 <!-- 這邊寫css!!!!!!!!! -->
 
+<style>
+
+</style>
+
 </head>
 <body class="bg03">
 	<div class="container">
@@ -59,25 +63,39 @@
 								aria-expanded="false"> 會員管理 </a>
 								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/emp/listOneEmp.jsp">一般會員管理</a> 
-<!-- active測試，之後換頁面  -->			<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/tfcord/listAllTfcord.jsp">店家管理</a>
+<!-- active測試，之後換頁面  -->			<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/shop/listAllShop.jsp">店家管理</a>
 								</div></li>
+							
+							<li class="nav-item dropdown backnavdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" 
+							   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 商城管理 
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/mall/mallGetAll.jsp">商城商品管理</a> 								
+								<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/mallad/listAllMallad.jsp">商品廣告管理</a>
+							</div></li>
+							
+							<li class="nav-item dropdown backnavdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" 
+							   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 員工管理 
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/emp/listAllEmp.jsp">員工相關</a> 								
+								<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/emp/updatePwd.jsp">修改密碼</a>
+							</div></li>
 							<li class="nav-item"><a class="nav-link"
-								href="#">商城管理</a>
-							<!-- 目前還沒有這項 --></li>
-							<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/emp/listAllEmp.jsp">員工管理</a>
+								href="<%=request.getContextPath()%>/back-end/shgm/listAllShgm.jsp">市集管理</a>
 							</li>
-<!-- active測試，之後換頁面  -->	<li class="nav-item"><a class="nav-link"
-								href="<%=request.getContextPath()%>/back-end/emp/addEmp.jsp">市集管理</a>
-							<!-- 目前還沒有這項 --></li>
+							
 							<li class="nav-item dropdown backnavdown"><a
 								class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 								role="button" data-toggle="dropdown" aria-haspopup="true"
 								aria-expanded="false"> 檢舉管理 </a>
 								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-									<a class="dropdown-item downlist" href="#">店家檢舉審核</a> 
-									<a class="dropdown-item downlist" href="#">會員檢舉審核</a> 
-									<a class="dropdown-item downlist" href="#">討論區檢舉審核</a> 
-									<a class="dropdown-item downlist" href="#">市集商品檢舉審核</a>
+									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/shoprpdt/listAllShoprpdt.jsp">店家檢舉審核</a> 
+									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/msgrp/listAllMsgrp.jsp">討論區留言檢舉審核</a> 
+									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/artrp/listAllArtrp.jsp">討論區文章檢舉審核</a> 
+									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/shgmrp/listAllShgmrp.jsp">市集商品檢舉審核</a>
 								</div></li>
 							<li class="nav-item"><a class="nav-link"
 								href="<%=request.getContextPath()%>/back-end/art/listAllArt.jsp">討論區管理</a>
@@ -91,12 +109,17 @@
 									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/room/back-end_rateList.jsp">會員評價列表</a> 
 									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/room/back-end_shoprpList.jsp">店家回報列表</a> 
 								</div></li>
-							<li class="nav-item"><a class="nav-link"
-								href="<%=request.getContextPath()%>/back-end/emp/updatePwd.jsp">修改密碼</a>
-							<!-- 目前還沒有這項 --></li>
+							<li class="nav-item dropdown backnavdown"><a
+								class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+								role="button" data-toggle="dropdown" aria-haspopup="true"
+								aria-expanded="false"> 更多 </a>
+								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/tfcord/listAllTfcord.jsp">點數管理</a> 
+									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/news/listAllNews.jsp">最新消息管理</a> 
+								</div></li>				 
 						</ul>
 						<ul class="navbar-nav">
-							<li class="nav-item">
+							<li class="nav-item logoutPIC">
 								<form method="post" action="<%=request.getContextPath()%>/emp/EmpServlet">
 									<a class="nav-link d-flex" href="<%=request.getContextPath()%>/emp/EmpServlet?action=logout">
 										<i class="far fa-user mr-2 tm-logout-icon"></i> <span>Logout</span>
@@ -117,11 +140,11 @@
 	
 	<script>
 	// DOM is ready
-		$(function() {
-			$(window).resize(function() {
-				reloadPage();
-			});
-		})
+// 		$(function() {
+// 			$(window).resize(function() {
+// 				reloadPage();
+// 			});
+// 		})
 	</script>
 	
 	<script>
@@ -147,6 +170,8 @@
 		 		}
 			});
 		});
+		
+		
 </script>
 
 </body>

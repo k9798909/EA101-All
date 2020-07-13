@@ -2,6 +2,7 @@ package com.emp.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class EmpServlet extends HttpServlet {
 				}
 				
 				if(!errorMsgs.isEmpty()) {//如果錯誤訊息不是空的，代表有錯誤，回到select_page的畫面
-					RequestDispatcher failView = req.getRequestDispatcher("/back-end/emp/select_page.jsp");
+					RequestDispatcher failView = req.getRequestDispatcher("/back-end/emp/listAllEmp.jsp");
 					failView.forward(req, res);
 					return;//程式中斷，因為下面沒有寫else，if做完會繼續往下做，預防他往下做這邊要用return
 					       //如果下面有寫else包起來，就可以不用寫return，但因為這樣要包一大包，所以不建議這樣做
@@ -63,7 +64,7 @@ public class EmpServlet extends HttpServlet {
 					errorMsgs.add("查無此員工");
 				}
 				if(!errorMsgs.isEmpty()) {
-					RequestDispatcher failView = req.getRequestDispatcher("/back-end/emp/select_page.jsp");
+					RequestDispatcher failView = req.getRequestDispatcher("/back-end/emp/listAllEmp.jsp");
 					failView.forward(req, res);
 					return;
 				}
@@ -75,7 +76,7 @@ public class EmpServlet extends HttpServlet {
 				/***************************其他可能的錯誤處理*************************************/	
 			}catch(Exception e){
 				errorMsgs.add("無法取得資料：" + e.getMessage());
-				RequestDispatcher failView = req.getRequestDispatcher("/back-end/emp/select_page.jsp");
+				RequestDispatcher failView = req.getRequestDispatcher("/back-end/emp/listAllEmp.jsp");
 				failView.forward(req, res);
 			}
 			
@@ -96,7 +97,7 @@ public class EmpServlet extends HttpServlet {
 				}
 				
 				if(!errorMsgs.isEmpty()) {
-					RequestDispatcher failView = req.getRequestDispatcher("/back-end/emp/select_page.jsp");
+					RequestDispatcher failView = req.getRequestDispatcher("/back-end/emp/listAllEmp.jsp");
 					failView.forward(req, res);
 					return;
 				}
@@ -107,7 +108,7 @@ public class EmpServlet extends HttpServlet {
 					errorMsgs.add("查無此員工");
 				}
 				if(!errorMsgs.isEmpty()) {
-					RequestDispatcher failView = req.getRequestDispatcher("/back-end/emp/select_page.jsp");
+					RequestDispatcher failView = req.getRequestDispatcher("/back-end/emp/listAllEmp.jsp");
 					failView.forward(req, res);
 					return;
 				}
@@ -119,7 +120,7 @@ public class EmpServlet extends HttpServlet {
 				/***************************其他可能的錯誤處理*************************************/	
 			}catch(Exception e){
 				errorMsgs.add("無法取得資料：" + e.getMessage());
-				RequestDispatcher failView = req.getRequestDispatcher("/back-end/emp/select_page.jsp");
+				RequestDispatcher failView = req.getRequestDispatcher("/back-end/emp/listAllEmp.jsp");
 				failView.forward(req, res);
 			}
 			
@@ -128,7 +129,6 @@ public class EmpServlet extends HttpServlet {
 		if("getOne_For_Update".equals(action)) {// 來自listAllEmp.jsp的請求
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-//			String requestURL
 			
 			try {
 				/***************************1.接收請求參數****************************************/
@@ -139,10 +139,15 @@ public class EmpServlet extends HttpServlet {
 				EmpVO empVO = empSvc.getOneEmp(empno);
 				//將我們要修改的員工，藉由getOneEmp方法傳入empno，取得要修改的員工物件
 				
+				//將該員工所擁有的權限setAttribute
+				List<String> empAuthority = empSvc.getAuthorityByEmpno(empno);
+				req.setAttribute("empAuthority", empAuthority);
+				
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				//將我們要修改的員工存入req(req.setAttribute("empVO", empVO);)，轉交給 update_emp_input.jsp
 				//讓那個jsp有辦法將原有的員工資料顯示出來
 				req.setAttribute("empVO", empVO);
+				
 				String url = "/back-end/emp/update_emp.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
@@ -158,6 +163,8 @@ public class EmpServlet extends HttpServlet {
 		if("update".equals(action)) {// 來自update_emp.jsp的請求
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
+			
+			List<String> empAuthority = new ArrayList<String>();
 			
 			String requestURL = req.getParameter("requestURL");
 			
@@ -182,7 +189,6 @@ public class EmpServlet extends HttpServlet {
 				}
 				in.close();
 				
-				
 				String empname = req.getParameter("empname");
 				String enameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 				if(empname == null || empname.trim().length() == 0) {
@@ -206,6 +212,13 @@ public class EmpServlet extends HttpServlet {
 				
 				Integer empstatus = new Integer(req.getParameter("empstatus"));
 				
+				String[] ftno = req.getParameterValues("features");
+
+				for(String ftnoStr :ftno) {
+					empAuthority.add(ftnoStr);
+				}
+				
+				req.setAttribute("empAuthority",empAuthority);
 				
 				EmpVO empVO = new EmpVO();
 				empVO.setEmpno(empno);
@@ -215,6 +228,7 @@ public class EmpServlet extends HttpServlet {
 				empVO.setEmpstatus(empstatus);
 				
 				if(!errorMsgs.isEmpty()) {
+					System.out.println("emter here");
 					req.setAttribute("empVO", empVO); //將含有錯誤格式的物件empVO存入req
 					RequestDispatcher failView = req.getRequestDispatcher("/back-end/emp/update_emp.jsp");
 					failView.forward(req, res);
@@ -223,7 +237,7 @@ public class EmpServlet extends HttpServlet {
 				
 				/***************************2.開始修改資料*****************************************/
 				EmpService empSvc = new EmpService();
-				empVO = empSvc.updateEmpSTAT(pic, empname, mail, sex, empstatus, empno);
+				empVO = empSvc.updateEmpSTAT(pic, empname, mail, sex, empstatus, empno, ftno);
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("empVO", empVO);
@@ -269,6 +283,14 @@ public class EmpServlet extends HttpServlet {
 				
 				Integer empstatus = new Integer(req.getParameter("empstatus"));
 				
+				String[] ftno = req.getParameterValues("features");
+				req.setAttribute("empftno", ftno);
+				
+//以下確定有取到
+//				for(String ftname : ftno) {
+//					System.out.println(ftname);
+//				}
+				
 				//送圖片讀進資料庫					
 				Part picPart = req.getPart("pic");	//透過 HttpServletRequest 的 getPart() 取得 Part 物件
 													//此處的pic即為我們於頁面上要上傳的檔案(pic為資料庫的欄位名)
@@ -312,7 +334,7 @@ public class EmpServlet extends HttpServlet {
 				
 				/***************************2.開始新增資料***************************************/
 				EmpService empSvc = new EmpService();
-				empVO = empSvc.addEmp(pic, empname, mail, sex, empstatus);
+				empVO = empSvc.addEmp(pic, empname, mail, sex, empstatus, ftno);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				String url = "/back-end/emp/listAllEmp.jsp";
@@ -359,7 +381,7 @@ public class EmpServlet extends HttpServlet {
 						HttpSession session =req.getSession();
 						session.setAttribute("accountBack", accountBack);//將帳號存進session，之後可以藉由這個取得他所擁有的權限
 						session.setAttribute("eVO", eVO);//將登入的員工物件存進session						
-						List<AuthorityVO> authList = empSvc.getAuthorityByEmpno(accountBack);
+						List<String> authList = empSvc.getAuthorityByEmpno(accountBack);
 						session.setAttribute("authList", authList);
 				/***************************3.查詢完成,準備轉交(Send the Success view)***********/
 						try {//查看是否有來源網頁
@@ -509,8 +531,8 @@ public class EmpServlet extends HttpServlet {
 				
 				/***************************2.開始取得新密碼並寄送信件*****************************************/
 				String newPwd = empSvc.getNewPwd(mail,empno);//透過信箱更改密碼
-				EmpMailService empMailSvc = new EmpMailService();
-				empMailSvc.getNewPwd(empVO, mail, newPwd);//將上面取出的員工物件和信箱，跟上面取得的新密碼傳給empMailSvc
+				EmpMailService empMailSvc = new EmpMailService(empVO, mail, newPwd);//將寄信改成用執行緒去跑，畫面會比較快顯示出來
+				empMailSvc.start();//將上面取出的員工物件和信箱，跟上面取得的新密碼傳給empMailSvc，用start()呼叫執行緒的run()啟動
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				String url = "/loginBack.jsp";
@@ -548,10 +570,6 @@ public class EmpServlet extends HttpServlet {
 				failView.forward(req, res);
 			}	
 		}
-		
-		
-		
-		
 	}
 
 }

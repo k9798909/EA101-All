@@ -226,6 +226,7 @@ public class NewsDAO implements NewsDAO_interface{
 				newsVO.setDetail(rs.getString("detail"));
 				newsVO.setPdate(rs.getDate("pdate"));
 				list.add(newsVO);
+				
 			}	
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "

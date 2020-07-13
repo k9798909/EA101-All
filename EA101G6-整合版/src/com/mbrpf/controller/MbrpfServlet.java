@@ -9,6 +9,9 @@ import javax.servlet.http.*;
 
 import com.mbrpf.model.MbrpfService;
 import com.mbrpf.model.MbrpfVO;
+import com.emp.model.EmpMailService;
+import com.emp.model.EmpService;
+import com.emp.model.EmpVO;
 import com.mbrpf.model.*;
 
 @MultipartConfig
@@ -489,64 +492,126 @@ if ("delete".equals(action)) { // 來自listAllEmp.jsp
 			}
 		}
 
-if("tryLogin".equals(action)) {// 來自login.jsp的請求
+if ("tryLogin".equals(action)) {// 來自login.jsp的請求
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			try {
+				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
+				String account = req.getParameter("account");
+				String password = req.getParameter("password");
+				req.setAttribute("account", account);
+				req.setAttribute("password", password);
+
+				if (account == null || account.trim().length() == 0) {
+					errorMsgs.add("請輸入帳號");
+				}
+
+				if (password == null || password.trim().length() == 0) {
+					errorMsgs.add("請輸入密碼");
+				}
+
+				if (!errorMsgs.isEmpty()) {
+					req.setAttribute("errorMsgs",errorMsgs);
+					RequestDispatcher failView = req.getRequestDispatcher("/front-end/login.jsp");
+					failView.forward(req, res);
+					return;
+				}
+				/***************************
+				 * 2.開始驗證是否為會員
+				 ***************************************/
+				MbrpfService mbrpfSvc = new MbrpfService();// 此處的account為mbract，如果可以透過這個mbract取得會員物件，代表這account確實為會員
+				MbrpfVO mbrpfVO = mbrpfSvc.checkLogin(account);// 透過傳mbract進去可以取得mbrpfVO物件的方法，取得要更改密的會員物件
+				String mbrpwd = mbrpfVO.getMbrpw();
+				if (password.equals(mbrpwd)) {// 帳號正確，取出的密碼也和輸入的一樣
+					HttpSession session = req.getSession();
+					session.setAttribute("account", account);// 將帳號存進session，之後可以藉由這個取得他所擁有的權限
+					session.setAttribute("mbrpfVO", mbrpfVO);
+					
+					/*************************** 3.登入完成,準備轉交(Send the Success view) ***********/
+					try {// 查看是否有來源網頁
+						String location = (String) session.getAttribute("location");
+						if (location != null) {// 如果有來源網頁
+							session.removeAttribute("location");
+							res.sendRedirect(location);// 重導至該網頁
+							return;
+						}
+					} catch (Exception e) {
+						res.sendRedirect(req.getContextPath() + "/front-end/mbrpf/select_page.jsp");
+						return;
+					}
+					// 沒有來源網頁的話就去首頁
+					res.sendRedirect(req.getContextPath() + "/front-end/mbrpf/select_page.jsp");
+					return;
+				} else {
+					errorMsgs.add("帳號、密碼錯誤");
+					RequestDispatcher failView = req.getRequestDispatcher("/front-end/login.jsp");
+					failView.forward(req, res);
+				}
+
+				/*************************** 其他可能的錯誤處理 **********************************/
+			} catch (Exception e) {
+				errorMsgs.add(e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/login.jsp");
+				failureView.forward(req, res);
+			}
+		}
+
+if("forget".equals(action)) {	
 	List<String> errorMsgs = new LinkedList<String>();
 	req.setAttribute("errorMsgs", errorMsgs);
 	try {
 		/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
-		String account = req.getParameter("account");
-		String password = req.getParameter("password");
-		req.setAttribute("account", account);
-		req.setAttribute("password", password);
+		String mbract = req.getParameter("mbract");
+		String mail = req.getParameter("mail");
+		req.setAttribute("mail", mail);
+		req.setAttribute("mbract", mbract);
 		
-		if(account == null || account.trim().length() == 0) {
-			errorMsgs.add("請輸入帳號");
+		if(mbract == null || mbract.trim().length() == 0) {
+			errorMsgs.add("請輸入會員帳號");
 		}
 		
-		if(password == null || password.trim().length() == 0) {
-			errorMsgs.add("請輸入密碼");
+		if(mail == null || mail.trim().length() == 0) {
+			errorMsgs.add("請輸入設定的信箱");
+		}
+		
+		MbrpfService mbrpfSvc = new MbrpfService();
+		MbrpfVO mbrpfVO = mbrpfSvc.getOneMbrByMail(mail,mbract);//透過信箱和員工編號取得相對應得員工物件
+		String mbrMbract =  mbrpfVO.getMbract();
+		String mbrMail = mbrpfVO.getMail();
+		
+		if(!mbrMbract.equals(mbract)) {
+			errorMsgs.add("查無會員帳號");
+		}
+		
+		if(!mbrMail.equals(mail)) {
+			errorMsgs.add("信箱不正確");
 		}
 		
 		if(!errorMsgs.isEmpty()) {
-			RequestDispatcher failView = req.getRequestDispatcher("/front-end/login.jsp");
+			RequestDispatcher failView = req.getRequestDispatcher("/front-end/forgetPwd.jsp");
 			failView.forward(req, res);
 			return;
 		}
-		/***************************2.開始驗證是否為會員***************************************/
-			MbrpfService mbrpfSvc = new MbrpfService();//此處的account為mbract，如果可以透過這個mbract取得會員物件，代表這account確實為會員
-			MbrpfVO mbrpfVO = mbrpfSvc.checkLogin(account);//透過傳mbract進去可以取得mbrpfVO物件的方法，取得要更改密的會員物件
-			String mbrpwd = mbrpfVO.getMbrpw();
-			if(password.equals(mbrpwd)) {//帳號正確，取出的密碼也和輸入的一樣
-				HttpSession session =req.getSession();
-				session.setAttribute("account", account);//將帳號存進session，之後可以藉由這個取得他所擁有的權限
-				session.setAttribute("mbrpfVO", mbrpfVO);
-		/***************************3.刪除完成,準備轉交(Send the Success view)***********/
-				try {//查看是否有來源網頁
-					String location = (String)session.getAttribute("location");
-					if(location != null) {//如果有來源網頁
-						session.removeAttribute("location");
-						res.sendRedirect(location);//重導至該網頁
-						return;
-					}
-				}catch(Exception e) {
-					res.sendRedirect(req.getContextPath()+"/front-end/mbrpf/select_page.jsp");
-					return;
-				}
-				//沒有來源網頁的話就去首頁
-				res.sendRedirect(req.getContextPath()+"/front-end/mbrpf/select_page.jsp");
-				return;
-			}else {
-				errorMsgs.add("帳號、密碼錯誤");
-				RequestDispatcher failView = req.getRequestDispatcher("/front-end/login.jsp");
-				failView.forward(req, res);
-			}
-			
-			/***************************其他可能的錯誤處理**********************************/
-		}catch(Exception e) {
-			errorMsgs.add(e.getMessage());
-			RequestDispatcher failureView = req.getRequestDispatcher("/front-end/login.jsp");
-			failureView.forward(req, res);
-		}
+		
+		/***************************2.開始取得新密碼並寄送信件*****************************************/
+		String newPwd = mbrpfSvc.getNewPwd(mail,mbract);//透過信箱更改密碼
+		MbrpfMailService mbrpfMailSvc = new MbrpfMailService(mbrpfVO, mail, newPwd);//將寄信改成用執行緒去跑，畫面會比較快顯示出來
+		mbrpfMailSvc.start();//將上面取出的員工物件和信箱，跟上面取得的新密碼傳給empMailSvc，用start()呼叫執行緒的run()啟動
+		
+		/***************************3.修改完成,準備轉交(Send the Success view)*************/
+		String url = "/front-end/login.jsp";
+		req.setAttribute("successMsg","請至信箱接收新密碼");
+		HttpSession session=req.getSession();
+		session.setAttribute("location",req.getContextPath()+"/front-end/index.jsp");
+		RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交login.jsp，重新登入
+		successView.forward(req, res);
+		
+		/***************************其他可能的錯誤處理*************************************/
+	}catch(Exception e) {
+		errorMsgs.add("取得新密碼失敗");
+		RequestDispatcher failView = req.getRequestDispatcher("/front-end/forgetPwd.jsp");
+		failView.forward(req, res);
+	}		
 }
 
 

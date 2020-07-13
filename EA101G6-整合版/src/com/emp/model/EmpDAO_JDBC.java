@@ -513,9 +513,8 @@ public class EmpDAO_JDBC implements EmpDAO_Interface {
 	}
 	
 	@Override
-	public List<AuthorityVO> getAuthorityByEmpno(String empno) {
-		List<AuthorityVO> authList = new ArrayList<>();
-		AuthorityVO authorityVO = null;
+	public List<String> getAuthorityByEmpno(String empno) {
+		List<String> authList = new ArrayList<>();
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -529,10 +528,7 @@ public class EmpDAO_JDBC implements EmpDAO_Interface {
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				authorityVO = new AuthorityVO();
-				authorityVO.setEmpno(rs.getString("empno"));
-				authorityVO.setFtno(rs.getString("ftno"));
-				authList.add(authorityVO);
+				authList.add(rs.getString("ftno"));
 			}
 		}catch(ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
@@ -669,13 +665,12 @@ public class EmpDAO_JDBC implements EmpDAO_Interface {
 //		dao.updatePwd("A123456", "LE00001");
 
 //查詢某員工所擁有的權限 測試
-//		EmpDAO_JDBC dao =new EmpDAO_JDBC();
-//		List<AuthorityVO> authList = dao.getAuthorityByEmpno("LE00001");
-//		for(AuthorityVO authorityVO : authList){
-//			System.out.print(authorityVO.getEmpno() + "：");
-//			System.out.println(authorityVO.getFtno());
-//			
-//		}	
+		EmpDAO_JDBC dao =new EmpDAO_JDBC();
+		List<String> authList = dao.getAuthorityByEmpno("LE00001");
+		for(String authority : authList){
+			System.out.println(authority);
+			
+		}	
 	}
 	public static byte[] getPicByteArray(String path) throws IOException {
 			File pic = new File(path);

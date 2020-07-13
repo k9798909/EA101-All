@@ -10,7 +10,7 @@ public class TfcordService {
 	private TfcordDAO_Interface dao;
 	
 	public TfcordService() {
-		dao = new TfcordDAO_JDBC();
+		dao = new TfcordDAO();
 	}
 	
 	public TfcordVO addTfcord(String mbrno, String tftype, Integer price, Integer tfstatus) {
@@ -23,14 +23,14 @@ public class TfcordService {
 		return tfcordVO;
 	}
 	
-	public TfcordVO addTfcordPoint(String mbrno, String tftype, Integer price, Integer tfstatus, MbrpfVO mbrpfVO) {
+	public String addTfcordPoint(String mbrno, String tftype, Integer price, Integer tfstatus, MbrpfVO mbrpfVO) {
 		TfcordVO tfcordVO = new TfcordVO();
 		tfcordVO.setMbrno(mbrno);
 		tfcordVO.setTftype(tftype);
 		tfcordVO.setPrice(price);
 		tfcordVO.setTfstatus(tfstatus);
-		dao.insert2(tfcordVO, mbrpfVO);
-		return tfcordVO;
+		String tfno = dao.insert2(tfcordVO, mbrpfVO);
+		return tfno;
 	}
 	
 	public TfcordVO updateTfcord(String tfno, String mbrno, String tftype, Integer price, Timestamp tftime, Integer tfstatus) {

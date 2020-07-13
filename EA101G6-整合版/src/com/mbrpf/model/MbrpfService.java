@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.util.List;
 
+import com.emp.model.EmpVO;
 import com.mbrpf.model.MbrpfVO;
 
 public class MbrpfService {
@@ -95,6 +96,12 @@ public class MbrpfService {
 	
 	public void updateMbrpf(MbrpfVO mbrpfVO) {
 		dao.updatePoint(mbrpfVO);
+	}
+	public MbrpfVO getOneMbrByMail(String mail, String mbract) {
+		return dao.findByMail(mail, mbract);
+	}
+	public String getNewPwd(String mail, String mbract) {
+		return dao.forgetPwd(mail,mbract);
 	}
 
 }
