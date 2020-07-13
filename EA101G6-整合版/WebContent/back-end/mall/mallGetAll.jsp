@@ -13,11 +13,14 @@
 <title>商品管理</title>
 <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/mallCss/mallcss.css">
+
 </head>
 
 
 
-<body style="font-size:18px;">
+<body>
+
+<%@ include file="/back-end/back-end-nav-susu.jsp" %>
 
 	<div id="commaction">
 		<button id="callGmType" style="margin-right:10px;">遊戲類型</button>
