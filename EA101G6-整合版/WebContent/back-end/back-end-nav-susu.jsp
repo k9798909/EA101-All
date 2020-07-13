@@ -106,14 +106,7 @@
 	
 	<script src="<%=request.getContextPath() %>/js/backJs/bootstrap.min.js"></script>
 	
-	<script>
-	// DOM is ready
-		$(function() {
-			$(window).resize(function() {
-				reloadPage();
-			});
-		})
-	</script>
+
 	
 	<script>
 		$(function () {

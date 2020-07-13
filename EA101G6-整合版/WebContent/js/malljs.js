@@ -1,30 +1,16 @@
 //讀檔的全域變數
 var reader = new FileReader();
 
-function showupdate() {
-	$("#comm").css({
-		"opacity" : "0.5"
-	});
-	$("#updateDiv").slideDown();
-	$("#comm td div").off();
-	$("#create-user").text("修改商品");
-	$("#create-user").attr("disabled", true);
-	$("button#callGmType").attr('disabled', true);
-}
-
 $(document).ready(function() {
-	// 新增的按鈕
-	$("#create-user").click(function() {
-		$("#comm").css({
-			"opacity" : "0.5"
-		});
-		console.log($("#addDiv .showimg"));
-		$("#addDiv").slideDown();
-		$("#addDiv .showimg").append("<img>");
-		$("#create-user").attr('disabled', true);
-		$("#comm td div").off();
-		$("button#callGmType").attr('disabled', true);
-	});
+	
+	
+	$("#addDiv .cancel").click(function() {
+		// 清空屬性
+		$(".text").val("");
+		$(".other input").val("");
+		$(".other select").val("0");
+		$("#addDiv .showimg img").remove();
+	})
 
 	// 預覽圖片function
 	$("#addDiv .upload").change(function() {
@@ -43,29 +29,6 @@ $(document).ready(function() {
 		reader.readAsDataURL(myfile[0]);
 	});
 
-	$("#addDiv .cancel").click(function() {
-		// 當開啟時移動最上方
-		$("#addDiv, #addDiv form").animate({
-			scrollTop : 0
-		}, "fast");
-		// 收起
-		$("#addDiv").slideUp();
-		// 清空屬性
-		$(".text").val("");
-		$(".other input").val("");
-		$(".other select").val("0");
-		$("#addDiv .showimg img").remove();
-		// 停用預覽文字事件
-		$("#create-user").attr('disabled', false);
-		// 設透明度
-		$("#comm").css({
-			"opacity" : "1"
-		});
-		// 啟動事件
-		$("button#callGmType").attr('disabled', false);
-		setTimeout(hov, 500);
-		$(".erroMsg").remove();
-	})
 	hov();
 	// 預覽事件
 	function hov() {
@@ -104,20 +67,6 @@ $(document).ready(function() {
 
 	}
 
-	$("#addDiv .addtypebtn").click(function() {
-		let gmtype = $("#addDiv .gmtype")[0];
-		let clone = $(gmtype).clone();
-		$(clone).css({
-			"margin" : "0px 3px"
-		});
-		$(gmtype).after(clone);
-
-	})
-	$("#addDiv .removetypebtn").click(function() {
-		let gmtype = $("#addDiv .gmtype").last();
-		if ($("#addDiv .gmtype").length != 1)
-			$(gmtype).remove();
-	})
 
 	// 預覽圖片function
 	$("#updateDiv .upload").change(function() {
@@ -135,66 +84,16 @@ $(document).ready(function() {
 		// 讀檔
 		reader.readAsDataURL(myfile[0]);
 	});
-
 	
-	
-	$("#updateDiv .cancel").click(function() {
-		// 當開啟時移動最上方
-		$("#updateDiv, #updateDiv form").animate({
-			scrollTop : 0
-		}, "fast");
-		// 收起
-		$("#updateDiv").slideUp();
-		// 清空屬性
-		$(".text").val("");
-		$(".other input").val("");
-		$(".other select").val("0");
-		$("#updateDiv .showimg img").remove();
-		// 設透明度
-		$("#comm").css({
-			"opacity" : "1"
-		});
-		// 把按鈕便回來
-		$("#create-user").text("新增商品");
-		$("#create-user").attr("disabled", false);
-		$("button#callGmType").attr('disabled', false);
-		// 啟動事件
-		setTimeout(hov, 500);
-		
-		
-	})
-
-	$("#updateDiv .addtypebtn").click(function() {
-		let gmtype = $("#updateDiv .gmtype")[0];
-		let clone = $(gmtype).clone();
-		$(clone).css({
-			"margin" : "0px 3px"
-		});
-		$("#d1").before(clone);
-
-	})
-	
-	
-	$("#updateDiv .removetypebtn").click(function() {
-		let gmtype = $("#updateDiv .gmtype").last();
-		if ($("#updateDiv .gmtype").length != 1)
-			$(gmtype).remove();
-	})
 	
 	//叫出遊戲類型
 	$("button#callGmType").click(function(){
 		  $("div.gmtypezone").slideToggle();
-		  $("#create-user").attr('disabled', true);
-		  $("button#callGmType").attr('disabled', true);
-		  $("input.upda").attr('disabled', true);
 		  $("#comm td div").off();
 	  })
 	  //隱藏遊戲類型
 	 $("button.typecancel").click(function(){
 		  $("div.gmtypezone").slideToggle();
-		  $("#create-user").attr('disabled', false);
-		  $("button#callGmType").attr('disabled', false);
-		  $("input.upda").attr('disabled', false);
 		  $("div.gmtypezone button.confirm").attr('disabled', false);
 		  $("div#delalert").hide();
 		  setTimeout(hov, 500);
