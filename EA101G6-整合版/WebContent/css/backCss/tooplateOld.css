@@ -105,7 +105,7 @@ a:focus {
 
 .navbar-light .navbar-nav .nav-link,
 .dropdown-item {
-  padding: 15px 15px;
+/*   padding: 15px 20px; */
 }
 
 .navbar-light .navbar-nav .active > .nav-link,
@@ -419,6 +419,17 @@ footer {
   width:150px;
   height:50px;
   float:right;
+}
+
+#noAddEmp{/*沒有新增員工功能的員工會看到的按鈕本人*/
+  background-color: #E0E0E0;
+  color: #9E9E9E;
+  border-color: #999999;
+  border-width:1px;
+  width:150px;
+  height:50px;
+  float:right;
+  opacity:0.8;
 }
 
 

@@ -68,6 +68,11 @@
 					<div class="col"><!-- 轉換紀錄清單的標題 -->
 						<h2 class="tm-block-title d-inline-block">點數轉換紀錄</h2>
 					</div>
+					<div class="col">
+						<form method="post" action="<%=request.getContextPath()%>/back-end/tfcord/notYetTfcord.jsp">
+							<input type="submit" id="addEmp" value="顯示未處理" >
+						</form>
+					</div>
 				</div>
 				<div class="table-responsive"><!--table-striped：將畫面一行灰色，一行白色-->
 					<table class="table"><!-- listAllTfcord.jsp -->

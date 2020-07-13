@@ -76,7 +76,12 @@
 				<!-- 轉換紀錄清單的區塊 -->
 				<div class="row">
 					<div class="col"><!-- 轉換紀錄清單的標題 -->
-						<h2 class="tm-block-title d-inline-block">未審核之點數轉換紀錄</h2>
+						<h2 class="tm-block-title d-inline-block">未審核點數轉換紀錄</h2>
+					</div>
+					<div class="col">
+						<form method="post" action="<%=request.getContextPath()%>/back-end/tfcord/listAllTfcord.jsp">
+							<input type="submit" id="addEmp" value="顯示全部" >
+						</form>
 					</div>
 				</div>
 				<div class="table-responsive"><!--table-striped：將畫面一行灰色，一行白色-->
