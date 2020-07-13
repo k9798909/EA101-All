@@ -80,7 +80,7 @@
 <div class="container">
   <div class="row">
     <div class="col-2">
-      箇砞(2)
+
     </div>
     <div class="col-8">
       <FORM METHOD="post" ACTION="<%= request.getContextPath()%>/mbrpf/mbrpf.do" name="form1" enctype="multipart/form-data">
@@ -93,17 +93,17 @@
 	<tr>
 		<td class="tdtitle">穦眀腹:</td>
 		<td><input type="TEXT" name="mbract" size="45" 
-			 value="<%= (mbrpfVO==null)? "55" : mbrpfVO.getMbract()%>" /></td>
+			 value="<%= (mbrpfVO==null)? "" : mbrpfVO.getMbract()%>" /></td>
 	</tr>
 	<tr>
 		<td class="tdtitle">穦盞絏:</td>
 		<td><input type="TEXT" name="mbrpw" size="45"
-			 value="<%= (mbrpfVO==null)? "555" : mbrpfVO.getMbrpw()%>" /></td>
+			 value="<%= (mbrpfVO==null)? "" : mbrpfVO.getMbrpw()%>" /></td>
 	</tr>
 	<tr>
 		<td class="tdtitle">穦﹎:</td>
 		<td><input type="TEXT" name="mbrname" size="45"
-			 value="<%= (mbrpfVO==null)? "ききき" : mbrpfVO.getMbrname()%>" /></td>
+			 value="<%= (mbrpfVO==null)? "" : mbrpfVO.getMbrname()%>" /></td>
 	</tr>
 	<tr>
 		<td class="tdtitle">ネら:</td>
@@ -113,57 +113,57 @@
 	<tr>
 		<td class="tdtitle">┦:</td>
 		<td><input type="TEXT" name="sex" size="45"
-			 value="<%= (mbrpfVO==null)? "1" : mbrpfVO.getSex()%>" /></td>
+			 value="<%= (mbrpfVO==null)? "" : mbrpfVO.getSex()%>" /></td>
 	</tr>
 	<tr>
 		<td class="tdtitle">筿秎ン:</td>
 		<td><input type="TEXT" name="mail" size="45"
-			 value="<%= (mbrpfVO==null)? "555@gmail.com" : mbrpfVO.getMail()%>" /></td>
+			 value="<%= (mbrpfVO==null)? "" : mbrpfVO.getMail()%>" /></td>
 	</tr>
 	<tr>
 		<td class="tdtitle">筿杠:</td>
 		<td><input type="TEXT" name="phone" size="45"
-			 value="<%= (mbrpfVO==null)? "0955555555" : mbrpfVO.getPhone()%>" /></td>
+			 value="<%= (mbrpfVO==null)? "" : mbrpfVO.getPhone()%>" /></td>
 	</tr>
 	<tr>
 		<td class="tdtitle">钡Μ蹿兜眀め:</td>
 		<td><input type="TEXT" name="mbrac" size="45"
-			 value="<%= (mbrpfVO==null)? "5555-5555-5555-5555" : mbrpfVO.getMbrac()%>" /></td>
+			 value="<%= (mbrpfVO==null)? "" : mbrpfVO.getMbrac()%>" /></td>
 	</tr>
 	<tr>
 		<td class="tdtitle">际嘿:</td>
 		<td><input type="TEXT" name="nickname" size="45"
-			 value="<%= (mbrpfVO==null)? "V" : mbrpfVO.getNickname()%>" /></td>
+			 value="<%= (mbrpfVO==null)? "" : mbrpfVO.getNickname()%>" /></td>
 	</tr>
 	<tr style="display:none">
 		<td class="tdtitle">翴计緇肂:</td>
 		<td><input type="TEXT" name="points" size="45"
-			 value="<%= (mbrpfVO==null)? "50" : mbrpfVO.getPoints()%>" /></td>
+			 value="<%= (mbrpfVO==null)? "" : mbrpfVO.getPoints()%>" /></td>
 	</tr>
 	<tr style="display:none">
 		<td class="tdtitle">穦篈:</td>
 		<td><input type="TEXT" name="status" size="45"
-			 value="<%= (mbrpfVO==null)? "1" : mbrpfVO.getStatus()%>" /></td>
+			 value="<%= (mbrpfVO==null)? "" : mbrpfVO.getStatus()%>" /></td>
 	</tr>
 	<tr style="display:none">
 		<td class="tdtitle">砆蝶基羆计:</td>
 		<td><input type="TEXT" name="ratedtotal" size="45"
-			 value="<%= (mbrpfVO==null)? "50" : mbrpfVO.getRatedtotal()%>" /></td>
+			 value="<%= (mbrpfVO==null)? "" : mbrpfVO.getRatedtotal()%>" /></td>
 	</tr>
 	<tr style="display:none">
 		<td class="tdtitle">砆蝶基羆琍计:</td>
 		<td><input type="TEXT" name="startotal" size="45"
-			 value="<%= (mbrpfVO==null)? "50" : mbrpfVO.getStartotal()%>" /></td>
+			 value="<%= (mbrpfVO==null)? "" : mbrpfVO.getStartotal()%>" /></td>
 	</tr>
 	<tr style="display:none">
 		<td class="tdtitle">ゼ畊Ω计:</td>
 		<td><input type="TEXT" name="unattend" size="45"
-			 value="<%= (mbrpfVO==null)? "50" : mbrpfVO.getUnattend()%>" /></td>
+			 value="<%= (mbrpfVO==null)? "" : mbrpfVO.getUnattend()%>" /></td>
 	</tr>
 	<tr style="display:none">
 		<td class="tdtitle">羆把刮Ω计:</td>
 		<td><input type="TEXT" name="ttattend"  size="45"
-			 value="<%= (mbrpfVO==null)? "50" : mbrpfVO.getTtattend()%>" /></td>
+			 value="<%= (mbrpfVO==null)? "" : mbrpfVO.getTtattend()%>" /></td>
 	</tr>
 
 </table>
@@ -172,7 +172,7 @@
 <input type="submit" value="癳穝糤"></FORM>
     </div>
     <div class="col-2">
-      箇砞(2)
+
     </div>
   </div>
 </div>

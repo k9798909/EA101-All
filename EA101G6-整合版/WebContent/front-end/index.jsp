@@ -102,7 +102,7 @@ div.comm {
 						<span id="mbrname" class="d-md-inline-block text-white">Åwªï§A¡I${mbrpfVO.mbrname}</span>
 						</c:when>
 						<c:otherwise>
-						<a href="" class="text-white"><span class="d-md-inline-block">
+						<a href="<%= request.getContextPath()%>/front-end/mbrpf/addMbrpf.jsp" class="text-white"><span class="d-md-inline-block">
 								<img class="icon reg1"
 								src="<%=request.getContextPath()%>/images/reg3.png">µù¥U
 						</span></a>
