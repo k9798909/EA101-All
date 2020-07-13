@@ -92,7 +92,7 @@
 		<img src="<%=request.getContextPath()%>/img/PointBanner.png">
 	</div>
 	<div class="row float-right">
-		<a href="<%=request.getContextPath()%>/front-end/tfcord/select_page_Tfcord_front.jsp" class="pointBtn orangeBtn">回前台點數轉換首頁</a>
+		<a href="<%=request.getContextPath()%>/front-end/tfcord/tfMoney.jsp" class="pointBtn orangeBtn">前往兌換現金</a>
 	</div>
 	
 	<form method="post" action="<%=request.getContextPath()%>/tfcord/TfcordServlet">
