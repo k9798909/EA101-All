@@ -10,7 +10,7 @@ public class TfcordService {
 	private TfcordDAO_Interface dao;
 	
 	public TfcordService() {
-		dao = new TfcordDAO_JDBC();
+		dao = new TfcordDAO();
 	}
 	
 	public TfcordVO addTfcord(String mbrno, String tftype, Integer price, Integer tfstatus) {
