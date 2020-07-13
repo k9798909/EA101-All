@@ -15,13 +15,15 @@
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/mallCss/mallcss.css">
 </head>
 <body style="font-size:18px;">
+
+<%@ include file="/back-end/back-end-nav-susu.jsp" %>
 	
-	<div id="commaction" >
+	<div id="commaction"  >
 		<button onclick="javascript:location.href='<%= request.getContextPath() %>/back-end/mall/mallGetAll.jsp'">°Ó«~­¶­±</button>
 	</div>
 	
 	
-			<table id="comm" class="table table-bordered ">
+			<table id="comm" class="table table-bordered " style="margin-bottom:50px;">
 				<thead>
 					<tr class="">
 						<th></th>

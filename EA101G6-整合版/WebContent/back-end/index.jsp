@@ -226,6 +226,9 @@
 			});
 		});
 </script>
+
+
+<%@ include file="/back-end/backChat/backChat.jsp"%>
 	
 </body>
 </html>
