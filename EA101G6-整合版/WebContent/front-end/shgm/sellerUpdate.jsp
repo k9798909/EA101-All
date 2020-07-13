@@ -6,13 +6,34 @@
 <%@ page import="java.util.*"%>
 
 <%
-	MbrpfVO mbrpfvo = (MbrpfVO) session.getAttribute("mbrpfvo");
+	MbrpfVO member = (MbrpfVO) session.getAttribute("member");
 %>
 <!doctype html>
 <html lang="en">
 <head>
 <title>update_page</title>
 <meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link
+	href="https://fonts.googleapis.com/css?family=Rubik:300,400,700|Oswald:400,700"
+	rel="stylesheet">
+<!-- 登入圖示 -->
+<link rel="stylesheet" href="fonts/icomoon/style.css">
+
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/jquery.fancybox.min.css">
+<link rel="stylesheet" href="css/owl.carousel.min.css">
+<link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+<link rel="stylesheet" href="css/aos.css">
+
+<!-- MAIN CSS -->
+<link rel="stylesheet" href="css/style.css">
+
+<!-- 顯示訊息的css -->
+<link rel="stylesheet" href="css/cssForShgm/alert-area.css">
 
 </head>
 <style>
@@ -87,8 +108,12 @@ div.top-info {
 }
 
 .btn {
-	margin: 10% auto;
+	margin: 0 1%;
 	background-color: white;
+}
+
+.button-wrapper{
+	width: 125px;
 }
 
 .btn:hover {
@@ -106,13 +131,13 @@ div.top-info {
     margin: 2%;
 }
 </style>
-<body background="images/bgimage3.jpg">
+<body data-offset="300" background="images/bgimage3.jpg">
 
 	<%@ include file="/front-end/front-end-nav.jsp"%>
 
 	<div class="main-area container col-10 align-self-center">
 		<div class="top-info-wrapper">
-			<nav aria-label="breadcrumb" calss="breadcrumb-nav">
+			<nav aria-label="breadcrumb" class="breadcrumb-nav">
 				<ol class="breadcrumb d-flex">
 					<li class="breadcrumb-item"><a href="#">首頁</a></li>
 					<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/front-end/shgm/mainPage.jsp">市集</a></li>
@@ -157,7 +182,6 @@ div.top-info {
 			<div class="shgm-info-toparea container">
 				<form method="post" action="<%=request.getContextPath()%>/front-end/shgm/shgm.do" enctype="multipart/form-data">
 					<div id="imgzoom" class="shgm-info-left col-6 rounded float-left">
-						<span class="alert">${errormap.get(4)}</span>
 						<label for="imgfile">
 							<img name="imgtag" id="blah" alt="Click here to upload!" class="img-thumbnail rounded float-left" src="<%=request.getContextPath() %>/shgm/displayimg?shgmno=${shgmvo.shgmno}"/>
 						</label>
@@ -170,11 +194,11 @@ div.top-info {
 						<div
 							class="shgm-info-right-inner d-flex align-items-center flex-column bd-highlight mb-3">
 							<div class="form-group p-2 bd-highlight">
-								<label for="shgmname">輸入桌遊名稱</label> <span class="alert">${errormap.get(1)}</span><input name="shgmname"
+								<label for="shgmname">輸入桌遊名稱</label> <span class="alert">${errormap.get("shgmname")}</span><input name="shgmname"
 									class="form-control inputtext" id="shgmname" rows="3" value=${(shgmvo != null)? shgmvo.shgmname:""}>
 							</div>
 							<div class="form-group p-2 bd-highlight">
-								<label for="price">輸入您欲販售之價格</label> <span class="alert">${errormap.get(2)}</span><input name="price"
+								<label for="price">輸入您欲販售之價格</label> <span class="alert">${errormap.get("price")}</span><input name="price"
 									class="form-control inputtext" id="price" rows="3" value=${(shgmvo != null)? shgmvo.price:""}>
 							</div>
 							<div class="button-wrapper">
@@ -185,13 +209,13 @@ div.top-info {
 					</div>
 					<br> <br> <br>
 					<div class="shgm-info-middle">
-						輸入此桌遊的詳情<span class="alert">${errormap.get(3)}</span>
+						輸入此桌遊的詳情<span class="alert">${errormap.get("intro")}</span>
 						<div class="card">
 							<textarea name="intro">${(shgmvo != null)? shgmvo.intro:""}</textarea>
 						</div>
-						${errormap.get(5)}
+						${errormap.get("error")}
 					</div>
-					<input type="hidden" name="sellerno" value="${mbrpfvo.mbrno}">
+					<input type="hidden" name="sellerno" value="${member.mbrno}">
 					<input type="hidden" name="shgmno" value="${shgmvo.shgmno}">
 					<input type="hidden" name="action" value="sellerUpdate">
 				</form>
@@ -199,6 +223,35 @@ div.top-info {
 			</div>
 		</div>
 	</div>
+	
+	<%@ include file="/front-end/shgm/alert-area.jsp"%>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/ajaxForMbrmsgs.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/wsForShgm.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/jsForAlert-area.js"></script>
+
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<!-- 看起來沒屁用 -->
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<!-- 重要廣告界面 -->
+	<script src="js/owl.carousel.min.js"></script>
+	<!-- 看起來沒屁用 -->
+	<script src="js/jquery.sticky.js"></script>
+	<script src="js/jquery.waypoints.min.js"></script>
+	<script src="js/jquery.animateNumber.min.js"></script>
+	<script src="js/jquery.fancybox.min.js"></script>
+
+
+	<!-- 上介面連結動畫 -->
+	<script src="js/jquery.easing.1.3.js"></script>
+
+	<!-- 重要廣告界面 -->
+	<script src="js/aos.js"></script>
+
+	<script src="js/main.js"></script>
 
 </body>
 </html>

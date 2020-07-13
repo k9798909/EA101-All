@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="com.shgm.model.*"%>
@@ -7,149 +7,176 @@ pageEncoding="UTF-8"%>
 <%@ page import="com.mbrpf.model.*"%>
 <%@ page import="java.util.*"%>
 <%
-	MbrpfVO mbrpfvo = (MbrpfVO) session.getAttribute("mbrpfvo");
+	MbrpfVO member = (MbrpfVO) session.getAttribute("member");
 	ShgmService shgmsvc = new ShgmService();
-	List<ShgmVO> shgmlist = shgmsvc.allForSeller(mbrpfvo.getMbrno());
-	pageContext.setAttribute("shgmlist", shgmlist);
+	Set<ShgmVO> shgmset = shgmsvc.allForSeller(member.getMbrno());
+	pageContext.setAttribute("shgmset", shgmset);
 	ShgmrpService shgmrpsvc = new ShgmrpService();
 	pageContext.setAttribute("shgmrpsvc", shgmrpsvc);
 %>
-<!doctype html>
+
 <html lang="en">
 <head>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-	<title>sellerPage</title>
-	<meta charset="utf-8">
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<title>sellerPage</title>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link
+	href="https://fonts.googleapis.com/css?family=Rubik:300,400,700|Oswald:400,700"
+	rel="stylesheet">
+<!-- 登入圖示 -->
+<link rel="stylesheet" href="fonts/icomoon/style.css">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/jquery.fancybox.min.css">
+<link rel="stylesheet" href="css/owl.carousel.min.css">
+<link rel="stylesheet" href="css/owl.theme.default.min.css">
+<link rel="stylesheet" href="css/aos.css">
+<!-- MAIN CSS -->
+<link rel="stylesheet" href="css/style.css">
+
+<!-- 顯示訊息的css -->
+<link rel="stylesheet" href="css/cssForShgm/alert-area.css">
 </head>
 <style>
-	body {
-		background-color: #EEEEEE;
-		background-size: repeat;
-	}
-	
-	form{
-		margin-block-end: 0px;
-	}
+body {
+	background-color: #EEEEEE;
+	background-size: repeat;
+}
 
-	.icon {
-		width: 20px;
-		height: 20px;
-	}
+form {
+	margin-block-end: 0px;
+}
 
-	div.main-area {
-		position: relative;
-		display: block;
-		border: black 1px solid;
-		background-color: white;
-		margin: 2% auto;
-		height: 1500px;
-	}
+.icon {
+	width: 20px;
+	height: 20px;
+}
 
-	.top-info-wrapper {
-		position: relative;
-		text-align: center;
-		margin-top: 3%;
-	}
+div.main-area {
+	position: relative;
+	display: block;
+	border: black 1px solid;
+	background-color: white;
+	margin: 2% auto;
+	height: 1500px;
+}
 
-	.breadcrumb-nav {
-		background-color: #EEEEEE;
-	}
+.top-info-wrapper {
+	position: relative;
+	text-align: center;
+	margin-top: 3%;
+}
 
+.breadcrumb-nav {
+	background-color: #EEEEEE;
+}
+
+.awrapper {
+	display: block;
+	text-align: right;
+	width: 85%;
+}
+@media (max-width: 1496px) {
 	.awrapper {
-		width: 300px;
-		display: inline;
-		text-align: right;
-		margin-left: 60%;
+		width:75%;
 	}
-	
-	.breadcrumb button {
-		margin: 0;
+}
+@media (max-width: 936px) {
+	.awrapper {
+		width:60%;
 	}
+}
 
-	div.top-info {
-		margin: 0 auto;
-		border: green 1px solid;
-	}
+.breadcrumb button {
+	margin: 0;
+}
 
-	.btn {
-		margin: 0 1%;
-		background-color: white;
-	}
+div.top-info {
+	margin: 0 auto;
+	border: green 1px solid;
+}
 
-	.btn:hover {
-		background-color: white;
-		color: #FF8C00; /*ffa216*/
-		box-shadow: 0 0 11px rgba(33, 33, 33, .2);
-	}
+.btn {
+	margin: 0 1%;
+	background-color: white;
+}
 
-	.shgm-area-wrapper {
-		text-align: center;
-	}
+.btn:hover {
+	background-color: white;
+	color: #FF8C00; /*ffa216*/
+	box-shadow: 0 0 11px rgba(33, 33, 33, .2);
+}
 
-	div.shgm-area {
-		margin: 3% auto;
-	}
-	
-	ul.list-group{
-		display: table;
-		width:100%;
-	}
-	
-	li.list-group-item{
-		vertical-align: middle;
-		display: table-cell;
-	}
-	
-	ul.four-li li{
-		width:25%;
-	}
-	
-	ul.five-li li{
-		width:20%;
-	}
-	
-	ul.six-li li{
-		width:16.66%;
-	}
-	
-	div .imgwrapper{
-		display:flex;
-		height:200px;
-	}
-	
-	ul li img{
-		max-width: 100%;
-		max-height: 100%;
-		margin: auto;
-	}
-	
-	li.firstlis{
-		background-color:#e9ecef;
-	}
+.shgm-area-wrapper {
+	text-align: center;
+}
 
-	.pageselect-area-wrapper {
-		text-align: center;
-	}
+div.shgm-area {
+	margin: 3% auto;
+}
 
-	div.pageselect-area {
-		display: block;
-		position: relative;
-		width: 100%;
-		margin: 0 auto;
-	}
+ul.list-group {
+	display: table;
+	width: 100%;
+}
 
-	.pagination {
-		margin-top: -5%;
-		display: flex;
-		justify-content: center;
-	}
+li.list-group-item {
+	vertical-align: middle;
+	display: table-cell;
+}
+
+ul.four-li li {
+	width: 25%;
+}
+
+ul.five-li li {
+	width: 20%;
+}
+
+ul.six-li li {
+	width: 16.66%;
+}
+
+div .imgwrapper {
+	display: flex;
+	height: 200px;
+}
+
+ul li img {
+	max-width: 100%;
+	max-height: 100%;
+	margin: auto;
+}
+
+li.firstlis {
+	background-color: #e9ecef;
+}
+
+.pageselect-area-wrapper {
+	text-align: center;
+}
+
+div.pageselect-area {
+	display: block;
+	position: relative;
+	width: 100%;
+	margin: 0 auto;
+}
+
+.pagination {
+	margin-top: -5%;
+	display: flex;
+	justify-content: center;
+}
 </style>
-<body background="images/bgimage3.jpg">
+<body data-offset="300" background="images/bgimage3.jpg">
 
 <%@ include file="/front-end/front-end-nav.jsp"%>
 
-		<div class="main-area container col-10 align-self-center">
+	<div class="main-area container col-10 align-self-center">
 		<div class="top-info-wrapper">
 			<nav aria-label="breadcrumb" class="breadcrumb-nav">
 				<ol class="breadcrumb d-flex">
@@ -160,8 +187,7 @@ pageEncoding="UTF-8"%>
 					<li class="awrapper"><a id="upshgm"
 						class="btn btn-primary ml-auto"
 						href="<%=request.getContextPath()%>/front-end/shgm/sellPage.jsp"
-						role="button">我要上架</a> <a id="myshgm" class="btn btn-primary "
-						href="#" role="button">我的市集商品</a></li>
+						role="button">我要上架</a></li>
 				</ol>
 			</nav>
 		</div>
@@ -212,7 +238,7 @@ pageEncoding="UTF-8"%>
 											<li class="list-group-item firstlis">售價</li>
 											<li class="list-group-item firstlis">市集商品狀態</li>
 										</ul>
-										<c:forEach var="shgmvo" items="${shgmlist}">
+										<c:forEach var="shgmvo" items="${shgmset}">
 											<c:if
 												test="${shgmvo.upcheck == 0 and shgmvo.boxstatus == 0 and shgmvo.paystatus == 0 and shgmvo.status == 0}">
 												<ul class="list-group list-group-horizontal four-li">
@@ -238,7 +264,7 @@ pageEncoding="UTF-8"%>
 											<li class="list-group-item firstlis">售價</li>
 											<li class="list-group-item firstlis">上架時間</li>
 										</ul>
-										<c:forEach var="shgmvo" items="${shgmlist}">
+										<c:forEach var="shgmvo" items="${shgmset}">
 											<c:if
 												test="${shgmvo.upcheck == 1 and shgmvo.boxstatus == 0 and shgmvo.paystatus == 0 and shgmvo.status == 0}">
 												<ul class="list-group list-group-horizontal four-li">
@@ -265,7 +291,7 @@ pageEncoding="UTF-8"%>
 											<li class="list-group-item firstlis">下架原因</li>
 											<li class="list-group-item firstlis">更新商品狀態</li>
 										</ul>
-										<c:forEach var="shgmvo" items="${shgmlist}">
+										<c:forEach var="shgmvo" items="${shgmset}">
 											<c:if
 												test="${shgmvo.upcheck == 2 and shgmvo.boxstatus == 0 and shgmvo.paystatus == 0 and shgmvo.status == 0}">
 												<form method="post"
@@ -273,18 +299,22 @@ pageEncoding="UTF-8"%>
 													<ul class="list-group list-group-horizontal four-li">
 														<li class="list-group-item">${shgmvo.shgmname}</li>
 														<li class="list-group-item"><div class="imgwrapper">
-																<img
-																	src="<%=request.getContextPath()%>/shgm/displayimg?shgmno=${shgmvo.shgmno}">
-															</div></li>
-														<li class="list-group-item"><c:choose>
-																<c:when
-																	test="${shgmrpsvc.getOnerpByShgmno(shgmvo.shgmno).status == 1}">
-													(檢舉下架)${shgmrpsvc.getOnerpByShgmno(shgmvo.shgmno).detail}
-													</c:when>
-																<c:otherwise>
-													(自行下架)自行下架
-													</c:otherwise>
-															</c:choose></li>
+																<img src="<%=request.getContextPath()%>/shgm/displayimg?shgmno=${shgmvo.shgmno}">
+															</div>
+														</li>
+														<li class="list-group-item">
+														<c:choose>
+															<c:when test="${shgmrpsvc.getOnerpByShgmno(shgmvo.shgmno).status != 1 || shgmrpsvc.getOnerpByShgmno(shgmvo.shgmno) == null}">
+																後台下架
+															</c:when>
+															<c:when test="${shgmrpsvc.getOnerpByShgmno(shgmvo.shgmno).status == 1}">
+																檢舉下架${shgmrpsvc.getOnerpByShgmno(shgmvo.shgmno).detail}
+															</c:when>
+															<c:otherwise>
+																自行下架
+															</c:otherwise>
+														</c:choose>
+														</li>
 														<li class="list-group-item"><input type="submit"
 															class="btn btn-primary" value="修改"><br>
 															<button id="${shgmvo.shgmno}" value="2" type="button"
@@ -329,7 +359,7 @@ pageEncoding="UTF-8"%>
 												<li class="list-group-item firstlis">地址</li>
 												<li class="list-group-item firstlis">出貨狀態</li>
 											</ul>
-											<c:forEach var="shgmvo" items="${shgmlist}">
+											<c:forEach var="shgmvo" items="${shgmset}">
 												<c:if
 													test="${shgmvo.upcheck == 1 and shgmvo.boxstatus == 0 and shgmvo.paystatus == 1 and shgmvo.status == 1}">
 													<ul class="list-group list-group-horizontal six-li">
@@ -360,7 +390,7 @@ pageEncoding="UTF-8"%>
 												<li class="list-group-item firstlis">地址</li>
 												<li class="list-group-item firstlis">出貨狀態</li>
 											</ul>
-											<c:forEach var="shgmvo" items="${shgmlist}">
+											<c:forEach var="shgmvo" items="${shgmset}">
 												<c:if
 													test="${shgmvo.upcheck == 1 and shgmvo.boxstatus == 1 and shgmvo.paystatus == 1 and shgmvo.status == 1}">
 													<ul class="list-group list-group-horizontal six-li">
@@ -391,7 +421,7 @@ pageEncoding="UTF-8"%>
 												<li class="list-group-item firstlis">地址</li>
 												<li class="list-group-item firstlis">出貨狀態</li>
 											</ul>
-											<c:forEach var="shgmvo" items="${shgmlist}">
+											<c:forEach var="shgmvo" items="${shgmset}">
 												<c:if
 													test="${shgmvo.upcheck == 1 and shgmvo.boxstatus == 2 and shgmvo.paystatus == 1 and shgmvo.status == 1}">
 													<ul class="list-group list-group-horizontal six-li">
@@ -421,7 +451,7 @@ pageEncoding="UTF-8"%>
 									<li class="list-group-item firstlis">上架日期</li>
 									<li class="list-group-item firstlis">售出日期</li>
 								</ul>
-								<c:forEach var="shgmvo" items="${shgmlist}">
+								<c:forEach var="shgmvo" items="${shgmset}">
 									<c:if
 										test="${shgmvo.upcheck == 1 and shgmvo.boxstatus == 2 and shgmvo.paystatus == 1 and shgmvo.status == 2}">
 										<ul class="list-group list-group-horizontal five-li">
@@ -448,7 +478,7 @@ pageEncoding="UTF-8"%>
 									<li class="list-group-item firstlis">售價</li>
 									<li class="list-group-item firstlis">回收商品</li>
 								</ul>
-								<c:forEach var="shgmvo" items="${shgmlist}">
+								<c:forEach var="shgmvo" items="${shgmset}">
 									<c:if test="${shgmvo.status == 3}">
 										<ul class="list-group list-group-horizontal four-li">
 											<li class="list-group-item">${shgmvo.shgmname}</li>
@@ -470,11 +500,20 @@ pageEncoding="UTF-8"%>
 			</div>
 		</div>
 	</div>
-<input type="hidden" id="member" value="${mbrpfvo.mbrname}">
-
-<script>
+	
+	<input type="hidden" id="member" value="${member.mbrname}">
+	
+	<%@ include file="/front-end/shgm/alert-area.jsp"%>
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/ajaxForMbrmsgs.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/wsForShgm.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/jsForAlert-area.js"></script>
+	<script>
 	$(document).ready(function(){
 		
+		/*下架中、待上架狀態切換*/
 		$(".container").on("click",".upcheck",function(){
 			var $shgmno = $(this).closest("button")[0].id;
 			var $value = $(this).closest("button")[0].value;
@@ -491,6 +530,8 @@ pageEncoding="UTF-8"%>
 				dataType: "json",
 				cache: false,
 				success: function(response){
+					jsondata = JSON.stringify(response);
+					webSocket.send(jsondata);
 					if(response.upcheck == 2){
 						$("#upcheck2 ul:eq(0)").after('<form method="post" action="/EA101G6/front-end/shgm/shgm.do"></form>');
 						$("form:first").append('<ul class="list-group list-group-horizontal four-li"></ul>');
@@ -519,6 +560,7 @@ pageEncoding="UTF-8"%>
 			});
 		});
 		
+		/*出貨、送達狀態改變*/
 		$(".container").on("click",".boxstatus",function(){
 			var $shgmno = $(this).closest("button")[0].id;
 			var $value = $(this).closest("button")[0].value;
@@ -535,6 +577,8 @@ pageEncoding="UTF-8"%>
 				dataType: "json",
 				cache: false,
 				success: function(response){
+					jsondata = JSON.stringify(response);
+					webSocket.send(jsondata);
 					if(response.boxstatus == 1){
 						$("#boxstatus1 ul:eq(0)").after('<ul class="list-group list-group-horizontal six-li"></ul>');
 						$("#boxstatus1 ul:eq(1)").append('<li class="list-group-item">'+response.shgmname+'</li>');
@@ -563,6 +607,7 @@ pageEncoding="UTF-8"%>
 			});
 		});
 		
+		/*回收被取消的商品，變成待上架狀態*/
 		$(".container").on("click",".status",function(){
 			var $shgmno = $(this).closest("button")[0].id;
 			$(this).closest("ul").fadeOut(function(){
@@ -592,6 +637,25 @@ pageEncoding="UTF-8"%>
 		});
 	});
 </script>
-			
-		</body>
-		</html>
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<!-- 看起來沒屁用 -->
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<!-- 重要廣告界面 -->
+	<script src="js/owl.carousel.min.js"></script>
+	<!-- 看起來沒屁用 -->
+	<script src="js/jquery.sticky.js"></script>
+	<script src="js/jquery.waypoints.min.js"></script>
+	<script src="js/jquery.animateNumber.min.js"></script>
+	<script src="js/jquery.fancybox.min.js"></script>
+
+
+	<!-- 上介面連結動畫 -->
+	<script src="js/jquery.easing.1.3.js"></script>
+
+	<!-- 重要廣告界面 -->
+	<script src="js/aos.js"></script>
+
+	<script src="js/main.js"></script>
+</body>
+</html>

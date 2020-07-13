@@ -6,13 +6,13 @@
 <%
 	java.util.HashMap<String, String> hashmap = (java.util.HashMap<String, String>) request.getAttribute("cityarea");
 	MbrpfVO member = (MbrpfVO) session.getAttribute("member");
-	ShgmVO shgmvo = (ShgmVO) session.getAttribute("infoshgm");
+	ShgmVO shgmvo = (ShgmVO) request.getAttribute("shgmvo");
 %>
 <!doctype html>
 <html lang="en">
 <head>
+<title>buyerUpdate</title>
 <meta charset="utf-8">
-<title>buy_page</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -40,7 +40,6 @@
 body {
 	background-color: #EEEEEE;
 	background-size: repeat;
-	height:980px;
 }
 
 .icon {
@@ -72,20 +71,19 @@ div.main-area {
 	margin-right: 5%;
 }
 
-
 .awrapper {
 	display: block;
 	text-align: right;
-	width: 79%;
+	width:75%;
 }
-@media (max-width: 1672px) {
+@media (max-width: 1666px) {
 	.awrapper {
-		width:70%;
+		width:60%;
 	}
 }
-@media (max-width: 1150px) {
+@media (max-width: 1080px) {
 	.awrapper {
-		width:50%;
+		width:40%;
 	}
 }
 div.top-info {
@@ -138,15 +136,12 @@ div.top-info {
 .alert{
 	color: #FF4500;
 }
-.modal-footer{
-	height:70px;
-}
 </style>
 
 
 <body data-offset="300" background="images/bgimage3.jpg">
 
-<%@ include file="/front-end/front-end-nav.jsp"%>
+	<%@ include file="/front-end/front-end-nav.jsp"%>
 
 	<div class="main-area container col-10 align-self-center">
 		<div class="top-info-wrapper">
@@ -156,8 +151,8 @@ div.top-info {
 					<li class="breadcrumb-item"><a
 						href="<%=request.getContextPath()%>/front-end/shgm/mainPage.jsp">市集</a></li>
 					<li class="breadcrumb-item"><a
-						href="<%=request.getContextPath()%>/front-end/shgm/infoPage.jsp?shgmno=${infoshgm.shgmno}">商品頁面</a></li>
-					<li class="breadcrumb-item active" aria-current="page">購買頁面</li>
+						href="<%=request.getContextPath()%>/front-end/shgm/myShgm.jsp">我的市集商品</a></li>
+					<li class="breadcrumb-item active" aria-current="page">修改取貨資訊</li>
 					<li class="awrapper"><span class="rpdiv">${errormap.get("rp")}</span><button type="button"
 							class="btn btn-primary" data-toggle="modal"
 							data-target="#exampleModal" data-whatever="@mdo">檢舉</button></li>
@@ -188,7 +183,7 @@ div.top-info {
 							<button type="button" class="btn btn-primary"
 								data-dismiss="modal">取消</button>
 						</div>
-						<input type="hidden" name="shgmno" value="${infoshgm.shgmno}">
+						<input type="hidden" name="shgmno" value="${shgmvo.shgmno}">
 						<input type="hidden" name="suiterno" value="${member.mbrno}">
 						<input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
 						<input type="hidden" name="action" value="insertrp">
@@ -202,15 +197,15 @@ div.top-info {
 					<div
 						class="d-flex align-items-left flex-column bd-highlight mb-3">
 						<img
-							src="<%=request.getContextPath() %>/shgm/displayimg?shgmno=${infoshgm.shgmno}"
+							src="<%=request.getContextPath() %>/shgm/displayimg?shgmno=${shgmvo.shgmno}"
 							alt="..." class="img-thumbnail rounded float-left"> <br>
 						<div class="p-2 bd-highlight">
 							名稱
-							<h1>${infoshgm.shgmname}</h1>
+							<h1>${shgmvo.shgmname}</h1>
 						</div>
 						<div class="p-2 bd-highlight">
 							售價
-							<h1>${infoshgm.price}</h1>
+							<h1>${shgmvo.price}</h1>
 						</div>
 					</div>	
 				</div>
@@ -241,16 +236,16 @@ div.top-info {
 								<label for="ads">取貨地址</label><span class="alert">${errormap.get("ads")}</span><br>
 								<select id="縣市1" name="city" class="address"></select>
 								<select id="鄉鎮市區1" name="area" class="address"></select>
-								<input id="ads" name="ads" type="text" class="form-control address" value="<%= (hashmap == null)? "":hashmap.get("ads") %>"  style="margin-bottom:15%;"/>
+								<input id="ads" name="ads" type="text" class="form-control address" value="<%= (hashmap == null)? "":hashmap.get("ads") %>"/>
 								<input id="address" name="address" type="hidden" value="<%= (shgmvo.getAddress() == null)? "":shgmvo.getAddress() %>"/>
 							</div>
 							<div class="button-wrapper">
-								<button type="submit" class="btn btn-primary">確定購買</button>
-								<a href="<%=request.getContextPath()%>/front-end/shgm/mainPage.jsp" class="btn btn-primary">取消購買</a>
+								<button type="submit" class="btn btn-primary">確定修改</button>
+								<a href="<%=request.getContextPath()%>/front-end/shgm/myShgm.jsp" class="btn btn-primary">取消修改</a>
 							</div>
-							<input type="hidden" name="shgmno" value="${infoshgm.shgmno}">
+							<input type="hidden" name="shgmno" value="${shgmvo.shgmno}">
 							<input type="hidden" name="buyerno" value="${member.mbrno}">
-							<input type="hidden" name="action" value="dealingshgm">
+							<input type="hidden" name="action" value="buyerUpdate">
 						</form>
 						<b><span class="alert">${errormap.get("error")}</span></b>
 					</div>
@@ -258,10 +253,10 @@ div.top-info {
 			</div>
 		</div>
 	</div>
-	<input type="hidden" id="rpsuccess" value="${rpsuccess}">
-	
-	<%@ include file="/front-end/shgm/alert-area.jsp"%>
+	<div class="random-area"></div>
 
+	<%@ include file="/front-end/shgm/alert-area.jsp"%>
+	
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/taiwan_address_auto_change.js"></script>
@@ -271,14 +266,8 @@ div.top-info {
 	
 	<script type="text/javascript">
 	window.onload = function () {
-		if($("#rpsuccess").val() == "success"){
-			Swal.fire({
-				  icon: 'success',
-				  title: '您的檢舉已成功送出！',
-				  showConfirmButton: false,
-				  timer: 1500
-				})
-		}
+	       //當頁面載完之後，用AddressSeleclList.Initialize()，
+	       //傳入要綁定的縣市下拉選單ID及鄉鎮市區下拉選單ID
 	       AddressSeleclList.Initialize('縣市1', '鄉鎮市區1'<%= (hashmap == null)? "":",'"+hashmap.get("city")+"'"%><%= (hashmap == null)? "": ",'"+hashmap.get("area")+"'"%>);
 	       var addressClass = document.getElementsByClassName("address");
 	       var address = document.getElementById("address");

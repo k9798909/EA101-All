@@ -6,8 +6,8 @@
 <%@ page import="java.util.*" %>
 <%
 	ShgmService shgmsvc = new ShgmService();
-	List<ShgmVO> list = shgmsvc.getAllShgm();
-	pageContext.setAttribute("shgmlist", list);
+	Set<ShgmVO> set = shgmsvc.getAllShgm();
+	pageContext.setAttribute("shgmlist", set);
 %>
 <html>
 <head>
@@ -83,7 +83,7 @@
 	</c:if>
 </ul>
 <div id="shgmall-mainarea">
-		<%@ include file="page1.file" %> 
+		<%@ include file="/back-end/shgm/page1.file" %> 
 	<table id="table" class="table table-striped bg-white">
 		<tr>
 			<td>市集商品編號</td>
@@ -98,8 +98,8 @@
 			<td>修改市集商品</td>
 			<td>刪除市集商品</td>
 		</tr>
-		
-		
+
+
 		<c:forEach var="shgmvo" items="${shgmlist}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		<tr>
 			<td>${shgmvo.shgmno}</td>
@@ -256,4 +256,4 @@
 	}
 	</script>
 </body>
-</html>
+</html> 

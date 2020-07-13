@@ -176,6 +176,7 @@ div.comm {
 									<li><a
 										href="<%=request.getContextPath()%>/front-end/mallOr/mbrMallOr.jsp"
 										class="nav-link">查詢訂單</a></li>
+									<li><a href="<%= request.getContextPath()%>/front-end/tfcord/listOneMbrtf.jsp" class="nav-link">帳戶管理</a></li>
 									<li><a href="<%=request.getContextPath()%>/front-end/tfcord/buyPoint.jsp" class="nav-link">購買點數</a></li>
 									<li><a href="<%=request.getContextPath()%>/front-end/tfcord/tfMoney.jsp" class="nav-link">兌換現金</a></li>
 									<li class="has-children"><a href="#">More Links</a>

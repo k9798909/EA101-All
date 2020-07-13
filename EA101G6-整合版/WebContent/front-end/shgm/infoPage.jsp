@@ -5,18 +5,36 @@
 <%@ page import="com.mbrpf.model.*"%>
 <%@ page import="java.util.*"%>
 <%
-	session.setAttribute("pointLocation", request.getRequestURI());
-	MbrpfVO mbrpfvo = (MbrpfVO) session.getAttribute("mbrpfvo");
-	List<ShgmVO> list = (List<ShgmVO>) session.getAttribute("randlist");
+	List<ShgmVO> list = (List<ShgmVO>) request.getAttribute("randlist");
 	pageContext.setAttribute("list", list);
 %>
 <!doctype html>
 <html lang="en">
 <head>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<title>${shgmvo.shgmname}</title>
 <meta charset="utf-8">
+<title>${infoshgm.shgmname}</title>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link
+	href="https://fonts.googleapis.com/css?family=Rubik:300,400,700|Oswald:400,700"
+	rel="stylesheet">
+<!-- 登入圖示 -->
+<link rel="stylesheet" href="fonts/icomoon/style.css">
+
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/jquery.fancybox.min.css">
+<link rel="stylesheet" href="css/owl.carousel.min.css">
+<link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+<link rel="stylesheet" href="css/aos.css">
+
+<!-- MAIN CSS -->
+<link rel="stylesheet" href="css/style.css">
+
+<!-- 顯示訊息的css -->
+<link rel="stylesheet" href="css/cssForShgm/alert-area.css">
+
 <style>
 body {
 	background-color: #EEEEEE;
@@ -56,10 +74,19 @@ div.main-area {
 }
 
 .awrapper {
-	width: 200px;
-	display: inline;
+	display: block;
 	text-align: right;
-	margin-left: 72.5%;
+	width: 85%;
+}
+@media (max-width: 1496px) {
+	.awrapper {
+		width:70%;
+	}
+}
+@media (max-width: 936px) {
+	.awrapper {
+		width:45%;
+	}
 }
 
 div.top-info {
@@ -83,17 +110,16 @@ div.top-info {
 	vertical-align: middle;
 	margin: 3% 0;
 	padding-top: 2%;
-	text-align: left;
 }
 
-#rp,#rpenter,#rpcancel,#sold,#buythis {
-	margin: 0 auto;
+.btn {
+	margin: 0 1%;
 	background-color: white;
 }
 
-#rp:hover,#rpenter:hover,#rpcancel:hover,#sold:hover,#buythis:hover {
+.btn:hover {
 	background-color: white;
-	color: #FF8C00;
+	color: #FF8C00; /*ffa216*/
 	box-shadow: 0 0 11px rgba(33, 33, 33, .2);
 }
 
@@ -103,24 +129,17 @@ div.top-info {
 	object-fit: contain;
 }
 
-#blogCarousel {
+.slide {
 	height: 90px;
 	min-height: 300px;
 	background-size: cover;
 }
-
-#modal-footer>:not(:first-child) {
-    margin-left: .25rem;
-}
-#modal-footer>:not(:last-child) {
-    margin-right: .25rem;
-}
 </style>
 </head>
 
-<body background="images/bgimage3.jpg">
+<body data-offset="300" background="images/bgimage3.jpg">
 
-<%@ include file="/front-end/front-end-nav.jsp"%>
+	<%@ include file="/front-end/front-end-nav.jsp"%>
 
 	<div class="main-area container col-10 align-self-center">
 		<div class="top-info-wrapper">
@@ -130,7 +149,7 @@ div.top-info {
 					<li class="breadcrumb-item"><a
 						href="<%=request.getContextPath()%>/front-end/shgm/mainPage.jsp">市集</a></li>
 					<li class="breadcrumb-item active" aria-current="page">商品頁面</li>
-					<li class="awrapper"><span class="rpdiv">${errormap.get(1)}</span><button id="rp" type="button"
+					<li class="awrapper"><span class="rpdiv">${errormap.get("rp")}</span><button id="rp" type="button"
 							class="btn btn-primary ml-auto" data-toggle="modal"
 							data-target="#exampleModal" data-whatever="@mdo">檢舉</button></li>
 				</ol>
@@ -155,13 +174,14 @@ div.top-info {
 							</div>
 
 						</div>
-						<div id="modal-footer"class="modal-footer">
-							<button id="rpenter" type="submit" class="btn btn-primary">確定</button>
-							<button id="rpcancel" type="button" class="btn btn-primary"
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-primary">確定</button>
+							<button type="button" class="btn btn-primary"
 								data-dismiss="modal">取消</button>
 						</div>
-						<input type="hidden" name="shgmno" value="${shgmvo.shgmno}">
-						<input type="hidden" name="suiterno" value="${mbrpfvo.mbrno}">
+						<input type="hidden" id="shgmno" name="shgmno" value="${infoshgm.shgmno}">
+						<input type="hidden" name="suiterno" value="${member.mbrno}">
+						<input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
 						<input type="hidden" name="action" value="insertrp">
 					</form>
 				</div>
@@ -171,36 +191,42 @@ div.top-info {
 			<div class="shgm-info-toparea container">
 				<div id="imgzoom" class="shgm-info-left col-6 ">
 					<img
-						src="<%=request.getContextPath() %>/shgm/displayimg?shgmno=${shgmvo.shgmno}"
+						src="<%=request.getContextPath() %>/shgm/displayimg?shgmno=${infoshgm.shgmno}"
 						alt="..." class="img-thumbnail rounded float-left">
 				</div>
 				<div class="shgm-info-right col-6 d-flex justify-content-center">
 					<div
-						class="shgm-info-right-inner d-flex align-items-start flex-column bd-highlight mb-3">
+						class="shgm-info-right-inner d-flex align-items-center flex-column bd-highlight mb-3" style="text-align:center;">
 						<div class="p-2 bd-highlight">
 							名稱
-							<h1>${shgmvo.shgmname}</h1>
+							<h1 style="text-align:left;">${infoshgm.shgmname}</h1>
 						</div>
 						<div class="p-2 bd-highlight">
 							售價
-							<h1 id="price">${shgmvo.price}</h1>
+							<h1 id="price" style="text-align:left;">${infoshgm.price}</h1>
 						</div>
 						<c:choose>
-								<c:when test="${shgmvo.paystatus == 1}">
-								<a id="sold" class="btn btn-primary" role="button">本商品已售出</a>
-								</c:when>
-								<c:otherwise>
-									<a id="buythis" class="btn btn-primary"
-									 href="<%=request.getContextPath()%>/front-end/shgm/buyPage.jsp" role="button">購買</a>
-								</c:otherwise>
-							</c:choose>
+							<c:when test="${infoshgm.paystatus == 1}">
+							<a id="sold" class="btn btn-primary" role="button" style="margin-top:20%;width:240px;">本商品已售出</a>
+							</c:when>
+							<c:otherwise>
+							<form method="post" action="<%=request.getContextPath()%>/front-end/shgm/shgm.do">
+								<button id="buythis" type="submit" class="btn btn-primary" style="margin-top:20%;width:80px;">購買</button>
+								<input type="hidden" name="shgmno" value="${infoshgm.shgmno}"/>
+								<input type="hidden" name="action" value="getOneForMoreInfo"/>
+								<input type="hidden" name="requestURL" value="<%=request.getServletPath()%>"/>
+							</form>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
+				<br>
+				<div><a href="<%=request.getContextPath()%>/front-end/shgm/shgm.do?action=toPrsnlMkt&sellerno=${sellerinfo.mbrno}">${sellerinfo.nickname}的個人市集</a></div>
 				<br>
 				<div class="shgm-info-middle">
 					簡介
 					<div class="card">
-						<div class="card-body">${shgmvo.intro}</div>
+						<div class="card-body">${infoshgm.intro}</div>
 					</div>
 				</div>
 				<br>
@@ -225,7 +251,7 @@ div.top-info {
 											<c:forEach var="i" begin="0" end="3">
 												<div class="col-md-3">
 													<a
-														href="<%=request.getContextPath()%>/front-end/shgm/shgm.do?action=getOneToInfo&shgmno=${list.get(i).shgmno}">
+														href="<%=request.getContextPath()%>/front-end/shgm/shgm.do?action=getOneForMoreInfo&shgmno=${list.get(i).shgmno}">
 														<img src="<%=request.getContextPath()%>/shgm/displayimg?shgmno=${list.get(i).shgmno}" alt="Image"
 														style="max-width: 100%;">
 													</a>
@@ -238,7 +264,7 @@ div.top-info {
 											<c:forEach var="i" begin="4" end="7">
 												<div class="col-md-3">
 													<a
-														href="<%=request.getContextPath()%>/front-end/shgm/shgm.do?action=getOneToInfo&shgmno=${list.get(i).shgmno}">
+														href="<%=request.getContextPath()%>/front-end/shgm/shgm.do?action=getOneForMoreInfo&shgmno=${list.get(i).shgmno}">
 														<img src="<%=request.getContextPath()%>/shgm/displayimg?shgmno=${list.get(i).shgmno}" alt="Image"
 														style="max-width: 100%;">
 													</a>
@@ -257,19 +283,41 @@ div.top-info {
 				</div>
 			</div>
 		</div>
-		<input type="hidden" id="points" value="${mbrpfvo.points}">
-		<input type="hidden" id="success" value="${buysuccess}">
+		<input type="hidden" id="points" value="${member.points}">
+		<input type="hidden" id="buysuccess" value="${buysuccess}">
+		<input type="hidden" id="rpsuccess" value="${rpsuccess}">
 	</div>
-
-
-
-
+	
+	<%@ include file="/front-end/shgm/alert-area.jsp"%>
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/ajaxForMbrmsgs.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/wsForShgm.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/jsForAlert-area.js"></script>
+	
 	<script>
 	$(document).ready(function(){
-		if($("#success").val() != ''){
+		var $buysuccess = $("#buysuccess").val();
+		if($buysuccess === "success"){
+			var $shgmno = $("#shgmno").val();
 			Swal.fire({
 				  icon: 'success',
 				  title: '您已購買成功！',
+				  showConfirmButton: false,
+				  timer: 1500
+				})
+			var successObj = {
+				"shgmno":$shgmno,
+				"paystatus":1
+			}
+			var successJson = JSON.stringify(successObj);
+			webSocket.send(successJson);
+		}
+		if($("#rpsuccess").val() == "success"){
+			Swal.fire({
+				  icon: 'success',
+				  title: '您的檢舉已成功送出！',
 				  showConfirmButton: false,
 				  timer: 1500
 				})
