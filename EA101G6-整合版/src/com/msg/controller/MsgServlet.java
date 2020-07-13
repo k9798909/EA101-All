@@ -39,7 +39,7 @@ public class MsgServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/msg/select_page.jsp");
+							.getRequestDispatcher("/back-end/msg/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -53,7 +53,7 @@ public class MsgServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/msg/select_page.jsp");
+							.getRequestDispatcher("/back-end/msg/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -67,14 +67,14 @@ public class MsgServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/msg/select_page.jsp");
+							.getRequestDispatcher("/back-end/msg/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("msgVO", msgVO); // 資料庫取出的msgVO物件,存入req
-				String url = "/msg/listOneMsg.jsp";
+				String url = "/back-end/msg/listOneMsg.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneMsg.jsp
 				successView.forward(req, res);
 
@@ -82,7 +82,7 @@ public class MsgServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/msg/select_page.jsp");
+						.getRequestDispatcher("/back-end/msg/select_page.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -105,7 +105,7 @@ public class MsgServlet extends HttpServlet {
 				System.out.println(msgVO.getMsgno());				
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("msgVO", msgVO);         // 資料庫取出的msgVO物件,存入req
-				String url = "/msg/update_msg_input.jsp";
+				String url = "/back-end/msg/update_msg_input.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_msg_input.jsp
 				successView.forward(req, res);
 
@@ -115,7 +115,7 @@ public class MsgServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/msg/listAllMsg.jsp");
+						.getRequestDispatcher("/back-end/msg/listAllMsg.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -172,7 +172,7 @@ public class MsgServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("msgVO", msgVO); // 含有輸入格式錯誤的msgVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/msg/update_msg_input.jsp");
+							.getRequestDispatcher("/back-end/msg/update_msg_input.jsp");
 					failureView.forward(req, res);
 					return; //程式中斷
 				}
@@ -183,7 +183,7 @@ public class MsgServlet extends HttpServlet {
 				System.out.println(3);	
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("msgVO", msgVO); // 資料庫update成功後,正確的的msgVO物件,存入req
-				String url = "/msg/listOneMsg.jsp";
+				String url = "/back-end/msg/listOneMsg.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneMsg.jsp
 				successView.forward(req, res);
 
@@ -191,7 +191,7 @@ public class MsgServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("修改資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/msg/update_msg_input.jsp");
+						.getRequestDispatcher("/back-end/msg/update_msg_input.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -247,13 +247,13 @@ public class MsgServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("artVO", artVO); // 含有輸入格式錯誤的msgVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/front-end/art/listOneArt.jsp");
+							.getRequestDispatcher("/back-end/front-end/art/listOneArt.jsp");
 					failureView.forward(req, res);
 					return;
 				}
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				req.setAttribute("artVO", artVO);
-				RequestDispatcher successView = req.getRequestDispatcher("/front-end/art/listOneArt.jsp"); // 新增成功後轉交listAllMsg.jsp
+				RequestDispatcher successView = req.getRequestDispatcher("/back-end/front-end/art/listOneArt.jsp"); // 新增成功後轉交listAllMsg.jsp
 				successView.forward(req, res);				
 				
 				/***************************其他可能的錯誤處理**********************************/
@@ -261,7 +261,7 @@ public class MsgServlet extends HttpServlet {
 				
 				errorMsgs.add(e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front-end/art/listOneArt.jsp");
+						.getRequestDispatcher("/back-end/front-end/art/listOneArt.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -283,7 +283,7 @@ public class MsgServlet extends HttpServlet {
 				msgSvc.deleteMsg(msgno);
 				
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
-				String url = "/msg/listAllMsg.jsp";
+				String url = "/back-end/msg/listAllMsg.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
 				
@@ -291,7 +291,7 @@ public class MsgServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("刪除資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/msg/listAllMsg.jsp");
+						.getRequestDispatcher("/back-end/msg/listAllMsg.jsp");
 				failureView.forward(req, res);
 			}
 		}

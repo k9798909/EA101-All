@@ -39,7 +39,7 @@ public class MsgrpServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/msgrp/select_page.jsp");
+							.getRequestDispatcher("/back-end/msgrp/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -53,7 +53,7 @@ public class MsgrpServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/msgrp/select_page.jsp");
+							.getRequestDispatcher("/back-end/msgrp/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -67,7 +67,7 @@ public class MsgrpServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/msgrp/select_page.jsp");
+							.getRequestDispatcher("/back-end/msgrp/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -82,7 +82,7 @@ public class MsgrpServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/msgrp/select_page.jsp");
+						.getRequestDispatcher("/back-end/msgrp/select_page.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -115,7 +115,7 @@ public class MsgrpServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/msgrp/listAllMsgrp.jsp");
+						.getRequestDispatcher("/back-end/msgrp/listAllMsgrp.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -172,7 +172,7 @@ public class MsgrpServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("msgrpVO", msgrpVO); // 含有輸入格式錯誤的msgVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/msgrp/update_msgrp_input.jsp");
+							.getRequestDispatcher("/back-end/msgrp/update_msgrp_input.jsp");
 					failureView.forward(req, res);
 					return; //程式中斷
 				}
@@ -183,7 +183,7 @@ public class MsgrpServlet extends HttpServlet {
 				System.out.println(3);	
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("msgrpVO", msgrpVO); // 資料庫update成功後,正確的的msgVO物件,存入req
-				String url = "/msgrp/listOneMsgrp.jsp";
+				String url = "/back-end/msgrp/listOneMsgrp.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneMsg.jsp
 				successView.forward(req, res);
 
@@ -191,7 +191,7 @@ public class MsgrpServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("修改資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/msgrp/update_msgrp_input.jsp");
+						.getRequestDispatcher("/back-end/msgrp/update_msgrp_input.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -283,7 +283,7 @@ public class MsgrpServlet extends HttpServlet {
 				msgrpSvc.deleteMsgrp(msgrpno);
 				
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
-				String url = "/msgrp/listAllMsgrp.jsp";
+				String url = "/back-end/msgrp/listAllMsgrp.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
 				
@@ -291,7 +291,7 @@ public class MsgrpServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("刪除資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/msgrp/listAllMsgrp.jsp");
+						.getRequestDispatcher("/back-end/msgrp/listAllMsgrp.jsp");
 				failureView.forward(req, res);
 			}
 		}

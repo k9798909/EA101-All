@@ -11,9 +11,18 @@
 	ArtVO artVO = (ArtVO) request.getAttribute("artVO");
 	MbrpfVO mbrpfVO = (MbrpfVO)session.getAttribute("mbrpfVO");
 	
-	EmpService empSvc = new EmpService();
-	EmpVO empVO = empSvc.getOneEmp(artVO.getMbrno());
-	pageContext.setAttribute("empVO", empVO);
+	if(artVO!=null){
+		EmpService empSvc = new EmpService();
+		EmpVO empVO = empSvc.getOneEmp(artVO.getMbrno());
+		pageContext.setAttribute("empVO", empVO);
+		session.setAttribute("tampEmpVo",empVO);
+		session.setAttribute("tampArtVo",artVO);
+	}else{
+		artVO=(ArtVO)session.getAttribute("tampArtVo");
+		pageContext.setAttribute("artVO", artVO);
+		EmpVO empVO=(EmpVO)session.getAttribute("tampEmpVo");
+		pageContext.setAttribute("empVO", empVO);
+	}
 %>
 
 

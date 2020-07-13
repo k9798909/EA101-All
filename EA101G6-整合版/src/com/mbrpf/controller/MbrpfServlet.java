@@ -492,7 +492,7 @@ if ("delete".equals(action)) { // 來自listAllEmp.jsp
 			}
 		}
 
-		if ("tryLogin".equals(action)) {// 來自login.jsp的請求
+if ("tryLogin".equals(action)) {// 來自login.jsp的請求
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			try {
@@ -511,6 +511,7 @@ if ("delete".equals(action)) { // 來自listAllEmp.jsp
 				}
 
 				if (!errorMsgs.isEmpty()) {
+					req.setAttribute("errorMsgs",errorMsgs);
 					RequestDispatcher failView = req.getRequestDispatcher("/front-end/login.jsp");
 					failView.forward(req, res);
 					return;
@@ -526,7 +527,7 @@ if ("delete".equals(action)) { // 來自listAllEmp.jsp
 					session.setAttribute("account", account);// 將帳號存進session，之後可以藉由這個取得他所擁有的權限
 					session.setAttribute("mbrpfVO", mbrpfVO);
 					
-					/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
+					/*************************** 3.登入完成,準備轉交(Send the Success view) ***********/
 					try {// 查看是否有來源網頁
 						String location = (String) session.getAttribute("location");
 						if (location != null) {// 如果有來源網頁
@@ -587,7 +588,7 @@ if("forget".equals(action)) {
 		}
 		
 		if(!errorMsgs.isEmpty()) {
-			RequestDispatcher failView = req.getRequestDispatcher("/forgetPwd.jsp");
+			RequestDispatcher failView = req.getRequestDispatcher("/front-end/forgetPwd.jsp");
 			failView.forward(req, res);
 			return;
 		}
@@ -598,14 +599,17 @@ if("forget".equals(action)) {
 		mbrpfMailSvc.start();//將上面取出的員工物件和信箱，跟上面取得的新密碼傳給empMailSvc，用start()呼叫執行緒的run()啟動
 		
 		/***************************3.修改完成,準備轉交(Send the Success view)*************/
-		String url = "/login.jsp";
+		String url = "/front-end/login.jsp";
+		req.setAttribute("successMsg","請至信箱接收新密碼");
+		HttpSession session=req.getSession();
+		session.setAttribute("location",req.getContextPath()+"/front-end/index.jsp");
 		RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交login.jsp，重新登入
 		successView.forward(req, res);
 		
 		/***************************其他可能的錯誤處理*************************************/
 	}catch(Exception e) {
 		errorMsgs.add("取得新密碼失敗");
-		RequestDispatcher failView = req.getRequestDispatcher("/forgetPwd.jsp");
+		RequestDispatcher failView = req.getRequestDispatcher("/front-end/forgetPwd.jsp");
 		failView.forward(req, res);
 	}		
 }
