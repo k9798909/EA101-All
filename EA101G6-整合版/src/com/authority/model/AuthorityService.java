@@ -7,7 +7,7 @@ public class AuthorityService {
 	private AuthorityDAO_Interface dao;
 	
 	public AuthorityService() {
-		dao = new AuthorityDAO_JDBC();
+		dao = new AuthorityDAO();
 	}
 	
 	public AuthorityVO addAuthority(String empno, String[] ftno) {

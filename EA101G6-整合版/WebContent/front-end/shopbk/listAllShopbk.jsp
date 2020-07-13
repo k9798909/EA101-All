@@ -84,27 +84,46 @@ h4 {
 				<th>結束時間</th>
 				<th>以小時計算</th>
 				<th>包日</th>
-<!-- 				<th>修改</th> -->
 			</tr>
 			<c:forEach var="shopbkVO" items="${list}">
 				<tr>
-					<td>${shopSvc.getOneShop(shopbkVO.shopno).shopname}</td>
+					<td><A data-toggle="modal" data-target="#exampleModal" id="go" href="<%=request.getContextPath()%>/front-end/shop/shop.do?shopno=${shopbkVO.shopno}&action=getOne_For_Display2">${shopSvc.getOneShop(shopbkVO.shopno).shopname}</a></td>
 					<td>${shopbkVO.ofdtable}</td>
 					<td>${shopbkVO.shoppds}</td>
 					<td>${shopbkVO.shoppde}</td>
 					<td>${shopbkVO.payinfohr}</td>
 					<td>${shopbkVO.payinfoday}</td>
-<!-- 					<td> -->
-<%-- 						<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/shopbk/shopbk.do" style="margin-bottom: 0px;"> --%>
-<!-- 							<input type="submit" value="修改"> <input type="hidden" -->
-<%-- 								name="shopbkno" value="${shopbkVO.shopbkno}"> <input --%>
-<!-- 								type="hidden" name="action" value="getOne_For_Update"> -->
-<!-- 						</FORM> -->
-<!-- 					</td> -->
 				</tr>
 			</c:forEach>
 		</table>
 	</div>
+	
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content rp-2">
+				
+			<div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">The Bootstrap modal-header</h3>
+           		<hr class="my-3">
+            </div>
+			
+			<div class="modal-body">
+			<div class="form-group">
+<!-- =========================================以下為原listOneEmp.jsp的內容========================================== -->
+               <jsp:include page="/front-end/shop/listOneShop2.jsp" />
+<!-- =========================================以上為原listOneEmp.jsp的內容========================================== -->
+			</div>
+			</div>
+			<div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+		
+		</div>
+	</div>
+</div>
+
+	
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!-- 查詢時有錯誤啟動 -->
 	<c:if test="${not empty errorMsgs}">

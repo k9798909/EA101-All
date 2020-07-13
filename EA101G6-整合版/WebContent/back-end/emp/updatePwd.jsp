@@ -29,6 +29,7 @@
 
 	#getnewPwd{
 		margin-left: 190px;
+		margin-right: 20%;
 	}
 	
 </style>
@@ -77,6 +78,7 @@
 								<div class="input-group mt-3">
 									<input type="hidden" name="action" value="updatePwd" >
 									<button type="submit" id="getnewPwd" class="btn btn-primary d-inline-block ">送出修改</button>
+									<a href="<%=request.getContextPath()%>/back-end/index.jsp" style="margin-top: 3%; font-size: 19px;">回首頁</a>
 								</div>
 							</form>
 						</div>

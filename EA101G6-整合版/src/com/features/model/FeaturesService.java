@@ -7,7 +7,7 @@ public class FeaturesService {
 	private FeaturesDAO_Interface dao;
 	
 	public FeaturesService() {
-		dao = new FeaturesDAO_JDBC();
+		dao = new FeaturesDAO();
 	}
 	
 	public  FeaturesVO addFeatures(String ftname) {

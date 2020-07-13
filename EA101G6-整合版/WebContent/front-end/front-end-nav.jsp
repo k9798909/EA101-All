@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="BIG5"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
 <%@ page import="com.shop.model.*"%>
 
@@ -15,7 +15,7 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Rubik:300,400,700|Oswald:400,700"
 	rel="stylesheet">
-<!-- µn¤J¹Ï¥Ü -->
+<!-- ç™»å…¥åœ–ç¤º -->
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/fonts/icomoon/style.css">
 <link rel="stylesheet"
@@ -34,15 +34,31 @@
 
 <style>
 .icon {
-	width: 20px;
-	height: 20px;
+	width: 30px;
+	height: 30px;
+	margin-right: 3px;
+}
+.reg1{
+	width: 30px;
+	height: 30px;
+	margin-right: 10px;
 }
 </style>
 
 
 
+
+
+
 </head>
 <body>
+<%
+	HttpServletRequest req = (HttpServletRequest)request;
+	HttpServletResponse res = (HttpServletResponse)response;
+	
+	session.setAttribute("location",req.getRequestURI());	
+%>
+
 	<div class="site-wrap" id="home-section">
 		<div class="site-mobile-menu site-navbar-target">
 			<div class="site-mobile-menu-header">
@@ -61,12 +77,12 @@
 					<div class="float-left">
 						<c:choose>
 						<c:when test="${mbrpfVO.mbrname != null}">
-						<span id="mbrname" class="d-md-inline-block text-white">Åwªï§A¡I${mbrpfVO.mbrname}</span>
+						<span id="mbrname" class="d-md-inline-block text-white">æ­¡è¿ä½ ï¼${mbrpfVO.mbrname}</span>
 						</c:when>
 						<c:otherwise>
 						<a href="" class="text-white"><span class="d-md-inline-block">
-								<img class="icon"
-								src="<%=request.getContextPath()%>/front-end/images/add-icon.png">µù¥U
+								<img class="icon reg1"
+								src="<%=request.getContextPath()%>/images/reg3.png">è¨»å†Š
 						</span></a>
 						</c:otherwise>
 						</c:choose>
@@ -75,12 +91,13 @@
 					<div class="float-right">
 						<c:choose>
 						<c:when test="${mbrpfVO.mbrname != null}">
-						<a href="<%= request.getContextPath()%>/mbrpf/mbrpf.do?action=logout" id="logout" class="d-md-inline-block text-white">µn¥X</a>
+						<a href="<%= request.getContextPath()%>/mbrpf/mbrpf.do?action=logout" id="logout" class="d-md-inline-block text-white"><img class="icon"
+								src="<%=request.getContextPath()%>/images/logout.png">ç™»å‡º</a>
 						</c:when>
 						<c:otherwise>
 						<a href="<%= request.getContextPath()%>/front-end/login.jsp" class="text-white"><span class="d-md-inline-block">
 								<img class="icon"
-								src="<%=request.getContextPath()%>/front-end/images/User-icon.png">·|­ûµn¤J
+								src="<%=request.getContextPath()%>/images/ghost.png">æœƒå“¡ç™»å…¥
 						</span></a><c:if test="${not empty sessionScope.shopVO}">
 							<span class="mx-md-2 d-inline-block"></span>
 							<a href="<%=request.getContextPath()%>/front-end/shop/shopArea.jsp" class="text-white"> <span
@@ -99,7 +116,7 @@
 							<a href="<%=request.getContextPath()%>/front-end/shop/login.jsp"
 								class="text-white"> <span class="d-md-inline-block"><img
 									class="icon"
-									src="<%=request.getContextPath()%>/front-end/images/man-icon.png">©±®aµn¤J</span></a>
+									src="<%=request.getContextPath()%>/images/shop.png">åº—å®¶ç™»å…¥</span></a>
 						</c:if>
 						</c:otherwise>
 						</c:choose>
@@ -126,13 +143,13 @@
 
 						<ul
 							class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
-							<li><a href="<%=request.getContextPath()%>/front-end/index.jsp" class="nav-link">­º­¶</a></li>
+							<li><a href="<%=request.getContextPath()%>/front-end/index.jsp" class="nav-link">é¦–é </a></li>
 
-							<li class="has-children"><a href="" class="nav-link">·|­û±M°Ï</a>
+							<li class="has-children"><a href="" class="nav-link">æœƒå“¡å°ˆå€</a>
 								<ul class="dropdown arrow-top">
-									<li><a href="<%= request.getContextPath()%>/front-end/mallOr/mbrMallOr.jsp" class="nav-link">¬d¸ß­q³æ</a></li>
-									<li><a href="#pricing-section" class="nav-link">Pricing</a></li>
-									<li><a href="#faq-section" class="nav-link">FAQ</a></li>
+									<li><a href="<%= request.getContextPath()%>/front-end/mallOr/mbrMallOr.jsp" class="nav-link">æŸ¥è©¢è¨‚å–®</a></li>
+									<li><a href="<%=request.getContextPath()%>/front-end/tfcord/buyPoint.jsp" class="nav-link">è³¼è²·é»æ•¸</a></li>
+									<li><a href="<%=request.getContextPath()%>/front-end/tfcord/tfMoney.jsp" class="nav-link">å…Œæ›ç¾é‡‘</a></li>
 									<li class="has-children"><a href="#">More Links</a>
 										<ul class="dropdown">
 											<li><a href="#">Menu One</a></li>
@@ -141,20 +158,20 @@
 										</ul></li>
 								</ul></li>
 
-							<li><a href="<%=request.getContextPath()%>/front-end/mall/mallGetAllUp.jsp" class="nav-link">°Ó«°</a></li>
-							<li><a href="<%=request.getContextPath()%>/front-end/shgm/mainPage.jsp" class="nav-link">¥«¶°</a></li>
-							<li class="has-children"><a href="#" class="nav-link">´ª¹Î°Ï</a>
+							<li><a href="<%=request.getContextPath()%>/front-end/mall/mallGetAllUp.jsp" class="nav-link">å•†åŸ</a></li>
+							<li><a href="<%=request.getContextPath()%>/front-end/shgm/mainPage.jsp" class="nav-link">å¸‚é›†</a></li>
+							<li class="has-children"><a href="#" class="nav-link">æªåœ˜å€</a>
 								<ul class="dropdown arrow-top">
-									<li><a href="<%=request.getContextPath()%>/front-end/room/create.jsp" class="nav-link">©Ğ¶¡¦Cªí</a></li>
-									<li><a href="<%=request.getContextPath()%>/front-end/room/myRoom.jsp" class="nav-link">§Úªº©Ğ¶¡</a></li>
+									<li><a href="<%=request.getContextPath()%>/front-end/room/create.jsp" class="nav-link">æˆ¿é–“åˆ—è¡¨</a></li>
+									<li><a href="<%=request.getContextPath()%>/front-end/room/myRoom.jsp" class="nav-link">æˆ‘çš„æˆ¿é–“</a></li>
 								</ul>
 							</li>
-							<li class="has-children"><a href="<%=request.getContextPath()%>/front-end/shop/listAllShop.jsp" class="nav-link">©±®a¦Cªí</a>
+							<li class="has-children"><a href="<%=request.getContextPath()%>/front-end/shop/listAllShop.jsp" class="nav-link">åº—å®¶åˆ—è¡¨</a>
 							<ul class="dropdown arrow-top">
-							<li><a href="<%= request.getContextPath()%>/front-end/gmlist/listAllGmlist.jsp" class="nav-link">©±®a¹CÀ¸</a></li>
-							<li><a href="<%= request.getContextPath()%>/front-end/shopbk/listAllShopbk.jsp" class="nav-link">©±®a­q¦ì</a></li>
+							<li><a href="<%= request.getContextPath()%>/front-end/gmlist/listAllGmlist.jsp" class="nav-link">åº—å®¶éŠæˆ²</a></li>
+							<li><a href="<%= request.getContextPath()%>/front-end/shopbk/listAllShopbk.jsp" class="nav-link">åº—å®¶è¨‚ä½</a></li>
 							</ul></li>
-							<li><a href="<%=request.getContextPath()%>/front-end/art/listAllArt.jsp" class="nav-link">°Q½×°Ï</a></li>
+							<li><a href="<%=request.getContextPath()%>/front-end/art/listAllArt.jsp" class="nav-link">è¨è«–å€</a></li>
 						</ul>
 					</nav>
 
@@ -174,7 +191,7 @@
 		src="<%=request.getContextPath()%>/js/model/popper.min.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/js/model/bootstrap.min.js"></script>
-	<!-- ­«­n¼s§i¬É­± -->
+	<!-- é‡è¦å»£å‘Šç•Œé¢ -->
 	<script
 		src="<%=request.getContextPath()%>/js/model/owl.carousel.min.js"></script>
 	<!--...-->
@@ -186,15 +203,15 @@
 		src="<%=request.getContextPath()%>/js/model/jquery.animateNumber.min.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/js/model/jquery.fancybox.min.js"></script>
-	<!-- ¤W¤¶­±³sµ²°Êµe -->
+	<!-- ä¸Šä»‹é¢é€£çµå‹•ç•« -->
 	<script
 		src="<%=request.getContextPath()%>/js/model/jquery.easing.1.3.js"></script>
-	<!-- ­«­n¼s§i¬É­± -->
+	<!-- é‡è¦å»£å‘Šç•Œé¢ -->
 	<script src="<%=request.getContextPath()%>/js/model/aos.js"></script>
 	<script src="<%=request.getContextPath()%>/js/model/main.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-		<!-- 	©±®aµn¥Xjs -->
+		<!-- 	åº—å®¶ç™»å‡ºjs -->
 	<script>
 		$(document).ready(function() {
 			$("#goLogout").click(function() {

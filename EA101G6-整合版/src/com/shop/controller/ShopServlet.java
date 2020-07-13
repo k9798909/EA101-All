@@ -22,28 +22,40 @@ public class ShopServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		HttpSession session = req.getSession();
-		if ("getOne_For_Display".equals(action)) { 
-//			try {
+		if ("getOne_For_Display".equals(action)||"getOne_For_Display2".equals(action)) { 
+			try {
+				System.out.println("test");
 				/*************************** 1.�����ШD�Ѽ� - ��J�榡�����~�B�z **********************/
 				String shopno = req.getParameter("shopno");
 
 				/*************************** 2.�}�l�d�߸�� *****************************************/
 				ShopService shopSvc = new ShopService();
 				ShopVO shopVO = shopSvc.getOneShop(shopno);
+				System.out.println(shopVO.getShopact());
+				/*************************bootstrap modal**************************/
 				
-
+				
 				/*************************** 3.�d�ߧ���,�ǳ����(Send the Success view) *************/
-				req.setAttribute("shopVO", shopVO); // ��Ʈw���X��shopVO����,�s�Jreq
-				String url = "listOneShop.jsp";
+				String url = null;
+				boolean openModal = false;
+				if("getOne_For_Display".equals(action)) {
+					url = "listOneShop.jsp";				}
+				
+				if("getOne_For_Display2".equals(action)) {
+					openModal=true;
+					url = "/front-end/shopbk/listAllShopbk.jsp";
+					System.out.println("123");
+				}
+				req.setAttribute("openModal", openModal);
+				req.setAttribute("shopVO", shopVO);
 				RequestDispatcher successView = req.getRequestDispatcher(url); // ���\��� listOneshop.jsp
 				successView.forward(req, res);
 
 				/*************************** ��L�i�઺���~�B�z *************************************/
-//			} catch (Exception e) {
-//				errorMsgs+="無法取得資料:" + e.getMessage()+"/n";
-//				RequestDispatcher failureView = req.getRequestDispatcher("listAllShop.jsp");
-//				failureView.forward(req, res);
-//			}
+			} catch (Exception e) {
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/shop/listAllShop.jsp");
+				failureView.forward(req, res);
+			}
 		}
 		if ("getOne_For_Update".equals(action)) { 
 

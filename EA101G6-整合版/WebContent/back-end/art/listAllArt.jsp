@@ -14,7 +14,7 @@
 
 <html>
 <head>
-<title>所有文章資料 - listAllArt.jsp</title>
+<title>所有文章資料</title>
 
 <style>
   table#table-1 {
@@ -69,6 +69,13 @@
   	right: 30px;
   	width: 125px;
   	height: 125px;
+  }
+  .www{
+  	text-align: center;
+  }
+   
+  .logoutPIC{
+  	margin-top:18%;
   }
   
   
@@ -135,17 +142,17 @@
 	
 	<table class="col-md-10 offset-md-1 table table-striped bg-white">
 	<tr>
-		<th>文章編號</th>
-		<th>作者編號</th>
-		<th>文章標題</th>
-		<th>發文日期</th>
+		<th class="www">文章編號</th>
+		<th class="www">作者編號</th>
+		<th class="www">文章標題</th>
+		<th class="www">發文日期</th>
 		
 		
-		<th>文章種類</th>
-		<th>文章狀態</th>
+		<th class="www">文章種類</th>
+		<th class="www">文章狀態</th>
 		
-		<th>修改</th>
-		<th>刪除</th>
+		<th class="www">修改</th>
+		<th class="www">刪除</th>
 	</tr>
 	
 <%-- 	<jsp:useBean id="mbrpfSvc" scope="page" class="com.mbrpf.model.MbrpfService"/> --%>

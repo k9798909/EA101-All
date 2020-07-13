@@ -266,7 +266,15 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>MsgServlet</servlet-name>
-		<url-pattern>/msg/msg.do</url-pattern>
+		<url-pattern>/back-end/msg/msg.do</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>MsgrpServlet</servlet-name>
+		<servlet-class>com.msgrp.controller.MsgrpServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MsgrpServlet</servlet-name>
+		<url-pattern>/back-end/msgrp/msgrp.do</url-pattern>
 	</servlet-mapping>
 
  	<filter>

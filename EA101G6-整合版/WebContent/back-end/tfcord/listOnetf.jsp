@@ -48,6 +48,11 @@
 					<div class="col"><!-- 點數轉換紀錄的標題 -->
 						<h2 class="tm-block-title d-inline-block">點數轉換紀錄</h2>
 					</div>
+					<div class="col">
+						<form method="post" action="<%=request.getContextPath()%>/back-end/tfcord/listAllTfcord.jsp">
+							<input type="submit" id="addEmp" value="顯示全部" >
+						</form>
+					</div>
 				</div>
 				<div class="table-responsive">
 					<table class="table">
@@ -89,8 +94,6 @@
 </div>
 
 
-
-<a href="<%=request.getContextPath()%>/back-end/tfcord/select_page_Tfcord.jsp">回後台點數轉換首頁</a>
 
 <!-- <h3>顯示某筆點數交易紀錄的詳情</h3> -->
 

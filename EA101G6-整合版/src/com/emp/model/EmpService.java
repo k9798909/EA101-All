@@ -9,7 +9,7 @@ public class EmpService {
 	private EmpDAO_Interface dao;//宣告dao的型態是介面，此處是為了框架鋪路，未來可達到0相依
 	
 	public EmpService(){
-		dao = new EmpDAO_JDBC();
+		dao = new EmpDAO();
 	}
 	
 	//因為empno是sequence產生，所以不用set
