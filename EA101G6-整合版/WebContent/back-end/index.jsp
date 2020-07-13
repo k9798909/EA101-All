@@ -128,7 +128,7 @@
 										<a class="nav-link d-flex" href="<%=request.getContextPath()%>/emp/EmpServlet?action=logout">
 											<i class="far fa-user mr-2 tm-logout-icon"></i> <span>Logout</span>
 											<input type="hidden" name="action" value="logout">
-										</a>
+										</a> 
 									</form>
 								</li>
 							</ul>

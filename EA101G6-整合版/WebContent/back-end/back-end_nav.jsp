@@ -118,7 +118,7 @@
 									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/news/listAllNews.jsp">最新消息管理</a> 
 									 
 								</div></li>
-							
+							 
 						</ul>
 						<ul class="navbar-nav">
 							<li class="nav-item logoutPIC">
