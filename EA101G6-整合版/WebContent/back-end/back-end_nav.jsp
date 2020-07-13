@@ -121,7 +121,7 @@
 							
 						</ul>
 						<ul class="navbar-nav">
-							<li class="nav-item">
+							<li class="nav-item logoutPIC">
 								<form method="post" action="<%=request.getContextPath()%>/emp/EmpServlet">
 									<a class="nav-link d-flex" href="<%=request.getContextPath()%>/emp/EmpServlet?action=logout">
 										<i class="far fa-user mr-2 tm-logout-icon"></i> <span>Logout</span>
