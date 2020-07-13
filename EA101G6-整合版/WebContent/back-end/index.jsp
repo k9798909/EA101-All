@@ -156,16 +156,16 @@
 		        </ul>
 		        <div id="tabs-1"><!--以下每一條都是未處理的通知-->
 		        	<span class="news">
-		        		<a href="<%=request.getContextPath()%>/back-end/tfcord/notYetTfcord.jsp">目前有<font style="color:red">${tfcordNum}</font>筆未審核之點數轉換</a>
+		        		目前有 筆市集商品檢舉未處理
 		        	</span>
 		        	<span class="news">
-		        		目前有 筆未審核之文章檢舉
+		        		目前有 筆文章檢舉未處理
 		        	</span>
 		        	<span class="news">
-		        		目前有 筆未審核之留言檢舉
+		        		目前有 筆留言檢舉未處理
 		        	</span>
 		        	<span class="news">
-		        		目前有 筆未審核之店家檢舉
+		        		目前有 筆店家檢舉未處理
 		        	</span>
 		        </div>
 		        <div id="tabs-2">
