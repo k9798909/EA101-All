@@ -83,7 +83,7 @@ h4 {
 				<button type="submit" class="btn btn-primary btn-lg" id="goGmlist">店家遊戲</button>
 				<button type="submit" class="btn btn-primary btn-lg" id="goShopbk">查看揪團</button>
 			</p>
-		</div>
+		</div></div>
 <FORM id="shopbk" METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/shopbk/shopbk.do">
 				<input type="hidden" name="shopno" value="${shopVO.shopno}">
 				<input type="hidden" name="action" value="getSome_For_Display">
