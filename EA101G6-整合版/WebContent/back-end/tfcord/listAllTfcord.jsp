@@ -121,7 +121,7 @@
 
 
 
-<a href="<%=request.getContextPath()%>/back-end/tfcord/select_page_Tfcord.jsp">回後台點數轉換首頁</a>
+<%-- <a href="<%=request.getContextPath()%>/back-end/tfcord/select_page_Tfcord.jsp">回後台點數轉換首頁</a> --%>
 
 <!-- <h3>顯示所有會員的點數交易紀錄</h3> -->
 

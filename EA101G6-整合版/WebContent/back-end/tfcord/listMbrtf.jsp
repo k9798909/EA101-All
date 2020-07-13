@@ -71,12 +71,18 @@
 					<div class="col"><!-- 轉換紀錄清單的標題 -->
 						<h2 class="tm-block-title d-inline-block">點數轉換紀錄</h2>
 					</div>
+					<div class="col">
+						<form method="post" action="<%=request.getContextPath()%>/back-end/tfcord/listAllTfcord.jsp">
+							<input type="submit" id="addEmp" value="顯示全部" >
+						</form>
+					</div>
 				</div>
 				<div class="table-responsive"><!--table-striped：將畫面一行灰色，一行白色-->
 					<table class="table"><!-- listMbrtf.jsp -->
 						<thead>
 							<tr class="tabletop">
 								<th scope="col">兌換編號</th>
+								<th scope="col">會員編號</th>
 								<th scope="col">兌換種類</th>
 								<th scope="col">兌換金額</th>
 								<th scope="col">兌換時間</th>
@@ -118,7 +124,7 @@
 
 
 
-<a href="<%=request.getContextPath()%>/back-end/tfcord/select_page_Tfcord.jsp">回後台點數轉換首頁</a>
+<%-- <a href="<%=request.getContextPath()%>/back-end/tfcord/select_page_Tfcord.jsp">回後台點數轉換首頁</a> --%>
 
 <!-- <h3>顯示某會員所有的點數交易紀錄</h3> -->
 <%-- ---${param.whichPage}---${param.mbrno}--- --%>
