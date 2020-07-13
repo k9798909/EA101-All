@@ -121,7 +121,7 @@ div {
 						<div class="card" style="width: 18rem">
 							<div class="card-body">
 							<label>
-							<img
+							<img 
 							src="<%=request.getContextPath()%>/ShopShowImg?shopno=${shopVO.shopno}"
 							class="card-img-top" alt="Responsive image">
 								<h5 class="card-title">${shopVO.shopname}</h5>
@@ -132,12 +132,12 @@ div {
 								type="submit" value="¸Ô²Ó¸ê°T" class="btn btn-primary"></FORM>
 							</label>
 							</div>					
-						</div>					
-					</div>				
+											
+									
 			</c:forEach>
 			</div>
-			
-			
+			</div>
+			</div>
 
     			<div class="d-flex justify-content-center container" style="margin-left: auto;margin-right: auto;">
     				<div class="row">
