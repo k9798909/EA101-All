@@ -3,12 +3,16 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ page import="com.joinrm.model.*" %>
+<%@ page import="com.mbrpf.model.*" %>
 <%@ page import="java.util.*"%>
 
 <%
 	JoinrmService joinrmSvc = new JoinrmService();
-	List<JoinrmVO> list = joinrmSvc.findByPK("","BM00001");
+	MbrpfVO mbrpfVO =(MbrpfVO) session.getAttribute("mbrpfVO");
+	String mbrno = mbrpfVO.getMbrno();
+	List<JoinrmVO> list = joinrmSvc.findByPK("",mbrno);
 	pageContext.setAttribute("list",list);
+	
 %>
 <jsp:useBean id="mbrpfSvc" scope="page" class="com.mbrpf.model.MbrpfService" />
 <jsp:useBean id="rminfoSvc" scope="page" class="com.rminfo.model.RminfoService" />
@@ -84,8 +88,8 @@
 		<c:if test="${rminfoSvc.getOneRm(joinrmVO.rmno).status == 5}">
 			<button class="btn btn-warning btn-sm" id="opener2_${joinrmVO.rmno}">團員遊玩評價</button>
 		</c:if>
-		<c:if test="${rminfoSvc.getOneRm(joinrmVO.rmno).status == 1 || rminfoSvc.getOneRm(joinrmVO.rmno).status == 2 && rminfoSvc.getOneRm(joinrmVO.rmno).mbrno == 'BM00001'}">
-			<c:if test="${rminfoSvc.getOneRm(joinrmVO.rmno).mbrno == 'BM00001'}">
+		<c:if test="${rminfoSvc.getOneRm(joinrmVO.rmno).status == 1 || rminfoSvc.getOneRm(joinrmVO.rmno).status == 2 && rminfoSvc.getOneRm(joinrmVO.rmno).mbrno == mbrpfVO.mbrno}">
+			<c:if test="${rminfoSvc.getOneRm(joinrmVO.rmno).mbrno == mbrpfVO.mbrno}">
 			<form METHOD="post" ACTION="rminfo.do">
 				<input type="hidden" name="status" value="3">
 				<input type="hidden" name="report" value="${rminfoSvc.getOneRm(joinrmVO.rmno).report}">
@@ -95,7 +99,7 @@
 			</form>
 			</c:if>
 		</c:if>
-		<c:if test="${rminfoSvc.getOneRm(joinrmVO.rmno).status <= 2}">
+		<c:if test="${rminfoSvc.getOneRm(joinrmVO.rmno).status <= 2 && rminfoSvc.getOneRm(joinrmVO.rmno).mbrno == mbrpfVO.mbrno}">
 			<form METHOD="post" ACTION="rminfo.do">
 				<input type="hidden" name="status" value="4">
 				<input type="hidden" name="report" value="${rminfoSvc.getOneRm(joinrmVO.rmno).report}">

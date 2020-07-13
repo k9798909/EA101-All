@@ -30,11 +30,30 @@
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
 <script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
 <script type="text/javascript"> var jQuery_1_12_2 = $.noConflict(true); </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
 </head>
 
 <body>
-
+<c:if test="${not empty joinMsg}">
+	<script>
+	Swal.fire({
+		  icon: 'error',
+		  title: '${joinMsg}',
+		})
+	</script>
+</c:if>
+<c:if test="${not empty successMsgs}">
+	<script>
+		Swal.fire({
+			  position: 'center',
+			  icon: 'success',
+			  title: '${successMsgs}',
+			  showConfirmButton: false,
+			  timer: 1500
+			})
+	</script>
+</c:if>
 <%@ include file="/front-end/front-end-nav.jsp"%>
 <!-- 開團表單 -->
 	<div id="dialog-form" title="設定揪團資訊">
@@ -50,10 +69,9 @@
 		</c:if>
 		<form id="myMBRform" METHOD="post" ACTION="rminfo.do">
 			<fieldset>
-				<label for="mbrno">主揪: </label> 
-				<input readonly type="text"	name="mbrno" id="mbrno" value="BM00001" class="text ui-widget-content ui-corner-all"> 
+				<input readonly type="hidden" name="mbrno" id="mbrno" value="${mbrpfVO.mbrno}" class="text ui-widget-content ui-corner-all"> 
 				<label for="naming">*房名: </label>	
-				<input type="text" name="naming" id="naming" value="決鬥!!" class="text ui-widget-content ui-corner-all">
+				<input type="text" name="naming" id="naming" value="${mbrpfVO.mbrname}的房間" class="text ui-widget-content ui-corner-all" maxlength="10">
 				*遊玩地點:
 				<select name="shopno">
 					<c:forEach var="shopVO" items="${shopSvc.getAll()}">
@@ -90,7 +108,7 @@
 					id="f_date3" class="text ui-widget-content ui-corner-all">
 				*預計玩的遊戲: <br>
 				<textarea placeholder="輸入想玩的遊戲 EX:卡卡頌" required="required"
-					name="game" maxlength="50"
+					name="game" maxlength="30"
 					style="resize: none; width: 280px; height: 60px;"><c:if
 						test="${not empty requestScope.rminfoVO}">${requestScope.rminfoVO.game}</c:if></textarea>
 				<br> <br>  *評價限制: <select name="restriction">
@@ -128,11 +146,11 @@
 			<div>
 				<form METHOD="post" ACTION="joinrm.do">
 					<input type="hidden" name="rmno" value="${rminfoVO.rmno}">
-					<input type="hidden" name="mbrno" value="BM00001"> 
+					<input type="hidden" name="mbrno" value="${mbrpfVO.mbrno}"> 
 					<input type="hidden" name="action" value="insert"> 
 					<c:choose>
 		    			<c:when test="${fn:length(joinrmSvc.findByPK(rminfoVO.rmno,'')) eq rminfoVO.uplimit}">
-		    				<input class="btn btn-warning btn-sm" type="submit" value="加入" disabled>
+		    				<input class="btn btn-warning btn-sm" type="submit" value="人數已滿" disabled>
 		   		 		</c:when>					
 						<c:otherwise>
 			    			<input class="btn btn-warning btn-sm" type="submit" value="加入">
@@ -182,7 +200,7 @@
 				~
 				<fmt:formatDate value="${rminfoVO.endtime}" pattern="HH:mm" />
 			</div>
-			<div>預計玩的遊戲: ${rminfoVO.game}</div>
+			<div class="game">預計玩的遊戲: ${rminfoVO.game}</div>
 			<div>
 				報名截止時間:
 				<fmt:formatDate value="${rminfoVO.cutoff}"
@@ -299,7 +317,19 @@
         	    });
         	 
         	    $( "#create-user" ).button().on( "click", function() {
-        	      dialog.dialog( "open" );
+        	    		
+        	    		
+	        	    <c:choose>
+		    			<c:when test="${not empty account}">
+		    				dialog.dialog( "open" );
+		   		 		</c:when>					
+						<c:otherwise>
+						Swal.fire({
+							  icon: 'error',
+							  title: '請先登入',
+							})
+			    		</c:otherwise>
+					</c:choose>
         	    });
         	  } );
 
@@ -321,9 +351,6 @@
 	}
 </script>
 <style>
-/* body{ */
-<%-- 	background-image: url('<%=request.getContextPath()%>/images/bg4.png'); --%>
-/* } */
   
 #allCard{
 	margin:50px 5% 50px 15%;
@@ -426,6 +453,11 @@ div#users-contain table td {
 .remark{
 	width:100%;
 	height:20%;
+	overflow: auto;
+}
+.game{
+	width:100%;
+	height:7%;
 	overflow: auto;
 }
 </style>

@@ -41,7 +41,7 @@ if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 				String naming = req.getParameter("naming");
 				String namingReg = "^(.|\\r|\\n){1,10}$";
 				if (naming == null || naming.trim().length() == 0) {
-					errorMsgs.add("請輸入房名");
+					errorMsgs.add("房名請勿空白");
 				} else if(!naming.trim().matches(namingReg)) { 
 					errorMsgs.add("房名只能在10個字元以內");
 	            }
@@ -49,11 +49,11 @@ if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 				String mbrno= req.getParameter("mbrno");
 				
 				String game= req.getParameter("game");
-				String gameReg = "^(.|\\r|\\n){1,50}$";
+				String gameReg = "^(.|\\r|\\n){1,30}$";
 				if (game == null || game.trim().length() == 0) {
 					errorMsgs.add("請輸入遊玩遊戲");
 				} else if(!game.trim().matches(gameReg)) {
-					errorMsgs.add("遊玩遊戲: 請控制在50個字元之內");
+					errorMsgs.add("遊玩遊戲: 請控制在30個字元之內");
 	            }
 				
 				String remarks= req.getParameter("remarks");
@@ -133,6 +133,9 @@ if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 				joinrmSvc.insertMbr(rmno, mbrno);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
+				List<String> successMsgs = new LinkedList<String>();
+				req.setAttribute("successMsgs", successMsgs);
+				successMsgs.add("建立成功!!");
 				String url = "/front-end/room/create.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);				

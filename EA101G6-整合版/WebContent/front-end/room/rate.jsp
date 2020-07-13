@@ -24,12 +24,12 @@
 <table>
 <tr><th>成員名稱</th><th style="width:100px">評價分數</th><th >評價內容</th></tr>
 	<c:forEach var="joinrmVO2" items="${list2}">
-		<c:if test="${joinrmVO2.mbrno ne 'BM00001'}">
+		<c:if test="${joinrmVO2.mbrno ne mbrpfVO.mbrno}">
 			<tr>		  
 		      <td>
 			      <input type="text" name="ratedmbrno" value="${mbrpfSvc.getOneMbrpf(joinrmVO2.mbrno).mbrname}" readonly>
 			      <input type="hidden" name="rmno" value="<%=request.getParameter("rmno")%>">
-			      <input type="hidden" name="ratingmbrno" value="BM00001">
+			      <input type="hidden" name="ratingmbrno" value="${mbrpfVO.mbrno}">
 		      </td>
 		      <td align="center"> 
 		      	<select name="score">

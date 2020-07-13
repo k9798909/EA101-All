@@ -24,9 +24,9 @@ public class JoinrmServlet extends HttpServlet{
 		
 if ("insert".equals(action)) { 
 			
-			List<String> errorMsgs = new LinkedList<String>();
+			List<String> joinMsg = new LinkedList<String>();
 
-			req.setAttribute("errorMsgs", errorMsgs);
+			req.setAttribute("joinMsg", joinMsg);
 
 			try {
 				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
@@ -36,23 +36,32 @@ if ("insert".equals(action)) {
 				String mbrno= req.getParameter("mbrno");
 				String rmno= req.getParameter("rmno");
 				
-
+				JoinrmService joinrmSvc = new JoinrmService();
+				List<JoinrmVO> findByPK = joinrmSvc.findByPK(rmno,"");
+				HttpSession session =req.getSession();
+				String account = (String) session.getAttribute("account");
+				
+				if(account == null) {
+					joinMsg.add("請先登入");
+				}else {
+					for(JoinrmVO memberNo:findByPK) {
+						if(memberNo.getMbrno().equals(mbrno)) {
+							joinMsg.add("您已經在此房間內");
+						}							
+					}
+				}
+				System.out.println(mbrno + "," + rmno);
+				// Send the use back to the form, if there were errors
+				if (!joinMsg.isEmpty()) {
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/room/create.jsp");
+					failureView.forward(req, res);
+					return;
+				}
+				
 				JoinrmVO joinrmVO = new JoinrmVO();
 				joinrmVO.setRmno(rmno);
 				joinrmVO.setMbrno(mbrno);
-				
-				
-				// Send the use back to the form, if there were errors
-//				if (!errorMsgs.isEmpty()) {
-//req.setAttribute("empVO", empVO); // �t����J�榡���~��empVO����,�]�s�Jreq
-//					RequestDispatcher failureView = req
-//							.getRequestDispatcher("/emp/addEmp.jsp");
-//					failureView.forward(req, res);
-//					return;
-//				}
-				
 				/***************************2.開始新增資料***************************************/
-				JoinrmService joinrmSvc = new JoinrmService();
 				joinrmVO = joinrmSvc.insertMbr(rmno,mbrno);
 				List<JoinrmVO> memberNumber = joinrmSvc.findByPK(rmno,"");
 				RminfoService rminfoSvc = new RminfoService();
@@ -73,9 +82,8 @@ if ("insert".equals(action)) {
 				/***************************其他可能的錯誤處理**********************************/
 			} catch (Exception e) {
 				System.out.println(e);
-//				errorMsgs.add(e.getMessage());
-//				RequestDispatcher failureView = req
-//						.getRequestDispatcher("/front-end/create.jsp");
+//				sqlException.add("您已經在此房間內");
+//				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/room/create.jsp");
 //				failureView.forward(req, res);
 			}
 		}
