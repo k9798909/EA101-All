@@ -34,8 +34,14 @@
 
 <style>
 .icon {
-	width: 20px;
-	height: 20px;
+	width: 30px;
+	height: 30px;
+	margin-right: 3px;
+}
+.reg1{
+	width: 30px;
+	height: 30px;
+	margin-right: 10px;
 }
 </style>
 
@@ -65,8 +71,8 @@
 						</c:when>
 						<c:otherwise>
 						<a href="" class="text-white"><span class="d-md-inline-block">
-								<img class="icon"
-								src="<%=request.getContextPath()%>/front-end/images/add-icon.png">註冊
+								<img class="icon reg1"
+								src="<%=request.getContextPath()%>/images/reg3.png">註冊
 						</span></a>
 						</c:otherwise>
 						</c:choose>
@@ -75,12 +81,13 @@
 					<div class="float-right">
 						<c:choose>
 						<c:when test="${mbrpfVO.mbrname != null}">
-						<a href="<%= request.getContextPath()%>/mbrpf/mbrpf.do?action=logout" id="logout" class="d-md-inline-block text-white">登出</a>
+						<a href="<%= request.getContextPath()%>/mbrpf/mbrpf.do?action=logout" id="logout" class="d-md-inline-block text-white"><img class="icon"
+								src="<%=request.getContextPath()%>/images/logout.png">登出</a>
 						</c:when>
 						<c:otherwise>
 						<a href="<%= request.getContextPath()%>/front-end/login.jsp" class="text-white"><span class="d-md-inline-block">
 								<img class="icon"
-								src="<%=request.getContextPath()%>/front-end/images/User-icon.png">會員登入
+								src="<%=request.getContextPath()%>/images/ghost.png">會員登入
 						</span></a><c:if test="${not empty sessionScope.shopVO}">
 							<span class="mx-md-2 d-inline-block"></span>
 							<a href="<%=request.getContextPath()%>/front-end/shop/shopArea.jsp" class="text-white"> <span
@@ -99,7 +106,7 @@
 							<a href="<%=request.getContextPath()%>/front-end/shop/login.jsp"
 								class="text-white"> <span class="d-md-inline-block"><img
 									class="icon"
-									src="<%=request.getContextPath()%>/front-end/images/man-icon.png">店家登入</span></a>
+									src="<%=request.getContextPath()%>/images/shop.png">店家登入</span></a>
 						</c:if>
 						</c:otherwise>
 						</c:choose>
