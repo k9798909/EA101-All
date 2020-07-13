@@ -503,7 +503,7 @@ public class ShopJDBCDAO implements ShopDAO_interface{
 //		System.out.println("---------------------");
 //
 //		// �d��
-		List<ShopVO> list = dao.getAllowedShop();
+		List<ShopVO> list = shopSvc.getByStatus();
 		for (ShopVO shop : list) {
 			System.out.print(shop.getShopno() + ",");
 			System.out.print(shop.getShopact() + ",");
