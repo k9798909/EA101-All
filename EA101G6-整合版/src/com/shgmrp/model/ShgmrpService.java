@@ -1,5 +1,10 @@
 package com.shgmrp.model;
 
+import java.sql.Connection;
+
+import com.shgm.model.ShgmService;
+import com.shgm.model.ShgmVO;
+
 public class ShgmrpService {
 	
 	private ShgmrpDAO_interface dao;
@@ -33,9 +38,21 @@ public class ShgmrpService {
 		return shgmrpvo;
 	}
 	
-	public void updateStatus(Integer status, String shgmrpno) {
+	public void updateUpcheck(ShgmVO shgmvo, Integer status, Connection con) {
+		//確定檢舉，下架市集商品
+		if(status == 1) {
+			shgmvo.setUpcheck(2);
+			//取消檢舉或未審核檢舉，上架市集商品
+		} else if(status == 2 || status == 0) {
+			shgmvo.setUpcheck(1);
+		}
 		
-		dao.updateStatus(status, shgmrpno);
+		ShgmService shgmsvc = new ShgmService();
+		shgmsvc.updateShgm(shgmvo.getShgmno(), shgmvo.getSellerno(), shgmvo.getBuyerno(),
+				shgmvo.getShgmname(), shgmvo.getPrice(), shgmvo.getIntro(), shgmvo.getImg(),
+				shgmvo.getUpcheck(), shgmvo.getUptime(), shgmvo.getTake(), shgmvo.getTakernm(),
+				shgmvo.getTakerph(), shgmvo.getAddress(), shgmvo.getBoxstatus(), shgmvo.getPaystatus(),
+				shgmvo.getStatus(), shgmvo.getSoldtime(), con);
 	}
 	
 	public void deleteShgmrp(String shgmrpno) {
@@ -53,7 +70,7 @@ public class ShgmrpService {
 		return dao.findByShgmno(shgmno);
 	}
 	
-	public java.util.List<ShgmrpVO> getAllShgmrp(){
+	public java.util.Set<ShgmrpVO> getAllShgmrp(){
 		
 		return dao.getAll();
 	}

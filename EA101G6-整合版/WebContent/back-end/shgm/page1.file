@@ -8,7 +8,7 @@
 %>
 
 <%  
-    rowNumber=list.size();
+    rowNumber=set.size();
     if (rowNumber%rowsPerPage !=0)
          pageNumber=rowNumber/rowsPerPage + 1;
     else pageNumber=rowNumber/rowsPerPage;    
@@ -32,13 +32,8 @@
     } 
 %>
 
-  <%if (pageNumber>1) {%>
-    <FORM METHOD="post" ACTION="<%=request.getRequestURI()%>">   
-       <select size="1" name="whichPage">
-         <%for (int i=1; i<=pageNumber; i++){%>
-            <option value="<%=i%>">跳至第<%=i%>頁
-         <%}%> 
-       </select>
-       <input type="submit" value="確定" >  
-    </FORM>
-  <%}%>
+<%if (pageNumber>0){%>
+  <b><font color=red>第<%=whichPage%>/<%=pageNumber%>頁</font></b>
+<%}%>
+
+<b>●符 合 查 詢 條 件 如 下 所 示: 共<font color=red><%=rowNumber%></font>筆</b>
