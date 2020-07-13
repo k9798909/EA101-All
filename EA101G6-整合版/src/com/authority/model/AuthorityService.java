@@ -5,7 +5,7 @@ import java.util.List;
 public class AuthorityService {
 	
 	private AuthorityDAO_Interface dao;
-	
+	 
 	public AuthorityService() {
 		dao = new AuthorityDAO();
 	}

@@ -23,7 +23,7 @@ public class FeaturesDAO implements FeaturesDAO_Interface{
 		}catch(NamingException e) {
 			e.printStackTrace();
 		}
-	}
+	} 
 	
 	private static final String INSERT_PSTMT = "INSERT INTO FEATURES (FTNO, FTNAME) VALUES ('LF'||LPAD(TO_CHAR(FEATURES_SEQ.NEXTVAL),5,'0'), ?)";
 	private static final String UPDATE_PSTMT = "UPDATE FEATURES SET FTNAME = ? WHERE FTNO = ?"; 	

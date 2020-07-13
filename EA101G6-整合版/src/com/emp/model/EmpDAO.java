@@ -32,7 +32,7 @@ public class EmpDAO implements EmpDAO_Interface {
 		}catch(NamingException e) {
 			e.printStackTrace();
 		}
-	}
+	} 
 	
 	//一開始INSERT的是給他們驗證的帳密?
 	private static final String INSERT_PSTMT = "INSERT INTO EMP (PIC, EMPNO, EMPNAME, EMPPWD, MAIL, SEX, EMPSTATUS) VALUES (?, 'LE'||LPAD(TO_CHAR(EMP_SEQ.NEXTVAL),5,'0'), ?, ?, ?, ?, ? )";

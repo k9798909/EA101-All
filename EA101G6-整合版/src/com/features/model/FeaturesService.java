@@ -8,7 +8,7 @@ public class FeaturesService {
 	
 	public FeaturesService() {
 		dao = new FeaturesDAO();
-	}
+	} 
 	
 	public  FeaturesVO addFeatures(String ftname) {
 		

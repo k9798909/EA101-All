@@ -11,7 +11,7 @@ public class TfcordService {
 	
 	public TfcordService() {
 		dao = new TfcordDAO();
-	}
+	} 
 	
 	public TfcordVO addTfcord(String mbrno, String tftype, Integer price, Integer tfstatus) {
 		TfcordVO tfcordVO = new TfcordVO();
