@@ -26,22 +26,15 @@
 <div class="login-form ">
      <h1><img src="<%=request.getContextPath()%>/images/rocket.gif" width="250" height="200" border="0"></h1>
      <div class="form-group ">
-       <input type="text" class="form-control" name="account" placeholder="帳號 " id="UserName">
+       <input type="email" class="form-control" name="mail" placeholder="請輸入電子信箱 " id="UserName">
        <i class="fa fa-user"></i>
      </div>
      <div class="form-group log-status">
-       <input type="password" class="form-control" name="password" placeholder="密碼" id="Passwod">
+       <input type="text" class="form-control" name="mbract" placeholder="請輸入帳號" id="Passwod">
        <i class="fa fa-lock"></i>
-     </div>
-      <span class="alert">密碼錯誤</span>
-      <a class="link" href="#">忘記密碼?</a>
-<!--       <input type="hidden" name="action" value="tryLogin"> -->
-<!--      <input type="submit" class="log-btn" value="會員登入"> -->
-<!--      <h3>  </h3> -->
-<%--      <button type="button" class="sign-btn" onclick="location.href='<%=request.getContextPath()%>/front-end/mbrpf/addMbrpf.jsp'" >會員註冊</button> --%>
-       <!-- <a class="linksignup" href="#">會員註冊</a> -->
-     
-    
+     </div> 
+     <input type="hidden" name="action" value="forget">
+     <div style="text-align:center;"><input type="submit" value="送出"></div>
    </div>
    </form>
   </main>
@@ -50,7 +43,15 @@
    
 <!-- partial -->
   <script  src="<%= request.getContextPath()%>/js/script_login.js"></script>
-
+	<script>
+	<c:if test="${not empty errorMsgs}">
+		let erroStr="";
+		<c:forEach var="str" items="${errorMsgs}">
+			erroStr+="${str}"+"\n";
+		</c:forEach>
+		swal({text:erroStr });
+	</c:if>
+	</script>
   
 
 

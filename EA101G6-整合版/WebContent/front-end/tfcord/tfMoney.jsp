@@ -78,12 +78,22 @@
 
 <%@ include file="/front-end/front-end-nav.jsp" %>
 
+<!-- 錯誤列表  -->
+	<c:if test="${not empty errorMsgs}">
+		<font style="color: red">請修正以下錯誤：</font>
+		<ul>
+			<c:forEach var="message" items="${errorMsgs}">
+				<li style="color: red">${message}</li>
+			</c:forEach>
+		</ul>
+	</c:if>
+
 <div class="container">
 	<div class="row">
 		<img src="<%=request.getContextPath()%>/img/ChangeMoney.png">
 	</div>
 	<div class="row float-right">
-		<a href="<%=request.getContextPath()%>/front-end/tfcord/select_page_Tfcord_front.jsp" class="pointBtn orangeBtn">回前台點數轉換首頁</a>
+		<a href="<%=request.getContextPath()%>/front-end/tfcord/buyPoint.jsp" class="pointBtn orangeBtn">前往購買點數</a>
 	</div>
 	<div style="margin-top:7%; margin-bottom:10%; background-color:#FFE0B2; border-radius:10px;"> <!-- 橘色外框 -->
 	<br>

@@ -128,6 +128,7 @@
 		<filter-mapping>
 			<filter-name>shopLogin</filter-name>
 			<url-pattern>/front-end/shop/update_shop_input.jsp</url-pattern>
+			<url-pattern>/front-end/shop/shopArea.jsp</url-pattern>
 			<url-pattern>/front-end/shopbk/addShopbk.jsp</url-pattern>
 			<url-pattern>/front-end/shopbk/update_shopbk_input.jsp</url-pattern>
 			<url-pattern>/front-end/game/addGame.jsp</url-pattern>
@@ -266,7 +267,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>MsgServlet</servlet-name>
-		<url-pattern>/msg/msg.do</url-pattern>
+		<url-pattern>/back-end/msg/msg.do</url-pattern>
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>MsgrpServlet</servlet-name>
@@ -274,7 +275,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>MsgrpServlet</servlet-name>
-		<url-pattern>/msgrp/msgrp.do</url-pattern>
+		<url-pattern>/back-end/msgrp/msgrp.do</url-pattern>
 	</servlet-mapping>
 
  	<filter>
@@ -293,6 +294,7 @@
   		<url-pattern>/front-end/shgm/sellerUpdate.jsp</url-pattern>
   		<url-pattern>/front-end/shgm/sellPage.jsp</url-pattern>
   		<url-pattern>/front-end/shgm/myShgm.jsp</url-pattern>
+  		<url-pattern>/front-end/tfcord/*</url-pattern>
   		<dispatcher>REQUEST</dispatcher>
   		<dispatcher>FORWARD</dispatcher>
   		<dispatcher>INCLUDE</dispatcher>

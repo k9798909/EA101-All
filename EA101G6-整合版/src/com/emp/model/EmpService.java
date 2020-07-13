@@ -10,7 +10,7 @@ public class EmpService {
 	
 	public EmpService(){
 		dao = new EmpDAO();
-	} 
+	}
 	
 	//因為empno是sequence產生，所以不用set
     //之後會有sequence產生的同時，也可以拿來用的做法

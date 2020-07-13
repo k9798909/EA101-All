@@ -19,7 +19,7 @@ import com.mbrpf.model.MbrpfVO;
 
 public class TfcordDAO implements TfcordDAO_Interface {
 	private static DataSource ds = null;
-	
+	 
 	static {
 		try {
 			Context ctx = new InitialContext();
@@ -27,7 +27,7 @@ public class TfcordDAO implements TfcordDAO_Interface {
 		}catch(NamingException e) {
 			e.printStackTrace();
 		}
-	} 
+	}
 
 	private static final String INSERT_PSTMT = "INSERT INTO TFCORD(TFNO, MBRNO, TFTYPE, PRICE, TFTIME, TFSTATUS) VALUES (TO_CHAR(SYSDATE,'YYYYMMDD')||'-'||LPAD(TO_CHAR(TFCORD_SEQ.NEXTVAL),7,'0'), ?, ?, ?, CURRENT_TIMESTAMP, ?)";
 	private static final String UPDATE_PSTMT = "UPDATE TFCORD SET MBRNO = ?, TFTYPE = ?, PRICE = ?, TFTIME = ?, TFSTATUS = ? WHERE TFNO = ?";//換點數的修改，按修改時，TFNO會自動抓要修改的那筆的號碼

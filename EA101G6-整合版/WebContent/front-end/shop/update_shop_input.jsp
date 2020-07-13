@@ -46,11 +46,6 @@ img {
 
 
 
-	<table>
-		<h4>
-			<a href="index.jsp"><img src="images/add-icon.png" class="icon">回首頁</a>
-		</h4>
-	</table>
 
 	<h3>資料修改:</h3>
 

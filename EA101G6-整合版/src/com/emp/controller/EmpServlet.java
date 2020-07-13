@@ -52,7 +52,7 @@ public class EmpServlet extends HttpServlet {
 				}
 				
 				if(!errorMsgs.isEmpty()) {//如果錯誤訊息不是空的，代表有錯誤，回到select_page的畫面
-					RequestDispatcher failView = req.getRequestDispatcher("/back-end/emp/select_page.jsp");
+					RequestDispatcher failView = req.getRequestDispatcher("/back-end/emp/listAllEmp.jsp");
 					failView.forward(req, res);
 					return;//程式中斷，因為下面沒有寫else，if做完會繼續往下做，預防他往下做這邊要用return
 					       //如果下面有寫else包起來，就可以不用寫return，但因為這樣要包一大包，所以不建議這樣做
@@ -64,7 +64,7 @@ public class EmpServlet extends HttpServlet {
 					errorMsgs.add("查無此員工");
 				}
 				if(!errorMsgs.isEmpty()) {
-					RequestDispatcher failView = req.getRequestDispatcher("/back-end/emp/select_page.jsp");
+					RequestDispatcher failView = req.getRequestDispatcher("/back-end/emp/listAllEmp.jsp");
 					failView.forward(req, res);
 					return;
 				}
@@ -76,7 +76,7 @@ public class EmpServlet extends HttpServlet {
 				/***************************其他可能的錯誤處理*************************************/	
 			}catch(Exception e){
 				errorMsgs.add("無法取得資料：" + e.getMessage());
-				RequestDispatcher failView = req.getRequestDispatcher("/back-end/emp/select_page.jsp");
+				RequestDispatcher failView = req.getRequestDispatcher("/back-end/emp/listAllEmp.jsp");
 				failView.forward(req, res);
 			}
 			
@@ -97,7 +97,7 @@ public class EmpServlet extends HttpServlet {
 				}
 				
 				if(!errorMsgs.isEmpty()) {
-					RequestDispatcher failView = req.getRequestDispatcher("/back-end/emp/select_page.jsp");
+					RequestDispatcher failView = req.getRequestDispatcher("/back-end/emp/listAllEmp.jsp");
 					failView.forward(req, res);
 					return;
 				}
@@ -108,7 +108,7 @@ public class EmpServlet extends HttpServlet {
 					errorMsgs.add("查無此員工");
 				}
 				if(!errorMsgs.isEmpty()) {
-					RequestDispatcher failView = req.getRequestDispatcher("/back-end/emp/select_page.jsp");
+					RequestDispatcher failView = req.getRequestDispatcher("/back-end/emp/listAllEmp.jsp");
 					failView.forward(req, res);
 					return;
 				}
@@ -120,7 +120,7 @@ public class EmpServlet extends HttpServlet {
 				/***************************其他可能的錯誤處理*************************************/	
 			}catch(Exception e){
 				errorMsgs.add("無法取得資料：" + e.getMessage());
-				RequestDispatcher failView = req.getRequestDispatcher("/back-end/emp/select_page.jsp");
+				RequestDispatcher failView = req.getRequestDispatcher("/back-end/emp/listAllEmp.jsp");
 				failView.forward(req, res);
 			}
 			
@@ -175,7 +175,6 @@ public class EmpServlet extends HttpServlet {
 				
 				//沒有讀圖片的方式：
 				//byte[] pic = (req.getParameter("pic")).getBytes();//將字串用getBytes()的方法，得到byte[]
-				System.out.println("111111111111111");
 				
 				byte[] pic;
 				Part picPart = req.getPart("pic");
@@ -189,7 +188,6 @@ public class EmpServlet extends HttpServlet {
 					pic = empVO.getPic();//用getPic()取出 員工物件原本的照片再放進去一次
 				}
 				in.close();
-				System.out.println("22222222222222");
 				
 				String empname = req.getParameter("empname");
 				String enameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
@@ -199,9 +197,6 @@ public class EmpServlet extends HttpServlet {
 					errorMsgs.add("員工姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 				}
 				
-				System.out.println("33333333333333");
-				
-				
 				String mail = req.getParameter("mail");
 				String mailReg = "^\\w{1,63}@[a-zA-Z0-9]{2,63}\\.[a-zA-Z]{2,63}(\\.[a-zA-Z]{2,63})?$";//\w{1,63}的意思等於[a-zA-Z0-9_]{1,63}，就是允許大小寫字母，數字和底線，至少1到63個字
 				if(mail == null || mail.trim().length() == 0) {                                       //[a-zA-Z0-9]{2,63}的意思是允許大小寫字母和數字，至少2到63個字
@@ -210,29 +205,18 @@ public class EmpServlet extends HttpServlet {
 					errorMsgs.add("信箱: 請輸入正確的信箱格式");
 				}
 				
-				System.out.println("4444444444444");
-				
 				String sex = req.getParameter("sex");
 				if(sex == null) {
 					errorMsgs.add("性別: 請選擇性別");
 				}
 				
-				System.out.println("555555555555555");
-				
-				
-				
 				Integer empstatus = new Integer(req.getParameter("empstatus"));
 				
-				
 				String[] ftno = req.getParameterValues("features");
-				System.out.println("777777");
-				System.out.println("ftno長度"+ftno.length);
+
 				for(String ftnoStr :ftno) {
 					empAuthority.add(ftnoStr);
-					System.out.println(ftnoStr);
 				}
-				
-				
 				
 				req.setAttribute("empAuthority",empAuthority);
 				
@@ -586,10 +570,6 @@ public class EmpServlet extends HttpServlet {
 				failView.forward(req, res);
 			}	
 		}
-		
-		
-		
-		
 	}
 
 }

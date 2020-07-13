@@ -16,7 +16,7 @@ import javax.sql.DataSource;
 public class AuthorityDAO implements AuthorityDAO_Interface {
 	
 	private static DataSource ds = null;
-	 
+	
 	static {
 		try {
 			Context ctx = new InitialContext();

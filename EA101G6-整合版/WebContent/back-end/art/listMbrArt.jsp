@@ -54,6 +54,9 @@
   .www{
   	text-align: center;
   }
+  .logoutPIC{
+   	margin-top: 18%;
+   }
 </style>
 
 </head>

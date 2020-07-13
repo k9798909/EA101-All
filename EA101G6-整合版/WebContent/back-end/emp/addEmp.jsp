@@ -65,6 +65,10 @@
 		padding-left:680px;
 	}
 	
+	.magicBtn{
+		padding-left:655px;
+	}
+	
 	
 </style>
 
@@ -153,6 +157,10 @@
 						<button type="submit" class="btn btn-primary">Add</button>
 					</div>
 				</div>
+				<br>
+				<div class="magicBtn">
+					<button type="button" id="magic" class="btn btn-outline-warning">神奇小按鈕</button>
+				</div>
 			</form>
 		</div>
 	</div>
@@ -162,6 +170,17 @@
 
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.min.js"></script>
 <script src="<%=request.getContextPath()%>/js/bootstrap.min.js"></script>
+
+<script>
+
+$(document).ready(function(){
+   $("#magic").click(function(){
+     $("#name").val("第六組好棒棒");
+     $("#email").val("lct840116@gmail.com");
+   });
+ });
+ 
+</script>
 
 </body>
 </html>

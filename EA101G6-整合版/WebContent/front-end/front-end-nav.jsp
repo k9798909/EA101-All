@@ -80,7 +80,7 @@
 						<span id="mbrname" class="d-md-inline-block text-white">歡迎你！${mbrpfVO.mbrname}</span>
 						</c:when>
 						<c:otherwise>
-						<a href="" class="text-white"><span class="d-md-inline-block">
+						<a href="<%=request.getContextPath()%>/front-end/mbrpf/addMbrpf.jsp" class="text-white"><span class="d-md-inline-block">
 								<img class="icon reg1"
 								src="<%=request.getContextPath()%>/images/reg3.png">註冊
 						</span></a>
@@ -148,8 +148,9 @@
 							<li class="has-children"><a href="" class="nav-link">會員專區</a>
 								<ul class="dropdown arrow-top">
 									<li><a href="<%= request.getContextPath()%>/front-end/mallOr/mbrMallOr.jsp" class="nav-link">查詢訂單</a></li>
-									<li><a href="#pricing-section" class="nav-link">Pricing</a></li>
-									<li><a href="#faq-section" class="nav-link">FAQ</a></li>
+									<li><a href="<%= request.getContextPath()%>/front-end/tfcord/listOneMbrtf.jsp" class="nav-link">帳戶管理</a></li>
+									<li><a href="<%=request.getContextPath()%>/front-end/tfcord/buyPoint.jsp" class="nav-link">購買點數</a></li>
+									<li><a href="<%=request.getContextPath()%>/front-end/tfcord/tfMoney.jsp" class="nav-link">兌換現金</a></li>
 									<li class="has-children"><a href="#">More Links</a>
 										<ul class="dropdown">
 											<li><a href="#">Menu One</a></li>

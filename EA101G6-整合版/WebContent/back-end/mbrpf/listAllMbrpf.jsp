@@ -53,15 +53,15 @@
 
 </head>
 <body>
-<%-- <%@ include file="/back-end/back-end_nav.jsp"%> --%>
-<%@ include file="/front-end/front-end-nav.jsp"%>
+<%@ include file="/back-end/back-end_nav.jsp"%>
+<%-- <%@ include file="/front-end/front-end-nav.jsp"%> --%>
 
-<table id="table-1" class="t111">
-	<tr><td>
-		 <h3>所有資料 - listAllMbrpf.jsp</h3>
-		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
+<!-- <table id="table-1" class="t111"> -->
+<!-- 	<tr><td> -->
+<!-- 		 <h3>所有資料 - listAllMbrpf.jsp</h3> -->
+<!-- 		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4> -->
+<!-- 	</td></tr> -->
+<!-- </table> -->
 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
@@ -75,13 +75,13 @@
 
 <table>
 	<tr>
-		<th>會員照片</th>
+		<th style="text-align:center">會員照片</th>
 		<th>會員編號</th>
 		<th>一般會員帳號</th>
-		<th>一般會員密碼</th>
+<!-- 		<th>一般會員密碼</th> -->
 		<th>會員姓名</th>
 <!-- 		<th>會員照片</th> -->
-		<th>出生年月日</th>
+		<th min-width>出生年月日</th>
 		<th>性別</th>
 		<th>電子郵件</th>
 		<th>電話</th>
@@ -102,7 +102,7 @@
 			<td><img alt="" width="100" height="100" src="<%= request.getContextPath()%>/mbrpf/mbrimg.do?mbrno=${mbrpfVO.mbrno}"></td>
 			<td>${mbrpfVO.mbrno}</td>
 			<td>${mbrpfVO.mbract}</td>
-			<td>${mbrpfVO.mbrpw}</td>
+<%-- 			<td>${mbrpfVO.mbrpw}</td> --%>
 			<td>${mbrpfVO.mbrname}</td>
 <%-- 			<td><img alt="" width="100" height="100" src="<%= request.getContextPath()%>/mbrpf/mbrimg.do?mbrno=${mbrpfVO.mbrno}"></td> --%>
 			<td>${mbrpfVO.birth}</td>

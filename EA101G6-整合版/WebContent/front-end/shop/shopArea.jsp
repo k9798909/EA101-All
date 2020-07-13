@@ -5,15 +5,6 @@
 <%@ page import="com.gmlist.model.*"%>
 <%@ page import="com.game.model.*"%>
 <%@ include file="/front-end/front-end-nav.jsp"%>
-<%
-	// 	GmlistService gmlistSvc = new GmlistService();
-	// 	ShopVO shopVO = (ShopVO)session.getAttribute("shopVO");
-	// 	List<GmlistVO> list = gmlistSvc.getSomeGmlistByShop(shopVO.getShopno());;
-	// 	if (request.getParameter("shopno") != null) {
-	// 		shopVO = (ShopVO) request.getAttribute("shopVO");
-	// 		list = gmlistSvc.getSomeGmlistByShop(shopVO.getShopno());
-	// 	}
-%>
 
 <head>
 

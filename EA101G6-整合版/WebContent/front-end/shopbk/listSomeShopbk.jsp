@@ -95,7 +95,7 @@ h4 {
 		<jsp:useBean id="shopSvc" scope="page" class="com.shop.model.ShopService" />
 		<c:forEach var="shopbkVO" items="${list}">
 			<tr>
-				<td>${shopSvc.getOneShop(shopbkVO.shopno).getShopname()}</td>
+				<td><A href="<%=request.getContextPath()%>/front-end/shop/shop.do?shopno=${shopbkVO.shopno}&action=getOne_For_Display3&requestURL=<%=request.getServletPath()%>">${shopSvc.getOneShop(shopbkVO.shopno).shopname}</a></td>
 				<td>${shopbkVO.ofdtable}</td>
 				<td>${shopbkVO.shoppds}</td>
 				<td>${shopbkVO.shoppde}</td>
@@ -106,6 +106,27 @@ h4 {
 	</table>
 </div>
 
+<c:if test="${openModal!=null}">
+
+<div class="modal fade element-center" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+	
+<!-- =========================================以下為原listOneEmp.jsp的內容========================================== -->
+               <jsp:include page="/front-end/shop/listOneShop2.jsp" />
+<!-- =========================================以上為原listOneEmp.jsp的內容========================================== -->			
+<!-- 			<div class="modal-footer" style="margin-left:auto;margin-top:auto;"> -->
+<!--                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+<!--             </div> -->
+		
+		</div>
+	</div>
+</div>
+        <script>
+    		 $("#basicModal").modal({show: true});
+        </script>
+ </c:if>
+ 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!-- 查詢時有錯誤啟動 -->
 	<c:if test="${not empty errorMsgs}">

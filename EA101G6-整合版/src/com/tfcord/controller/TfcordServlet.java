@@ -218,7 +218,7 @@ public class TfcordServlet extends HttpServlet {
 				}
 				
 				if(!errorMsgs.isEmpty()) {
-					RequestDispatcher failView = req.getRequestDispatcher("/back-end/tfcord/select_page_Tfcord.jsp");
+					RequestDispatcher failView = req.getRequestDispatcher("/back-end/tfcord/listAllTfcord.jsp");
 					failView.forward(req, res);
 					return;
 				}
@@ -231,7 +231,7 @@ public class TfcordServlet extends HttpServlet {
 				}
 				System.out.println(tfcordVOAll);
 				if(!errorMsgs.isEmpty()) {
-					RequestDispatcher failView = req.getRequestDispatcher("/back-end/tfcord/select_page_Tfcord.jsp");
+					RequestDispatcher failView = req.getRequestDispatcher("/back-end/tfcord/listAllTfcord.jsp");
 					failView.forward(req, res);
 					return;
 				}
@@ -245,7 +245,7 @@ public class TfcordServlet extends HttpServlet {
 				/***************************其他可能的錯誤處理*************************************/	
 			}catch(Exception e) {
 				errorMsgs.add("查詢紀錄失敗" + e.getMessage());
-				RequestDispatcher failView = req.getRequestDispatcher("/back-end/tfcord/select_page_Tfcord.jsp");
+				RequestDispatcher failView = req.getRequestDispatcher("/back-end/tfcord/listAllTfcord.jsp");
 				failView.forward(req, res);
 			}
 		}
@@ -274,7 +274,7 @@ public class TfcordServlet extends HttpServlet {
 				/***************************其他可能的錯誤處理*************************************/
 			}catch(Exception e) {
 				errorMsgs.add("確認審核失敗" + e.getMessage());
-				RequestDispatcher failView = req.getRequestDispatcher("/back-end/tfcord/listMbrtf.jsp");
+				RequestDispatcher failView = req.getRequestDispatcher("/back-end/tfcord/listAllTfcord.jsp");
 				failView.forward(req, res);
 			}		
 		}
@@ -294,7 +294,7 @@ public class TfcordServlet extends HttpServlet {
 				}
 				
 				if(!errorMsgs.isEmpty()) {
-					RequestDispatcher failView = req.getRequestDispatcher("/back-end/tfcord/select_page_Tfcord.jsp");
+					RequestDispatcher failView = req.getRequestDispatcher("/back-end/tfcord/listAllTfcord.jsp");
 					failView.forward(req, res);
 					return;
 				}
@@ -306,7 +306,7 @@ public class TfcordServlet extends HttpServlet {
 					errorMsgs.add("此兌換編號無效");
 				}
 				if(!errorMsgs.isEmpty()) {
-					RequestDispatcher failView = req.getRequestDispatcher("/back-end/tfcord/select_page_Tfcord.jsp");
+					RequestDispatcher failView = req.getRequestDispatcher("/back-end/tfcord/listAllTfcord.jsp");
 					failView.forward(req, res);
 					return;
 				}
@@ -320,7 +320,7 @@ public class TfcordServlet extends HttpServlet {
 				/***************************其他可能的錯誤處理*************************************/	
 			}catch(Exception e) {
 				errorMsgs.add("查詢紀錄失敗" + e.getMessage());
-				RequestDispatcher failView = req.getRequestDispatcher("/back-end/tfcord/select_page_Tfcord.jsp");
+				RequestDispatcher failView = req.getRequestDispatcher("/back-end/tfcord/listAllTfcord.jsp");
 				failView.forward(req, res);
 			}
 		}
@@ -367,17 +367,6 @@ public class TfcordServlet extends HttpServlet {
 				RequestDispatcher failView = req.getRequestDispatcher("/front-end/tfcord/listOneMbrtf.jsp");
 				failView.forward(req, res);
 			}
-			
-			
-			
-			
 		}
-		
-		
-		
-		
-		
-		
-		
 	}
 }

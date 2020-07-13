@@ -74,7 +74,7 @@ li {
 
 
 	<ul class="navbar-nav mr-auto">
-		<li class="nav-item"><a href='listAllShopbk.jsp' >List</a> all shopbks.</li>
+		<li class="nav-item"><a href='<%=request.getContextPath()%>/front-end/shopbk/listAllShopbk.jsp' >List</a> all shopbks.</li>
 	</ul>
 	<ul class="navbar-nav mr-auto">
 		<li class="nav-item">

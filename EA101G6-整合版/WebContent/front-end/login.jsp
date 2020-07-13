@@ -196,7 +196,7 @@
        <i class="fa fa-lock"></i>
      </div>
       <span class="alert">密碼錯誤</span>
-      <a class="link" href="#">忘記密碼?</a>
+      <a class="link" href="<%=request.getContextPath()%>/front-end/forgetPwd.jsp">忘記密碼?</a>
       <input type="hidden" name="action" value="tryLogin">
      <input type="submit" class="log-btn" value="會員登入">
      <h3>  </h3>
@@ -246,6 +246,19 @@
 				$("#logout").submit();
 			})
 		})
+		
+	<c:if test="${not empty successMsg}">
+	swal({text:"${successMsg}" });
+	</c:if>
+	
+	<c:if test="${not empty errorMsgs}">
+	let erroStr="";
+	<c:forEach var="str" items="${errorMsgs}">
+		erroStr+="${str}"+"\n";
+	</c:forEach>
+	swal({text:erroStr });
+</c:if>
+		
 	</script>
 
 

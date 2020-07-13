@@ -31,6 +31,8 @@
 </head>
 <body>
 
+<%@ include file="/back-end/back-end_nav.jsp" %>
+
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤：</font>
 		<c:forEach var="message" items="${errorMsgs}">
@@ -39,7 +41,7 @@
 			</ul>	
 		</c:forEach>
 </c:if>
-<%@ include file="/back-end/back-end_nav.jsp" %>
+
 <div class="container">
 	<div class="row tm-content-row emptop">
 		<div class="tm-col emp">
@@ -121,7 +123,7 @@
 
 
 
-<a href="<%=request.getContextPath()%>/back-end/tfcord/select_page_Tfcord.jsp">回後台點數轉換首頁</a>
+<%-- <a href="<%=request.getContextPath()%>/back-end/tfcord/select_page_Tfcord.jsp">回後台點數轉換首頁</a> --%>
 
 <!-- <h3>顯示所有會員的點數交易紀錄</h3> -->
 
