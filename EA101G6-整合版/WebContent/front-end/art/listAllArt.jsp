@@ -95,6 +95,9 @@
   .fffuuu{
   	margin-bottom: 50px;
   }
+  .tdtitle{
+  min-width:105px;
+  }
  
  
 
