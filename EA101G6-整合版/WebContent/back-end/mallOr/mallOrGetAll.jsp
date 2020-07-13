@@ -23,30 +23,25 @@ div.orMain table.table td{
 	height:10px;
 	box-sizing:border-box;
 	padding:5px;
+	font-size:18px;
 }
 	
 	input.dtbtn {
 	margin-top:2px;
-    background-color: #ffffff;
     border-radius: 2px; 
-    color: black;
     border: none;
     padding: 0px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
-    width:40px;
+    font-size: 18px;
+    background-color:#007bff;
+	color:#ffffff;
+	border:solid 1px #000000;
 	}
 	
 	input.dtbtn:hover {
-    background-color: #e7e7e7;
-    border-radius: 4px; 
-    padding: 0px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
+		opacity:0.8;
 	}
 	
 	.bg-gray{
@@ -105,6 +100,7 @@ div.orMain table.table tbody tr:nth-child(odd) {
 					<input type="hidden" name="mbrNo" value="${mallOr.mbrNo}">
 					<input type="hidden" name="action" value="selectone">
 					<input type="hidden" name="active" value="${param.active}">
+					<input type="hidden" name="whichPage" value="${param.whichPage}">
 					<input class="dtbtn" type="submit" value="觀看">
 				</form></td>
 				</tr>
