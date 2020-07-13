@@ -6,8 +6,8 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-import com.art.model.*;
 import com.msg.model.*;
+import com.msgrp.model.*;
 
 public class MsgrpServlet extends HttpServlet {
 
@@ -32,49 +32,49 @@ public class MsgrpServlet extends HttpServlet {
 
 			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
-				String str = req.getParameter("msgno");
+				String str = req.getParameter("msgrpno");
 				if (str == null || (str.trim()).length() == 0) {
-					errorMsgs.add("請輸入留言編號");
+					errorMsgs.add("請輸入留言檢舉編號");
 				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/msg/select_page.jsp");
+							.getRequestDispatcher("/msgrp/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
 				
-				String msgno = null;
+				String msgrpno = null;
 				try {
-					msgno = new String(str);
+					msgrpno = new String(str);
 				} catch (Exception e) {
 					errorMsgs.add("留言編號格式不正確");
 				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/msg/select_page.jsp");
+							.getRequestDispatcher("/msgrp/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
 				
 				/***************************2.開始查詢資料*****************************************/
-				MsgService msgSvc = new MsgService();
-				MsgVO msgVO = msgSvc.getOneMsg(msgno);
-				if (msgVO == null) {
+				MsgrpService msgrpSvc = new MsgrpService();
+				MsgrpVO msgrpVO = msgrpSvc.getOneMsgrp(msgrpno);
+				if (msgrpVO == null) {
 					errorMsgs.add("查無資料");
 				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/msg/select_page.jsp");
+							.getRequestDispatcher("/msgrp/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("msgVO", msgVO); // 資料庫取出的msgVO物件,存入req
-				String url = "/msg/listOneMsg.jsp";
+				req.setAttribute("msgrpVO", msgrpVO); // 資料庫取出的msgVO物件,存入req
+				String url = "/msgrp/listOneMsgrp.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneMsg.jsp
 				successView.forward(req, res);
 
@@ -82,7 +82,7 @@ public class MsgrpServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/msg/select_page.jsp");
+						.getRequestDispatcher("/msgrp/select_page.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -97,15 +97,15 @@ public class MsgrpServlet extends HttpServlet {
 			
 			try {
 				/***************************1.接收請求參數****************************************/
-				String msgno = new String(req.getParameter("msgno"));
+				String msgrpno = new String(req.getParameter("msgrpno"));
 				
 				/***************************2.開始查詢資料****************************************/
-				MsgService msgSvc = new MsgService();
-				MsgVO msgVO = msgSvc.getOneMsg(msgno);
-				System.out.println(msgVO.getMsgno());				
+				MsgrpService msgrpSvc = new MsgrpService();
+				MsgrpVO msgrpVO = msgrpSvc.getOneMsgrp(msgrpno);
+				System.out.println(msgrpVO.getMsgrpno());				
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
-				req.setAttribute("msgVO", msgVO);         // 資料庫取出的msgVO物件,存入req
-				String url = "/msg/update_msg_input.jsp";
+				req.setAttribute("msgrpVO", msgrpVO);         // 資料庫取出的msgVO物件,存入req
+				String url = "/msgrp/update_msgrp_input.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_msg_input.jsp
 				successView.forward(req, res);
 
@@ -115,7 +115,7 @@ public class MsgrpServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/msg/listAllMsg.jsp");
+						.getRequestDispatcher("/msgrp/listAllMsgrp.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -130,13 +130,13 @@ public class MsgrpServlet extends HttpServlet {
 		
 			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
-				String msgno = new String(req.getParameter("msgno"));
-				System.out.println(msgno);	
-				String mbrno = req.getParameter("mbrno");
-				String mbrnoReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
-				if (mbrno == null || mbrno.trim().length() == 0) {
+				String msgrpno = new String(req.getParameter("msgrpno"));
+				System.out.println(msgrpno);	
+				String msgno = req.getParameter("msgno");
+				String msgnoReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
+				if (msgno == null || msgno.trim().length() == 0) {
 					errorMsgs.add("留言編號請勿空白");
-				} else if(!mbrno.trim().matches(mbrnoReg)) { //以下練習正則(規)表示式(regular-expression)
+				} else if(!msgno.trim().matches(msgnoReg)) { //以下練習正則(規)表示式(regular-expression)
 					errorMsgs.add("留言編號只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 	            }
 				
@@ -146,8 +146,8 @@ public class MsgrpServlet extends HttpServlet {
 					errorMsgs.add("細節請勿空白");
 				}	
 				
-				String artno = req.getParameter("artno").trim();
-				if (artno == null || artno.trim().length() == 0) {
+				String mbrno = req.getParameter("mbrno").trim();
+				if (mbrno == null || mbrno.trim().length() == 0) {
 					errorMsgs.add("文章編號請勿空白");
 				}	
 				
@@ -160,30 +160,30 @@ public class MsgrpServlet extends HttpServlet {
 				}	
 					
 				System.out.println(1);	
-				MsgVO msgVO = new MsgVO();
-				msgVO.setMsgno(msgno);
-				msgVO.setMbrno(mbrno);
-				msgVO.setDetail(detail);
-				msgVO.setArtno(artno);
-				msgVO.setStatus(status);
+				MsgrpVO msgrpVO = new MsgrpVO();
+				msgrpVO.setMsgrpno(msgrpno);
+				msgrpVO.setMsgno(msgno);
+				msgrpVO.setDetail(detail);
+				msgrpVO.setMbrno(mbrno);
+				msgrpVO.setStatus(status);
 				
 
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
-					req.setAttribute("msgVO", msgVO); // 含有輸入格式錯誤的msgVO物件,也存入req
+					req.setAttribute("msgrpVO", msgrpVO); // 含有輸入格式錯誤的msgVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/msg/update_msg_input.jsp");
+							.getRequestDispatcher("/msgrp/update_msgrp_input.jsp");
 					failureView.forward(req, res);
 					return; //程式中斷
 				}
 				System.out.println(2);	
 				/***************************2.開始修改資料*****************************************/
-				MsgService msgSvc = new MsgService();
-				msgVO = msgSvc.updateMsg(msgno, mbrno, detail, artno, status);
+				MsgrpService msgrpSvc = new MsgrpService();
+				msgrpVO = msgrpSvc.updateMsgrp(msgrpno, msgno, detail, mbrno, status);
 				System.out.println(3);	
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("msgVO", msgVO); // 資料庫update成功後,正確的的msgVO物件,存入req
-				String url = "/msg/listOneMsg.jsp";
+				req.setAttribute("msgrpVO", msgrpVO); // 資料庫update成功後,正確的的msgVO物件,存入req
+				String url = "/msgrp/listOneMsgrp.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneMsg.jsp
 				successView.forward(req, res);
 
@@ -191,7 +191,7 @@ public class MsgrpServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("修改資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/msg/update_msg_input.jsp");
+						.getRequestDispatcher("/msgrp/update_msgrp_input.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -205,11 +205,11 @@ public class MsgrpServlet extends HttpServlet {
 			
 			try {
 				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
-				String mbrno = req.getParameter("mbrno");
-				String mbrnoReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
-				if (mbrno == null || mbrno.trim().length() == 0) {
-					errorMsgs.add("會員編號請勿空白");
-				} else if(!mbrno.trim().matches(mbrnoReg)) { //以下練習正則(規)表示式(regular-expression)
+				String msgno = req.getParameter("msgno");
+				String msgnoReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
+				if (msgno == null || msgno.trim().length() == 0) {
+					errorMsgs.add("留言編號請勿空白");
+				} else if(!msgno.trim().matches(msgnoReg)) { //以下練習正則(規)表示式(regular-expression)
 					errorMsgs.add("會員編號只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 	            }
 				
@@ -219,8 +219,8 @@ public class MsgrpServlet extends HttpServlet {
 					errorMsgs.add("細節格式錯誤");
 				}	
 				
-				String artno = req.getParameter("artno").trim();
-				if (artno == null || artno.trim().length() == 0) {
+				String mbrno = req.getParameter("mbrno").trim();
+				if (mbrno == null || mbrno.trim().length() == 0) {
 					errorMsgs.add("文章編號格式錯誤");
 				}	
 				
@@ -239,21 +239,21 @@ public class MsgrpServlet extends HttpServlet {
 				
 				
 				/***************************2.開始新增資料***************************************/
+				MsgrpService msgrpSvc = new MsgrpService();
+				msgrpSvc.addMsgrp(msgno, detail, mbrno, status);
 				MsgService msgSvc = new MsgService();
-				msgSvc.addMsg(mbrno, detail, artno, status);
-				ArtService artSvc = new ArtService();
-				ArtVO artVO = artSvc.getOneArt(artno);
+				MsgVO msgVO = msgSvc.getOneMsg(msgno);
 				
 				if (!errorMsgs.isEmpty()) {
-					req.setAttribute("artVO", artVO); // 含有輸入格式錯誤的msgVO物件,也存入req
+					req.setAttribute("msgVO", msgVO); // 含有輸入格式錯誤的msgVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/front-end/art/listOneArt.jsp");
+							.getRequestDispatcher("/front-end/msg/listOneMsg.jsp");
 					failureView.forward(req, res);
 					return;
 				}
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				req.setAttribute("artVO", artVO);
-				RequestDispatcher successView = req.getRequestDispatcher("/front-end/art/listOneArt.jsp"); // 新增成功後轉交listAllMsg.jsp
+				req.setAttribute("msgVO", msgVO);
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/msg/listOneMsg.jsp"); // 新增成功後轉交listAllMsg.jsp
 				successView.forward(req, res);				
 				
 				/***************************其他可能的錯誤處理**********************************/
@@ -261,7 +261,7 @@ public class MsgrpServlet extends HttpServlet {
 				
 				errorMsgs.add(e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front-end/art/listOneArt.jsp");
+						.getRequestDispatcher("/front-end/msg/listOneMsg.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -276,14 +276,14 @@ public class MsgrpServlet extends HttpServlet {
 	
 			try {
 				/***************************1.接收請求參數***************************************/
-				String msgno = new String(req.getParameter("msgno").trim());
+				String msgrpno = new String(req.getParameter("msgrpno").trim());
 				
 				/***************************2.開始刪除資料***************************************/
-				MsgService msgSvc = new MsgService();
-				msgSvc.deleteMsg(msgno);
+				MsgrpService msgrpSvc = new MsgrpService();
+				msgrpSvc.deleteMsgrp(msgrpno);
 				
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
-				String url = "/msg/listAllMsg.jsp";
+				String url = "/msgrp/listAllMsgrp.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
 				
@@ -291,7 +291,7 @@ public class MsgrpServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("刪除資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/msg/listAllMsg.jsp");
+						.getRequestDispatcher("/msgrp/listAllMsgrp.jsp");
 				failureView.forward(req, res);
 			}
 		}

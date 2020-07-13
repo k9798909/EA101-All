@@ -492,65 +492,68 @@ if ("delete".equals(action)) { // 來自listAllEmp.jsp
 			}
 		}
 
-if("tryLogin".equals(action)) {// 來自login.jsp的請求
-	List<String> errorMsgs = new LinkedList<String>();
-	req.setAttribute("errorMsgs", errorMsgs);
-	try {
-		/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
-		String account = req.getParameter("account");
-		String password = req.getParameter("password");
-		req.setAttribute("account", account);
-		req.setAttribute("password", password);
-		
-		if(account == null || account.trim().length() == 0) {
-			errorMsgs.add("請輸入帳號");
-		}
-		
-		if(password == null || password.trim().length() == 0) {
-			errorMsgs.add("請輸入密碼");
-		}
-		
-		if(!errorMsgs.isEmpty()) {
-			RequestDispatcher failView = req.getRequestDispatcher("/front-end/login.jsp");
-			failView.forward(req, res);
-			return;
-		}
-		/***************************2.開始驗證是否為會員***************************************/
-			MbrpfService mbrpfSvc = new MbrpfService();//此處的account為mbract，如果可以透過這個mbract取得會員物件，代表這account確實為會員
-			MbrpfVO mbrpfVO = mbrpfSvc.checkLogin(account);//透過傳mbract進去可以取得mbrpfVO物件的方法，取得要更改密的會員物件
-			String mbrpwd = mbrpfVO.getMbrpw();
-			if(password.equals(mbrpwd)) {//帳號正確，取出的密碼也和輸入的一樣
-				HttpSession session =req.getSession();
-				session.setAttribute("account", account);//將帳號存進session，之後可以藉由這個取得他所擁有的權限
-				session.setAttribute("mbrpfVO", mbrpfVO);
-		/***************************3.刪除完成,準備轉交(Send the Success view)***********/
-				try {//查看是否有來源網頁
-					String location = (String)session.getAttribute("location");
-					if(location != null) {//如果有來源網頁
-						session.removeAttribute("location");
-						res.sendRedirect(location);//重導至該網頁
-						return;
-					}
-				}catch(Exception e) {
-					res.sendRedirect(req.getContextPath()+"/front-end/mbrpf/select_page.jsp");
+		if ("tryLogin".equals(action)) {// 來自login.jsp的請求
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			try {
+				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
+				String account = req.getParameter("account");
+				String password = req.getParameter("password");
+				req.setAttribute("account", account);
+				req.setAttribute("password", password);
+
+				if (account == null || account.trim().length() == 0) {
+					errorMsgs.add("請輸入帳號");
+				}
+
+				if (password == null || password.trim().length() == 0) {
+					errorMsgs.add("請輸入密碼");
+				}
+
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failView = req.getRequestDispatcher("/front-end/login.jsp");
+					failView.forward(req, res);
 					return;
 				}
-				//沒有來源網頁的話就去首頁
-				res.sendRedirect(req.getContextPath()+"/front-end/mbrpf/select_page.jsp");
-				return;
-			}else {
-				errorMsgs.add("帳號、密碼錯誤");
-				RequestDispatcher failView = req.getRequestDispatcher("/front-end/login.jsp");
-				failView.forward(req, res);
+				/***************************
+				 * 2.開始驗證是否為會員
+				 ***************************************/
+				MbrpfService mbrpfSvc = new MbrpfService();// 此處的account為mbract，如果可以透過這個mbract取得會員物件，代表這account確實為會員
+				MbrpfVO mbrpfVO = mbrpfSvc.checkLogin(account);// 透過傳mbract進去可以取得mbrpfVO物件的方法，取得要更改密的會員物件
+				String mbrpwd = mbrpfVO.getMbrpw();
+				if (password.equals(mbrpwd)) {// 帳號正確，取出的密碼也和輸入的一樣
+					HttpSession session = req.getSession();
+					session.setAttribute("account", account);// 將帳號存進session，之後可以藉由這個取得他所擁有的權限
+					session.setAttribute("mbrpfVO", mbrpfVO);
+					
+					/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
+					try {// 查看是否有來源網頁
+						String location = (String) session.getAttribute("location");
+						if (location != null) {// 如果有來源網頁
+							session.removeAttribute("location");
+							res.sendRedirect(location);// 重導至該網頁
+							return;
+						}
+					} catch (Exception e) {
+						res.sendRedirect(req.getContextPath() + "/front-end/mbrpf/select_page.jsp");
+						return;
+					}
+					// 沒有來源網頁的話就去首頁
+					res.sendRedirect(req.getContextPath() + "/front-end/mbrpf/select_page.jsp");
+					return;
+				} else {
+					errorMsgs.add("帳號、密碼錯誤");
+					RequestDispatcher failView = req.getRequestDispatcher("/front-end/login.jsp");
+					failView.forward(req, res);
+				}
+
+				/*************************** 其他可能的錯誤處理 **********************************/
+			} catch (Exception e) {
+				errorMsgs.add(e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/login.jsp");
+				failureView.forward(req, res);
 			}
-			
-			/***************************其他可能的錯誤處理**********************************/
-		}catch(Exception e) {
-			errorMsgs.add(e.getMessage());
-			RequestDispatcher failureView = req.getRequestDispatcher("/front-end/login.jsp");
-			failureView.forward(req, res);
 		}
-}
 
 if("forget".equals(action)) {	
 	List<String> errorMsgs = new LinkedList<String>();
