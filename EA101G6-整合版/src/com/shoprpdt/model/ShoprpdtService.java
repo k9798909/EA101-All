@@ -48,7 +48,7 @@ public class ShoprpdtService {
 	}
 	public List<ShoprpdtVO> getByStatus(){
 		List list = getAll().stream()
-		        .filter(ee -> ee.getStatus() == 0)
+		        .filter(e -> e.getStatus() == 0)
 		        .collect(Collectors.toList());		
 		return list;
 	}
