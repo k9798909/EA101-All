@@ -46,6 +46,10 @@ img {
 h4 {
 	margin-left: 20px;
 }
+button{
+	margin-left: auto;
+	margin-right: auto;
+}
 </style>
 </head>
 
@@ -87,7 +91,7 @@ h4 {
 			</tr>
 			<c:forEach var="shopbkVO" items="${list}">
 				<tr>
-					<td><A data-toggle="modal" data-target="#exampleModal" id="go" href="<%=request.getContextPath()%>/front-end/shop/shop.do?shopno=${shopbkVO.shopno}&action=getOne_For_Display2">${shopSvc.getOneShop(shopbkVO.shopno).shopname}</a></td>
+					<td><A href="<%=request.getContextPath()%>/front-end/shop/shop.do?shopno=${shopbkVO.shopno}&action=getOne_For_Display2&requestURL=<%=request.getServletPath()%>">${shopSvc.getOneShop(shopbkVO.shopno).shopname}</a></td>
 					<td>${shopbkVO.ofdtable}</td>
 					<td>${shopbkVO.shoppds}</td>
 					<td>${shopbkVO.shoppde}</td>
@@ -98,44 +102,27 @@ h4 {
 		</table>
 	</div>
 	
+<c:if test="${openModal!=null}">
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content rp-2">
-				
-			<div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLabel">The Bootstrap modal-header</h3>
-           		<hr class="my-3">
-            </div>
-			
-			<div class="modal-body">
-			<div class="form-group">
+<div class="modal fade element-center" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+	
 <!-- =========================================以下為原listOneEmp.jsp的內容========================================== -->
                <jsp:include page="/front-end/shop/listOneShop2.jsp" />
-<!-- =========================================以上為原listOneEmp.jsp的內容========================================== -->
-			</div>
-			</div>
-			<div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
+<!-- =========================================以上為原listOneEmp.jsp的內容========================================== -->			
+<!-- 			<div class="modal-footer" style="margin-left:auto;margin-top:auto;"> -->
+<!--                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+<!--             </div> -->
 		
 		</div>
 	</div>
 </div>
 
-	
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<!-- 查詢時有錯誤啟動 -->
-	<c:if test="${not empty errorMsgs}">
-		<script>
-			swal({
-				text : "${errorMsgs}"
-			});
-		</script>
-		<%
-			request.removeAttribute("errorMsgs");
-		%>
-	</c:if>
+        <script>
+    		 $("#basicModal").modal({show: true});
+        </script>
+ </c:if>
 
 
 </body>
