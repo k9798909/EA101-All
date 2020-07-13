@@ -128,6 +128,7 @@
 		<filter-mapping>
 			<filter-name>shopLogin</filter-name>
 			<url-pattern>/front-end/shop/update_shop_input.jsp</url-pattern>
+			<url-pattern>/front-end/shop/shopArea.jsp</url-pattern>
 			<url-pattern>/front-end/shopbk/addShopbk.jsp</url-pattern>
 			<url-pattern>/front-end/shopbk/update_shopbk_input.jsp</url-pattern>
 			<url-pattern>/front-end/game/addGame.jsp</url-pattern>

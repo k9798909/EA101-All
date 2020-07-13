@@ -550,7 +550,7 @@ if ("tryLogin".equals(action)) {// 來自login.jsp的請求
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
-				errorMsgs.add(e.getMessage());
+				errorMsgs.add("帳號、密碼錯誤");
 				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/login.jsp");
 				failureView.forward(req, res);
 			}

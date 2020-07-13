@@ -53,6 +53,16 @@
   	width: 200px;
   	text-align: center;
   }
+  .logoutPIC{
+   	margin-top: 18%;
+   }
+   .add7{
+  	position: fixed;
+  	bottom: 30px;
+  	right: 30px;
+  	width: 70px;
+  	height: 70px;
+  }
 </style>
 
 </head>
@@ -106,7 +116,7 @@
 			
 			</FORM>
 			
-			<td>
+			<td class="align-middle">
 				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/mallad/mallad.do" style="margin-bottom: 0px;">
 					<input type="submit" value="刪除" >
 					<input type="hidden" name="malladno" value="${malladVO.malladno}">
@@ -116,6 +126,8 @@
 		</tr>
 	</c:forEach>
 </table>
+
+<a target="_self" href="<%=request.getContextPath()%>/back-end/mallad/addMallad.jsp"><img class="add7" src="<%=request.getContextPath()%>/back-end/mallad/images/addMad.png" title="Add Mallad"></a>
 
 
 </body>

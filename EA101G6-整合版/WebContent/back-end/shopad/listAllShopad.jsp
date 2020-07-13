@@ -52,6 +52,9 @@
   .t1{
   	margin-top: 50px;
   }
+  .logoutPIC{
+   	margin-top: 18%;
+   }
   
 </style>
 

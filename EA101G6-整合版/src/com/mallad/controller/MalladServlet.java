@@ -24,15 +24,16 @@ public class MalladServlet extends HttpServlet{
 		if ("insert".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			System.out.println(1);
+			
 			try {
 				/*******1.接收參數*********/
 				String commno = req.getParameter("commno");
 				
 				String gmadtt = req.getParameter("gmadtt");
-				if (gmadtt == null || gmadtt.trim().length() == 0) {
+				if (gmadtt == null || (gmadtt.trim()).length() == 0) {
 					errorMsgs.add("標題不可空白");
 				}
+				
 				
 				Part part = req.getPart("detail");
 				InputStream in = part.getInputStream();
@@ -56,7 +57,7 @@ public class MalladServlet extends HttpServlet{
 					errorMsgs.add("請選擇日期");
 				}
 				
-				System.out.println(2);
+				
 				MalladVO malladVO = new MalladVO();
 				malladVO.setCommno(commno);
 				malladVO.setGmadtt(gmadtt);
@@ -68,19 +69,20 @@ public class MalladServlet extends HttpServlet{
 					req.setAttribute("malladVO", malladVO);
 					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/mallad/addMallad.jsp");
 					failureView.forward(req, res);
+					return;
 				}
-				System.out.println(3);
+				
 				/***************2.開始新增資料****************/
 				MalladService malladSvc = new MalladService();
 				malladVO = malladSvc.addMallad(commno, gmadtt, detail, startt, stopt);
-				System.out.println(4);
+				
 				/*****************3.新增完成，開始轉交*******************/
 				RequestDispatcher successView = req.getRequestDispatcher("/back-end/mallad/listAllMallad.jsp");
 				successView.forward(req, res);
 				
 				/**************其他可能的錯誤處理****************/
 			} catch (Exception e) {
-				System.out.println(5);
+				
 				errorMsgs.add(e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/mallad/addMallad.jsp");
 				failureView.forward(req, res);

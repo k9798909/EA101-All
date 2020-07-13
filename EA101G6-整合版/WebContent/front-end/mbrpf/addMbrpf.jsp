@@ -47,6 +47,13 @@
   .tdtitle{
   min-width:105px;
   }
+  body{
+  background-size:cover;
+  background-repeat : no-repeat ;
+  background-image:url("<%=request.getContextPath()%>/front-end/mbrpf/try.jpg");
+  
+  }
+  
   </style>
 
 
@@ -64,7 +71,7 @@
 <!-- 	</td></tr> -->
 <!-- </table> -->
 
-<h3>資料新增:</h3>
+<!-- <h3>資料新增:</h3> -->
 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
@@ -79,10 +86,10 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-2">
-      預設一(2格)
+    <div class="col-5">
+      
     </div>
-    <div class="col-8">
+    <div class="col-6">
       <FORM METHOD="post" ACTION="<%= request.getContextPath()%>/mbrpf/mbrpf.do" name="form1" enctype="multipart/form-data">
 <table>
 	<tr>
@@ -171,8 +178,8 @@
 <input type="hidden" name="action" value="insert">
 <input type="submit" value="送出新增"></FORM>
     </div>
-    <div class="col-2">
-      預設二(2格)
+    <div class="col-1">
+      
     </div>
   </div>
 </div>
