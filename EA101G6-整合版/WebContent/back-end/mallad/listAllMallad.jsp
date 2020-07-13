@@ -2,19 +2,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.*" %>
-<%@ page import="com.news.model.*" %>
+<%@ page import="com.mallad.model.*" %>
 
 
 <% 
-	NewsService newsSvc = new NewsService();
-	List<NewsVO> list = newsSvc.getAll();
+	MalladService malladSvc = new MalladService();
+	List<MalladVO> list = malladSvc.getAll();
 	pageContext.setAttribute("list",list);
 %>
 
 
 <html>
 <head>
-<title>所有最新消息</title>
+<title>所有商城廣告</title>
 
 <style>
   table#table-1 {
@@ -33,8 +33,7 @@
   }
   
   img {
-  	width:400px;
-  	height:500px;	
+  	width:40%;
   }
   	
   table {
@@ -48,13 +47,10 @@
   }
   th, td {
     padding: 5px;
-    
+    text-align: center;
   }
   .www{
-  	width: 400px;
-  	
-  }
-  .yyy{
+  	width: 200px;
   	text-align: center;
   }
 </style>
@@ -64,10 +60,9 @@
 
 <%@ include file="/back-end/back-end_nav.jsp"%>
 
-
 <table class="col-md-10 offset-md-1">
 	<tr><td>
-		<h3>所有最新消息</h3>
+		<h3>所有商城廣告</h3>
 		
 	</td></tr>
 </table>
@@ -83,39 +78,38 @@
 	</ul>
 </c:if>
 
-<table class="col-md-10 offset-md-1 table table-striped bg-white ">
+<table class="col-md-10 offset-md-1 table table-striped bg-white">
 	<tr>
-		<th class="yyy">最新消息編號</th>
-		<th class="www yyy">最新消息標題</th>
-		<th class="www yyy">最新消息內容</th>
-		<th class="yyy">發布日期</th>
-		<th class="yyy">修改</th>
-		<th class="yyy">刪除</th>
+		<th class="www align-middle">商城廣告編號</th>
+		<th class="www align-middle">商品編號</th>
+		<th class="www align-middle">商城廣告標題</th>
+		
+		<th class="www align-middle">開始日期</th>
+		<th class="www align-middle">結束日期</th>
+		<th class="www align-middle">廣告圖示</th>	
+		<th class="yyy align-middle">刪除</th>
 	</tr>
 	
-
 	
 	
-	<c:forEach var="newsVO" items="${list}">
-		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/news/news.do" style="margin-bottom: 0px;">
+	<c:forEach var="malladVO" items="${list}">
+		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/mallad/mallad.do" style="margin-bottom: 0px;">
 		<tr>
-			<td class="yyy align-middle">${newsVO.newsno}</td>
-			<td class="yyy www align-middle">${newsVO.newstt}</td>
-			<td class="yyy www align-middle">${newsVO.detail}</td>
-			<td class="yyy align-middle">${newsVO.pdate}</td>
+			<td class="align-middle">${malladVO.malladno}</td>
+			<td class="align-middle">${malladVO.commno}</td>
+			<td class="align-middle">${malladVO.gmadtt}</td>		
+			<td class="align-middle">${malladVO.startt}</td>
+			<td class="align-middle">${malladVO.stopt}</td>
+			<td class="align-middle"><img src="<%=request.getContextPath()%>/mallad/malladpic.do?malladno=${malladVO.malladno}"/></td>
 			
 			
 			
-			<td class="yyy align-middle">
-				<input type="submit" value="修改" >
-				<input type="hidden" name="newsno" value="${newsVO.newsno}">
-				<input type="hidden" name="action" value="getOne_Update">
-			</td></FORM>
+			</FORM>
 			
-			<td class="yyy align-middle">
-				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/news/news.do" style="margin-bottom: 0px;">
+			<td>
+				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/mallad/mallad.do" style="margin-bottom: 0px;">
 					<input type="submit" value="刪除" >
-					<input type="hidden" name="newsno" value="${newsVO.newsno}">
+					<input type="hidden" name="malladno" value="${malladVO.malladno}">
 					<input type="hidden" name="action" value="delete">
 				</FORM>
 			</td>
