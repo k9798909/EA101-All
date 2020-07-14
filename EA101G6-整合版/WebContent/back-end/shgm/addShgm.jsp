@@ -19,11 +19,6 @@
 		text-align:center;
 		border: black 2px solid;
 	}
-	#table{
-		margin:2% auto; 
-		padding:0;
-		width:50%;
-	}
 </style>
 </head>
 <body>
@@ -34,9 +29,8 @@
 			</c:forEach>
 		</c:if>
 	</ul>
-	<%@ include file="/back-end/back-end_nav.jsp"%>
 <form method="post" action="<%=request.getContextPath() %>/shgm/shgm.do" enctype="multipart/form-data">
-	<table id="table" class="table table-striped bg-white">
+	<table>
 			<tr>
 				<th>市集商品欄位</th>
 				<th>請輸入資料</th>
@@ -145,6 +139,7 @@
 			</tr>
 	</table>
 </form>
+	<a href="<%=request.getContextPath() %>/back-end/shgm/shgm_select_page.jsp">回首頁</a>
 </body>
 
 <script type="text/javascript">

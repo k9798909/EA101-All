@@ -39,7 +39,7 @@
 	</ul>
 </c:if>	
 
-<%@ include file="/back-end/back-end_nav.jsp" %>
+<jsp:include page="/back-end/back-end_nav.jsp"></jsp:include> 
 <div class="container">
 	<div class="row tm-content-row emptop">
 		<div class="tm-col emp">
@@ -70,7 +70,7 @@
 						<tbody>
 							<tr>
 								<td  class="align-middle">${tfcordVO.tfno}</td>
-								<td  class="align-middle">${tfcordVO.mbrno}</td>
+								<td  class="align-middle"><a href="<%=request.getContextPath()%>/back-end/mbrpf/listOneMbrpf.jsp?mbrpfno=${tfcordVO.mbrno}">${tfcordVO.mbrno}</a></td>
 								<td  class="align-middle">${tfcordVO.tftype == "M" ? "兌現" : "儲值"}</td>
 								<td  class="align-middle">${tfcordVO.price}</td>
 								<td  class="align-middle"><fmt:formatDate value="${tfcordVO.tftime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>

@@ -1,4 +1,43 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.tfcord.model.*" %>
+<%@ page import="com.shop.model.*" %>
+<%@ page import="com.shoprpdt.model.*" %>
+<%@ page import="com.mallOr.model.*" %>
+<%@ page import="com.shgm.model.*" %>
+<%@ page import="com.shgmrp.model.*" %>
+<%@ page import="java.util.*" %>
+<%
+	TfcordService tfcordSvc = new TfcordService();
+	List<TfcordVO> haveTfcord = tfcordSvc.getNotYetAll();
+	int tfcordNum =  haveTfcord.size();
+	pageContext.setAttribute("tfcordNum", tfcordNum);
+	
+	ShoprpdtService shoprpdtSvc = new ShoprpdtService();
+	List<ShoprpdtVO> haveShoprpdt = shoprpdtSvc.getByStatus();
+	int shoprpdtNum =  haveShoprpdt.size();
+	pageContext.setAttribute("shoprpdtNum", shoprpdtNum);
+	
+	ShopService shopSvc = new ShopService();
+	List<ShoprpdtVO> haveShop = shoprpdtSvc.getByStatus();
+	int shopNum =  haveShoprpdt.size();
+	pageContext.setAttribute("shopNum", shopNum);
+	
+	MallOrService mallOrSvc = new MallOrService();
+	Set<MallOrVO> havemallOr = mallOrSvc.findByBoxStatus(0);
+	int mallOrNum = havemallOr.size();
+	pageContext.setAttribute("mallOrNum", mallOrNum);
+	
+	ShgmService shgmSvc = new ShgmService();
+	Set<ShgmVO> haveShgm = shgmSvc.getAllShgmUncheck();
+	int shgmNum = haveShgm.size();
+	pageContext.setAttribute("shgmNum", shgmNum);
+	
+	ShgmrpService shgmrpSvc = new ShgmrpService();
+	Set<ShgmrpVO> haveShgmrp = shgmrpSvc.getAllShgmrpUncheck();
+	int shgmrpNum = haveShgm.size();
+	pageContext.setAttribute("shgmrpNum", shgmrpNum);
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,18 +57,19 @@
     *{
         box-sizing: border-box;
     }
+    
     #tabs{
         margin: 50px auto;
     }
+    
     .news{
         display: block;
         margin: 10px;
         border-bottom-style: dotted;
         border-bottom-color: rgb(158,158,158);
     }
+    
 </style>
-
-
 
 <title>桌遊列國</title>
 
@@ -62,7 +102,7 @@
 									role="button" data-toggle="dropdown" aria-haspopup="true"
 									aria-expanded="false"> 會員管理 </a>
 									<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-										<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/emp/listOneEmp.jsp">一般會員管理</a> <!-- 還沒放 -->
+										<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/mbrpf/listAllMbrpf.jsp">一般會員管理</a> <!-- 還沒放 -->
 	<!-- active測試，之後換頁面  -->			<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/shop/listAllShop.jsp">店家管理</a>
 									</div></li>
 								
@@ -138,42 +178,45 @@
 			</div>
 			<div id="tabs">
 				<ul>
-		            <li><a href="#tabs-1">Development</a></li>
-		            <li><a href="#tabs-2">Support</a></li>
-		            <li><a href="#tabs-3">About</a></li>
+		            <li><a href="#tabs-1">檢舉通知</a></li>
+		            <li><a href="#tabs-2">審核通知</a></li>
+		            <li><a href="#tabs-3">未出貨通知</a></li>
 		        </ul>
 		        <div id="tabs-1"><!--以下每一條都是未處理的通知-->
 		        	<span class="news">
-		        		預計會出現要處的通知
+		        		<a href="<%=request.getContextPath()%>/back-end/shgmrp/listAllShgmrp.jsp">目前有<font style="color:red">${shgmrpNum}</font>筆_市集商品檢舉_未處理</a>
 		        	</span>
 		        	<span class="news">
-		        		預計會出現要處的通知
+		        		目前有 筆_文章檢舉_未處理
 		        	</span>
 		        	<span class="news">
-		        		預計會出現要處的通知
+		        		目前有 筆_留言檢舉_未處理
 		        	</span>
 		        	<span class="news">
-		        		預計會出現要處的通知
+		        		<a href="<%=request.getContextPath()%>/back-end/shoprpdt/listSomeShoprpdt.jsp?status=0">目前有<font style="color:red">${shoprpdtNum}</font>筆_店家檢舉_未處理</a>
 		        	</span>
 		        </div>
 		        <div id="tabs-2">
 		        	<span class="news">
-		        		預計會出現要處的通知
+		        		<a href="<%=request.getContextPath()%>/back-end/shop/listAllShop.jsp">目前有<font style="color:red">${shopNum}</font>筆_店家申請_尚未處理</a>
 		        	</span>
 		        	<span class="news">
-		        		預計會出現要處的通知
+		        		<a href="<%=request.getContextPath()%>/back-end/shgm/listAllShgm.jsp">目前有<font style="color:red">${shgmNum}</font>筆_市集商品審核_尚未處理</a>
+		        	</span>
+		        	<span class="news">
+		        		<a href="<%=request.getContextPath()%>/back-end/tfcord/notYetTfcord.jsp">目前有<font style="color:red">${tfcordNum}</font>筆_點數轉換_尚未處理</a>
 		        	</span>
 		        </div>
 		        <div id="tabs-3">
 		        	<span class="news">
-		        		預計會出現要處的通知
+		        		<a href="<%=request.getContextPath()%>/back-end/mallOr/mallOrGet.jsp?active=getByBox">目前有<font style="color:red">${mallOrNum}</font>筆訂單尚未出貨</a>
 		        	</span>
 		        </div>
 			</div>
 		</div>
 	</div>
 
-	<script src="<%=request.getContextPath() %>/js/backJs/bootstrapOld.min.js"></script>
+	<script src="<%=request.getContextPath()%>/js/backJs/bootstrapOld.min.js"></script>
 	
 	<script>
 	    $(function() {
@@ -214,6 +257,9 @@
 			});
 		});
 </script>
+
+
+<jsp:include page="/back-end/backChat/backChat.jsp"/>
 	
 </body>
 </html>

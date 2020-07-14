@@ -16,9 +16,9 @@
 		</c:if>
 	</ul>
 	<ul>
-			
+
 		<jsp:useBean id="shgmsvc" class="com.shgm.model.ShgmService"/>
-		
+
 		<li>
 			<form method="post" action="<%=request.getContextPath()%>/shgm/shgm.do" >
 				請選擇市集商品編號：
@@ -43,11 +43,11 @@
 				<input type="submit" value="送出" >
 			</form>
 		</li>
-		
+
 		<li>
 			<a href="<%=request.getContextPath()%>/back-end/shgm/addShgm.jsp">上架新的市集商品</a>
 		</li>
-		
+
 		<li>
 			<form method="post" action="<%=request.getContextPath()%>/shgm/shgm.do">
 			請選擇要修改的市集商品：
@@ -61,10 +61,10 @@
 				<input type="submit" value="送出" >
 			</form>
 		</li>
-		
+
 		<li>
 			<a href="<%=request.getContextPath()%>/back-end/shgm/listAllShgm.jsp">檢視全部市集商品</a>
 		</li>
 	</ul>
 </body>
-</html>
+</html> 

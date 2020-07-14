@@ -66,6 +66,7 @@
 							<div class="input-group mt-3">
 								<input type="hidden" name="action" value="forget" >
 								<button type="submit" id="getnewPwd" class="btn btn-primary d-inline-block ">送出</button>
+								<a href="<%=request.getContextPath()%>/loginBack.jsp" style="margin-top: 3%; font-size: 19px; margin-left: 28%;">回登入</a>
 							</div>
 						</form>
 					</div>

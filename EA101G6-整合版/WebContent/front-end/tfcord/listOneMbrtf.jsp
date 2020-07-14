@@ -94,7 +94,7 @@
 
 <body>
 
-<%@ include file="/front-end/front-end-nav.jsp" %>
+<jsp:include page="/front-end/front-end-nav.jsp"></jsp:include> 
 
 <!-- <h3>此為某會員的所有點數交易紀錄(前台帳戶管理)</h3> -->
 <div class="container">
@@ -120,7 +120,8 @@
 		</div>
 	</div>
 	<div class="row float-right">
-		<a href="<%=request.getContextPath()%>/front-end/tfcord/select_page_Tfcord_front.jsp" class="pointBtn orangeBtn">回前台點數轉換首頁</a>
+		<a href="<%=request.getContextPath()%>/front-end/tfcord/buyPoint.jsp" class="pointBtn orangeBtn">前往點數購買</a>&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="<%=request.getContextPath()%>/front-end/tfcord/tfMoney.jsp" class="pointBtn orangeBtn">前往兌換現金</a>
 	</div>
 	<div class="row" style="clear:both">
 	<div class="table-responsive table-striped">

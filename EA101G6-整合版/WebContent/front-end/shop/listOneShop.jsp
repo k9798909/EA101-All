@@ -10,13 +10,6 @@
 	ShopService shopSvc = new ShopService();
 	ShopVO shopVO = shopSvc.getOneShop(shopno);
 	pageContext.setAttribute("shopVO", shopVO);
-// 	GmlistService gmlistSvc = new GmlistService();
-// 	ShopVO shopVO = null;
-// 	List<GmlistVO> list = null;
-// 	if (request.getParameter("shopno") != null) {
-// 		shopVO = (ShopVO) request.getAttribute("shopVO");
-// 		list = gmlistSvc.getSomeGmlistByShop(shopVO.getShopno());
-// 	}
 %>
 
 <head>

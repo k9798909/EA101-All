@@ -21,8 +21,8 @@ public class ShgmrpServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-			doPost(request, response);
-		}
+		doPost(request, response);
+	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -35,7 +35,7 @@ public class ShgmrpServlet extends HttpServlet {
 
 			List<String> errormsgs = new LinkedList<String>();
 			request.setAttribute("errormsgs", errormsgs);
-			
+
 			try {
 
 				String shgmrpno = request.getParameter("shgmrpno");
@@ -52,7 +52,7 @@ public class ShgmrpServlet extends HttpServlet {
 					failedview.forward(request, response);
 					return;
 				}
-				
+
 				ShgmrpService shgmrpsvc = new ShgmrpService();
 				ShgmrpVO shgmrpvo = shgmrpsvc.getOneShgmrp(shgmrpno);
 				if (shgmrpvo == null) {
@@ -77,24 +77,23 @@ public class ShgmrpServlet extends HttpServlet {
 				failedview.forward(request, response);
 			}
 		}
-		
+
 		if ("insertrp".equals(action)) {
 
-			HashMap<Long, String> errormap = new HashMap<Long, String>();
+			HashMap<String, String> errormap = new HashMap<String, String>();
 			request.setAttribute("errormap", errormap);
-			
+
+			String requestURL = request.getParameter("requestURL");
+
 			try {
 				String shgmno = request.getParameter("shgmno");
-
-				//之後從session拿到當前檢舉人，先寫死
+				
+				// EL從session拿到的會員編號
 				String suiterno = request.getParameter("suiterno");
-				suiterno = "BM00001";
 
 				String detail = request.getParameter("detail");
-				if (detail.trim().length() == 0) {
-					errormap.put((long) 1,"檢舉內容不得為空");
-				}
-
+				if (detail.trim().length() == 0)
+					errormap.put("rp", "檢舉內容不得為空");
 				Integer status = 0;
 
 				ShgmrpVO shgmrpvo = new ShgmrpVO();
@@ -102,29 +101,30 @@ public class ShgmrpServlet extends HttpServlet {
 				shgmrpvo.setSuiterno(suiterno);
 				shgmrpvo.setDetail(detail);
 				shgmrpvo.setStatus(status);
-
+				
+				ShgmService shgmsvc = new ShgmService();
+				ShgmVO shgmvo = shgmsvc.getOneShgm(shgmno);
+				request.setAttribute("shgmvo", shgmvo);
+				
 				if (!errormap.isEmpty()) {
-					String url = "/front-end/shgm/infoPage.jsp";
-					RequestDispatcher failedview = request.getRequestDispatcher(url);
+					RequestDispatcher failedview = request.getRequestDispatcher(requestURL);
 					failedview.forward(request, response);
 					return;
 				}
 
 				ShgmrpService shgmrpsvc = new ShgmrpService();
 				shgmrpsvc.addShgmrp(shgmno, suiterno, detail, status);
+				request.setAttribute("rpsuccess", "success");
 
-				//要再加上成功提示
-				String url = "/front-end/shgm/infoPage.jsp";
-				RequestDispatcher successview = request.getRequestDispatcher(url);
+				RequestDispatcher successview = request.getRequestDispatcher(requestURL);
 				successview.forward(request, response);
 			} catch (Exception e) {
-				errormap.put((long) 1, "無法檢舉市集商品");
-				String url = "/front-end/shgm/infoPage.jsp";
-				RequestDispatcher failedview = request.getRequestDispatcher("infoPage.jsp");
+				errormap.put("rp", "無法執行檢舉");
+				RequestDispatcher failedview = request.getRequestDispatcher(requestURL);
 				failedview.forward(request, response);
 			}
 		}
-		
+
 		if ("insert".equals(action)) {
 
 			List<String> errormsgs = new LinkedList<String>();
@@ -172,15 +172,9 @@ public class ShgmrpServlet extends HttpServlet {
 					failedview.forward(request, response);
 					return;
 				}
-				
+
 				ShgmrpService shgmrpsvc = new ShgmrpService();
 				shgmrpvo = shgmrpsvc.addShgmrp(shgmno, suiterno, detail, status);
-				
-				//檢舉審核通過，下架市集商品
-				if(status == 1) {
-					shgmsvc = new ShgmService();
-					shgmsvc.upcheckUpdate(2, shgmno);
-				}
 
 				String url = "/back-end/shgmrp/listAllShgmrp.jsp";
 				RequestDispatcher successview = request.getRequestDispatcher(url);
@@ -197,16 +191,16 @@ public class ShgmrpServlet extends HttpServlet {
 
 			List<String> errormsgs = new LinkedList<String>();
 			request.setAttribute("errormsgs", errormsgs);
-			
+
 			try {
 				String shgmrpno = request.getParameter("shgmrpno");
-				
+
 				ShgmrpService shgmrpsvc = new ShgmrpService();
 				ShgmrpVO shgmrpvo = shgmrpsvc.getOneShgmrp(shgmrpno);
 				shgmrpvo.setShgmrpno(shgmrpno);
 
 				request.setAttribute("shgmrpvo", shgmrpvo);
-				
+
 				String url = "/back-end/shgmrp/updateShgmrp.jsp";
 				RequestDispatcher successView = request.getRequestDispatcher(url);
 				successView.forward(request, response);
@@ -268,15 +262,9 @@ public class ShgmrpServlet extends HttpServlet {
 					failedview.forward(request, response);
 					return;
 				}
-				
+
 				ShgmrpService shgmrpsvc = new ShgmrpService();
 				shgmrpvo = shgmrpsvc.updateShgmrp(shgmrpno, shgmno, suiterno, detail, status);
-				
-				//新增同時檢舉審核通過，下架市集商品
-				if(status == 1) {
-					shgmsvc = new ShgmService();
-					shgmsvc.upcheckUpdate(2, shgmno);
-				}
 
 				String url = "/back-end/shgmrp/listAllShgmrp.jsp";
 				RequestDispatcher successview = request.getRequestDispatcher(url);
@@ -288,7 +276,7 @@ public class ShgmrpServlet extends HttpServlet {
 				failedview.forward(request, response);
 			}
 		}
-		
+
 		if ("delete".equals(action)) {
 			List<String> errormsgs = new LinkedList<String>();
 			request.setAttribute("errormsgs", errormsgs);
@@ -298,7 +286,7 @@ public class ShgmrpServlet extends HttpServlet {
 
 				ShgmrpService shgmrpsvc = new ShgmrpService();
 				shgmrpsvc.deleteShgmrp(shgmrpno);
-				
+
 				String url = "/back-end/shgmrp/listAllShgmrp.jsp";
 				RequestDispatcher successview = request.getRequestDispatcher(url);
 				successview.forward(request, response);

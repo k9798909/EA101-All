@@ -27,7 +27,7 @@ public class ShopJDBCDAO implements ShopDAO_interface{
 	private static final String LOGIN = 
 		"SELECT SHOPNO FROM SHOP WHERE SHOPACT=? AND SHOPPW=?";
 	private static final String UPDATE_BY_MANAGER = 
-		"UPDATE SHOP SET STATUS=? WHERE SHOPNO = ? ORDER BY STASUS";
+		"UPDATE SHOP SET STATUS=? WHERE SHOPNO = ?";
 	@Override
 	public void insert(ShopVO shopVO) {
 		Connection con = null;
@@ -100,6 +100,49 @@ public class ShopJDBCDAO implements ShopDAO_interface{
 			pstmt.setBytes(7, shopVO.getShopimg());
 			pstmt.setInt(8, shopVO.getStatus());
 			pstmt.setString(9, shopVO.getShopno());
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	
+	@Override
+	public void update_back(ShopVO shopVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(UPDATE_BY_MANAGER);
+
+			pstmt.setInt(1, shopVO.getStatus());
+			pstmt.setString(2, shopVO.getShopno());
 
 			pstmt.executeUpdate();
 
@@ -461,7 +504,7 @@ public class ShopJDBCDAO implements ShopDAO_interface{
 		ShopService shopSvc = new ShopService();
 //		List<ShopVO> list = shopSvc.getAll();
 		// �s�W
-//		ShopVO shopVO1 = new ShopVO();
+		ShopVO shopVO1 = new ShopVO();
 //		shopVO1.setShopact("apple");
 //		shopVO1.setShoppw("z1234");
 //		shopVO1.setShopname("�j��");
@@ -475,6 +518,8 @@ public class ShopJDBCDAO implements ShopDAO_interface{
 //			e.printStackTrace();
 //		}	
 //		shopVO1.setStatus(1);
+//		shopVO1.setShopno("DS00001");
+//		dao.update_back(shopVO1);
 //		dao.insert(shopVO1);
 //
 //		// �ק�
@@ -503,7 +548,9 @@ public class ShopJDBCDAO implements ShopDAO_interface{
 //		System.out.println("---------------------");
 //
 //		// �d��
-		List<ShopVO> list = dao.getAllowedShop();
+		Integer i = new Integer("1");
+		int i2 = i;
+		List<ShopVO> list = shopSvc.getByStatus2(i2);
 		for (ShopVO shop : list) {
 			System.out.print(shop.getShopno() + ",");
 			System.out.print(shop.getShopact() + ",");

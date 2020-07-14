@@ -52,6 +52,8 @@
 </head>
 <body bgcolor='white'>
 
+<jsp:include page="/back-end/back-end_nav.jsp"></jsp:include>
+
 <h4>此頁練習採用 EL 的寫法取值:</h4>
 <table id="table-1">
 	<tr><td>

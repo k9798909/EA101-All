@@ -230,6 +230,7 @@ public class ShoprpdtJDBCDAO implements ShoprpdtDAO_interface {
 	}
 	public static void main(String[] args) {
 		ShoprpdtJDBCDAO dao = new ShoprpdtJDBCDAO();
+		ShoprpdtService svc = new ShoprpdtService();
 		// �s�W
 //		ShoprpdtVO shoprpdtVO1 = new ShoprpdtVO();
 //		shoprpdtVO1.setRmno("SR00010");
@@ -245,19 +246,19 @@ public class ShoprpdtJDBCDAO implements ShoprpdtDAO_interface {
 //		dao.update(shoprpdtVO);
 		
 		// �d��
-		List<ShoprpdtVO> list = dao.findByPrimaryKey("DR00002", 0);
-		for(ShoprpdtVO shoprpdt : list) {
-			System.out.println(shoprpdt.getShoprpno() + ",");
-			System.out.println(shoprpdt.getRmno() + ",");
-			System.out.println(shoprpdt.getMbrno() + ",");
-			System.out.println(shoprpdt.getShopno() + ",");
-			System.out.println(shoprpdt.getDetail() + ",");
-			System.out.println(shoprpdt.getStatus());
-			System.out.println();
-		}
+//		List<ShoprpdtVO> list = dao.findByPrimaryKey("DR00002", 0);
+//		for(ShoprpdtVO shoprpdt : list) {
+//			System.out.println(shoprpdt.getShoprpno() + ",");
+//			System.out.println(shoprpdt.getRmno() + ",");
+//			System.out.println(shoprpdt.getMbrno() + ",");
+//			System.out.println(shoprpdt.getShopno() + ",");
+//			System.out.println(shoprpdt.getDetail() + ",");
+//			System.out.println(shoprpdt.getStatus());
+//			System.out.println();
+//		}
 		
 		// �d��
-		List<ShoprpdtVO> list2 = dao.getAll();
+		List<ShoprpdtVO> list2 = svc.getByStatus();
 		for(ShoprpdtVO shoprpdt : list2) {
 		System.out.println(shoprpdt.getShoprpno() + ",");
 		System.out.println(shoprpdt.getRmno() + ",");

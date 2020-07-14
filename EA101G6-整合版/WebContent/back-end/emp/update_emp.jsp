@@ -113,7 +113,7 @@
 
 <body>
 
-<%@ include file="/back-end/back-end_nav.jsp" %>
+<jsp:include page="/back-end/back-end_nav.jsp"></jsp:include> 
 
 <!-- <h3>此為員工自己想修該資料 和 員工管理員想修改員工的狀態 的頁面</h3> -->
 
@@ -188,7 +188,7 @@
 						
 								<c:choose>
 									<c:when test="${auth}">
-										<input type="checkbox" name="features" value="${featuresVO.ftno}" ${ emphave ? "checked" : ""} ${ auth ? "" : "disabled"}>${featuresVO.ftname}
+										<label for="${featuresVO.ftno}"><input type="checkbox" name="features" id="${featuresVO.ftno}" value="${featuresVO.ftno}" ${ emphave ? "checked" : ""} ${ auth ? "" : "disabled"}>${featuresVO.ftname}</label>
 									</c:when>
 									<c:otherwise>
 										<c:forEach var="smauth" items="${authList}">

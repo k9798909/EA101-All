@@ -58,7 +58,7 @@
 								role="button" data-toggle="dropdown" aria-haspopup="true"
 								aria-expanded="false"> 會員管理 </a>
 								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/emp/listOneEmp.jsp">一般會員管理</a> 
+									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/mbrpf/listAllMbrpf.jsp">一般會員管理</a> 
 									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/shop/listAllShop.jsp">店家管理</a>
 								</div></li>
 								
@@ -138,14 +138,7 @@
 	
 	<script src="<%=request.getContextPath() %>/js/backJs/bootstrap.min.js"></script>
 	
-	<script>
-	// DOM is ready
-		$(function() {
-			$(window).resize(function() {
-				reloadPage();
-			});
-		})
-	</script>
+
 	
 	<script>
 		$(function () {

@@ -4,6 +4,15 @@
 
 <%
 	MbrpfVO mbrpfVO = (MbrpfVO) request.getAttribute("mbrpfVO"); //mbrpfServlet.java(Concroller), 存入req的mbrpfVO物件
+	
+	if(request.getParameter("mbrpfno") != null){
+		String mbrpfno = request.getParameter("mbrpfno");
+		MbrpfService mbrpfSvc = new MbrpfService();
+		mbrpfVO = mbrpfSvc.getOneMbrpf(mbrpfno);
+		request.setAttribute("mbrpfVO", mbrpfVO);
+	}
+	
+	
 %>
 
 <html>
@@ -52,7 +61,7 @@ th, td {
 
 <body>
 
-<%@ include file="/front-end/front-end-nav.jsp"%>
+<%@ include file="/back-end/back-end_nav.jsp"%>
 
 	<h4>此頁暫練習採用 Script 的寫法取值:</h4>
 	<table id="table-1">

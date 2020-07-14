@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.*"%>
 <%@ page import="com.shop.model.*"%>
-
+<%@ include file="/back-end/back-end-nav-susu.jsp" %>
 <%
 	ShopService shopSvc = new ShopService();
 	List<ShopVO> list = shopSvc.getAll();
@@ -13,11 +13,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="BIG5">
-<title>Insert title here</title>
+<script>			
+			$(document).ready(function(){
+				$('.sta').change(function(){
+					$(".status").val($(this).val());					
+				});	
+			});
+</script>
 </head>
 <body>
-<%@ include file="/back-end/back-end_nav.jsp" %>
+
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
 	<font style="color: red">請修正以下錯誤:</font>
@@ -29,6 +34,7 @@
 </c:if>
 <style>
 table {
+	width:100%;
 	margin-top: 10px;
 }
 
@@ -47,7 +53,10 @@ td {
 }
 
 tr:nth-child(odd) {
-	background-color: #FFED97;
+	background-color: white;
+}
+tr:nth-child(even) {
+	background-color: gray;
 }
 
 img {
@@ -59,8 +68,9 @@ h4 {
 	margin-left: 20px;
 }
 </style>
+<jsp:include page="select_page.jsp" flush="true"/>
 <div>
-	<table>
+	<table class="table table-bordered">
 		<tr>
 			<th>店家編號</th>
 			<th>店家名稱</th>
@@ -79,12 +89,18 @@ h4 {
 				<td>${shopVO.shopcy}</td>
 				<td>0${shopVO.shopphone}</td>
 				<td><img src="<%=request.getContextPath()%>/ShopShowImg?shopno=${shopVO.shopno}"></td>
-				<td>${(shopVO.status==0)? '未審核':''}${(shopVO.status==1)? '審核通過':''}${(shopVO.status==2)? '停權':''}</td>
+				<td><select size="1" name="status" class="sta">					 
+							<option value=0 ${(shopVO.status == 0)? 'selected':'' }>未審核
+							<option value=1 ${(shopVO.status == 1)? 'selected':'' }>審核通過
+							<option value=2 ${(shopVO.status == 2)? 'selected':'' }>停權
+					</select></td>
 				<td>
-					<FORM METHOD="post" ACTION="shop.do" style="margin-bottom: 0px;">
-						<input type="submit" value="修改"> <input type="hidden"
-							name="shopno" value="${shopVO.shopno}"> <input
-							type="hidden" name="action" value="getOne_For_Update">
+					<FORM METHOD="post" ACTION="<%= request.getContextPath()%>/back-end/shop/shop.do" enctype="multipart/form-data">
+						<input type="submit" value="修改"> 
+						<input type="hidden" name="shopno" value="${shopVO.shopno}"> 
+						<input type="hidden" name="status" value="${shopVO.status}" class="status">	
+						<input type="hidden" name="URL" value="<%=request.getServletPath()%>">
+						<input type="hidden" name="action" value="update_back">
 					</FORM>
 				</td>
 			</tr>

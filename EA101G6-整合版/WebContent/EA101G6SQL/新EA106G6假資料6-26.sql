@@ -250,6 +250,13 @@ VALUES ('BM'||LPAD(to_char(mem_seq.NEXTVAL),5,'0'),'TURTLE','TURTLE','林彥志'
 'chihchih@gmail.com','0939889889','XXXX-XXXX-XXXX-XXXX',
 '彥志','10','0','0','0','0','0');
 
+INSERT INTO MBRPF (MBRNO,MBRACT,MBRPW,MBRNAME,MBRIMG,BIRTH,SEX,MAIL,
+PHONE,MBRAC,NICKNAME,POINTS,STATUS,RATEDTOTAL,STARTOTAL,UNATTEND,
+TTATTEND)
+VALUES ('BM'||LPAD(to_char(mem_seq.NEXTVAL),5,'0'),'11','11','測試man',LOAD_BLOB('mbrpf010.JPG'),to_date('2020/06/10','yyyy/mm/dd'),'1',
+'chihchih@gmail.com','0939889889','XXXX-XXXX-XXXX-XXXX',
+'彥志','10','0','0','0','0','0');
+
 ------------鴻基
 
 INSERT INTO SHOP VALUES ('DS'||LPAD(TO_CHAR(SHOP_seq.NEXTVAL), 5, '0'), 'WOLF', '123456', '古意狼', '桃園市中壢區中正路', '六人桌*10', 0933103579,load_blob('shop1.jpg'), 1);

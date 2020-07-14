@@ -73,7 +73,7 @@
 </style>
 
 <body>
-
+<!-- 此為被include的畫面，所以不用加nav -->
 <div class="container">
 	<div class="row">
 		<table class="ftTable" style="background-color:#FFF3E0"><!-- listAll.jsp -->

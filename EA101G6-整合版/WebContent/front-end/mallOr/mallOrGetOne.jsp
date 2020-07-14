@@ -38,6 +38,12 @@ main{
 	text-align:center;
 }
 
+main div.thank{
+text-align:center;
+margin:30px 0px;
+}
+
+
 </style>
 
 
@@ -48,6 +54,8 @@ main{
 <%@ include file="/front-end/front-end-nav.jsp"%>
 
 <main>
+
+<div class="thank"><h1>謝謝您的購買！</h1></div>
 	<div class="container">
 		<div class="row">
 			<table class="table col-6 text-center margin-center">
@@ -96,28 +104,6 @@ main{
 				</tbody>
 	
 			</table>
-			</div>
-		</div>
-		
-	
-	<div class="container dtMain">
-		<div class="row">
-		<div class="col-8 margin-center">
-			<table class="table text-center margin-center ">
-				<thead>
-				<tr> <th>商品名稱</th><th>數量</th><th>價錢</th><th>小計</th></tr>
-				</thead>
-				
-				<jsp:useBean id="mallSvc" class="com.mall.model.MallService" />
-				
-				<tbody>
-				<c:forEach var="mallOrDt" items="${mallOrDtList}" varStatus="count">
-				<tr> <td>${mallSvc.findOneByNo(mallOrDt.commNo).commName}</td><td>${mallOrDt.quantity}</td><td>${mallOrDt.price}</td><td>${mallOrDt.price*mallOrDt.quantity}</td></tr>
-				</c:forEach>
-				</tbody>
-
-			</table>
-			</div>
 			</div>
 		</div>
 		

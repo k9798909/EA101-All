@@ -7,35 +7,18 @@
 <%@ page import="com.mbrpf.model.*"%>
 <%@ page import="java.util.*"%>
 <%
-	MbrpfVO mbrpfvo = (MbrpfVO) session.getAttribute("mbrpfvo");
+	MbrpfVO mbrpfVO = (MbrpfVO) session.getAttribute("mbrpfVO");
 	ShgmService shgmsvc = new ShgmService();
-	List<ShgmVO> shgmlist = shgmsvc.allForBuyer(mbrpfvo.getMbrno());
-	pageContext.setAttribute("shgmlist", shgmlist);
+	Set<ShgmVO> shgmset = shgmsvc.allForBuyer(mbrpfVO.getMbrno());
+	pageContext.setAttribute("shgmset", shgmset);
 	ShgmrpService shgmrpsvc = new ShgmrpService();
 	pageContext.setAttribute("shgmrpsvc", shgmrpsvc);
 %>
 
 <html lang="en">
 <head>
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <title>myShgame</title>
 <meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link
-	href="https://fonts.googleapis.com/css?family=Rubik:300,400,700|Oswald:400,700"
-	rel="stylesheet">
-<!-- 登入圖示 -->
-<link rel="stylesheet" href="fonts/icomoon/style.css">
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/jquery.fancybox.min.css">
-<link rel="stylesheet" href="css/owl.carousel.min.css">
-<link rel="stylesheet" href="css/owl.theme.default.min.css">
-<link rel="stylesheet" href="css/aos.css">
-<!-- MAIN CSS -->
-<link rel="stylesheet" href="css/style.css">
 </head>
 <style>
 body {
@@ -58,6 +41,7 @@ div.main-area {
 	border: black 1px solid;
 	background-color: white;
 	margin: 2% auto;
+	height:1400px;
 }
 
 .top-info-wrapper {
@@ -159,10 +143,9 @@ div.pageselect-area {
 	justify-content: center;
 }
 </style>
-<body data-spy="scroll" data-target=".site-navbar-target"
-	data-offset="300" background="images/bgimage3.jpg">
+<body data-offset="300" background="images/bgimage3.jpg">
 
-<%@ include file="/front-end/front-end-nav.jsp"%>
+<jsp:include page="/front-end/front-end-nav.jsp"></jsp:include>
 
 	<div class="main-area container col-10 align-self-center">
 		<div class="top-info-wrapper">
@@ -208,7 +191,7 @@ div.pageselect-area {
 									<li class="list-group-item firstlis">售價</li>
 									<li class="list-group-item firstlis">商品狀態</li>
 								</ul>
-								<c:forEach var="shgmvo" items="${shgmlist}">
+								<c:forEach var="shgmvo" items="${shgmset}">
 									<c:if test="${shgmvo.upcheck == 1 && shgmvo.boxstatus == 0 && shgmvo.paystatus == 1 && shgmvo.status == 1}">
 										<ul class="list-group list-group-horizontal four-li">
 											<li class="list-group-item">${shgmvo.shgmname}</li>
@@ -216,14 +199,14 @@ div.pageselect-area {
 													<img src="<%=request.getContextPath()%>/shgm/displayimg?shgmno=${shgmvo.shgmno}"></div></li>
 											<li class="list-group-item">${shgmvo.price}</li>
 											<li class="list-group-item">賣家尚未出貨<br>
-												<form method="post" action="<%=request.getContextPath()%>/front-end/shgm/shgm.do">
-												<input type="submit" class="btn btn-primary" value="修改取貨資訊"/>
-												<input type="hidden" name="action" value="getone_update"/>
-												<input type="hidden" name="shgmno" value="${shgmvo.shgmno}"/>
-												<input type="hidden" name="requestURL" value="<%=request.getServletPath()%>"/>
-												</form>
+												 <form method="post" action="<%=request.getContextPath()%>/front-end/shgm/shgm.do">
+												 <input type="submit" class="btn btn-primary slrbyr-css" value="修改取貨資訊"/>
+												 <input type="hidden" name="action" value="getone_update"/>
+												 <input type="hidden" name="shgmno" value="${shgmvo.shgmno}"/>
+												 <input type="hidden" name="requestURL" value="<%=request.getServletPath()%>"/>
+												 </form>
 											<button id="${shgmvo.shgmno}" type="button"
-													class="btn btn-primary status3" value="cancel">取消訂單</button></li>
+													class="btn btn-primary slrbyr-css status3 resetBtnCss" value="cancel">取消訂單</button></li>
 										</ul>
 									</c:if>
 								</c:forEach>
@@ -237,7 +220,7 @@ div.pageselect-area {
 									<li class="list-group-item firstlis">售價</li>
 									<li class="list-group-item firstlis">商品狀態</li>
 								</ul>
-								<c:forEach var="shgmvo" items="${shgmlist}">
+								<c:forEach var="shgmvo" items="${shgmset}">
 									<c:if test="${shgmvo.upcheck == 1 && shgmvo.boxstatus == 1 && shgmvo.paystatus == 1 && shgmvo.status == 1}">
 										<ul class="list-group list-group-horizontal four-li">
 											<li class="list-group-item">${shgmvo.shgmname}</li>
@@ -246,7 +229,7 @@ div.pageselect-area {
 											<li class="list-group-item">${shgmvo.price}</li>
 											<li class="list-group-item">商品配送中<br>
 											<button id="${shgmvo.shgmno}" type="button"
-													class="btn btn-primary status3" value="cancel">取消訂單</button></li>
+													class="btn btn-primary slrbyr-css status3 resetBtnCss" value="cancel">取消訂單</button></li>
 										</ul>
 									</c:if>
 								</c:forEach>
@@ -260,7 +243,7 @@ div.pageselect-area {
 									<li class="list-group-item firstlis">售價</li>
 									<li class="list-group-item firstlis">商品狀態</li>
 								</ul>
-								<c:forEach var="shgmvo" items="${shgmlist}">
+								<c:forEach var="shgmvo" items="${shgmset}">
 									<c:if test="${shgmvo.upcheck == 1 && shgmvo.boxstatus == 2 && shgmvo.paystatus == 1 && shgmvo.status == 1}">
 										<ul class="list-group list-group-horizontal four-li">
 											<li class="list-group-item">${shgmvo.shgmname}</li>
@@ -269,9 +252,9 @@ div.pageselect-area {
 											<li class="list-group-item">${shgmvo.price}</li>
 											<li class="list-group-item">商品已送達<br>
 											<button id="${shgmvo.shgmno}" type="button"
-													class="btn btn-primary boxstatus2">確認收貨</button>
+													class="btn btn-primary slrbyr-css boxstatus2">確認收貨</button>
 											<button id="${shgmvo.shgmno}" type="button"
-													class="btn btn-primary status3" value="cancel">取消訂單</button></li>
+													class="btn btn-primary slrbyr-css status3" value="cancel">取消訂單</button></li>
 										</ul>
 									</c:if>
 								</c:forEach>
@@ -286,7 +269,7 @@ div.pageselect-area {
 									<li class="list-group-item firstlis">上架日期</li>
 									<li class="list-group-item firstlis">售出日期</li>
 								</ul>
-								<c:forEach var="shgmvo" items="${shgmlist}">
+								<c:forEach var="shgmvo" items="${shgmset}">
 									<c:if
 										test="${shgmvo.upcheck == 1 and shgmvo.boxstatus == 2 and shgmvo.paystatus == 1 and shgmvo.status == 2}">
 										<ul class="list-group list-group-horizontal five-li">
@@ -312,7 +295,7 @@ div.pageselect-area {
 									<li class="list-group-item firstlis">售價</li>
 									<li class="list-group-item firstlis">商品狀態</li>
 								</ul>
-								<c:forEach var="shgmvo" items="${shgmlist}">
+								<c:forEach var="shgmvo" items="${shgmset}">
 									<c:if test="${shgmvo.status == 3}">
 										<ul class="list-group list-group-horizontal four-li">
 											<li class="list-group-item">${shgmvo.shgmname}</li>
@@ -332,50 +315,28 @@ div.pageselect-area {
 			</div>
 		</div>
 	</div>
-	<div class="pageselect-area-wrapper">
-		<div class="pageselect-area ">
-			<nav aria-label="Page navigation example">
-				<ul class="pagination">
-					<li class="page-item"><a class="page-link" href="#"
-						aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-							<span class="sr-only">Previous</span>
-					</a></li>
-					<li class="page-item"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#"
-						aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
-							class="sr-only">Next</span>
-					</a></li>
-				</ul>
-			</nav>
-		</div>
-	</div>
-	<input type="hidden" id="member" value="${mbrpfvo.mbrname}">
-
-	<script src="js/jquery-3.3.1.min.js"></script>
-	<!-- 看起來沒屁用 -->
-	<script src="js/popper.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<!-- 重要廣告界面 -->
-	<script src="js/owl.carousel.min.js"></script>
-	<!-- 看起來沒屁用 -->
-	<script src="js/jquery.sticky.js"></script>
-	<script src="js/jquery.waypoints.min.js"></script>
-	<script src="js/jquery.animateNumber.min.js"></script>
-	<script src="js/jquery.fancybox.min.js"></script>
-
-
-	<!-- 上介面連結動畫 -->
-	<script src="js/jquery.easing.1.3.js"></script>
-
-	<!-- 重要廣告界面 -->
-	<script src="js/aos.js"></script>
-
-	<script src="js/main.js"></script>
+	<input type="hidden" id="mbrpfVO" value="${mbrpfVO.mbrname}">
+	<input type="hidden" id="success" value="${updateSuccess}">
+	
+<jsp:include page="/front-end/shgm/alert-area.jsp"></jsp:include>
+	
+	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/ajaxForMbrmsgs.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/wsForShgm.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/jsForAlert-area.js"></script>
 	<script>
 	$(document).ready(function(){
 		
+		if($("#success").val() == "success"){
+			Swal.fire({
+				  icon: 'success',
+				  title: '您已修改成功！',
+				  showConfirmButton: false,
+				  timer: 1500
+				})
+			$("#success").val('');
+		}
+		
+		/*確定收貨購買完成*/
 		$(".container").on("click",".boxstatus2",function(){
 			var $shgmno = $(this).closest("button")[0].id;
 			console.log($shgmno);
@@ -397,6 +358,11 @@ div.pageselect-area {
 					$("#list-status2 ul:eq(1)").append('<li class="list-group-item">'+response.price+'</li>');
 					$("#list-status2 ul:eq(1)").append('<li class="list-group-item">'+response.uptime+'</li>');
 					$("#list-status2 ul:eq(1)").append('<li class="list-group-item">'+response.soldtime+'</li>');
+					//Gson 無法把將含有日期型態的json資料轉為物件，後面用不到日期所以直接賦予空值
+			    	response.uptime = null;
+			    	response.soldtime = null;
+			    	jsondata = JSON.stringify(response);
+					webSocket.send(jsondata);
 			    },
 			    error: function(result) {
                     console.log(result);
@@ -404,6 +370,7 @@ div.pageselect-area {
 			});
 		});
 		
+		/*取消訂單*/
 		$(".container").on("click",".status3",function(){
 			var $shgmno = $(this).closest("button")[0].id;
 			console.log($shgmno);
@@ -418,6 +385,8 @@ div.pageselect-area {
 			    dataType: "json",
 			    cache: false,
 			    success: function(response){
+			    	jsondata = JSON.stringify(response);
+					webSocket.send(jsondata);
 			    	$("#list-status3 ul:eq(0)").after('<ul class="list-group list-group-horizontal five-li"></ul>');
 					$("#list-status3 ul:eq(1)").append('<li class="list-group-item">'+response.shgmname+'</li>');			    	
 					$("#list-status3 ul:eq(1)").append('<li class="list-group-item"><div class="imgwrapper">'+
@@ -432,6 +401,5 @@ div.pageselect-area {
 		});
 	});
 	</script>
-
 </body>
 </html>

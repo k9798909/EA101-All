@@ -18,40 +18,32 @@ table {
 	text-align: center;
 	margin-top: 1%;
 }
-
 th, td {
 	border: 1px solid black;
 	width: 200px;
 }
-
 img {
 	width: 200px;
 	height: 150px;
 }
-
 #intro {
 	text-align: left;
 }
-
 #introbtn {
 	margin-top: 10%;
 }
-
 #table td {
 	padding: 0px;
 	vertical-align: middle;
 }
-
 #shgmall-mainarea {
 	margin: 0 auto;
 }
-
 @media ( min-width : 576px) {
 	.modal-dialog {
 		margin: 1.75rem auto;
 	}
 }
-
 #detailmodal {
 	max-width: 80%;
 }
@@ -205,4 +197,4 @@ img {
 				</c:otherwise>
 			</c:choose>
 </body>
-</html>
+</html> 
