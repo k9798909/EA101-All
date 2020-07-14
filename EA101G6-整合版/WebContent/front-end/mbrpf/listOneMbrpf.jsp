@@ -28,7 +28,7 @@
 			<div class="col">
 				<table class="memInfo">
 					<tr>
-						<td ><img width="175" height="175" src="<%= request.getContextPath()%>/mbrpf/mbrimg.do?mbrno=${mbrpfVO.mbrno}"></td>
+						<td ><img width="200" height="175" src="<%= request.getContextPath()%>/mbrpf/mbrimg.do?mbrno=${mbrpfVO.mbrno}"></td>
 					</tr>
 						<tr><td>&nbsp;</td></tr>
 						<tr><td>穦眀め</td><td>${mbrpfVO.mbract}</td></tr>
@@ -53,16 +53,22 @@
 						<tr><td>钡Μ蹿兜眀め</td><td>${mbrpfVO.mbrac}</td></tr>
 						<tr><td>&nbsp;</td></tr>
 						<tr><td>际嘿</td><td>${mbrpfVO.nickname}</td></tr>
-						<tr><td>&nbsp;</td></tr>
-						<tr><td>翴计緇肂</td><td>${mbrpfVO.points}</td></tr>
-						<tr><td>&nbsp;</td></tr>
-						<tr><td>砆蝶基羆计</td><td>${mbrpfVO.ratedtotal}</td></tr>
-						<tr><td>&nbsp;</td></tr>
-						<tr><td>砆蝶基羆琍计</td><td>${mbrpfVO.startotal}</td></tr>
-						<tr><td>&nbsp;</td></tr>
-						<tr><td>ゼ畊Ω计</td><td>${mbrpfVO.unattend}</td></tr>
-						<tr><td>&nbsp;</td></tr>
-						<tr><td>羆把刮Ω计</td><td>${mbrpfVO.ttattend}</td></tr>
+<!-- 						<tr><td>&nbsp;</td></tr> -->
+<%-- 						<tr><td>翴计緇肂</td><td>${mbrpfVO.points}</td></tr> --%>
+<!-- 						<tr><td>&nbsp;</td></tr> -->
+<%-- 						<tr><td>砆蝶基羆计</td><td>${mbrpfVO.ratedtotal}</td></tr> --%>
+<!-- 						<tr><td>&nbsp;</td></tr> -->
+<%-- 						<tr><td>砆蝶基羆琍计</td><td>${mbrpfVO.startotal}</td></tr> --%>
+<!-- 						<tr><td>&nbsp;</td></tr> -->
+<%-- 						<tr><td>ゼ畊Ω计</td><td>${mbrpfVO.unattend}</td></tr> --%>
+<!-- 						<tr><td>&nbsp;</td></tr> -->
+<%-- 						<tr><td>羆把刮Ω计</td><td>${mbrpfVO.ttattend}</td></tr> --%>
+						<td>
+						  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/mbrpf/mbrpf.do" style="margin-bottom: 0px;">
+						     <input type="submit" value="э">
+						     <input type="hidden" name="mbrno"  value="${mbrpfVO.mbrno}">
+						     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
+						</td>
 						
 				</table>
 			</div>

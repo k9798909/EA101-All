@@ -70,7 +70,7 @@
 
 	<tr>
 		<td>穦繷钩:</td>
-		<img alt=""src="<%= request.getContextPath()%>/mbrpf/mbrimg.do?mbrno=${mbrpfVO.mbrno}" id="demo1">
+		<img alt=""src="<%= request.getContextPath()%>/mbrpf/mbrimg.do?mbrno=${mbrpfVO.mbrno}" width="200" height="175" id="demo1">
 		<td><input type="FILE" name="mbrimg" onchange="loadFile1(event)" size="45"  /></td>
 	</tr>
 	<tr>
@@ -114,30 +114,30 @@
 		<td>际嘿:</td>
 		<td><input type="TEXT" name="nickname" size="45" value="<%=mbrpfVO.getNickname()%>" /></td>
 	</tr>
-	<tr>
-		<td>翴计緇肂:</td>
-		<td><input type="TEXT" name="points" size="45" value="<%=mbrpfVO.getPoints()%>" /></td>
-	</tr>
-	<tr>
-		<td>穦篈:</td>
-		<td><input type="TEXT" name="status" size="45" value="<%=mbrpfVO.getStatus()%>" /></td>
-	</tr>
-	<tr>
-		<td>砆蝶基羆计:</td>
-		<td><input type="TEXT" name="ratedtotal" size="45" value="<%=mbrpfVO.getRatedtotal()%>" /></td>
-	</tr>
-	<tr>
-		<td>砆蝶基羆琍计:</td>
-		<td><input type="TEXT" name="startotal" size="45" value="<%=mbrpfVO.getStartotal()%>" /></td>
-	</tr>
-	<tr>
-		<td>ゼ畊Ω计:</td>
-		<td><input type="TEXT" name="unattend" size="45" value="<%=mbrpfVO.getUnattend()%>" /></td>
-	</tr>
-	<tr>
-		<td>羆把刮Ω计:</td>
-		<td><input type="TEXT" name="ttattend" size="45" value="<%=mbrpfVO.getTtattend()%>" /></td>
-	</tr>
+<!-- 	<tr> -->
+<!-- 		<td>翴计緇肂:</td> -->
+<%-- 		<td><input type="TEXT" name="points" size="45" value="<%=mbrpfVO.getPoints()%>" /></td> --%>
+<!-- 	</tr> -->
+<!-- 	<tr> -->
+<!-- 		<td>穦篈:</td> -->
+<%-- 		<td><input type="TEXT" name="status" size="45" value="<%=mbrpfVO.getStatus()%>" /></td> --%>
+<!-- 	</tr> -->
+<!-- 	<tr> -->
+<!-- 		<td>砆蝶基羆计:</td> -->
+<%-- 		<td><input type="TEXT" name="ratedtotal" size="45" value="<%=mbrpfVO.getRatedtotal()%>" /></td> --%>
+<!-- 	</tr> -->
+<!-- 	<tr> -->
+<!-- 		<td>砆蝶基羆琍计:</td> -->
+<%-- 		<td><input type="TEXT" name="startotal" size="45" value="<%=mbrpfVO.getStartotal()%>" /></td> --%>
+<!-- 	</tr> -->
+<!-- 	<tr> -->
+<!-- 		<td>ゼ畊Ω计:</td> -->
+<%-- 		<td><input type="TEXT" name="unattend" size="45" value="<%=mbrpfVO.getUnattend()%>" /></td> --%>
+<!-- 	</tr> -->
+<!-- 	<tr> -->
+<!-- 		<td>羆把刮Ω计:</td> -->
+<%-- 		<td><input type="TEXT" name="ttattend" size="45" value="<%=mbrpfVO.getTtattend()%>" /></td> --%>
+<!-- 	</tr> -->
 	
 
 	
