@@ -188,7 +188,7 @@
 						
 								<c:choose>
 									<c:when test="${auth}">
-										<input type="checkbox" name="features" value="${featuresVO.ftno}" ${ emphave ? "checked" : ""} ${ auth ? "" : "disabled"}>${featuresVO.ftname}
+										<label for="${featuresVO.ftno}"><input type="checkbox" name="features" id="${featuresVO.ftno}" value="${featuresVO.ftno}" ${ emphave ? "checked" : ""} ${ auth ? "" : "disabled"}>${featuresVO.ftname}</label>
 									</c:when>
 									<c:otherwise>
 										<c:forEach var="smauth" items="${authList}">

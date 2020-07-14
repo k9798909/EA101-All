@@ -144,7 +144,7 @@
 										<c:set var="emphave" value="true" />
 									</c:if>
 								</c:forEach>
-								<input type="checkbox" name="features" value="${featuresVO.ftno}" ${emphave ? "checked" : ""}>${featuresVO.ftname}
+								<label for="${featuresVO.ftno}"><input type="checkbox" name="features" id="${featuresVO.ftno}" value="${featuresVO.ftno}" ${emphave ? "checked" : ""}>${featuresVO.ftname}</label>
 							</c:forEach>
 						</div>
 					</div>

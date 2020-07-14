@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.tfcord.model.*" %>
-<%@ page import="com.shoprpdt.model.*" %>
 <%@ page import="com.shop.model.*" %>
+<%@ page import="com.shoprpdt.model.*" %>
 <%@ page import="com.mallOr.model.*" %>
+<%@ page import="com.shgm.model.*" %>
+<%@ page import="com.shgmrp.model.*" %>
 <%@ page import="java.util.*" %>
 <%
 	TfcordService tfcordSvc = new TfcordService();
@@ -24,6 +26,16 @@
 	Set<MallOrVO> havemallOr = mallOrSvc.findByBoxStatus(0);
 	int mallOrNum = havemallOr.size();
 	pageContext.setAttribute("mallOrNum", mallOrNum);
+	
+	ShgmService shgmSvc = new ShgmService();
+	Set<ShgmVO> haveShgm = shgmSvc.getAllShgmUncheck();
+	int shgmNum = haveShgm.size();
+	pageContext.setAttribute("shgmNum", shgmNum);
+	
+	ShgmrpService shgmrpSvc = new ShgmrpService();
+	Set<ShgmrpVO> haveShgmrp = shgmrpSvc.getAllShgmrpUncheck();
+	int shgmrpNum = haveShgm.size();
+	pageContext.setAttribute("shgmrpNum", shgmrpNum);
 %>
 
 <!DOCTYPE html>
@@ -172,24 +184,27 @@
 		        </ul>
 		        <div id="tabs-1"><!--以下每一條都是未處理的通知-->
 		        	<span class="news">
-		        		目前有 筆市集商品檢舉未處理
+		        		<a href="<%=request.getContextPath()%>/back-end/shgmrp/listAllShgmrp.jsp">目前有<font style="color:red">${shgmrpNum}</font>筆_市集商品檢舉_未處理</a>
 		        	</span>
 		        	<span class="news">
-		        		目前有 筆文章檢舉未處理
+		        		目前有 筆_文章檢舉_未處理
 		        	</span>
 		        	<span class="news">
-		        		目前有 筆留言檢舉未處理
+		        		目前有 筆_留言檢舉_未處理
 		        	</span>
 		        	<span class="news">
-		        		<a href="<%=request.getContextPath()%>/back-end/shoprpdt/listSomeShoprpdt.jsp?status=0">目前有<font style="color:red">${shoprpdtNum}</font>筆店家檢舉未處理</a>
+		        		<a href="<%=request.getContextPath()%>/back-end/shoprpdt/listSomeShoprpdt.jsp?status=0">目前有<font style="color:red">${shoprpdtNum}</font>筆_店家檢舉_未處理</a>
 		        	</span>
 		        </div>
 		        <div id="tabs-2">
 		        	<span class="news">
-		        		<a href="<%=request.getContextPath()%>/back-end/shop/listAllShop.jsp">目前有<font style="color:red">${shopNum}</font>筆店家申請尚未處理</a>
+		        		<a href="<%=request.getContextPath()%>/back-end/shop/listAllShop.jsp">目前有<font style="color:red">${shopNum}</font>筆_店家申請_尚未處理</a>
 		        	</span>
 		        	<span class="news">
-		        		<a href="<%=request.getContextPath()%>/back-end/tfcord/notYetTfcord.jsp">目前有<font style="color:red">${tfcordNum}</font>筆未點數轉換尚未處理</a>
+		        		<a href="<%=request.getContextPath()%>/back-end/shgm/listAllShgm.jsp">目前有<font style="color:red">${shgmNum}</font>筆_市集商品審核_尚未處理</a>
+		        	</span>
+		        	<span class="news">
+		        		<a href="<%=request.getContextPath()%>/back-end/tfcord/notYetTfcord.jsp">目前有<font style="color:red">${tfcordNum}</font>筆_點數轉換_尚未處理</a>
 		        	</span>
 		        </div>
 		        <div id="tabs-3">
