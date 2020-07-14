@@ -94,7 +94,7 @@
 							<c:forEach var="tfcordVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex + rowsPerPage-1 %>">
 								<tr ${(tfcordVO.tfno == param.tfno) ?  'bgcolor=#CCCCFF' : ''} >
 									<td  class="align-middle">${tfcordVO.tfno}</td>
-									<td  class="align-middle">${tfcordVO.mbrno}</td>
+									<td  class="align-middle"><a href="<%=request.getContextPath()%>/back-end/mbrpf/listOneMbrpf.jsp?mbrpfno=${tfcordVO.mbrno}">${tfcordVO.mbrno}</a></td>
 									<td  class="align-middle">${tfcordVO.tftype == "M" ? "兌現" : "儲值"}</td>
 									<td  class="align-middle">${tfcordVO.price}</td>
 									<td  class="align-middle"><fmt:formatDate value="${tfcordVO.tftime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>

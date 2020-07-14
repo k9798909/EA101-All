@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.tfcord.model.*" %>
+<%@ page import="com.shoprpdt.model.*" %>
+<%@ page import="com.shop.model.*" %>
 <%@ page import="java.util.*" %>
 <%
 	TfcordService tfcordSvc = new TfcordService();
@@ -7,7 +9,15 @@
 	int tfcordNum =  haveTfcord.size();
 	request.setAttribute("tfcordNum", tfcordNum);
 	
+	ShoprpdtService shoprpdtSvc = new ShoprpdtService();
+	List<ShoprpdtVO> haveShoprpdt = (List<ShoprpdtVO>) shoprpdtSvc.getByStatus();
+	int shoprpdtNum =  haveShoprpdt.size();
+	request.setAttribute("shoprpdtNum", shoprpdtNum);
 	
+	ShopService shopSvc = new ShopService();
+	List<ShoprpdtVO> haveShop = (List<ShoprpdtVO>) shoprpdtSvc.getByStatus();
+	int shopNum =  haveShoprpdt.size();
+	request.setAttribute("shopNum", shopNum);
 %>
 
 <!DOCTYPE html>
@@ -150,8 +160,8 @@
 			</div>
 			<div id="tabs">
 				<ul>
-		            <li><a href="#tabs-1">Development</a></li>
-		            <li><a href="#tabs-2">Support</a></li>
+		            <li><a href="#tabs-1">檢舉通知</a></li>
+		            <li><a href="#tabs-2">審核通知</a></li>
 		            <li><a href="#tabs-3">About</a></li>
 		        </ul>
 		        <div id="tabs-1"><!--以下每一條都是未處理的通知-->
@@ -165,12 +175,12 @@
 		        		目前有 筆留言檢舉未處理
 		        	</span>
 		        	<span class="news">
-		        		目前有 筆店家檢舉未處理
+		        		<a href="<%=request.getContextPath()%>/back-end/shoprpdt/listSomeShoprpdt.jsp?status=0">目前有<font style="color:red">${shoprpdtNum}</font>筆店家檢舉未處理</a>
 		        	</span>
 		        </div>
 		        <div id="tabs-2">
 		        	<span class="news">
-		        		目前有 筆店家申請尚未處理
+		        		<a href="<%=request.getContextPath()%>/back-end/shop/listAllShop.jsp">目前有<font style="color:red">${shopNum}</font>筆店家申請尚未處理</a>
 		        	</span>
 		        	<span class="news">
 		        		<a href="<%=request.getContextPath()%>/back-end/tfcord/notYetTfcord.jsp">目前有<font style="color:red">${tfcordNum}</font>筆未點數轉換尚未處理</a>

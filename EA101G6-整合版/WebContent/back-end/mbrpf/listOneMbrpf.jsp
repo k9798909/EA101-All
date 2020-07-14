@@ -4,6 +4,15 @@
 
 <%
 	MbrpfVO mbrpfVO = (MbrpfVO) request.getAttribute("mbrpfVO"); //mbrpfServlet.java(Concroller), 存入req的mbrpfVO物件
+	
+	if(request.getParameter("mbrpfno") != null){
+		String mbrpfno = request.getParameter("mbrpfno");
+		MbrpfService mbrpfSvc = new MbrpfService();
+		mbrpfVO = mbrpfSvc.getOneMbrpf(mbrpfno);
+		request.setAttribute("mbrpfVO", mbrpfVO);
+	}
+	
+	
 %>
 
 <html>
