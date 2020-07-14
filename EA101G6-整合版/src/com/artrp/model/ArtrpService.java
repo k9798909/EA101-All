@@ -46,4 +46,7 @@ public class ArtrpService {
 	 public List<ArtrpVO> getAllByArtno(String artno) {
 		 return dao.getAllByArtno(artno);
 	 }
+	 public List<ArtrpVO> getAllByStatus(Integer status) {
+		 return dao.getAllByStatus(status);
+	 }
 }
