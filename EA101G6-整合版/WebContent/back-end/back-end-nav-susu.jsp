@@ -91,7 +91,6 @@
 								aria-expanded="false"> 檢舉管理 </a>
 								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/shoprpdt/listAllShoprpdt.jsp">店家檢舉審核</a> 
-									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/msgrp/listAllMsgrp.jsp">討論區留言檢舉審核</a> 
 									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/artrp/listAllArtrp.jsp">討論區文章檢舉審核</a> 
 									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/shgmrp/listAllShgmrp.jsp">市集商品檢舉審核</a>
 								</div></li>

@@ -5,6 +5,7 @@
 <%@ page import="com.mallOr.model.*" %>
 <%@ page import="com.shgm.model.*" %>
 <%@ page import="com.shgmrp.model.*" %>
+<%@ page import="com.artrp.model.*" %>
 <%@ page import="java.util.*" %>
 <%
 	TfcordService tfcordSvc = new TfcordService();
@@ -36,6 +37,11 @@
 	Set<ShgmrpVO> haveShgmrp = shgmrpSvc.getAllShgmrpUncheck();
 	int shgmrpNum = haveShgm.size();
 	pageContext.setAttribute("shgmrpNum", shgmrpNum);
+	
+	ArtrpService artrpSvc = new ArtrpService();
+	List<ArtrpVO> haveArtrp = artrpSvc.getAllByStatus(0);
+	int artrpNum = haveArtrp.size();
+	pageContext.setAttribute("artrpNum", artrpNum);
 %>
 
 <!DOCTYPE html>
@@ -135,7 +141,6 @@
 									aria-expanded="false"> 檢舉管理 </a>
 									<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 										<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/shoprpdt/listAllShoprpdt.jsp">店家檢舉審核</a> 
-										<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/msgrp/listAllMsgrp.jsp">討論區留言檢舉審核</a> 
 										<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/artrp/listAllArtrp.jsp">討論區文章檢舉審核</a> 
 										<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/shgmrp/listAllShgmrp.jsp">市集商品檢舉審核</a>
 									</div></li>
@@ -187,10 +192,7 @@
 		        		<a href="<%=request.getContextPath()%>/back-end/shgmrp/listAllShgmrp.jsp">目前有<font style="color:red">${shgmrpNum}</font>筆_市集商品檢舉_未處理</a>
 		        	</span>
 		        	<span class="news">
-		        		目前有 筆_文章檢舉_未處理
-		        	</span>
-		        	<span class="news">
-		        		目前有 筆_留言檢舉_未處理
+		        		<a href="<%=request.getContextPath()%>/back-end/artrp/listAllArtrp.jsp">目前有<font style="color:red">${artrpNum}</font>筆_文章檢舉_未處理</a>
 		        	</span>
 		        	<span class="news">
 		        		<a href="<%=request.getContextPath()%>/back-end/shoprpdt/listSomeShoprpdt.jsp?status=0">目前有<font style="color:red">${shoprpdtNum}</font>筆_店家檢舉_未處理</a>

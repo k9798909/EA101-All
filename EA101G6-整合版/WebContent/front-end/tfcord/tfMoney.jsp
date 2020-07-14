@@ -99,10 +99,10 @@
 	<br>
 		<form method="post" action="<%=request.getContextPath()%>/tfcord/TfcordServlet">
 				<div class="row" style="clear:both; margin-top:1%;">
-					<div class="col-sm d-flex justify-content-end">
+					<div class="col-sm-4 d-flex justify-content-end">
 						<font style="font-size:18px; line-height:80px;">請選擇兌換多少現金</font>
 					</div>
-					<div class="col-sm d-flex justify-content-start" style="clear:both">
+					<div class="col-sm-4 d-flex justify-content-start" style="clear:both">
 						<select size="1" name="price" style="width:200px; line-height:80px; border-radius:10px; font-size:25px;" onmousedown="if(this.options.length>5){this.size=5;}"  onchange='this.size=0;' onblur="this.size=0;">
 		<!-- 				onmousedown="if(this.options.length>5){this.size=5;}"  onchange='this.size=0;' onblur="this.size=0;" 可以將下拉式選單加上滾輪，但位置怪怪的 -->
 							<c:forEach var="price" begin="100" end="${mbrpfVO.points}" step="100">
@@ -117,7 +117,7 @@
 					<input type ="hidden" name="requestURL" value="<%=request.getServletPath()%>">
 					<input type="hidden" name="action" value="addTfMoney" >
 					
-					<div class="col-sm d-flex justify-content-start">
+					<div class="col-sm-4 d-flex justify-content-start">
 						<input type="submit" class="pointBtn orangeBtn" value="提領現金" style="border: none; font-size:18px; height:40px;">
 					</div>
 					
