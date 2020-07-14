@@ -196,73 +196,61 @@ public class MsgrpServlet extends HttpServlet {
 			}
 		}
 
-        if ("insert".equals(action)) { // 來自addMsg.jsp的請求  
-			
+        if ("insert".equals(action)) { 
+			System.out.println(1);
 			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
+		
 			req.setAttribute("errorMsgs", errorMsgs);
 			
 			try {
 				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 				String msgno = req.getParameter("msgno");
-				String msgnoReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
-				if (msgno == null || msgno.trim().length() == 0) {
-					errorMsgs.add("留言編號請勿空白");
-				} else if(!msgno.trim().matches(msgnoReg)) { //以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("會員編號只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
-	            }
+				
+			
 				
 				
-				String detail = req.getParameter("detail").trim();
+				String detail = req.getParameter("rp_detail2").trim();
 				if (detail == null || detail.trim().length() == 0) {
-					errorMsgs.add("細節格式錯誤");
+					errorMsgs.add("檢舉內容不可空白!");
 				}	
 				
 				String mbrno = req.getParameter("mbrno").trim();
-				if (mbrno == null || mbrno.trim().length() == 0) {
-					errorMsgs.add("文章編號格式錯誤");
-				}	
 				
-				Integer status = null;
-				try {
-					status = new Integer(req.getParameter("status").trim());
-				} catch (NumberFormatException e) {
-					status = null;
-					errorMsgs.add("格式錯誤.");
-				}	
+				
+				Integer status = new Integer(req.getParameter("status").trim());
+			
 				
 				
 
 
-				
+				System.out.println(2);
 				
 				
 				/***************************2.開始新增資料***************************************/
 				MsgrpService msgrpSvc = new MsgrpService();
 				msgrpSvc.addMsgrp(msgno, detail, mbrno, status);
-				MsgService msgSvc = new MsgService();
-				MsgVO msgVO = msgSvc.getOneMsg(msgno);
+//				MsgService msgSvc = new MsgService();
+//				MsgVO msgVO = msgSvc.getOneMsg(msgno);
 				
-				if (!errorMsgs.isEmpty()) {
-					req.setAttribute("msgVO", msgVO); // 含有輸入格式錯誤的msgVO物件,也存入req
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("/front-end/msg/listOneMsg.jsp");
-					failureView.forward(req, res);
-					return;
-				}
+//				if (!errorMsgs.isEmpty()) {
+//					req.setAttribute("msgVO", msgVO); // 含有輸入格式錯誤的msgVO物件,也存入req
+//					RequestDispatcher failureView = req
+//							.getRequestDispatcher("/front-end/msg/listOneMsg.jsp");
+//					failureView.forward(req, res);
+//					return;
+//				}
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				req.setAttribute("msgVO", msgVO);
-				RequestDispatcher successView = req.getRequestDispatcher("/front-end/msg/listOneMsg.jsp"); // 新增成功後轉交listAllMsg.jsp
-				successView.forward(req, res);				
-				
+//				req.setAttribute("msgVO", msgVO);
+//				RequestDispatcher successView = req.getRequestDispatcher("/front-end/msg/listOneMsg.jsp"); // 新增成功後轉交listAllMsg.jsp
+//				successView.forward(req, res);				
+//				
 				/***************************其他可能的錯誤處理**********************************/
 			} catch (Exception e) {
-				
+				System.out.println(2);
 				errorMsgs.add(e.getMessage());
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front-end/msg/listOneMsg.jsp");
-				failureView.forward(req, res);
+//				RequestDispatcher failureView = req
+//						.getRequestDispatcher("/front-end/msg/listOneMsg.jsp");
+//				failureView.forward(req, res);
 			}
 		}
 		

@@ -14,7 +14,7 @@
 
 <html>
 <head>
-<title>所有留言資料 - listAllMsg.jsp</title>
+<title>所有檢舉資料</title>
 
 <style>
   table#table-1 {
@@ -47,30 +47,74 @@
     padding: 5px;
     text-align: center;
   }
+  .ser-0{
+  	margin-top: 15px;
+  }
+  .ser-1{
+  	margin-left: 25px;
+  	margin-right: 800px;
+  }
+  
+  
+  .add7{
+  	position: fixed;
+  	bottom: 30px;
+  	right: 30px;
+  	width: 125px;
+  	height: 125px;
+  }
+  .www{
+  	text-align: center;
+  }
+   
+  .logoutPIC{
+  	margin-top:18%;
+  }
 </style>
 
 </head>
 <body bgcolor='white'>
 
-<h4>此頁練習採用 EL 的寫法取值:</h4>
-<table id="table-1">
-	<tr><td>
-		 <h3>所有員工資料 - listAllMsg.jsp</h3>
-		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
+<%@ include file="/back-end/back-end_nav.jsp"%>
 
-<%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-	<font style="color:red">請修正以下錯誤:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
+
+
+
+
+	<ul class="col-md-10 offset-md-1 ser-0">
+
+		<li class="float-left ser-1">
+			<FORM METHOD="post" ACTION="msg.do">
+				<b>輸入留言編號 (如BMS0001):</b> <input type="text" name="msgno"> <input
+					type="hidden" name="action" value="getOne_For_Display"> <input
+					type="submit" value="送出">
+			</FORM>
+		</li>
+		
+		<jsp:useBean id="msSvc" scope="page" class="com.msg.model.MsgService" />
+
+		
+
+		
+
+		
+		<%-- 錯誤表列 --%>
+		<c:if test="${not empty errorMsgs}">
+
+
+			<c:forEach var="message" items="${errorMsgs}">
+				<li style="color: red">${message}</li>
+			</c:forEach>
+
+		</c:if>
+
+
 	</ul>
-</c:if>
 
-<table>
+
+
+
+<table  class="col-md-10 offset-md-1 table table-striped bg-white">
 	<tr>
 		<th>留言編號</th>
 		<th>會員編號</th>
@@ -105,7 +149,13 @@
 		</tr>
 	</c:forEach>
 </table>
-<%@ include file="page2.file" %>
+	<footer class="fffuuu">
+		<div class="d-flex justify-content-center">
+			<%@ include file="page2.file"%>
+		</div>
+
+	</footer>
+
 
 </body>
 </html>
