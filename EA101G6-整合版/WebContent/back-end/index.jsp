@@ -75,6 +75,12 @@
         border-bottom-color: rgb(158,158,158);
     }
     
+/*     讓漢堡選單收起來的css，not選擇器，叫做 .collapse的元素，如果沒有.show的標籤，就隱藏起來*/
+/*	   show這個js是boostrap寫好的，不是我們能去更動的*/
+/*	       從外源引入的css最弱，寫在頁面內的css較強烈，寫在標籤上的最厲害*/
+    .collapse:not(.show) {
+	    display: none;
+	}
 </style>
 
 <title>桌遊列國</title>

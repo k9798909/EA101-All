@@ -31,7 +31,9 @@
 <!-- 這邊寫css!!!!!!!!! -->
 
 <style>
-
+	.collapse:not(.show) {
+		    display: none;
+	}
 </style>
 
 </head>
