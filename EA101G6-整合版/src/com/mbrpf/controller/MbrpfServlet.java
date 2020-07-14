@@ -316,18 +316,18 @@ if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 				String mbract = req.getParameter("mbract");
 				String mbractReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 				if (mbract == null || mbract.trim().length() == 0) {
-					errorMsgs.add("姓名: 請勿空白");
+					errorMsgs.add("請輸入會員帳號!");
 				} else if(!mbract.trim().matches(mbractReg)) { //以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+					errorMsgs.add("會員帳號: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 	            }
 				
 				String mbrpw = req.getParameter("mbrpw").trim();
 				if (mbrpw == null || mbrpw.trim().length() == 0) {
-					errorMsgs.add("格式錯誤");
+					errorMsgs.add("請輸入密碼!");
 				}	
 				String mbrname = req.getParameter("mbrname").trim();
 				if (mbrname == null || mbrname.trim().length() == 0) {
-					errorMsgs.add("格式錯誤");
+					errorMsgs.add("請輸入姓名!");
 				}	
 				
 //				String mbrimg = req.getParameter("mbrimg").trim();
@@ -354,23 +354,23 @@ if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 					sex = new Integer(req.getParameter("sex").trim());
 				} catch (NumberFormatException e) {
 					sex = null;
-					errorMsgs.add("格式錯誤");
+					errorMsgs.add("請輸入性別!");
 				}	
 				String mail = req.getParameter("mail").trim();
 				if (mail == null || mail.trim().length() == 0) {
-					errorMsgs.add("格式錯誤");
+					errorMsgs.add("請輸入電子信箱!");
 				}	
 				String phone = req.getParameter("phone").trim();
 				if (phone == null || phone.trim().length() == 0) {
-					errorMsgs.add("格式錯誤");
+					errorMsgs.add("請輸入電話!");
 				}	
 				String mbrac = req.getParameter("mbrac").trim();
 				if (mbrac == null || mbrac.trim().length() == 0) {
-					errorMsgs.add("格式錯誤");
+					errorMsgs.add("請輸入帳戶!");
 				}	
 				String nickname = req.getParameter("nickname").trim();
 				if (nickname == null || nickname.trim().length() == 0) {
-					errorMsgs.add("格式錯誤");
+					errorMsgs.add("請輸入暱稱!");
 				}	
 				Integer points = null;
 				try {
@@ -437,7 +437,7 @@ if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
-					req.setAttribute("mbrpfVO", mbrpfVO); // 含有輸入格式錯誤的mbrpfVO物件,也存入req
+					req.setAttribute("erroMbrpfVO", mbrpfVO); // 含有輸入格式錯誤的mbrpfVO物件,也存入req
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/front-end/mbrpf/addMbrpf.jsp");
 					failureView.forward(req, res);
@@ -449,7 +449,7 @@ if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 				mbrpfVO = mbrpfSvc.addMbrpf(mbract,mbrpw,mbrname,buf,birth,sex,mail,phone,mbrac,nickname,points,status,ratedtotal,startotal,unattend,ttattend);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/front-end/mbrpf/listAllMbrpf.jsp";
+				String url = "/front-end/index.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);				
 				
