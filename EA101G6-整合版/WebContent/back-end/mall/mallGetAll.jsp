@@ -102,6 +102,14 @@
 
 <%@ include file="/back-end/gmType/gmTypeGetAll.jsp" %>
 
+<c:if test="${param.call=='addModel'}">
+<%@ include file="/back-end/mall/mallAdd.jsp" %>
+</c:if>
+<c:if test="${param.call=='updateModel'}">
+<%@ include file="/back-end/mall/mallUpdate.jsp" %>
+</c:if>
+
+
 
 <c:if test="${param.call=='addModel'}">
 <%@ include file="/back-end/mall/mallAdd.jsp" %>
@@ -134,7 +142,6 @@
 <c:if test="${not empty param.call}">
 	$("#Modal").modal({show: true});
 </c:if>
-
 
 <c:if test="${not empty selErroMsg}">
 		swal({text:"${selErroMsg}" });

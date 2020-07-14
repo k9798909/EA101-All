@@ -6,7 +6,7 @@
 <%@ page import="java.util.*"%>
 
 <%
-	MbrpfVO mbrpfvo = (MbrpfVO) session.getAttribute("mbrpfvo");
+	MbrpfVO mbrpfVO = (MbrpfVO) session.getAttribute("mbrpfVO");
 	ShgmVO shgmsell = (ShgmVO) request.getAttribute("shgmsell");
 %>
 <!doctype html>
@@ -14,7 +14,6 @@
 <head>
 <title>sell_page</title>
 <meta charset="utf-8">
-
 </head>
 <style>
 body {
@@ -88,8 +87,12 @@ div.top-info {
 }
 
 .btn {
-	margin: 10% auto;
+	margin: 0 1%;
 	background-color: white;
+}
+
+.button-wrapper{
+	width: 125px;
 }
 
 .btn:hover {
@@ -107,57 +110,27 @@ div.top-info {
     margin: 2%;
 }
 </style>
-<body background="images/bgimage3.jpg">
+<body data-offset="300" background="images/bgimage3.jpg">
 
-<%@ include file="/front-end/front-end-nav.jsp"%>
+<jsp:include page="/front-end/front-end-nav.jsp"></jsp:include>
 
 	<div class="main-area container col-10 align-self-center">
 		<div class="top-info-wrapper">
-			<nav aria-label="breadcrumb" calss="breadcrumb-nav">
+			<nav aria-label="breadcrumb" class="breadcrumb-nav">
 				<ol class="breadcrumb d-flex">
 					<li class="breadcrumb-item"><a href="#">首頁</a></li>
 					<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/front-end/shgm/mainPage.jsp">市集</a></li>
+					<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/front-end/shgm/sellerPage.jsp">賣家專區</a></li>
 					<li class="breadcrumb-item active" aria-current="page">我要上架</li>
 				</ol>
 			</nav>
 		</div>
-		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-			aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">New message</h5>
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<form>
-							<div class="form-group">
-								<label for="recipient-name" class="col-form-label">Recipient:</label>
-								<input type="text" class="form-control" id="recipient-name">
-							</div>
-							<div class="form-group">
-								<label for="message-text" class="col-form-label">Message:</label>
-								<textarea class="form-control" id="message-text"></textarea>
-							</div>
-						</form>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary"
-							data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary">Send
-							message</button>
-					</div>
-				</div>
-			</div>
-		</div>
+		
 		<div class="shgm-info-allarea">
 			<div class="shgm-info-toparea container">
 				<form method="post" action="<%=request.getContextPath()%>/front-end/shgm/shgm.do" enctype="multipart/form-data">
 					<div id="imgzoom" class="shgm-info-left col-6 rounded float-left">
-						<span class="alert">${errormap.get(4)}</span>
+						<span class="alert">${errormap.get("img")}</span>
 						<label for="imgfile">
 							<img name="imgtag" id="blah" alt="Click here to upload!" class="img-thumbnail rounded float-left" src="<%=request.getContextPath() %>/front-end/shgm/images/logo.gif"/>
 						</label>
@@ -170,11 +143,11 @@ div.top-info {
 						<div
 							class="shgm-info-right-inner d-flex align-items-center flex-column bd-highlight mb-3">
 							<div class="form-group p-2 bd-highlight">
-								<label for="shgmname">輸入桌遊名稱</label> <span class="alert">${errormap.get(1)}</span><input name="shgmname"
+								<label for="shgmname">輸入桌遊名稱</label> <span class="alert">${errormap.get("shgmname")}</span><input name="shgmname"
 									class="form-control inputtext" id="shgmname" rows="3" value=${(shgmsell != null)? shgmsell.shgmname:""}>
 							</div>
 							<div class="form-group p-2 bd-highlight">
-								<label for="price">輸入您欲販售之價格</label> <span class="alert">${errormap.get(2)}</span><input name="price"
+								<label for="price">輸入您欲販售之價格</label> <span class="alert">${errormap.get("price")}</span><input name="price"
 									class="form-control inputtext" id="price" rows="3" value=${(shgmsell != null)? shgmsell.price:""}>
 							</div>
 							<div class="button-wrapper">
@@ -185,20 +158,24 @@ div.top-info {
 					</div>
 					<br> <br> <br>
 					<div class="shgm-info-middle">
-						輸入此桌遊的詳情<span class="alert">${errormap.get(3)}</span>
+						輸入此桌遊的詳情<span class="alert">${errormap.get("intro")}</span>
 						<div class="card">
 							<textarea name="intro">${(shgmsell != null)? shgmsell.intro:""}</textarea>
 						</div>
-						${errormap.get(5)}
+						${errormap.get("error")}
 					</div>
-					<input type="hidden" name="sellerno" value="${mbrpfvo.mbrno}">
+					<input type="hidden" name="sellerno" value="${mbrpfVO.mbrno}">
 					<input type="hidden" name="action" value="sellshgm">
 				</form>
 				<br>
 			</div>
 		</div>
 	</div>
-
-
+	
+<jsp:include page="/front-end/shgm/alert-area.jsp"></jsp:include>
+	
+	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/ajaxForMbrmsgs.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/wsForShgm.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/jsForAlert-area.js"></script>
 </body>
 </html>

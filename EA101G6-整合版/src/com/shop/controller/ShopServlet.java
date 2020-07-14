@@ -22,12 +22,13 @@ public class ShopServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		HttpSession session = req.getSession();
-		if ("getOne_For_Display".equals(action)||"getOne_For_Display2".equals(action)) { 
-			try {
+		if ("getOne_For_Display".equals(action)||"getOne_For_Display2".equals(action)||"getOne_For_Display3".equals(action)) { 
+//			try {
 				System.out.println("test");
 				/*************************** 1.�����ШD�Ѽ� - ��J�榡�����~�B�z **********************/
 				String shopno = req.getParameter("shopno");
-
+				String uu = req.getParameter("requestURL");
+				System.out.println(uu);
 				/*************************** 2.�}�l�d�߸�� *****************************************/
 				ShopService shopSvc = new ShopService();
 				ShopVO shopVO = shopSvc.getOneShop(shopno);
@@ -39,23 +40,30 @@ public class ShopServlet extends HttpServlet {
 				String url = null;
 				boolean openModal = false;
 				if("getOne_For_Display".equals(action)) {
-					url = "listOneShop.jsp";				}
+					url = "listOneShop.jsp";	
+					}
 				
 				if("getOne_For_Display2".equals(action)) {
 					openModal=true;
 					url = "/front-end/shopbk/listAllShopbk.jsp";
 					System.out.println("123");
 				}
+				if("getOne_For_Display3".equals(action)) {
+					openModal=true;
+					url=uu;
+					System.out.println("456");
+				}
+				System.out.println();
 				req.setAttribute("openModal", openModal);
 				req.setAttribute("shopVO", shopVO);
-				RequestDispatcher successView = req.getRequestDispatcher(url); // ���\��� listOneshop.jsp
+				RequestDispatcher successView = req.getRequestDispatcher(url); 
 				successView.forward(req, res);
 
 				/*************************** ��L�i�઺���~�B�z *************************************/
-			} catch (Exception e) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/shop/listAllShop.jsp");
-				failureView.forward(req, res);
-			}
+//			} catch (Exception e) {
+//				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/shop/listAllShop.jsp");
+//				failureView.forward(req, res);
+//			}
 		}
 		if ("getOne_For_Update".equals(action)) { 
 
@@ -375,7 +383,7 @@ public class ShopServlet extends HttpServlet {
 				errorMsgs.add("帳號密碼錯誤");
 			}			
 			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("shopVO", shopVO); // �t����J�榡���~��shopVO����,�]�s�Jreq
+				req.setAttribute("shopVO", shopVO); 
 				RequestDispatcher failureView = req.getRequestDispatcher("login.jsp");
 				failureView.forward(req, res);
 				return; // �{�����_
@@ -398,8 +406,10 @@ public class ShopServlet extends HttpServlet {
 		if ("logout".equals(action)) {
 			session.removeAttribute("shopVO");
 			String url = req.getParameter("requestURL");
+			if(url.equals("/front-end/shop/shopArea.jsp") || url.equals("/front-end/gmlist/addGmlist.jsp")){
+				url ="/front-end/index.jsp";
+			}
 			res.sendRedirect(req.getContextPath()+url);
-			System.out.println(url);
 			return;
 		}
 			

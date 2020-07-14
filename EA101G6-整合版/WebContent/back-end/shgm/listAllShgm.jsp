@@ -6,8 +6,8 @@
 <%@ page import="java.util.*" %>
 <%
 	ShgmService shgmsvc = new ShgmService();
-	List<ShgmVO> list = shgmsvc.getAllShgm();
-	pageContext.setAttribute("shgmlist", list);
+	Set<ShgmVO> set = shgmsvc.getAllShgm();
+	pageContext.setAttribute("shgmlist", set);
 %>
 <html>
 <head>
@@ -74,7 +74,9 @@
 </style>
 </head>
 <body>
-<%@ include file="/back-end/back-end_nav.jsp"%>
+
+<jsp:include page="/back-end/back-end_nav.jsp"></jsp:include>
+
 <ul>
 	<c:if test="${not empty errormsgs}">
 		<c:forEach var="error" items="${errormsgs}">
@@ -83,7 +85,7 @@
 	</c:if>
 </ul>
 <div id="shgmall-mainarea">
-		<%@ include file="page1.file" %> 
+		<%@ include file="/back-end/shgm/page1.file" %> 
 	<table id="table" class="table table-striped bg-white">
 		<tr>
 			<td>市集商品編號</td>
@@ -98,8 +100,8 @@
 			<td>修改市集商品</td>
 			<td>刪除市集商品</td>
 		</tr>
-		
-		
+
+
 		<c:forEach var="shgmvo" items="${shgmlist}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		<tr>
 			<td>${shgmvo.shgmno}</td>
@@ -248,12 +250,16 @@
 		</tr>
 		</c:forEach>
 	</table>
+	<input type="hidden" id="mbrno" value="shgmBackEnd">
+	<input type="hidden" id="wsShgmno" value="${param.shgmno}">
 </div>
-		<%@ include file="page2.file" %>
+	<%@ include file="page2.file" %>
+		
+	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/wsForShgm.js"></script>
 	<script>
 	function showmodal(){
 		$(this).modal("show");
 	}
 	</script>
 </body>
-</html>
+</html> 

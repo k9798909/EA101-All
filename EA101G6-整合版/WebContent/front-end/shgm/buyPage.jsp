@@ -5,21 +5,20 @@
 <%@ page import="com.mbrpf.model.*"%>
 <%
 	java.util.HashMap<String, String> hashmap = (java.util.HashMap<String, String>) request.getAttribute("cityarea");
-	MbrpfVO mbrpfvo = (MbrpfVO) session.getAttribute("mbrpfvo");
-	ShgmVO shgmvo = (ShgmVO) session.getAttribute("shgmvo");
+	MbrpfVO mbrpfVO = (MbrpfVO) session.getAttribute("mbrpfVO");
+	ShgmVO shgmvo = (ShgmVO) session.getAttribute("infoshgm");
 %>
 <!doctype html>
 <html lang="en">
 <head>
-<script type="text/javascript" src="<%=request.getContextPath() %>/js/address2.js"></script>
-<title>buy_page</title>
 <meta charset="utf-8">
-
+<title>buy_page</title>
 </head>
 <style>
 body {
 	background-color: #EEEEEE;
 	background-size: repeat;
+	height:980px;
 }
 
 .icon {
@@ -37,6 +36,7 @@ div.main-area {
 }
 
 .top-info-wrapper {
+	position: relative;
 	text-align: center;
 	margin-top: 3%;
 }
@@ -45,13 +45,27 @@ div.main-area {
 	background-color: #EEEEEE;
 }
 
-.awrapper {
-	width: 150px;
-	display: inline;
-	text-align: right;
-	margin-left: 70%;
+.rpdiv {
+	color: #FF4500;
+	margin-right: 5%;
 }
 
+
+.awrapper {
+	display: block;
+	text-align: right;
+	width: 79%;
+}
+@media (max-width: 1672px) {
+	.awrapper {
+		width:70%;
+	}
+}
+@media (max-width: 1150px) {
+	.awrapper {
+		width:50%;
+	}
+}
 div.top-info {
 	margin: 0 auto;
 	border: green 1px solid;
@@ -85,17 +99,14 @@ div.top-info {
 	text-align: left;
 }
 
-#rp {
-	background-color: white;
-}
-#rpenter,#rpcancel,#buythis,#buycancel {
-	margin: 10% auto;
+.btn {
+	margin: 0 1%;
 	background-color: white;
 }
 
-#rp:hover,#rpenter:hover,#rpcancel:hover,#buythis:hover,#buycancel:hover {
+.btn:hover {
 	background-color: white;
-	color: #FF8C00;
+	color: #FF8C00; /*ffa216*/
 	box-shadow: 0 0 11px rgba(33, 33, 33, .2);
 }
 
@@ -105,21 +116,15 @@ div.top-info {
 .alert{
 	color: #FF4500;
 }
-#modal-footer{
+.modal-footer{
 	height:70px;
-}
-#modal-footer>:not(:first-child) {
-    margin-left: .25rem;
-}
-#modal-footer>:not(:last-child) {
-    margin-right: .25rem;
 }
 </style>
 
 
-<body background="images/bgimage3.jpg">
+<body data-offset="300" background="images/bgimage3.jpg">
 
-<%@ include file="/front-end/front-end-nav.jsp"%>
+<jsp:include page="/front-end/front-end-nav.jsp"></jsp:include>
 
 	<div class="main-area container col-10 align-self-center">
 		<div class="top-info-wrapper">
@@ -129,9 +134,9 @@ div.top-info {
 					<li class="breadcrumb-item"><a
 						href="<%=request.getContextPath()%>/front-end/shgm/mainPage.jsp">市集</a></li>
 					<li class="breadcrumb-item"><a
-						href="<%=request.getContextPath()%>/front-end/shgm/infoPage.jsp?shgmno=${shgmvo.shgmno}">商品頁面</a></li>
+						href="<%=request.getContextPath()%>/front-end/shgm/infoPage.jsp?shgmno=${infoshgm.shgmno}">商品頁面</a></li>
 					<li class="breadcrumb-item active" aria-current="page">購買頁面</li>
-					<li class="awrapper"><button type="button" id="rp"
+					<li class="awrapper"><span class="rpdiv">${errormap.get("rp")}</span><button type="button"
 							class="btn btn-primary" data-toggle="modal"
 							data-target="#exampleModal" data-whatever="@mdo">檢舉</button></li>
 				</ol>
@@ -156,13 +161,14 @@ div.top-info {
 							</div>
 
 						</div>
-						<div id="modal-footer" class="modal-footer">
-							<button id="rpenter" type="submit" class="btn btn-primary">確定</button>
-							<button id="rpcancel" type="button" class="btn btn-primary"
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-primary">確定</button>
+							<button type="button" class="btn btn-primary"
 								data-dismiss="modal">取消</button>
 						</div>
-						<input type="hidden" name="shgmno" value="${shgmvo.shgmno}">
-						<input type="hidden" name="suiterno" value="${mbrpfvo.mbrno}">
+						<input type="hidden" name="shgmno" value="${infoshgm.shgmno}">
+						<input type="hidden" name="suiterno" value="${mbrpfVO.mbrno}">
+						<input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
 						<input type="hidden" name="action" value="insertrp">
 					</form>
 				</div>
@@ -170,19 +176,19 @@ div.top-info {
 		</div>
 		<div class="shgm-info-allarea">
 			<div class="shgm-info-toparea container">
-				<div id="imgzoom" class="shgm-info-left">
+				<div id="imgzoom" class="shgm-info-left ">
 					<div
 						class="d-flex align-items-left flex-column bd-highlight mb-3">
 						<img
-							src="<%=request.getContextPath() %>/shgm/displayimg?shgmno=${shgmvo.shgmno}"
+							src="<%=request.getContextPath() %>/shgm/displayimg?shgmno=${infoshgm.shgmno}"
 							alt="..." class="img-thumbnail rounded float-left"> <br>
 						<div class="p-2 bd-highlight">
 							名稱
-							<h1>${shgmvo.shgmname}</h1>
+							<h1>${infoshgm.shgmname}</h1>
 						</div>
 						<div class="p-2 bd-highlight">
 							售價
-							<h1>${shgmvo.price}</h1>
+							<h1>${infoshgm.price}</h1>
 						</div>
 					</div>	
 				</div>
@@ -191,62 +197,64 @@ div.top-info {
 						class="shgm-info-right-inner  align-items-center flex-column bd-highlight mb-3">
 						<form method="post"
 							action="<%=request.getContextPath()%>/front-end/shgm/shgm.do">
-							<div class="form-group">
-								<label for="take">取貨方式</label><span class="alert">${errormap.get(1)}</span>
-								<input type="text" class="form-control" id="take" 
-									name="take" value="<%=(shgmvo.getTake() == null)? "":shgmvo.getTake()%>">
+							<div class="form-group" style="margin:0;">
+								<label for="take">取貨方式</label><span class="alert">${errormap.get("take")}</span><br>
+								<label for="1"><input id="1" type="radio" name="take" value="宅配到府" <%=(shgmvo.getTake() == null)? "":shgmvo.getTake().equals("宅配到府")? "checked":""%>>宅配到府</label>
+								<label for="2"><input id="2" type="radio" name="take" value="超商取貨" <%=(shgmvo.getTake() == null)? "":shgmvo.getTake().equals("超商取貨")? "checked":""%>>超商取貨</label>
 							</div>
 							<br>
 							<div class="form-group">
-								<label for="takernm">取貨人姓名</label><span class="alert">${errormap.get(2)}</span>
+								<label for="takernm">取貨人姓名</label><span class="alert">${errormap.get("takernm")}</span>
 								<input type="text" class="form-control" id="takernm"
 									name="takernm" value="<%=(shgmvo.getTakernm() == null)? "":shgmvo.getTakernm()%>">
 							</div>
 							<br>
 							<div class="form-group">
-								<label for="takerph">取貨人電話</label><span class="alert">${errormap.get(3)}</span>
+								<label for="takerph">取貨人電話</label><span class="alert">${errormap.get("takerph")}</span>
 								<input type="text" class="form-control" id="takerph"
 									name="takerph" value="<%=(shgmvo.getTakerph() == null)? "":shgmvo.getTakerph()%>">
 							</div>
 							<br>
 							<div class="form-group">
-								<label for="ads">取貨地址</label><span class="alert">${errormap.get(4)}</span><br>
+								<label for="ads">取貨地址</label><span class="alert">${errormap.get("ads")}</span><br>
 								<select id="縣市1" name="city" class="address"></select>
 								<select id="鄉鎮市區1" name="area" class="address"></select>
-								<input id="ads" name="ads" type="text" class="form-control address" value="<%= (hashmap == null)? "":hashmap.get("ads") %>"/>
+								<input id="ads" name="ads" type="text" class="form-control address" value="<%= (hashmap == null)? "":hashmap.get("ads") %>"  style="margin-bottom:15%;"/>
 								<input id="address" name="address" type="hidden" value="<%= (shgmvo.getAddress() == null)? "":shgmvo.getAddress() %>"/>
 							</div>
-							<input type="hidden" name="boxstatus" value="0">
-							<input type="hidden" name="paystatus" value="1">
-							<input type="hidden" name="status" value="1">
-							<br>
 							<div class="button-wrapper">
-								<button id="buythis" type="submit" class="btn btn-primary">確定購買</button>
-								<a id="buycancel"href="<%=request.getContextPath()%>/front-end/shgm/mainPage.jsp" class="btn btn-primary">取消購買</a>
+								<button type="submit" class="btn btn-primary">確定購買</button>
+								<a href="<%=request.getContextPath()%>/front-end/shgm/mainPage.jsp" class="btn btn-primary">取消購買</a>
 							</div>
-							<input type="hidden" name="shgmno" value="${shgmvo.shgmno}">
-							<input type="hidden" name="buyerno" value="${mbrpfvo.mbrno}">
+							<input type="hidden" name="shgmno" value="${infoshgm.shgmno}">
+							<input type="hidden" name="buyerno" value="${mbrpfVO.mbrno}">
 							<input type="hidden" name="action" value="dealingshgm">
 						</form>
-						<b><span class="alert">${errormap.get(5)}</span></b>
+						<b><span class="alert">${errormap.get("error")}</span></b>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="random-area"></div>
+	<input type="hidden" id="rpsuccess" value="${rpsuccess}">
+	
+<jsp:include page="/front-end/shgm/alert-area.jsp"></jsp:include>
 
-
-
-
-
+	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/taiwan_address_auto_change.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/ajaxForMbrmsgs.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/wsForShgm.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/jsForAlert-area.js"></script>
+	
 	<script type="text/javascript">
 	window.onload = function () {
-		if(<%=shgmvo.getPrice() > mbrpfvo.getPoints() %>){
-			window.location.href = "<%=request.getContextPath()%>/front-end/shgm/infoPage.jsp";
+		if($("#rpsuccess").val() == "success"){
+			Swal.fire({
+				  icon: 'success',
+				  title: '您的檢舉已成功送出！',
+				  showConfirmButton: false,
+				  timer: 1500
+				})
 		}
-	       //當頁面載完之後，用AddressSeleclList.Initialize()，
-	       //傳入要綁定的縣市下拉選單ID及鄉鎮市區下拉選單ID
 	       AddressSeleclList.Initialize('縣市1', '鄉鎮市區1'<%= (hashmap == null)? "":",'"+hashmap.get("city")+"'"%><%= (hashmap == null)? "": ",'"+hashmap.get("area")+"'"%>);
 	       var addressClass = document.getElementsByClassName("address");
 	       var address = document.getElementById("address");
@@ -263,26 +271,5 @@ div.top-info {
 	       };
 	  }
 	</script>
-	<script src="js/jquery-3.3.1.min.js"></script>
-	<!-- 看起來沒屁用 -->
-	<script src="js/popper.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<!-- 重要廣告界面 -->
-	<script src="js/owl.carousel.min.js"></script>
-	<!-- 看起來沒屁用 -->
-	<script src="js/jquery.sticky.js"></script>
-	<script src="js/jquery.waypoints.min.js"></script>
-	<script src="js/jquery.animateNumber.min.js"></script>
-	<script src="js/jquery.fancybox.min.js"></script>
-
-
-	<!-- 上介面連結動畫 -->
-	<script src="js/jquery.easing.1.3.js"></script>
-
-	<!-- 重要廣告界面 -->
-	<script src="js/aos.js"></script>
-
-	<script src="js/main.js"></script>
-
 </body>
 </html>

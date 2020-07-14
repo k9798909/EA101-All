@@ -102,9 +102,15 @@ div.backNav .navbar-light .navbar-nav .nav-link {
 }
 
 /* 7/4註解 */
-div.backNav .navbar-light .navbar-nav .nav-link,
-.dropdown-item {
-  padding: 15px 20px;
+/* div.backNav .navbar-light .navbar-nav .nav-link, */
+/* .dropdown-item { */
+/*   padding: 15px 20px; */
+/* } */
+
+@media (min-width: 1200px)
+.navbar-expand-xl .navbar-nav .nav-link {
+    /* padding-right: .5rem; */
+    /* padding-left: .5rem; */
 }
 
 div.backNav .navbar-light .navbar-nav .active > .nav-link,
@@ -115,13 +121,13 @@ div.backNav .navbar-light .navbar-nav a:hover {
   background-color: #e6e6e6;
 }
 /* 7/4註解 */
-div.backNav .nav-item {
-  margin-right: 30px;
-}
+/* div.backNav .nav-item { */
+/*   margin-right: 30px; */
+/* } */
 
-div.backNav .nav-item:last-child {
-  margin-right: 0;
-}
+/* div.backNav .nav-item:last-child { */
+/*   margin-right: 0; */
+/* } */
 
 div.backNav .tm-content-row {
   justify-content: space-between;

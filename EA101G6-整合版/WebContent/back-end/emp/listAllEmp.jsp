@@ -37,11 +37,17 @@
 	#noAddEmp{
 		opacity:0.8;
 	}
+	.ppic:hover{
+		transform:scale(3,3);
+	}
 </style>
 
 
 </head>
 <body>
+
+<%@ include file="/back-end/back-end_nav.jsp" %>
+
 <%-- 錯誤列表 --%>
 	<c:if test="${not empty errorMsgs}">
 		<font style="color: red">請修正以下錯誤:</font>
@@ -52,7 +58,7 @@
 		</ul>
 	</c:if>
 
-<%@ include file="/back-end/back-end_nav.jsp" %>
+
 	
 	<div class="container">
 		<div class="row tm-content-row emptop">
@@ -114,7 +120,7 @@
 									<tr ${(empVO.empno == param.empno) ?  'bgcolor=#e6e6e6' : ''}>
 										<td class="align-middle">
 											<div class="emp_pic align-middle">
-												<img src="<%=request.getContextPath()%>/emp/EmpImgServlet?empno=${empVO.empno}">
+												<img class="ppic" src="<%=request.getContextPath()%>/emp/EmpImgServlet?empno=${empVO.empno}">
 											</div>
 										</td>
 										<td  class="align-middle">${empVO.empno}</td>

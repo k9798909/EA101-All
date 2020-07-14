@@ -10,7 +10,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script type="text/javascript" src="<%=request.getContextPath() %>/js/taiwan_address_auto_change.js"></script>
 <meta charset="UTF-8">
 <title>Update_Shgame</title>
 <style>
@@ -67,7 +66,7 @@
 			<tr>
 				<td>市集商品簡介</td>
 				<td><textarea name="intro" cols="32" rows="10"><%= shgmvo.getIntro()%></textarea></td>
-			
+
 			</tr>
 			<tr>
 				<td>市集商品圖片</td>
@@ -118,7 +117,7 @@
 				<td>
 					<select id="縣市1" name="city" class="address"></select>
 					<select id="鄉鎮市區1" name="area" class="address"></select>
-					<input id="ads" name="ads" type="text" class="address" placeholder="<%=(hashmap.get("ads") == null)? "尚無資料":""%>" value="<%=(hashmap.get("ads") == null)? "":hashmap.get("ads") %>"/>
+					<input id="ads" name="ads" type="text" class="address" placeholder="<%=(hashmap == null)? "尚無資料":""%>" value="<%=(hashmap == null)? "":hashmap.get("ads") %>"/>
 					<input id="address" name="address" type="hidden" value="<%= (shgmvo.getAddress() == null)? "":shgmvo.getAddress() %>"/>
 				</td>
 			</tr>
@@ -170,6 +169,8 @@
 	</table>
 </form>
 </body>
+
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/taiwan_address_auto_change.js"></script>
 <script type="text/javascript">
    window.onload = function () {
        //當頁面載完之後，用AddressSeleclList.Initialize()，
@@ -190,4 +191,4 @@
        };
   }
 </script>
-</html>
+</html> 

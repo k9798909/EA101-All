@@ -84,7 +84,7 @@ $(document).ready(function() {
 		// 讀檔
 		reader.readAsDataURL(myfile[0]);
 	});
-	
+
 	
 	//叫出遊戲類型
 	$("button#callGmType").click(function(){

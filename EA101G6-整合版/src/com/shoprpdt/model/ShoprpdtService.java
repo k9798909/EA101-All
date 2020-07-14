@@ -1,6 +1,7 @@
 package com.shoprpdt.model;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.shoprpdt.model.ShoprpdtVO;
 
@@ -44,5 +45,11 @@ public class ShoprpdtService {
 	}
 	public List<ShoprpdtVO> getAll(){
 		return dao.getAll();
+	}
+	public List<ShoprpdtVO> getByStatus(){
+		List list = getAll().stream()
+		        .filter(ee -> ee.getStatus() == 0)
+		        .collect(Collectors.toList());		
+		return list;
 	}
 }

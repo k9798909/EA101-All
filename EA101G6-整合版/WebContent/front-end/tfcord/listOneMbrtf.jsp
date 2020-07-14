@@ -98,23 +98,6 @@
 
 <!-- <h3>此為某會員的所有點數交易紀錄(前台帳戶管理)</h3> -->
 <div class="container">
-	
-<!-- 	<div class="table-responsive"> -->
-<!-- 		<table class="table"> -->
-<!-- 			<thead> -->
-<!-- 				<tr class="tabletop"> -->
-<!-- 					<th>會員帳號</th> -->
-<!-- 					<th>會員可用餘額</th> -->
-<!-- 				</tr> -->
-<!-- 			</thead> -->
-<!-- 			<tbody> -->
-<!-- 				<tr> -->
-<%-- 					<td>${mbrpfVO.mbract}</td> --%>
-<%-- 					<td>${mbrpfVO.points}</td> --%>
-<!-- 				</tr> -->
-<!-- 			</tbody> -->
-<!-- 		</table> -->
-<!-- 	</div> -->
 
 	<div class="row">
 		<h4><b>會員帳戶管理</b></h4>
@@ -137,7 +120,8 @@
 		</div>
 	</div>
 	<div class="row float-right">
-		<a href="<%=request.getContextPath()%>/front-end/tfcord/select_page_Tfcord_front.jsp" class="pointBtn orangeBtn">回前台點數轉換首頁</a>
+		<a href="<%=request.getContextPath()%>/front-end/tfcord/buyPoint.jsp" class="pointBtn orangeBtn">前往點數購買</a>&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="<%=request.getContextPath()%>/front-end/tfcord/tfMoney.jsp" class="pointBtn orangeBtn">前往兌換現金</a>
 	</div>
 	<div class="row" style="clear:both">
 	<div class="table-responsive table-striped">

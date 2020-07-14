@@ -176,6 +176,7 @@ div.comm {
 									<li><a
 										href="<%=request.getContextPath()%>/front-end/mallOr/mbrMallOr.jsp"
 										class="nav-link">查詢訂單</a></li>
+									<li><a href="<%= request.getContextPath()%>/front-end/tfcord/listOneMbrtf.jsp" class="nav-link">帳戶管理</a></li>
 									<li><a href="<%=request.getContextPath()%>/front-end/tfcord/buyPoint.jsp" class="nav-link">購買點數</a></li>
 									<li><a href="<%=request.getContextPath()%>/front-end/tfcord/tfMoney.jsp" class="nav-link">兌換現金</a></li>
 									<li class="has-children"><a href="#">More Links</a>
@@ -380,10 +381,38 @@ div.comm {
 
 	</div>
 
-	<div class="site-section" id="blog-section">
-		店家列表<br> .........................<br>
-		..........................<br> ...........................<br>
-		...........................<br>
+	<jsp:useBean id="shopSvc" class="com.shop.model.ShopService"
+		scope="request" />
+	<div class="accordion col-md-10 offset-md-1">
+		<h1>
+			<span class="badge badge-light">熱門店家</span>
+		</h1>
+	</div>
+	<div id="services-section" style="margin-left:50px;">
+		<div class="container commMain">
+			<div class="card-deck">
+			<div class="row">
+				<c:forEach var="shopVO" items="${shopSvc.getAllowedShop()}" step="2">
+					<div class="card col-md-10" style="margin-bottom: 10px;margin-left: 10px;">
+						<a
+							href="<%=request.getContextPath()%>/front-end/shop/listOneShop.jsp?shopno=${shopVO.shopno}">
+<!-- 							<div class="card" style="width: 13rem"> -->
+							<div class="card-body">
+							<label>
+							<img style="width: 150px;height:150px;"
+							src="<%=request.getContextPath()%>/ShopShowImg?shopno=${shopVO.shopno}"
+							class="card-img-top" alt="Responsive image">
+								<h5 class="card-title">${shopVO.shopname}</h5>
+								<p class="card-text">地址:${shopVO.shoploc}</p>
+							</label>
+							</div>					
+<!-- 						</div> -->
+						</a>
+					</div>
+				</c:forEach>
+				</div>
+			</div>
+		</div>
 
 	</div>
 

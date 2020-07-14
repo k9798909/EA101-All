@@ -1,4 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.tfcord.model.*" %>
+<%@ page import="java.util.*" %>
+<%
+	TfcordService tfcordSvc = new TfcordService();
+	List<TfcordVO> haveTfcord = (List<TfcordVO>) tfcordSvc.getNotYetAll();
+	int tfcordNum =  haveTfcord.size();
+	request.setAttribute("tfcordNum", tfcordNum);
+	
+	
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,18 +29,19 @@
     *{
         box-sizing: border-box;
     }
+    
     #tabs{
         margin: 50px auto;
     }
+    
     .news{
         display: block;
         margin: 10px;
         border-bottom-style: dotted;
         border-bottom-color: rgb(158,158,158);
     }
+    
 </style>
-
-
 
 <title>桌遊列國</title>
 
@@ -144,24 +156,24 @@
 		        </ul>
 		        <div id="tabs-1"><!--以下每一條都是未處理的通知-->
 		        	<span class="news">
-		        		預計會出現要處的通知
+		        		目前有 筆市集商品檢舉未處理
 		        	</span>
 		        	<span class="news">
-		        		預計會出現要處的通知
+		        		目前有 筆文章檢舉未處理
 		        	</span>
 		        	<span class="news">
-		        		預計會出現要處的通知
+		        		目前有 筆留言檢舉未處理
 		        	</span>
 		        	<span class="news">
-		        		預計會出現要處的通知
+		        		目前有 筆店家檢舉未處理
 		        	</span>
 		        </div>
 		        <div id="tabs-2">
 		        	<span class="news">
-		        		預計會出現要處的通知
+		        		目前有 筆店家申請尚未處理
 		        	</span>
 		        	<span class="news">
-		        		預計會出現要處的通知
+		        		<a href="<%=request.getContextPath()%>/back-end/tfcord/notYetTfcord.jsp">目前有<font style="color:red">${tfcordNum}</font>筆未點數轉換尚未處理</a>
 		        	</span>
 		        </div>
 		        <div id="tabs-3">
@@ -214,6 +226,9 @@
 			});
 		});
 </script>
+
+
+<%@ include file="/back-end/backChat/backChat.jsp"%>
 	
 </body>
 </html>
