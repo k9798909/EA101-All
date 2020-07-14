@@ -26,6 +26,7 @@ public class ArtrpDAO implements ArtrpDAO_interface{
 	private static final String GET_ALL_STMT = "SELECT artrpno,artno,detail,mbrno,status FROM artrp ORDER BY artrpno";
 	private static final String GET_ONE_STMT = "SELECT artrpno,artno,detail,mbrno,status FROM artrp WHERE artrpno = ?";
 	private static final String GET_ALL_BY_ARTNO = "SELECT artrpno,artno,detail,mbrno,status FROM artrp WHERE artno = ? ORDER BY artrpno DESC";
+	private static final String GET_ALL_BY_STATUS = "SELECT artrpno,artno,detail,mbrno,status FROM artrp WHERE status = ? ORDER BY artrpno DESC";
 	
 	
 	
@@ -271,6 +272,61 @@ public class ArtrpDAO implements ArtrpDAO_interface{
 			pstmt = con.prepareStatement(GET_ALL_BY_ARTNO);
 			
 			pstmt.setString(1, artno);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				artrpVO = new ArtrpVO();
+				artrpVO.setArtrpno(rs.getString("artrpno"));
+				artrpVO.setArtno(rs.getString("artno"));
+				artrpVO.setDetail(rs.getString("detail"));
+				artrpVO.setMbrno(rs.getString("mbrno"));
+				artrpVO.setStatus(rs.getInt("status"));
+				list.add(artrpVO);
+			}
+		} catch(SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
+	@Override
+	public List<ArtrpVO> getAllByStatus(Integer status) {
+		List<ArtrpVO> list = new ArrayList<ArtrpVO>();
+		ArtrpVO artrpVO = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ALL_BY_STATUS);
+			
+			pstmt.setInt(1, status);
 			
 			rs = pstmt.executeQuery();
 			

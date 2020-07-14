@@ -58,8 +58,8 @@
    }
    .add7{
   	position: fixed;
-  	bottom: 30px;
-  	right: 30px;
+  	bottom: 50px;
+  	right: 50px;
   	width: 70px;
   	height: 70px;
   }

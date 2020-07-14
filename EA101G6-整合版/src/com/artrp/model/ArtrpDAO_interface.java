@@ -9,4 +9,5 @@ public interface ArtrpDAO_interface {
 	public ArtrpVO findByPrimaryKey(String artrpno);
 	public List<ArtrpVO> getAll();
 	public List<ArtrpVO> getAllByArtno(String artno);
+	public List<ArtrpVO> getAllByStatus(Integer status);
 }

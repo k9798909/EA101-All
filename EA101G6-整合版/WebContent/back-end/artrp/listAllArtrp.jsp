@@ -3,12 +3,19 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.*" %>
 <%@ page import="com.artrp.model.*" %>
+<%@ page import="com.art.model.*" %>
 
 
 <% 
 	ArtrpService artrpSvc = new ArtrpService();
 	List<ArtrpVO> list = artrpSvc.getAll();
 	pageContext.setAttribute("list",list);
+	
+	ArtService artSvc = new ArtService();
+	ArtVO artVO = new ArtVO();
+	pageContext.setAttribute("artSvc", artSvc);
+	pageContext.setAttribute("artVO", artVO);
+	
 %>
 
 
@@ -98,6 +105,10 @@
 	
 	
 	<c:forEach var="artrpVO" items="${list}">
+		
+		<input type="hidden" value="${artVO = artSvc.getOneArt(artrpVO.artno)}">
+		
+		<c:if test="${artVO.status == 0}">
 		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/artrp/artrp.do" style="margin-bottom: 0px;">
 		<tr>
 			<td>${artrpVO.artrpno}</td>
@@ -106,20 +117,21 @@
 			<td>${artrpVO.detail}</td>
 			<td>${artrpVO.mbrno}</td>
 			<td><select size="1" name="status">
-				<option value="0" ${(artrpVO.status==0)? 'selected':''}>未審核
-				<option value="1" ${(artrpVO.status==1)? 'selected':''}>已審核
+				<option value="0" ${(artrpVO.status==0)? 'selected':''}>尚未審核
+				<option value="1" ${(artrpVO.status==1)? 'selected':''}>通過審核
 			</select></td>
 			
 			
 			
 			<td>
 				<input type="submit" id="action" value="修改" >
+				<input type="hidden" name="artno" value="${artrpVO.artno}">
 				<input type="hidden" name="artrpno" value="${artrpVO.artrpno}">
 				<input type="hidden" name="action" value="update">
 			</td>
 			
 			
-		</tr></FORM>
+		</tr></FORM></c:if>
 	</c:forEach>
 </table>
 

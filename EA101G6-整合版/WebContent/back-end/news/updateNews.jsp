@@ -5,7 +5,7 @@
 <%
   NewsVO newsVO = (NewsVO) request.getAttribute("newsVO");
 %>  
-<%= newsVO==null %> -- ${newsVO.newsno}-- <!--關聯到第100行 -->
+
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
@@ -46,20 +46,18 @@
   th, td {
     padding: 1px;
   }
+  .add-1{
+  	margin-top: 60px;
+  }
+  .logoutPIC{
+   	margin-top: 18%;
+   }
 </style>
 
 </head>
 <body bgcolor='white'>
 
 <%@ include file="/back-end/back-end_nav.jsp"%>
-
-<table id="table-1" class="col-md-8 offset-md-2">
-	<tr><td>
-		<h3>最新消息修改 -updateNews.jsp</h3>
-		<h4><a href="select_page.jsp">回首頁</a></h4>
-	</td></tr>
-</table>
-
 
 
 <%-- 錯誤列表 --%>
@@ -72,13 +70,22 @@
 	</ul>
 </c:if>
 
+<div class="bg-white tm-block col-md-10 offset-md-1 add-1">
+		<div class="row">
+			<div class="col-12">
+				<h2 class="tm-block-title d-inline-block">Update News</h2>
+			</div>
+		</div>
+
+
+
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/news/news.do" name="form1" >
 	
 	
 	
 	
 	<div class="form-group">
-    	<label for="exampleFormControlInput1">最新消息標題:</label>
+    	<label  for="exampleFormControlInput1">最新消息標題:</label>
     	<input type="TEXT" class="form-control" id="exampleFormControlInput1" placeholder="最新消息標題" name="newstt"  value="<%= (newsVO==null)? "" : newsVO.getNewstt()%>">
   	</div>
 	
@@ -105,7 +112,7 @@
 
 </FORM>
 
-
+</div>
 
 
 

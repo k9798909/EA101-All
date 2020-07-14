@@ -13,5 +13,6 @@ public interface ArtDAO_interface {
 //		public List<ArtVO> getAll(Map<String, String[]> map);
 		public List<ArtVO> getArtsByArttt(String arttt); 
 		public List<ArtVO> getArtsByMbrno(String mbrno);
-		public List<ArtVO> getArtsByAtno(String atno); 
+		public List<ArtVO> getArtsByAtno(String atno);
+		
 }

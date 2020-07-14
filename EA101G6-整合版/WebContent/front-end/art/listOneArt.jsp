@@ -15,12 +15,12 @@
 		EmpService empSvc = new EmpService();
 		EmpVO empVO = empSvc.getOneEmp(artVO.getMbrno());
 		pageContext.setAttribute("empVO", empVO);
-		session.setAttribute("tempEmpVo",empVO);
-		session.setAttribute("tempArtVo",artVO);
+		session.setAttribute("tampEmpVo",empVO);
+		session.setAttribute("tampArtVo",artVO);
 	}else{
-		artVO=(ArtVO)session.getAttribute("tempArtVo");
+		artVO=(ArtVO)session.getAttribute("tampArtVo");
 		pageContext.setAttribute("artVO", artVO);
-		EmpVO empVO=(EmpVO)session.getAttribute("tempEmpVo");
+		EmpVO empVO=(EmpVO)session.getAttribute("tampEmpVo");
 		pageContext.setAttribute("empVO", empVO);
 	}
 %>
@@ -137,6 +137,9 @@
  #bbttnn{
  	margin-left: 406px;
  }
+ .bread1{
+ 	margin-bottom: 50px;
+ }
   
 </style>
 
@@ -149,7 +152,7 @@
 <%@ include file="/front-end/front-end-nav.jsp"%>  
     
 	<!-- 麵包屑 -->
-    <nav aria-label="breadcrumb" class="d-inline-flex ">
+    <nav aria-label="breadcrumb" class="d-inline-flex bread1">
   			<ol class="breadcrumb ">
     			<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/index.html">Home</a></li>
     			<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/front-end/art/listAllArt.jsp">Article</a></li>

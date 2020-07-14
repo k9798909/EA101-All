@@ -78,13 +78,15 @@ public class ArtrpServlet  extends HttpServlet{
 				String artrpno = req.getParameter("artrpno");
 				Integer status = new Integer(req.getParameter("status"));
 				
-				
+				String artno = req.getParameter("artno");
 				
 				ArtrpVO artrpVO = new ArtrpVO();
 				artrpVO.setArtrpno(artrpno);
 				artrpVO.setStatus(status);
 				
 				
+				ArtService artSvc = new ArtService();
+				artSvc.updateArtStatus(artno, status);
 			
 				/***************************2.開始修改資料*****************************************/
 				

@@ -57,6 +57,12 @@
   .yyy{
   	text-align: center;
   }
+  .ttt{
+  	margin-top: 20px;
+  }
+  .logoutPIC{
+   	margin-top: 18%;
+   }
 </style>
 
 </head>
@@ -65,12 +71,7 @@
 <%@ include file="/back-end/back-end_nav.jsp"%>
 
 
-<table class="col-md-10 offset-md-1">
-	<tr><td>
-		<h3>所有最新消息</h3>
-		
-	</td></tr>
-</table>
+
 
 
 <%-- 錯誤表列 --%>
@@ -83,7 +84,7 @@
 	</ul>
 </c:if>
 
-<table class="col-md-10 offset-md-1 table table-striped bg-white ">
+<table class="col-md-10 offset-md-1 table table-striped bg-white ttt">
 	<tr>
 		<th class="yyy">最新消息編號</th>
 		<th class="www yyy">最新消息標題</th>
