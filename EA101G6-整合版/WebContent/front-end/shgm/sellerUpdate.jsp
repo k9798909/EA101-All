@@ -180,8 +180,8 @@ div.top-info {
 									class="form-control inputtext" id="price" rows="3" value=${(shgmvo != null)? shgmvo.price:""}>
 							</div>
 							<div class="button-wrapper">
-								<button type="submit" class="btn btn-primary">修改</button>
-								<a href="<%=request.getContextPath()%>/front-end/shgm/sellerPage.jsp" class="btn btn-primary">取消</a>
+								<button type="submit" class="btn btn-primary resetBtnCss">修改</button>
+								<a href="<%=request.getContextPath()%>/front-end/shgm/sellerPage.jsp" class="btn btn-primary resetBtnCss">取消</a>
 							</div>
 						</div>
 					</div>

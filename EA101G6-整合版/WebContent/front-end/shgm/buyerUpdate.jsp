@@ -18,6 +18,7 @@
 body {
 	background-color: #EEEEEE;
 	background-size: repeat;
+	height:980px;
 }
 
 .icon {
@@ -131,7 +132,7 @@ div.top-info {
 					<li class="breadcrumb-item"><a
 						href="<%=request.getContextPath()%>/front-end/shgm/myShgm.jsp">我的市集商品</a></li>
 					<li class="breadcrumb-item active" aria-current="page">修改取貨資訊</li>
-					<li class="awrapper"><span class="rpdiv">${errormap.get("rp")}</span><button type="button"
+					<li class="awrapper"><span class="rpdiv">${errormap.get("rp")}</span><button type="button" id="rp"
 							class="btn btn-primary" data-toggle="modal"
 							data-target="#exampleModal" data-whatever="@mdo">檢舉</button></li>
 				</ol>
@@ -171,7 +172,7 @@ div.top-info {
 		</div>
 		<div class="shgm-info-allarea">
 			<div class="shgm-info-toparea container">
-				<div id="imgzoom" class="shgm-info-left col-6 ">
+				<div id="imgzoom" class="shgm-info-left">
 					<div
 						class="d-flex align-items-left flex-column bd-highlight mb-3">
 						<img
@@ -187,7 +188,7 @@ div.top-info {
 						</div>
 					</div>	
 				</div>
-				<div class="shgm-info-right col-6  justify-content-center">
+				<div class="shgm-info-right justify-content-center">
 					<div
 						class="shgm-info-right-inner  align-items-center flex-column bd-highlight mb-3">
 						<form method="post"
@@ -214,12 +215,12 @@ div.top-info {
 								<label for="ads">取貨地址</label><span class="alert">${errormap.get("ads")}</span><br>
 								<select id="縣市1" name="city" class="address"></select>
 								<select id="鄉鎮市區1" name="area" class="address"></select>
-								<input id="ads" name="ads" type="text" class="form-control address" value="<%= (hashmap == null)? "":hashmap.get("ads") %>"/>
+								<input id="ads" name="ads" type="text" class="form-control address" value="<%= (hashmap == null)? "":hashmap.get("ads") %>" style="margin-bottom:15%;"/>
 								<input id="address" name="address" type="hidden" value="<%= (shgmvo.getAddress() == null)? "":shgmvo.getAddress() %>"/>
 							</div>
 							<div class="button-wrapper">
-								<button type="submit" class="btn btn-primary">確定修改</button>
-								<a href="<%=request.getContextPath()%>/front-end/shgm/myShgm.jsp" class="btn btn-primary">取消修改</a>
+								<button type="submit" class="btn btn-primary resetBtnCss">確定修改</button>
+								<a href="<%=request.getContextPath()%>/front-end/shgm/myShgm.jsp" class="btn btn-primary resetBtnCss">取消修改</a>
 							</div>
 							<input type="hidden" name="shgmno" value="${shgmvo.shgmno}">
 							<input type="hidden" name="buyerno" value="${mbrpfVO.mbrno}">
