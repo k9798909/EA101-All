@@ -74,7 +74,7 @@
           <option value="${mbrpfVO.mbrno}">${mbrpfVO.mbrno}
          </c:forEach> 
        </select>
-       <input type="hidden" name="action" value="getOne_For_Display">
+       <input type="hidden" name="action" value="getOne_To_Display">
        <input type="submit" value="°e¥X">
     </FORM>
   </li>
@@ -87,7 +87,7 @@
           <option value="${mbrpfVO.mbrno}">${mbrpfVO.mbrno}
          </c:forEach>   
        </select>
-       <input type="hidden" name="action" value="getOne_For_Display">
+       <input type="hidden" name="action" value="getOne_To_Display">
        <input type="submit" value="°e¥X">
      </FORM>
   </li>

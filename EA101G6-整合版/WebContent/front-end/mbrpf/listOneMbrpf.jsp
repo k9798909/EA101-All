@@ -10,42 +10,7 @@
 <head>
 <title>會員資料 - listOneMbrpf.jsp</title>
 
-<style>
-table#table-1 {
-	background-color: #CCCCFF;
-	border: 2px solid black;
-	text-align: center;
-}
 
-table#table-1 h4 {
-	color: red;
-	display: block;
-	margin-bottom: 1px;
-}
-
-h4 {
-	color: blue;
-	display: inline;
-}
-</style>
-
-<style>
-table {
-	width: 600px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
-}
-
-table, th, td {
-	border: 1px solid #CCCCFF;
-}
-
-th, td {
-	padding: 5px;
-	text-align: center;
-}
-</style>
 
 </head>
 
@@ -54,61 +19,101 @@ th, td {
 
 <%@ include file="/front-end/front-end-nav.jsp"%>
 
-	<h4>此頁暫練習採用 Script 的寫法取值:</h4>
-	<table id="table-1">
-		<tr>
-			<td>
-				<h3>會員資料 - ListOneMbrpf.jsp</h3>
-				<h4>
-					<a href="select_page.jsp"><img src="<%= request.getContextPath()%>/front-end/images/back1.gif"
-						width="100" height="32" border="0">回首頁</a>
-				</h4>
-			</td>
-		</tr>
-	</table>
-
-	<table>
-		<tr>
-			<th>會員照片</th>
-			<th>會員編號</th>
-			<th>一般會員帳號</th>
-			<th>一般會員密碼</th>
-			<th>會員姓名</th>
+	
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				
+			</div>
+			<div class="col">
+				<table class="memInfo">
+					<tr>
+						<td ><img width="175" height="175" src="<%= request.getContextPath()%>/mbrpf/mbrimg.do?mbrno=${mbrpfVO.mbrno}"></td>
+					</tr>
+						<tr><td>&nbsp;</td></tr>
+						<tr><td>會員帳戶</td><td>${mbrpfVO.mbract}</td></tr>
+						<tr><td>&nbsp;</td></tr>
+						<tr><td>會員姓名</td><td>${mbrpfVO.mbrname}</td></tr>
+						<tr><td>&nbsp;</td></tr>
+						<tr><td>生日</td><td>${mbrpfVO.birth}</td></tr>
+						<tr><td>&nbsp;</td></tr>
+						<tr><td>性別</td><td>
+							<c:if test="${mbrpfVO.sex ==1}">
+							<c:out value="男"/>
+							</c:if>
+							<c:if test="${mbrpfVO.sex ==2}">
+							<c:out value="女"/>
+							</c:if>
+						</td></tr>
+						<tr><td>&nbsp;</td></tr>
+						<tr><td>電子郵件</td><td>${mbrpfVO.mail}</td></tr>
+						<tr><td>&nbsp;</td></tr>
+						<tr><td>電話</td><td>${mbrpfVO.phone}</td></tr>
+						<tr><td>&nbsp;</td></tr>
+						<tr><td>接收款項帳戶</td><td>${mbrpfVO.mbrac}</td></tr>
+						<tr><td>&nbsp;</td></tr>
+						<tr><td>暱稱</td><td>${mbrpfVO.nickname}</td></tr>
+						<tr><td>&nbsp;</td></tr>
+						<tr><td>點數餘額</td><td>${mbrpfVO.points}</td></tr>
+						<tr><td>&nbsp;</td></tr>
+						<tr><td>被評價總人數</td><td>${mbrpfVO.ratedtotal}</td></tr>
+						<tr><td>&nbsp;</td></tr>
+						<tr><td>被評價總星數</td><td>${mbrpfVO.startotal}</td></tr>
+						<tr><td>&nbsp;</td></tr>
+						<tr><td>未出席次數</td><td>${mbrpfVO.unattend}</td></tr>
+						<tr><td>&nbsp;</td></tr>
+						<tr><td>總參團次數</td><td>${mbrpfVO.ttattend}</td></tr>
+						
+				</table>
+			</div>
+			<div class="col"></div>
+		</div>
+	</div>
+		
+	
+	
+<!-- 	<table> -->
+<!-- 		<tr> -->
 <!-- 			<th>會員照片</th> -->
-			<th>出生年月日</th>
-			<th>性別</th>
-			<th>電子郵件</th>
-			<th>電話</th>
-			<th>接收款項帳戶</th>
-			<th>暱稱</th>
-			<th>點數餘額</th>
-			<th>一般會員狀態</th>
-			<th>被評價總人數</th>
-			<th>被評價總星數</th>
-			<th>未出席次數</th>
-			<th>總參團次數</th>
-		</tr>
-		<tr>
-			<td><img width="100" height="100" src="<%= request.getContextPath()%>/mbrpf/mbrimg.do?mbrno=${mbrpfVO.mbrno}"></td>
-			<td>${mbrpfVO.mbrno}</td>
-			<td>${mbrpfVO.mbract}</td>
-			<td>${mbrpfVO.mbrpw}</td>
-			<td>${mbrpfVO.mbrname}</td>
+<!-- 			<th>會員編號</th> -->
+<!-- 			<th>一般會員帳號</th> -->
+<!-- 			<th>一般會員密碼</th> -->
+<!-- 			<th>會員姓名</th> -->
+<!-- 			<th>會員照片</th> -->
+<!-- 			<th>出生年月日</th> -->
+<!-- 			<th>性別</th> -->
+<!-- 			<th>電子郵件</th> -->
+<!-- 			<th>電話</th> -->
+<!-- 			<th>接收款項帳戶</th> -->
+<!-- 			<th>暱稱</th> -->
+<!-- 			<th>點數餘額</th> -->
+<!-- 			<th>一般會員狀態</th> -->
+<!-- 			<th>被評價總人數</th> -->
+<!-- 			<th>被評價總星數</th> -->
+<!-- 			<th>未出席次數</th> -->
+<!-- 			<th>總參團次數</th> -->
+<!-- 			</tr> -->
+<!-- 			<tr> -->
 <%-- 			<td><img width="100" height="100" src="<%= request.getContextPath()%>/mbrpf/mbrimg.do?mbrno=${mbrpfVO.mbrno}"></td> --%>
-			<td>${mbrpfVO.birth}</td>
-			<td>${mbrpfVO.sex}</td>
-			<td>${mbrpfVO.mail}</td>
-			<td>${mbrpfVO.phone}</td>
-			<td>${mbrpfVO.mbrac}</td>
-			<td>${mbrpfVO.nickname}</td>
-			<td>${mbrpfVO.points}</td>
-			<td>${mbrpfVO.status}</td>
-			<td>${mbrpfVO.ratedtotal}</td>
-			<td>${mbrpfVO.startotal}</td>
-			<td>${mbrpfVO.unattend}</td>
-			<td>${mbrpfVO.ttattend}</td>
-		</tr>
-	</table>
+<%-- 			<td>${mbrpfVO.mbrno}</td> --%>
+<%-- 			<td>${mbrpfVO.mbract}</td> --%>
+<%-- 			<td>${mbrpfVO.mbrpw}</td> --%>
+<%-- 			<td>${mbrpfVO.mbrname}</td> --%>
+<%-- 			<td><img width="100" height="100" src="<%= request.getContextPath()%>/mbrpf/mbrimg.do?mbrno=${mbrpfVO.mbrno}"></td> --%>
+<%-- 			<td>${mbrpfVO.birth}</td> --%>
+<%-- 			<td>${mbrpfVO.sex}</td> --%>
+<%-- 			<td>${mbrpfVO.mail}</td> --%>
+<%-- 			<td>${mbrpfVO.phone}</td> --%>
+<%-- 			<td>${mbrpfVO.mbrac}</td> --%>
+<%-- 			<td>${mbrpfVO.nickname}</td> --%>
+<%-- 			<td>${mbrpfVO.points}</td> --%>
+<%-- 			<td>${mbrpfVO.status}</td> --%>
+<%-- 			<td>${mbrpfVO.ratedtotal}</td> --%>
+<%-- 			<td>${mbrpfVO.startotal}</td> --%>
+<%-- 			<td>${mbrpfVO.unattend}</td> --%>
+<%-- 			<td>${mbrpfVO.ttattend}</td> --%>
+<!-- 		</tr> -->
+<!-- 	</table> -->
 
 </body>
 </html>
