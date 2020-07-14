@@ -215,6 +215,8 @@ public class ShgmrpServlet extends HttpServlet {
 		if ("update".equals(action)) {
 			List<String> errormsgs = new LinkedList<String>();
 			request.setAttribute("errormsgs", errormsgs);
+			
+			String whichPage = request.getParameter("whichPage");
 
 			try {
 				String shgmrpno = request.getParameter("shgmrpno");
@@ -257,7 +259,7 @@ public class ShgmrpServlet extends HttpServlet {
 
 				if (!errormsgs.isEmpty()) {
 					request.setAttribute("shgmrpvo", shgmrpvo);
-					String url = "/back-end/shgmrp/updateShgmrp.jsp";
+					String url = "/back-end/shgmrp/updateShgmrp.jsp?whichPage="+whichPage;
 					RequestDispatcher failedview = request.getRequestDispatcher(url);
 					failedview.forward(request, response);
 					return;
@@ -266,12 +268,12 @@ public class ShgmrpServlet extends HttpServlet {
 				ShgmrpService shgmrpsvc = new ShgmrpService();
 				shgmrpvo = shgmrpsvc.updateShgmrp(shgmrpno, shgmno, suiterno, detail, status);
 
-				String url = "/back-end/shgmrp/listAllShgmrp.jsp";
+				String url = "/back-end/shgmrp/listAllShgmrp.jsp?whichPage="+whichPage;
 				RequestDispatcher successview = request.getRequestDispatcher(url);
 				successview.forward(request, response);
 			} catch (Exception e) {
 				errormsgs.add("無法修改檢舉的市集商品" + e.getMessage());
-				String url = "/back-end/shgmrp/shgmrp_select_page.jsp";
+				String url = "/back-end/shgmrp/listAllShgmrp.jsp?whichPage="+whichPage;
 				RequestDispatcher failedview = request.getRequestDispatcher(url);
 				failedview.forward(request, response);
 			}
@@ -292,7 +294,7 @@ public class ShgmrpServlet extends HttpServlet {
 				successview.forward(request, response);
 			} catch (Exception e) {
 				errormsgs.add("無法刪除檢舉的市集商品" + e.getMessage());
-				String url = "/back-end/shgmrp/shgmrp_select_page.jsp";
+				String url = "/back-end/shgmrp/listAllShgmrp.jsp";
 				RequestDispatcher failedview = request.getRequestDispatcher(url);
 				failedview.forward(request, response);
 			}

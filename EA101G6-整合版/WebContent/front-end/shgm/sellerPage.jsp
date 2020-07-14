@@ -152,7 +152,7 @@ div.pageselect-area {
 	justify-content: center;
 }
 </style>
-<body data-offset="300" background="images/bgimage3.jpg">
+<body data-offset="300" background="<%=request.getContextPath() %>/images/bgimage3.jpg">
 
 <jsp:include page="/front-end/front-end-nav.jsp"></jsp:include>
 

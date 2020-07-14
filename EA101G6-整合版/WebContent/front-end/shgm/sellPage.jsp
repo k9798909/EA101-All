@@ -110,7 +110,7 @@ div.top-info {
     margin: 2%;
 }
 </style>
-<body data-offset="300" background="images/bgimage3.jpg">
+<body data-offset="300" background="<%=request.getContextPath() %>/images/bgimage3.jpg">
 
 <jsp:include page="/front-end/front-end-nav.jsp"></jsp:include>
 
@@ -132,7 +132,7 @@ div.top-info {
 					<div id="imgzoom" class="shgm-info-left col-6 rounded float-left">
 						<span class="alert">${errormap.get("img")}</span>
 						<label for="imgfile">
-							<img name="imgtag" id="blah" alt="Click here to upload!" class="img-thumbnail rounded float-left" src="<%=request.getContextPath() %>/front-end/shgm/images/logo.gif"/>
+							<img name="imgtag" id="blah" alt="Click here to upload!" class="img-thumbnail rounded float-left" src="<%=request.getContextPath() %>/images/logo.gif"/>
 						</label>
 						<div class="uploadwrapper">
 							<input type="file" name="img" id="imgfile" onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])" accept=".png, .jpg, .jpeg .gif"/>

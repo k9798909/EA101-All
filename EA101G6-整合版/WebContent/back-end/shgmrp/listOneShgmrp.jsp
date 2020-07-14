@@ -18,7 +18,7 @@
 	table{
 		border: 3px solid black;
 		text-align: center;
-		
+		margin-top: 1%;
 	}
 	th, td {
     	border: 1px solid black;
@@ -27,10 +27,15 @@
   		width: 200px;
   	 	height: 150px;
   	}
+  	#table td {
+	padding: 0px;
+	vertical-align: middle;
+	}
 </style>
 </head>
 <body>
-	<table>
+<jsp:include page="/back-end/back-end_nav.jsp"></jsp:include>
+	<table id="table" class="table table-striped bg-white">
 		<tr>
 			<td>市集商品檢舉編號</td>
 			<td>市集商品編號</td>
@@ -54,6 +59,6 @@
 			<td>${(shgmrpvo.status == 0)? "未審核":(shgmrpvo.status == 1)? "確認檢舉": "取消檢舉"}</td>
 		</tr>
 	</table>
-	<a href="<%=request.getContextPath()%>/back-end/shgmrp/shgmrp_select_page.jsp">回首頁</a>
+	<a href="<%=request.getContextPath()%>/back-end/shgmrp/listAllShgmrp.jsp" class="btn btn-primary">回首頁</a>
 </body>
 </html>

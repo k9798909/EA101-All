@@ -14,12 +14,15 @@
 <meta charset="UTF-8">
 <title>All_Shgm</title>
 <style>
+	.logoutPIC{
+		margin-top:18%;
+	}
 	table{
-		border: 3px solid black;
+		border: 1px solid gray;
 		text-align: center;
 	}
 	td {
-    	border: 1px solid black;
+    	border: 1px solid gray;
     	width: 200px;
   	}
   	#table td{
@@ -76,6 +79,7 @@
 <body>
 
 <jsp:include page="/back-end/back-end_nav.jsp"></jsp:include>
+<jsp:include page="/back-end/shgm/shgm_select_page.jsp"></jsp:include>
 
 <ul>
 	<c:if test="${not empty errormsgs}">
@@ -86,8 +90,8 @@
 </ul>
 <div id="shgmall-mainarea">
 		<%@ include file="/back-end/shgm/page1.file" %> 
-	<table id="table" class="table table-striped bg-white">
-		<tr>
+	<table id="table" class="table bg-white">
+		<tr style="background-color:#e6e6e6;">
 			<td>市集商品編號</td>
 			<td>賣家會員編號</td>
 			<td>市集商品名稱</td>
@@ -103,7 +107,7 @@
 
 
 		<c:forEach var="shgmvo" items="${shgmlist}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-		<tr>
+		<tr ${(shgmvo.shgmno == param.shgmno)? 'bgcolor=#e6e6e6':''}>
 			<td>${shgmvo.shgmno}</td>
 			<td>${shgmvo.sellerno}</td>
 			<td>${shgmvo.shgmname}</td>
@@ -237,14 +241,15 @@
 					<input type="hidden" name="action" value="getone_update" >
 					<input type="hidden" name="requestURL" value="<%=request.getServletPath()%>"/>
 					<input type="hidden" name="whichPage" value="<%=whichPage%>">
-					<input type="submit" value="修改">
+					<input type="submit" value="修改" class="btn btn-primary">
 				</form>
 			</td>
 			<td>
 				<form method="post" action="<%= request.getContextPath()%>/shgm/shgm.do">
 					<input type="hidden" name="shgmno" value="${shgmvo.shgmno}">
 					<input type="hidden" name="action" value="delete" >
-					<input type="submit" value="刪除">
+					<input type="hidden" name="whichPage" value="<%=whichPage%>">
+					<input type="submit" value="刪除" class="btn btn-primary">
 				</form>
 			</td>
 		</tr>

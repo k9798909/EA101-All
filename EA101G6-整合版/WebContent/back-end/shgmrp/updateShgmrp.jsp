@@ -11,11 +11,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Add_Shgmrp</title>
+<title>Update_Shgmrp</title>
 <style>
 	table, td,tr{
 		text-align:center;
 		border: black 2px solid;
+	}
+	#table{
+		margin:2% auto; 
+		padding:0;
+		width:50%;
 	}
 </style>
 </head>
@@ -27,8 +32,9 @@
 			</c:forEach>
 		</c:if>
 	</ul>
+	<jsp:include page="/back-end/back-end_nav.jsp"></jsp:include>
 <form method="post" action="<%=request.getContextPath() %>/shgmrp/shgmrp.do">
-	<table>
+	<table id="table" class="table table-striped bg-white">
 			<tr>
 				<th>檢舉市集商品欄位</th>
 				<th>請輸入資料</th>
@@ -49,8 +55,9 @@
 			</tr>
 			<tr>
 				<td>檢舉內容</td>
-				<td><input type="text" name="detail" size="15"
-					value="<%= shgmrpvo.getDetail()%>"/></td>
+				<td>
+				<textarea name="detail" cols="32" rows="5"><%= shgmrpvo.getDetail()%></textarea>
+				</td>
 			</tr>
 			<tr>
 				<td>檢舉狀態</td>
@@ -63,12 +70,21 @@
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2"><input type="hidden" name="action" value="update">
-				<input type="submit" value="送出"/></td>
+				<td colspan="2">
+				<input type="hidden" name="action" value="update">
+				<input type="hidden" name="whichPage"  value="<%=request.getParameter("whichPage")%>">
+				<%
+					int whichPage = 1;
+					if(request.getParameter("whichPage") != null)
+						whichPage = Integer.parseInt(request.getParameter("whichPage"));
+				%>
+				<input type="submit" value="送出" class="btn btn-primary"/>
+				<a href="<%=request.getContextPath() %>/back-end/shgmrp/listAllShgmrp.jsp?whichPage=<%=whichPage%>" class="btn btn-primary">取消</a>
+				</td>
 			</tr>
 	</table>
 </form>
-	<a href="<%=request.getContextPath() %>/back-end/shgmrp/shgmrp_select_page.jsp">回首頁</a>
+	
 </body>
 
 </html>

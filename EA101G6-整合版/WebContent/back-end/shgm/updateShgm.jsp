@@ -32,7 +32,7 @@
 			</c:forEach>
 		</c:if>
 	</ul>
-	<%@ include file="/back-end/back-end_nav.jsp"%>
+	<jsp:include page="/back-end/back-end_nav.jsp"></jsp:include>
 <form method="post" action="<%=request.getContextPath() %>/shgm/shgm.do" enctype="multipart/form-data">
 	<table id="table" class="table table-striped bg-white">
 			<tr>
@@ -131,11 +131,13 @@
 			</tr>
 			<tr>
 				<td>付款狀態</td>
-				<td><select id="paystatus" name="paystatus">
+				<td>
+					<select id="paystatus" name="paystatus">
 						<c:forEach var="i" begin="0" end="1">
 							<option value="${i}" ${(shgmvo.paystatus == i)? 'selected':'' }>${(i == 0)? "未付款": "已付款"}</option>
 						</c:forEach>
-					</select></td>
+					</select>
+				</td>
 			</tr>
 			<tr>
 				<td>訂單狀態</td>
@@ -162,9 +164,16 @@
 			<tr>
 				<td colspan="2">
 				<input type="hidden" name="action" value="update">
-				<input type="hidden" name="requestURL" value="<%=request.getParameter("requestURL")%>"> <!--接收原送出修改的來源網頁路徑後,再送給Controller準備轉交之用-->
-				<input type="hidden" name="whichPage"  value="<%=request.getParameter("whichPage")%>">  <!--只用於:istAllEmp.jsp-->
-				<input type="submit" value="送出" onclick="upcheckConfirm()"></td>
+				<input type="hidden" name="requestURL" value="<%=request.getParameter("requestURL")%>"> 
+				<input type="hidden" name="whichPage"  value="<%=request.getParameter("whichPage")%>">
+				<input type="submit" value="送出" class="btn btn-primary">
+				<%
+					int whichPage = 1;
+					if(request.getParameter("whichPage") != null)
+						whichPage = Integer.parseInt(request.getParameter("whichPage"));
+				%>
+				<a href="<%=request.getContextPath()%>/back-end/shgm/listAllShgm.jsp?whichPage=<%=whichPage%>" class="btn btn-primary">取消</a>
+				</td>
 			</tr>
 	</table>
 </form>

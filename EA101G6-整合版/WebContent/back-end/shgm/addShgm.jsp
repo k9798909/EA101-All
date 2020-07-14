@@ -15,13 +15,21 @@
 <meta charset="UTF-8">
 <title>Add_Shgame</title>
 <style>
-	table, td,tr{
+	table, td, tr{
 		text-align:center;
-		border: black 2px solid;
+		border: black 1px solid;
+	}
+	#table{
+		margin:2% auto; 
+		padding:0;
+		width:50%;
 	}
 </style>
 </head>
 <body>
+
+	<jsp:include page="/back-end/back-end_nav.jsp"></jsp:include>
+
 	<ul>
 		<c:if test="${not empty errormsgs}">
 			<c:forEach var="errors" items="${errormsgs}">
@@ -30,7 +38,7 @@
 		</c:if>
 	</ul>
 <form method="post" action="<%=request.getContextPath() %>/shgm/shgm.do" enctype="multipart/form-data">
-	<table>
+	<table id="table" class="table table-striped bg-white">
 			<tr>
 				<th>市集商品欄位</th>
 				<th>請輸入資料</th>
@@ -135,11 +143,13 @@
 			</tr>
 			<tr>
 				<td colspan="2"><input type="hidden" name="action" value="insert">	
-					<input type="submit" value="送出" ></td>
+					<input type="submit" value="送出" class="btn btn-primary">
+					<a href="<%=request.getContextPath() %>/back-end/shgm/listAllShgm.jsp" class="btn btn-primary">取消</a>
+				</td>
 			</tr>
 	</table>
 </form>
-	<a href="<%=request.getContextPath() %>/back-end/shgm/shgm_select_page.jsp">回首頁</a>
+	
 </body>
 
 <script type="text/javascript">

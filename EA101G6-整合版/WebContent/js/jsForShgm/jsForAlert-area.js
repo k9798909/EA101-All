@@ -16,9 +16,7 @@ $(document).ready(function() {
 	});
 
 	$("#showMsg").click(function() {
-		console.log('showMsg cliked');
 		var showMsgText = $("#showMsg").text();
-		console.log(showMsgText);
 		var count = $("#countSaver").val($("#circle").text());
 		if(count[0].value === ''){
 			$("#showMsg").text("已無訊息");

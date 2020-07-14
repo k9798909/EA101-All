@@ -810,6 +810,9 @@ public class ShgmServlet extends HttpServlet {
 
 			List<String> errormsgs = new LinkedList<String>();
 			request.setAttribute("errormsgs", errormsgs);
+			
+			String whichPage = request.getParameter("whichPage");
+			request.setAttribute("whichPage", whichPage);
 
 			try {
 				String shgmno = request.getParameter("shgmno");
@@ -817,12 +820,12 @@ public class ShgmServlet extends HttpServlet {
 				ShgmService shgmsvc = new ShgmService();
 				shgmsvc.deleteShgm(shgmno);
 
-				String url = "/back-end/shgm/listAllShgm.jsp";
+				String url = "/back-end/shgm/listAllShgm.jsp?whichPage="+whichPage;
 				RequestDispatcher successview = request.getRequestDispatcher(url);
 				successview.forward(request, response);
 			} catch (Exception e) {
 				errormsgs.add("刪除發生錯誤" + e.getMessage());
-				String url = "/back-end/shgm/listAllShgm.jsp";
+				String url = "/back-end/shgm/listAllShgm.jsp?whichPage="+whichPage;
 				RequestDispatcher errorview = request.getRequestDispatcher(url);
 				errorview.forward(request, response);
 			}
@@ -840,7 +843,6 @@ public class ShgmServlet extends HttpServlet {
 			String url = null;
 			try {
 				String shgmno = request.getParameter("shgmno");
-				System.out.println(shgmno);
 				ShgmService shgmsvc = new ShgmService();
 				ShgmVO shgmvo = shgmsvc.getOneShgm(shgmno);
 				String address = shgmvo.getAddress();
@@ -859,7 +861,6 @@ public class ShgmServlet extends HttpServlet {
 					// 來自前台買家的修改請求
 				} else if (requestURL.equals("/front-end/shgm/myShgm.jsp"))
 					url = "/front-end/shgm/buyerUpdate.jsp";
-				System.out.println(url);
 				RequestDispatcher successview = request.getRequestDispatcher(url);
 				successview.forward(request, response);
 
@@ -867,7 +868,7 @@ public class ShgmServlet extends HttpServlet {
 				errormsgs.add("無法取得要修改的資料:" + e.getMessage());
 				if (requestURL.equals("/back-end/shgm/listAllShgm.jsp")
 						|| requestURL.equals("/back-end/shgm/shgm_select_page.jsp")) {
-					url = "/back-end/shgm/shgm_select_page.jsp";
+					url = "/back-end/shgm/listAllShgm.jsp";
 				} else if (requestURL.equals("/front-end/shgm/myShgm.jsp"))
 					url = "/front-end/shgm/myShgm.jsp";
 				RequestDispatcher failureView = request.getRequestDispatcher(url);

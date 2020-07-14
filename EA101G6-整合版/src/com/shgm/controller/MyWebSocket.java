@@ -48,7 +48,7 @@ public class MyWebSocket {
 	@OnOpen
 	public void open(@PathParam("mbrno") String mbrno, Session session, EndpointConfig conf) {
 		this.conf = conf;
-		System.out.println("mbrno:" + mbrno + " entered, " + "sessionID:" + session.getId());
+		System.out.println("mbrno: " + mbrno + " entered, " + "sessionID:" + session.getId());
 		connectedSessions.put(mbrno, session);
 	}
 
@@ -175,7 +175,7 @@ public class MyWebSocket {
 	public void close(Session session, CloseReason reason) {
 		for (Entry<String, Session> keyValue : connectedSessions.entrySet()) {
 			if (session.equals(keyValue.getValue()))
-				System.out.println("close: " + keyValue.getKey() + " leaved , reason:" + reason.getReasonPhrase());
+				System.out.println("close: " + keyValue.getKey() + " leaved, reason:" + reason.getReasonPhrase());
 		}
 	}
 

@@ -50,7 +50,7 @@ img {
 </style>
 </head>
 <body>
-	<%@ include file="/back-end/back-end_nav.jsp"%>
+<jsp:include page="/back-end/back-end_nav.jsp"></jsp:include>
 	<table id="table" class="table table-striped bg-white">
 		<tr>
 			<td>市集商品編號</td>
