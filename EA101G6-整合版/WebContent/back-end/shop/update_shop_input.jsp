@@ -3,12 +3,11 @@
 <%@ page import="com.shop.model.*"%>
 
 <%
-	ShopVO shopVO = (ShopVO) request.getAttribute("shopVO"); //shopServlet.java (Concroller) 存入req的shopVO物件 (包括幫忙取出的shopVO, 也包括輸入資料錯誤時的shopVO物件)
+	ShopVO shopVO = (ShopVO) request.getAttribute("shopvo"); //shopServlet.java (Concroller) 存入req的shopVO物件 (包括幫忙取出的shopVO, 也包括輸入資料錯誤時的shopVO物件)
 %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="BIG5">
 <title>Insert title here</title>
 </head>
 <body>

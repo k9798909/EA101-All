@@ -33,7 +33,6 @@ public class ShopServlet extends HttpServlet {
 				ShopService shopSvc = new ShopService();
 				ShopVO shopVO = shopSvc.getOneShop(shopno);
 				System.out.println(shopVO.getShopact());
-				/*************************bootstrap modal**************************/
 				
 				
 				/*************************** 3.�d�ߧ���,�ǳ����(Send the Success view) *************/
@@ -64,6 +63,30 @@ public class ShopServlet extends HttpServlet {
 //				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/shop/listAllShop.jsp");
 //				failureView.forward(req, res);
 //			}
+		}
+		if("getSome_For_Display".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			
+			Integer status = new Integer(req.getParameter("status").trim());
+			ShopService shopSvc = new ShopService();
+			List<ShopVO> shopVO = shopSvc.getByStatus2(status);
+			if (shopVO == null) {
+				errorMsgs.add("查無資料");
+			}
+			// Send the use back to the form, if there were errors
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req.getRequestDispatcher("listAllShop.jsp");
+				failureView.forward(req, res);
+				return;// �{�����_
+			}
+			String url = "listSomeShop.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); 
+			System.out.println(url);
+			successView.forward(req, res);
 		}
 		if ("getOne_For_Update".equals(action)) { 
 
@@ -99,15 +122,18 @@ public class ShopServlet extends HttpServlet {
 			}
 		}
 
-		if ("update".equals(action)) { // �Ӧ�update_shop_input.jsp���ШD
+		if ("update".equals(action)||"update_back".equals(action)) { // �Ӧ�update_shop_input.jsp���ШD
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
+			ShopVO shopVO = new ShopVO();
+			ShopService shopSvc = new ShopService();
 //			try {
 				/*********************** 1.�����ШD�Ѽ� - ��J�榡�����~�B�z *************************/
-
+			if("update".equals(action)) {
+         		System.out.println("front");
 				String shopno = req.getParameter("shopno");
 				String shopname = req.getParameter("shopname");
 				String shopnameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9)]{2,10}$";
@@ -161,33 +187,37 @@ public class ShopServlet extends HttpServlet {
 				}
 				
 				byte[] shopimg = null;
-
-				Part part;
-				part = req.getPart("shopimg");
-
+				Part part ;
 				InputStream in = null;
+				
+					
+					part = req.getPart("shopimg");
 
-				try {
-					 if(part.getSize() == 0) {			            	
-			     		ShopService shopSvc = new ShopService();
-		         		ShopVO shopVo = shopSvc.getOneShop(shopno);
-		         		shopimg = shopVo.getShopimg(); 
-		         		in = part.getInputStream();
-		         		in.read(shopimg);
-					 }else{
-		            	in = part.getInputStream();
-		            	shopimg = new byte[in.available()];
+					
+
+					try {
+						 if(part.getSize() == 0) {			            	
+			         		ShopVO shopVo = shopSvc.getOneShop(shopno);
+			         		shopimg = shopVo.getShopimg(); 
+			         		in = part.getInputStream();
+			         		in.read(shopimg);
+						 }else{
+			            	in = part.getInputStream();
+			            	shopimg = new byte[in.available()];
+			          		in.read(shopimg);
+				    	  } 
+					}catch (IOException e) {
+						errorMsgs.add("上傳失敗");
+						in = getServletContext().getResourceAsStream("/NoData/null.jpg");
+						shopimg = new byte[in.available()];
 		          		in.read(shopimg);
-			    	  } 
-				}catch (IOException e) {
-					errorMsgs.add("上傳失敗");
-					in = getServletContext().getResourceAsStream("/NoData/null.jpg");
-					shopimg = new byte[in.available()];
-	          		in.read(shopimg);
-				}finally {
-					in.close();
-				}
+					}finally {
+						in.close();
+					}
+						
 				Integer status = new Integer(req.getParameter("status").trim());
+				
+				
 				System.out.println(shopno);
 				System.out.println(shopact);
 				System.out.println(shoppw);
@@ -197,7 +227,6 @@ public class ShopServlet extends HttpServlet {
 				System.out.println(shopphone);
 				System.out.println(shopimg);
 				System.out.println(status);
-				ShopVO shopVO = new ShopVO();
 				shopVO.setShopno(shopno);
 				shopVO.setShopact(shopact);
 				shopVO.setShoppw(shoppw);
@@ -207,7 +236,7 @@ public class ShopServlet extends HttpServlet {
 				shopVO.setShopphone(shopphone);
 				shopVO.setShopimg(shopimg);
 				shopVO.setStatus(status);
-
+			
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("shopVO", shopVO); 
@@ -218,19 +247,32 @@ public class ShopServlet extends HttpServlet {
 					req.setAttribute("cityarea", hashmap);
 					RequestDispatcher failureView = req.getRequestDispatcher("update_shop_input.jsp");
 					failureView.forward(req, res);
-					return; // �{�����_
+					return;
 				}
-
-				/*************************** 2.�}�l�ק��� *****************************************/
-				ShopService shopSvc = new ShopService();
+				
+				
 				shopVO = shopSvc.updateShop(shopno, shopact, shoppw, shopname, shoploc, shopcy, shopphone, shopimg,
 						status);
-
-				/*************************** 3.�ק粒��,�ǳ����(Send the Success view) *************/
+			}
+				
+         	if("update_back".equals(action)) {
+         		System.out.println("back");
+         		String shopno = req.getParameter("shopno");
+         		Integer status = new Integer(req.getParameter("status").trim());
+         		shopVO.setShopno(shopno);
+         		shopVO.setStatus(status);
+         		System.out.println(status);
+         		System.out.println(shopno);
+         		shopVO = shopSvc.updateShop_back(status, shopno);
+         	}
 //				req.setAttribute("shopVO", shopVO);
+         	
+         	
 				session.removeAttribute("shopVO");
 				session.setAttribute("shopVO", shopVO);
 				String url = "shopArea.jsp";
+				System.out.println(req.getParameter("URL"));
+				if("update_back".equals(action))url =req.getParameter("URL");
 				RequestDispatcher successView = req.getRequestDispatcher(url); 
 				successView.forward(req, res);
 

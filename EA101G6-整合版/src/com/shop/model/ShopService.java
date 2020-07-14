@@ -46,7 +46,15 @@ public class ShopService {
 		
 		return shopVO;
 	}
-	
+	public ShopVO updateShop_back(Integer status, String shopno) {
+		ShopVO shopVO = new ShopVO();
+		
+		shopVO.setShopno(shopno);
+		shopVO.setStatus(status);
+		dao.update_back(shopVO);
+		
+		return shopVO;
+	}
 	
 	public ShopVO getOneShop(String Shopno) {
 		return dao.findByPrimaryKey(Shopno);
@@ -67,6 +75,13 @@ public class ShopService {
 	public List<ShopVO> getByStatus(){
 		List list = getAll().stream()
 		        .filter(ee -> ee.getStatus() == 0)
+		        .collect(Collectors.toList());		
+		return list;
+	}
+	
+	public List<ShopVO> getByStatus2(Integer status){
+		List list = getAll().stream()
+		        .filter(ee -> ee.getStatus() == status)
 		        .collect(Collectors.toList());		
 		return list;
 	}
