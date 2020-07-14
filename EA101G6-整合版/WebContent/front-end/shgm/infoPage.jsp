@@ -102,7 +102,7 @@ div.top-info {
 }
 
 a img:hover{
-	background-color:orange;
+	box-shadow: 0 0 50px rgba(33, 33, 33, .2);
 }
 
 .carousel-item img{
@@ -156,8 +156,8 @@ a img:hover{
 
 						</div>
 						<div class="modal-footer">
-							<button type="submit" class="btn btn-primary">確定</button>
-							<button type="button" class="btn btn-primary"
+							<button id="sendRp" type="submit" class="btn btn-primary">確定</button>
+							<button id="cancel" type="button" class="btn btn-primary"
 								data-dismiss="modal">取消</button>
 						</div>
 						<input type="hidden" id="shgmno" name="shgmno" value="${infoshgm.shgmno}">
@@ -297,6 +297,7 @@ a img:hover{
 			Swal.fire({
 				  icon: 'success',
 				  title: '您的檢舉已成功送出！',
+				  text: '請等待審核',
 				  showConfirmButton: false,
 				  timer: 1500
 				})

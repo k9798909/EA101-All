@@ -33,6 +33,7 @@
 </style>
 </head>
 <body>
+<jsp:include page="/back-end/back-end_nav.jsp"></jsp:include>
 <ul>
 	<c:if test="${not empty errormsgs}">
 		<c:forEach var="error" items="${errormsgs}">

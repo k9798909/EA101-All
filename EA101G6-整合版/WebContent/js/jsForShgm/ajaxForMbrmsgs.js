@@ -17,6 +17,7 @@ $(".alert-area").on("click",".xx",function(){
 					if(total === 1)
 						$("#circle").remove();
 					$("#circle").text(total-1);
+					$("#countSaver").text(total-1);
 					console.log(response.success);
 				},
 				error: function(result) {

@@ -136,7 +136,7 @@ div.top-info {
 					<li class="breadcrumb-item"><a
 						href="<%=request.getContextPath()%>/front-end/shgm/infoPage.jsp?shgmno=${infoshgm.shgmno}">商品頁面</a></li>
 					<li class="breadcrumb-item active" aria-current="page">購買頁面</li>
-					<li class="awrapper"><span class="rpdiv">${errormap.get("rp")}</span><button type="button"
+					<li class="awrapper"><span class="rpdiv">${errormap.get("rp")}</span><button id="rp" type="button"
 							class="btn btn-primary" data-toggle="modal"
 							data-target="#exampleModal" data-whatever="@mdo">檢舉</button></li>
 				</ol>
@@ -162,8 +162,8 @@ div.top-info {
 
 						</div>
 						<div class="modal-footer">
-							<button type="submit" class="btn btn-primary">確定</button>
-							<button type="button" class="btn btn-primary"
+							<button id="sendRp" type="submit" class="btn btn-primary">確定</button>
+							<button id="cancel" type="button" class="btn btn-primary"
 								data-dismiss="modal">取消</button>
 						</div>
 						<input type="hidden" name="shgmno" value="${infoshgm.shgmno}">
@@ -223,8 +223,8 @@ div.top-info {
 								<input id="address" name="address" type="hidden" value="<%= (shgmvo.getAddress() == null)? "":shgmvo.getAddress() %>"/>
 							</div>
 							<div class="button-wrapper">
-								<button type="submit" class="btn btn-primary">確定購買</button>
-								<a href="<%=request.getContextPath()%>/front-end/shgm/mainPage.jsp" class="btn btn-primary">取消購買</a>
+								<button id="buythis" type="submit" class="btn btn-primary">確定購買</button>
+								<a id="backToMain" href="<%=request.getContextPath()%>/front-end/shgm/mainPage.jsp" class="btn btn-primary">取消購買</a>
 							</div>
 							<input type="hidden" name="shgmno" value="${infoshgm.shgmno}">
 							<input type="hidden" name="buyerno" value="${mbrpfVO.mbrno}">
@@ -251,6 +251,7 @@ div.top-info {
 			Swal.fire({
 				  icon: 'success',
 				  title: '您的檢舉已成功送出！',
+				  text: '請等待審核',
 				  showConfirmButton: false,
 				  timer: 1500
 				})

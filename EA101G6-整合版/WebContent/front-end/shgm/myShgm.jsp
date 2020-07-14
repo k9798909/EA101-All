@@ -200,13 +200,13 @@ div.pageselect-area {
 											<li class="list-group-item">${shgmvo.price}</li>
 											<li class="list-group-item">賣家尚未出貨<br>
 												 <form method="post" action="<%=request.getContextPath()%>/front-end/shgm/shgm.do">
-												 <input type="submit" class="btn btn-primary" value="修改取貨資訊"/>
+												 <input type="submit" class="btn btn-primary slrbyr-css" value="修改取貨資訊"/>
 												 <input type="hidden" name="action" value="getone_update"/>
 												 <input type="hidden" name="shgmno" value="${shgmvo.shgmno}"/>
 												 <input type="hidden" name="requestURL" value="<%=request.getServletPath()%>"/>
 												 </form>
 											<button id="${shgmvo.shgmno}" type="button"
-													class="btn btn-primary status3" value="cancel">取消訂單</button></li>
+													class="btn btn-primary slrbyr-css status3 resetBtnCss" value="cancel">取消訂單</button></li>
 										</ul>
 									</c:if>
 								</c:forEach>
@@ -229,7 +229,7 @@ div.pageselect-area {
 											<li class="list-group-item">${shgmvo.price}</li>
 											<li class="list-group-item">商品配送中<br>
 											<button id="${shgmvo.shgmno}" type="button"
-													class="btn btn-primary status3" value="cancel">取消訂單</button></li>
+													class="btn btn-primary slrbyr-css status3 resetBtnCss" value="cancel">取消訂單</button></li>
 										</ul>
 									</c:if>
 								</c:forEach>
@@ -252,9 +252,9 @@ div.pageselect-area {
 											<li class="list-group-item">${shgmvo.price}</li>
 											<li class="list-group-item">商品已送達<br>
 											<button id="${shgmvo.shgmno}" type="button"
-													class="btn btn-primary boxstatus2">確認收貨</button>
+													class="btn btn-primary slrbyr-css boxstatus2">確認收貨</button>
 											<button id="${shgmvo.shgmno}" type="button"
-													class="btn btn-primary status3" value="cancel">取消訂單</button></li>
+													class="btn btn-primary slrbyr-css status3" value="cancel">取消訂單</button></li>
 										</ul>
 									</c:if>
 								</c:forEach>

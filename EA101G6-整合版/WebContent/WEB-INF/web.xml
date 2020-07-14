@@ -275,7 +275,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>MsgrpServlet</servlet-name>
-		<url-pattern>/back-end/msgrp/msgrp.do</url-pattern>
+		<url-pattern>/msgrp/msgrp.do</url-pattern>
 	</servlet-mapping>
 
  	<filter>

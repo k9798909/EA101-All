@@ -19,22 +19,25 @@ $(document).ready(function() {
 		console.log('showMsg cliked');
 		var showMsgText = $("#showMsg").text();
 		console.log(showMsgText);
-		$(".toast").toggle("fast", function() {
-			if (showMsgText == "隱藏訊息") {
-				// 顯示轉隱藏
-				$(".main-area").css("z-index", "10");
-				$(".alert-area-msgs").css("z-index", "-1");
-				$("#showMsg").text("顯示訊息");
-			} else {
-				// 隱藏轉顯示
-				$(".main-area").css("z-index", "-1");
-				$(".alert-area-msgs").css("z-index", "10");
-				$("#showMsg").text("隱藏訊息");
-			}
-		});
+		var count = $("#countSaver").val($("#circle").text());
+		if(count[0].value === ''){
+			$("#showMsg").text("已無訊息");
+		} else{
+			$(".toast").toggle("fast", function() {
+				if (showMsgText == "隱藏訊息") {
+					// 顯示轉隱藏
+					$(".main-area").css("z-index", "10");
+					$(".alert-area-msgs").css("z-index", "-1");
+					$("#showMsg").text("顯示訊息");
+				} else {
+					// 隱藏轉顯示
+					$(".main-area").css("z-index", "-1");
+					$(".alert-area-msgs").css("z-index", "10");
+					$("#showMsg").text("隱藏訊息");
+				}
+			});
+		}
 	});
 
-	$('.toast').toast('show',function(){
-		console.log('toast open');
-	});
+	$('.toast').toast('show');
 });

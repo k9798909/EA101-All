@@ -39,7 +39,7 @@ public class MsgServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/msg/select_page.jsp");
+							.getRequestDispatcher("/back-end/msg/listAllMsg.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -247,13 +247,13 @@ public class MsgServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("artVO", artVO); // 含有輸入格式錯誤的msgVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/front-end/art/listOneArt.jsp");
+							.getRequestDispatcher("/front-end/art/listOneArt.jsp");
 					failureView.forward(req, res);
 					return;
 				}
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				req.setAttribute("artVO", artVO);
-				RequestDispatcher successView = req.getRequestDispatcher("/back-end/front-end/art/listOneArt.jsp"); // 新增成功後轉交listAllMsg.jsp
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/art/listOneArt.jsp"); // 新增成功後轉交listAllMsg.jsp
 				successView.forward(req, res);				
 				
 				/***************************其他可能的錯誤處理**********************************/
@@ -261,7 +261,7 @@ public class MsgServlet extends HttpServlet {
 				
 				errorMsgs.add(e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/front-end/art/listOneArt.jsp");
+						.getRequestDispatcher("/front-end/art/listOneArt.jsp");
 				failureView.forward(req, res);
 			}
 		}

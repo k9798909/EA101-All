@@ -230,7 +230,7 @@ div.pageselect-area {
 													<li class="list-group-item">${shgmvo.price}</li>
 													<li class="list-group-item">上架審核中<br>
 														<button id="${shgmvo.shgmno}" value="0" type="button"
-															class="btn btn-primary upcheck">自行下架</button></li>
+															class="btn btn-primary slrbyr-css upcheck">自行下架</button></li>
 												</ul>
 											</c:if>
 										</c:forEach>
@@ -257,7 +257,7 @@ div.pageselect-area {
 													<li class="list-group-item"><fmt:formatDate
 															value="${shgmvo.uptime}" pattern="yyyy/MM/dd HH:mm:ss" /><br>
 														<button id="${shgmvo.shgmno}" value="1" type="button"
-															class="btn btn-primary upcheck">自行下架</button></li>
+															class="btn btn-primary slrbyr-css upcheck">自行下架</button></li>
 												</ul>
 											</c:if>
 										</c:forEach>
@@ -296,9 +296,9 @@ div.pageselect-area {
 														</c:choose>
 														</li>
 														<li class="list-group-item"><input type="submit"
-															class="btn btn-primary" value="修改"><br>
+															class="btn btn-primary slrbyr-css updateBtnCss" value="修改"><br>
 															<button id="${shgmvo.shgmno}" value="2" type="button"
-																class="btn btn-primary upcheck">重新上架</button></li>
+																class="btn btn-primary slrbyr-css upcheck ">重新上架</button></li>
 													</ul>
 													<input type="hidden" name="action"
 														value="oneForSellerUpdate"> <input type="hidden"
@@ -353,7 +353,7 @@ div.pageselect-area {
 														<li class="list-group-item">${shgmvo.address}</li>
 														<li class="list-group-item">未出貨<br>
 															<button id="${shgmvo.shgmno}" value="0" type="button"
-																class="btn btn-primary boxstatus">進行出貨</button>
+																class="btn btn-primary slrbyr-css boxstatus">進行出貨</button>
 														</li>
 													</ul>
 												</c:if>
@@ -384,7 +384,7 @@ div.pageselect-area {
 														<li class="list-group-item">${shgmvo.address}</li>
 														<li class="list-group-item">出貨中<br>
 															<button id="${shgmvo.shgmno}" value="1" type="button"
-																class="btn btn-primary boxstatus">送達商品</button>
+																class="btn btn-primary slrbyr-css boxstatus">送達商品</button>
 														</li>
 													</ul>
 												</c:if>
@@ -469,7 +469,7 @@ div.pageselect-area {
 											<li class="list-group-item">${shgmvo.price}</li>
 											<li class="list-group-item"><button
 													id="${shgmvo.shgmno}" type="button"
-													class="btn btn-primary status">回收商品</button></li>
+													class="btn btn-primary slrbyr-css status">回收商品</button></li>
 										</ul>
 									</c:if>
 								</c:forEach>
@@ -517,8 +517,8 @@ div.pageselect-area {
 						$("form:first ul").append('<li class="list-group-item"><div class="imgwrapper">'+
 							'<img src="/EA101G6/shgm/displayimg?shgmno='+response.shgmno+'"></div></li>');
 						$("form:first ul").append('<li class="list-group-item">'+response.detail+'</li>');
-						$("form:first ul").append('<li class="list-group-item"><input type="submit" class="btn btn-primary" value="修改"><br>'+
-							'<button id="'+response.shgmno+'"value="2" type="button" class="btn btn-primary upcheck">重新上架</button></li>');
+						$("form:first ul").append('<li class="list-group-item"><input type="submit" class="btn btn-primary slrbyr-css" value="修改"><br>'+
+							'<button id="'+response.shgmno+'"value="2" type="button" class="btn btn-primary slrbyr-css upcheck">重新上架</button></li>');
 						$("form:first").append('<input type="hidden" name="action" value="oneForSellerUpdate">');
 						$("form:first").append('<input type="hidden" name="shgmno" value="'+response.shgmno+'">');
 					} else if(response.upcheck == 0){
@@ -529,7 +529,7 @@ div.pageselect-area {
 						$('#upcheck0 ul').eq(1).append('<li class="list-group-item">'+response.price+'</li>');
 						$('#upcheck0 ul').eq(1).append('<li class="list-group-item">上架審核中</li>');
 						$('#upcheck0 ul:eq(1) li:eq(3)').append('<br>');
-						$('#upcheck0 ul:eq(1) li:eq(3)').append('<button id="'+response.shgmno+'" value="0" type="button" class="btn btn-primary upcheck">自行下架</button>');
+						$('#upcheck0 ul:eq(1) li:eq(3)').append('<button id="'+response.shgmno+'" value="0" type="button" class="btn btn-primary slrbyr-css upcheck">自行下架</button>');
 					}
 				},
 				error: function(result) {
@@ -567,7 +567,7 @@ div.pageselect-area {
 						$("#boxstatus1 ul:eq(1)").append('<li class="list-group-item">'+response.address+'</li>');
 						$("#boxstatus1 ul:eq(1)").append('<li class="list-group-item">出貨中</li>');
 						$("#boxstatus1 ul:eq(1) li:eq(5)").append('<br>');
-						$("#boxstatus1 ul:eq(1) li:eq(5)").append('<button id="'+response.shgmno+'" value="1" type="button" class="btn btn-primary boxstatus">送達商品</button>');
+						$("#boxstatus1 ul:eq(1) li:eq(5)").append('<button id="'+response.shgmno+'" value="1" type="button" class="btn btn-primary slrbyr-css boxstatus">送達商品</button>');
 					} else if(response.boxstatus == 2){
 						$("#boxstatus2 ul:eq(0)").after('<ul class="list-group list-group-horizontal six-li"></ul>');
 						$("#boxstatus2 ul:eq(1)").append('<li class="list-group-item">'+response.shgmname+'</li>');
@@ -606,7 +606,7 @@ div.pageselect-area {
 					$('#upcheck0 ul').eq(1).append('<li class="list-group-item">'+response.price+'</li>');
 					$('#upcheck0 ul').eq(1).append('<li class="list-group-item">上架審核中</li>');
 					$('#upcheck0 ul:eq(1) li:eq(3)').append('<br>');
-					$('#upcheck0 ul:eq(1) li:eq(3)').append('<button id="'+response.shgmno+'" value="0" type="button" class="btn btn-primary upcheck">自行下架</button>');
+					$('#upcheck0 ul:eq(1) li:eq(3)').append('<button id="'+response.shgmno+'" value="0" type="button" class="btn btn-primary slrbyr-css upcheck">自行下架</button>');
 				},
 				error: function(result){
 					alert("目前不允許此操作");

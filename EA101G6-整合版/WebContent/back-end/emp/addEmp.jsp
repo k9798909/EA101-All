@@ -84,7 +84,10 @@
 
 <body>
 
-<%@ include file="/back-end/back-end_nav.jsp" %>
+<%-- <%@ include file="/back-end/back-end_nav.jsp" %> --%>
+<!-- 用jsp去include比較不容易跟其他的程式碼發生衝突 -->
+<jsp:include page="/back-end/back-end_nav.jsp"></jsp:include> 
+
 
 <!-- 錯誤列表  -->
 	<c:if test="${not empty errorMsgs}">
@@ -141,7 +144,7 @@
 										<c:set var="emphave" value="true" />
 									</c:if>
 								</c:forEach>
-								<input type="checkbox" name="features" value="${featuresVO.ftno}" ${emphave ? "checked" : ""}>${featuresVO.ftname}
+								<label for="${featuresVO.ftno}"><input type="checkbox" name="features" id="${featuresVO.ftno}" value="${featuresVO.ftno}" ${emphave ? "checked" : ""}>${featuresVO.ftname}</label>
 							</c:forEach>
 						</div>
 					</div>

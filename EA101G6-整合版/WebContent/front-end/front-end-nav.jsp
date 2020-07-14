@@ -33,6 +33,7 @@
 	href="<%=request.getContextPath()%>/css/model/style.css">
 <!-- 顯示訊息的css -->
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/cssForShgm/alert-area.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/cssForShgm/btn.css">
 
 <style>
 .icon {
@@ -83,9 +84,7 @@
 						<input type="hidden" id="mbrno" value="${mbrpfVO.mbrno}"/>
 						</c:when>
 						<c:otherwise>
-
-						<a href="<%= request.getContextPath()%>/front-end/mbrpf/addMbrpf.jsp" class="text-white"><span class="d-md-inline-block">
-
+						<a href="<%=request.getContextPath()%>/front-end/mbrpf/addMbrpf.jsp" class="text-white"><span class="d-md-inline-block">
 								<img class="icon reg1"
 								src="<%=request.getContextPath()%>/images/reg3.png">註冊
 						</span></a>

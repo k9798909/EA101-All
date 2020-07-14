@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.shoprpdt.model.*"%>
+<%@ include file="/back-end/back-end-nav-susu.jsp" %>
 
 <%
 	ShoprpdtService shoprpdtSvc = new ShoprpdtService();
@@ -47,6 +48,7 @@
 	</c:if>
 	<style>
 table {
+	width:100%;
 	margin-top: 10px;
 }
 
@@ -65,7 +67,10 @@ td {
 }
 
 tr:nth-child(odd) {
-	background-color: #FFED97;
+	background-color: white;
+}
+tr:nth-child(even) {
+	background-color: gray;
 }
 
 img {
@@ -77,11 +82,9 @@ h4 {
 	margin-left: 20px;
 }
 </style>
-<jsp:include page="select_page.jsp" flush="true">
-	<jsp:param name="" value="" />
-</jsp:include>
+<jsp:include page="select_page.jsp" flush="true"></jsp:include>
 	<div>
-		<table>
+		<table class="table table-bordered">
 			<tr>
 				<th>檢舉店家編號</th>
 				<th>房間編號</th>
@@ -112,6 +115,7 @@ h4 {
 							<input type="hidden" name="shopno" value="${shoprpdtVO.shopno}">
 							<input type="hidden" name="detail" value="${shoprpdtVO.detail}">
 							<input type="hidden" name="status" id="se">
+							<input type="hidden" name="URL" value="<%=request.getServletPath()%>">
 							<input type="hidden" name="action" value="update">
 						</FORM>
 					</td>

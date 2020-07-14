@@ -11,4 +11,5 @@ public interface ShopDAO_interface {
 	public ShopVO login(String shopact, String shoppw);
 	public List<ShopVO> getAllowedShop();
 	public List<ShopVO> getAll();
+	void update_back(ShopVO shopVO);
 }

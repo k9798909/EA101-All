@@ -16,6 +16,7 @@
 	<c:if test="${mbrpfVO != null}">
 		<div class="alert-area">
 			<button id="showMsg" class="btn btn-primary" style="width:110px;">Εγ₯ά°T®§</button>
+			<input id="countSaver" type="hidden"></input>
 			<div class="alert-area-msgs">
 				<c:forEach var="msgvo" items="${wsmsg.getRead0Mbrmsg(mbrpfVO.mbrno)}" varStatus="count">
 					<c:if test="${count.last}">

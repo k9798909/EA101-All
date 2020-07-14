@@ -282,13 +282,15 @@
 	</div>
 
 
-
+	
+	
+	<jsp:useBean id="msgSvc" scope="page" class="com.msg.model.MsgService"/>
 
 
 
 	<c:if test="${mbrpfVO != null}">
 
-		<jsp:useBean id="msgSvc" scope="page" class="com.msg.model.MsgService"></jsp:useBean>
+		
 
 		<footer>
 
@@ -299,7 +301,7 @@
 				</h3>
 
 				<FORM METHOD="POST"
-					ACTION="<%=request.getContextPath()%>/msg/msg.do">
+					ACTION="<%=request.getContextPath()%>/back-end/msg/msg.do">
 					<p>
 						<input class="col-md-11  tea1" type="text" name="detail"
 							placeholder="說點什麼吧...">
@@ -312,29 +314,35 @@
 				</FORM>
 
 
-				<c:forEach var="msgVO"
-					items="<%=msgSvc.getAllByArtno(artVO.getArtno())%>">
-
-
-					<input type="hidden"
-						value="${mbrname = mbrSvc.getOneMbrpf(msgVO.mbrno).mbrname}" />
-
-					<div class="row">
-						<a><img id="mem1"
-							src="<%=request.getContextPath()%>/front-end/images/member.png"><span>${mbrname}
-								:</span></a>
-						<p class="artmsg">
-							<span>${msgVO.detail}</span>
-						</p>
-					</div>
-				</c:forEach>
+				
 
 			</div>
 		</footer>
 	</c:if>
 
+	<c:forEach var="msgVO"
+		items="<%=msgSvc.getAllByArtno(artVO.getArtno())%>">
 
 
+		<input type="hidden"
+			value="${mbrname = mbrSvc.getOneMbrpf(msgVO.mbrno).mbrname}" />
+
+		<div class="card col-md-8 offset-md-2 float-left">
+			<div class="card-body">
+				<a><img class="float-left" id="mem1"
+					src="<%=request.getContextPath()%>/front-end/images/member.png"><span class="float-left">${mbrname}
+						:</span></a>
+				<p class="artmsg float-left">
+					<span>${msgVO.detail}</span>
+				</p>	
+			</div>
+		</div>
+		
+	
+		
+	</c:forEach>
+
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script>
     $(document).ready(function(){
     	$("#action").click(function(){
@@ -352,6 +360,7 @@
         	}
         	
         })
+    	
     })
     
   

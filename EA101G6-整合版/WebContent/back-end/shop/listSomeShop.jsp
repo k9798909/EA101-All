@@ -6,13 +6,16 @@
 <%@ include file="/back-end/back-end-nav-susu.jsp" %>
 <%
 	ShopService shopSvc = new ShopService();
-	List<ShopVO> list = shopSvc.getAll();
+	Integer status = new Integer(request.getParameter("status"));
+	int i = status;
+	List<ShopVO> list = shopSvc.getByStatus2(i);
 	pageContext.setAttribute("list", list);
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>			
 			$(document).ready(function(){
 				$('.sta').change(function(){
@@ -68,7 +71,7 @@ h4 {
 	margin-left: 20px;
 }
 </style>
-<jsp:include page="select_page.jsp" flush="true"/>
+<jsp:include page="select_page.jsp" flush="true"></jsp:include>
 <div>
 	<table class="table table-bordered">
 		<tr>
@@ -98,7 +101,7 @@ h4 {
 					<FORM METHOD="post" ACTION="<%= request.getContextPath()%>/back-end/shop/shop.do" enctype="multipart/form-data">
 						<input type="submit" value="н╫зя"> 
 						<input type="hidden" name="shopno" value="${shopVO.shopno}"> 
-						<input type="hidden" name="status" value="${shopVO.status}" class="status">	
+						<input type="hidden" name="status" value="${shopVO.status}" class="status">		
 						<input type="hidden" name="URL" value="<%=request.getServletPath()%>">
 						<input type="hidden" name="action" value="update_back">
 					</FORM>
