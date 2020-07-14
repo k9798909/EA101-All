@@ -145,6 +145,7 @@
 							<li class="has-children"><a href="" class="nav-link">會員專區</a>
 								<ul class="dropdown arrow-top">
 									<li><a href="<%= request.getContextPath()%>/front-end/mallOr/mbrMallOr.jsp" class="nav-link">查詢訂單</a></li>
+									<li><a href="<%=request.getContextPath()%>/front-end/mbrpf/listOneMbrpf.jsp" class="nav-link">個人資訊</a></li>
 									<li><a href="#pricing-section" class="nav-link">Pricing</a></li>
 									<li><a href="#faq-section" class="nav-link">FAQ</a></li>
 									<li class="has-children"><a href="#">More Links</a>

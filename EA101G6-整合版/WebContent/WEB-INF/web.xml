@@ -249,6 +249,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>MbrpfServlet</servlet-name>
+		<url-pattern>/mbrpf/mbrpf.do</url-pattern>
 		<url-pattern>/front-end/mbrpf/mbrpf.do</url-pattern>
 		<url-pattern>/back-end/mbrpf/mbrpf.do</url-pattern>
 	</servlet-mapping>
@@ -286,7 +287,7 @@
   	<filter-mapping>
   		<filter-name>LoginFilter</filter-name>
   		<url-pattern>/mbrpf/select_page.jsp</url-pattern>
-  		<url-pattern>/mbrpf/listOneMbrpf.jsp</url-pattern>
+  		<url-pattern>/front-end/mbrpf/listOneMbrpf.jsp</url-pattern>
   		<url-pattern>/mbrpf/update_mbrpf_input.jsp</url-pattern>
   		<url-pattern>/front-end/mallOr/mallOr.jsp</url-pattern>
   		<url-pattern>/front-end/mallOr/mbrMallOr.jsp</url-pattern>

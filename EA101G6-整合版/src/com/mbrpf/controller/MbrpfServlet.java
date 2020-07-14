@@ -94,6 +94,69 @@ if ("getOne_For_Display".equals(action)) {//來自select_page.jsp的請求
 			}
 		}
 		
+if ("getOne_To_Display".equals(action)) {//來自select_page.jsp的請求
+
+	List<String> errorMsgs = new LinkedList<String>();
+	// Store this set in the request scope, in case we need to
+	// send the ErrorPage view.
+	req.setAttribute("errorMsgs", errorMsgs);
+
+	try {
+		/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+		String str = req.getParameter("mbrno");
+		if (str == null || (str.trim()).length() == 0) {
+			errorMsgs.add("請輸入會員編號");
+		}
+		// Send the use back to the form, if there were errors
+		if (!errorMsgs.isEmpty()) {
+			RequestDispatcher failureView = req
+					.getRequestDispatcher("/front-end/mbrpf/select_page.jsp");
+			failureView.forward(req, res);
+			return;//程式中斷
+		}
+		
+		String mbrno = null;
+		try {
+			mbrno = new String(str);
+		} catch (Exception e) {
+			errorMsgs.add("編號格式不正確");
+		}
+		// Send the use back to the form, if there were errors
+		if (!errorMsgs.isEmpty()) {
+			RequestDispatcher failureView = req
+					.getRequestDispatcher("/front-end/mbrpf/select_page.jsp");
+			failureView.forward(req, res);
+			return;//程式中斷
+		}
+		
+		/***************************2.開始查詢資料*****************************************/
+		MbrpfService mbrpfSvc = new MbrpfService();
+		MbrpfVO mbrpfVO = mbrpfSvc.getOneMbrpf(mbrno);
+		if (mbrpfVO == null) {
+			errorMsgs.add("查無資料");
+		}
+		// Send the use back to the form, if there were errors
+		if (!errorMsgs.isEmpty()) {
+			RequestDispatcher failureView = req
+					.getRequestDispatcher("/front-end/mbrpf/select_page.jsp");
+			failureView.forward(req, res);
+			return;//程式中斷
+		}
+		
+		/***************************3.查詢完成,準備轉交(Send the Success view)*************/
+		req.setAttribute("mbrpfVO", mbrpfVO); // 資料庫取出的mbrpfVO物件,存入req
+		String url = "/back-end/mbrpf/listOneMbrpf.jsp";
+		RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneMbrpf.jsp
+		successView.forward(req, res);
+
+		/***************************其他可能的錯誤處理*************************************/
+	} catch (Exception e) {
+		errorMsgs.add("無法取得資料:" + e.getMessage());
+		RequestDispatcher failureView = req
+				.getRequestDispatcher("/front-end/mbrpf/select_page.jsp");
+		failureView.forward(req, res);
+	}
+}
 		
 if ("getOne_For_Update".equals(action)) { // 來自listAllMbrpf.jsp的請求
 
