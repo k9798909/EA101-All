@@ -81,7 +81,7 @@ if ("getOne_For_Display".equals(action)) {//來自select_page.jsp的請求
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("mbrpfVO", mbrpfVO); // 資料庫取出的mbrpfVO物件,存入req
-				String url = "/front-end/mbrpf/listOneMbrpf.jsp";
+				String url = "/back-end/mbrpf/listOneMbrpf.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneMbrpf.jsp
 				successView.forward(req, res);
 
