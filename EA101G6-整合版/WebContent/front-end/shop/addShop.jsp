@@ -1,9 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.shop.model.*"%>
-<%@ include file="/front-end/front-end-nav.jsp" %>
+<%@ include file="/front-end/shop/front-end-nav.jsp"%>
 <%
-	java.util.HashMap<String, String> hashmap = (java.util.HashMap<String, String>) request.getAttribute("cityarea");
+	java.util.HashMap<String, String> hashmap = (java.util.HashMap<String, String>) request
+			.getAttribute("cityarea");
 	ShopVO shopVO = (ShopVO) request.getAttribute("shopVO");
 %>
 <html>
@@ -26,9 +27,11 @@ td {
 	border: 2px solid black;
 	text-align: center;
 }
+
 label {
 	text-align: left;
 }
+
 .icon {
 	width: 20px;
 	height: 20px;
@@ -39,69 +42,97 @@ tr:nth-child(odd) {
 }
 
 img {
-	width:300px;
-	height:200px;
+	width: 300px;
+	height: 200px;
 }
 </style>
 </head>
 <body bgcolor='white'>
 
 
+		<div class="container"
+			style="text-align: center; width: 500px; height: 50px;">
+			<form METHOD="post"
+				ACTION="<%=request.getContextPath()%>/front-end/shop/shop.do"
+				enctype="multipart/form-data">
+				<div class="form-row">
+					<div class="col-md-2"></div>
+					<div id="preview" style="border-width:3px;border-style:dashed;border-color:#FFAC55;padding:5px;"><img alt="" src="<%= request.getContextPath()%>/NoData/none2.jpg"></div>
+				</div>
+				<div class="form-row">
+					<div class="col-md-5">
+						<label for="name">店家名稱</label> <input class="form-control"
+							type="TEXT" name="shopname" size=100% id="name"
+							value="<%=(shopVO == null) ? "" : shopVO.getShopname()%>"
+							placeholder="name" />
+					</div>
+					<div class="col-md-7">
+						<label for="act">帳號</label> <input class="form-control" type="TEXT"
+							name="shopact" size=100% id="act"
+							value="<%=(shopVO == null) ? "" : shopVO.getShopact()%>"
+							placeholder="帳號" />
+					</div>
+				</div>
+<!-- 				<div class="form-row"> -->
+<!-- 					<div class="col-md-12"> -->
+<!-- 						<label for="inputEmail">Email</label> <input type="email" -->
+<!-- 							class="form-control" id="inputEmail" placeholder="Email"> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
 
-	<table id="table-1">
-		<h3>店家註冊</h3>
-	</table>
-
-	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/shop/shop.do" enctype="multipart/form-data">
-		<table>
-			<tr>
-				<td>店家帳號:</td>
-				<td><input type="TEXT" name="shopact" size=100%
-					value="<%=(shopVO == null) ? "321" : shopVO.getShopact()%>" /></td>
-			</tr>
-<!-- 			<tr> -->
-<!-- 				<td>店家密碼:</td> -->
-<!-- 				<td><input type="hidden" name="shoppw" size=100% -->
-<%-- 					value="<%=(shopVO == null) ? "123" : shopVO.getShoppw()%>" /></td> --%>
-<!-- 			</tr> -->
-			<tr>
-				<td>店家名稱:</td>
-				<td><input type="TEXT" name="shopname" size=100%
-					value="${(param.shopname == null) ? "123" : param.shopname }" /></td>
-			</tr>
-			<tr>
-				<td>店家位置:</td>
-				<td><select name="city" id="縣市1">
-				<option value"${param.city}">${param.city}</option></select>
-				<select name="area" id="鄉鎮市區1"></select>
-				<input type="text" id="ads" name="addr" class="address" value="<%= (hashmap == null)? "":hashmap.get("addr") %>"></td>
-				<input id="address" name="address" type="hidden" value="<%= (shopVO == null)? "":shopVO.getShoploc() %>"/>			
-			</tr>
-			<tr>
-				<td>場地:</td>
-				<td><input type="TEXT" name="shopcy" size=100%
-					value="<%=(shopVO == null) ? "10人桌*10" : shopVO.getShopcy()%>" /></td>
-			</tr>
-			<tr>
-				<td>電話:</td>
-				<td><input type="TEXT" name="shopphone" size=100%
-					value="<%=(shopVO == null) ? "093040" : shopVO.getShopphone()%>" /></td>
-			</tr>
-			<tr>
-				<td>店家圖片:</td>
-				<td>
-					<input type="file" id="myFile" name="shopimg">				
-					<div id="preview">
-					</div>	
-				</td>
-			</tr>
-			<tr>
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label for="縣市1">City</label> <select name="city" id="縣市1"
+							class="form-control">
+							<option value="${param.city}">${param.city}</option>
+						</select>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="鄉鎮市區1">Area</label> <select name="area" id="鄉鎮市區1"
+							class="form-control"></select>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-12">
+						<label for="ads">Address</label> <input type="text"
+							id="ads" name="addr" class="address form-control"
+							value="<%=(hashmap == null) ? "" : hashmap.get("addr")%>"><input
+							id="address" name="address" type="hidden"
+							value="<%=(shopVO == null) ? "" : shopVO.getShoploc()%>" />
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-4">
+						<label for="inputCy">場地</label><input id="inputCy" name="shopcy"
+							class="form-control" type="text"
+							value="<%=(shopVO == null) ? "" : shopVO.getShopcy()%>"
+							placeholder="六人桌*10" />
+					</div>
+					<div class="form-group col-md-8">
+						<label for="inputPhone">電話</label><input id="inputPhone"
+							name="shopphone" type="tel" class="form-control"
+							value="<%=(shopVO == null) ? "" : shopVO.getShopphone()%>"
+							placeholder="0912345678" />
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+						</div>
+						<div class="custom-file">
+							<input type="file" class="custom-file-input" id="myFile"
+								aria-describedby="myFile" name="shopimg"> <label
+								class="custom-file-label" for="inputGroupFile01">Choose
+								file</label>
+						</div>
+					</div>
+				</div>
 				<input type="hidden" name="status" value="0">
-			</tr>
-		</table>
-		<br> <input type="hidden" name="action" value="insert"> <input
-			type="submit" value="送出新增">
-	</FORM>
+				<input type="hidden" name="action" value="insert">
+				<button type="submit" class="btn btn-primary">註冊</button>
+			</form>
+		</div>
 </body>
 <script>
 	function init() {
@@ -142,7 +173,7 @@ img {
    		init();
        //當頁面載完之後，用AddressSeleclList.Initialize()，
        //傳入要綁定的縣市下拉選單ID及鄉鎮市區下拉選單ID
-   	 AddressSeleclList.Initialize('縣市1', '鄉鎮市區1'<%= (hashmap == null)? "":",'"+hashmap.get("city")+"'"%><%= (hashmap == null)? "": ",'"+hashmap.get("area")+"'"%>);
+   	 AddressSeleclList.Initialize('縣市1', '鄉鎮市區1'<%=(hashmap == null) ? "" : ",'" + hashmap.get("city") + "'"%><%=(hashmap == null) ? "" : ",'" + hashmap.get("area") + "'"%>);
      var addressClass = document.getElementsByClassName("address");
      var address = document.getElementById("address");
      
@@ -163,7 +194,7 @@ img {
    	
    	
 </script>
-	
+
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 </html>

@@ -285,14 +285,16 @@ public class ShopServlet extends HttpServlet {
 		}
 
 		if ("insert".equals(action)) { // �Ӧ�addshop.jsp���ШD
-
+			System.out.println("test");
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
+			
+			System.out.println("1111111111");
 			req.setAttribute("errorMsgs", errorMsgs);
-			try {
+//			try {
 				/*********************** 1.�����ШD�Ѽ� - ��J�榡�����~�B�z *************************/
-
+			System.out.println("222222222222");
 				String shopname = req.getParameter("shopname");
 				String shopnameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9)]{2,10}$";
 				if (shopname == null || shopname.trim().length() == 0) {
@@ -301,6 +303,8 @@ public class ShopServlet extends HttpServlet {
 					errorMsgs.add("店家名稱格式錯誤");
 				}
 
+				
+				System.out.println("33333333");
 				String shopact = req.getParameter("shopact");
 				String shopactReg = "^[(a-zA-Z0-9)]{3,10}$";
 				if (shopact == null || shopact.trim().length() == 0) {
@@ -309,11 +313,11 @@ public class ShopServlet extends HttpServlet {
 					errorMsgs.add("店家帳號格式錯誤");
 				}
 
-				String shoppw = req.getParameter("shoppw");
+//				String shoppw = req.getParameter("shoppw");
 				int passwdRandom = (int)(Math.random()*99999999+1);
 				String passRandom = ""+passwdRandom;
 				
-
+				System.out.println("4444444444444");
 				String shoploc = "";
 				String city = req.getParameter("city");
 				String area = req.getParameter("area");
@@ -347,6 +351,8 @@ public class ShopServlet extends HttpServlet {
 					errorMsgs.add("電話號碼格式錯誤");
 				}
 				
+				
+				System.out.println("5555555555555");
 				byte[] shopimg = null;
 				Part part = req.getPart("shopimg");
 				InputStream in = null;
@@ -359,6 +365,10 @@ public class ShopServlet extends HttpServlet {
 				} finally {
 					in.close();
 				}
+				
+				
+				
+				System.out.println("666666666666");
 				Integer status = new Integer(req.getParameter("status").trim());
 
 				ShopVO shopVO = new ShopVO();
@@ -372,6 +382,7 @@ public class ShopServlet extends HttpServlet {
 
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
+					System.out.println("error");
 					req.setAttribute("shopVO", shopVO); // �t����J�榡���~��shopVO����,�]�s�Jreq
 					HashMap<String, String> hashmap = new HashMap<String, String>();
 					hashmap.put("city", city);
@@ -390,6 +401,10 @@ public class ShopServlet extends HttpServlet {
 			    System.out.println(passRandom); 
 			    ShopMailService mailService = new ShopMailService();
 			    mailService.sendMail(to, subject, messageText);
+			    
+			    
+			    
+			    System.out.println("end.......");
 				/*************************** 2.�}�l�s�W��� ***************************************/
 				ShopService shopSvc = new ShopService();
 				shopVO = shopSvc.addShop(shopact, passRandom, shopname, shoploc, shopcy, shopphone, shopimg, status);
@@ -400,11 +415,11 @@ public class ShopServlet extends HttpServlet {
 				successView.forward(req, res);
 
 				/*************************** ��L�i�઺���~�B�z **********************************/
-			} catch (Exception e) {
-				errorMsgs.add(e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("addShop.jsp");
-				failureView.forward(req, res);
-			}
+//			} catch (Exception e) {
+//				errorMsgs.add(e.getMessage());
+//				RequestDispatcher failureView = req.getRequestDispatcher("addShop.jsp");
+//				failureView.forward(req, res);
+//			}
 		}
 		if ("login".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
