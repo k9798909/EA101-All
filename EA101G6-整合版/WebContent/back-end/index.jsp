@@ -2,22 +2,28 @@
 <%@ page import="com.tfcord.model.*" %>
 <%@ page import="com.shoprpdt.model.*" %>
 <%@ page import="com.shop.model.*" %>
+<%@ page import="com.mallOr.model.*" %>
 <%@ page import="java.util.*" %>
 <%
 	TfcordService tfcordSvc = new TfcordService();
-	List<TfcordVO> haveTfcord = (List<TfcordVO>) tfcordSvc.getNotYetAll();
+	List<TfcordVO> haveTfcord = tfcordSvc.getNotYetAll();
 	int tfcordNum =  haveTfcord.size();
-	request.setAttribute("tfcordNum", tfcordNum);
+	pageContext.setAttribute("tfcordNum", tfcordNum);
 	
 	ShoprpdtService shoprpdtSvc = new ShoprpdtService();
-	List<ShoprpdtVO> haveShoprpdt = (List<ShoprpdtVO>) shoprpdtSvc.getByStatus();
+	List<ShoprpdtVO> haveShoprpdt = shoprpdtSvc.getByStatus();
 	int shoprpdtNum =  haveShoprpdt.size();
-	request.setAttribute("shoprpdtNum", shoprpdtNum);
+	pageContext.setAttribute("shoprpdtNum", shoprpdtNum);
 	
 	ShopService shopSvc = new ShopService();
-	List<ShoprpdtVO> haveShop = (List<ShoprpdtVO>) shoprpdtSvc.getByStatus();
+	List<ShoprpdtVO> haveShop = shoprpdtSvc.getByStatus();
 	int shopNum =  haveShoprpdt.size();
-	request.setAttribute("shopNum", shopNum);
+	pageContext.setAttribute("shopNum", shopNum);
+	
+	MallOrService mallOrSvc = new MallOrService();
+	Set<MallOrVO> havemallOr = mallOrSvc.findByBoxStatus(0);
+	int mallOrNum = havemallOr.size();
+	pageContext.setAttribute("mallOrNum", mallOrNum);
 %>
 
 <!DOCTYPE html>
@@ -84,7 +90,7 @@
 									role="button" data-toggle="dropdown" aria-haspopup="true"
 									aria-expanded="false"> 會員管理 </a>
 									<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-										<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/emp/listOneEmp.jsp">一般會員管理</a> <!-- 還沒放 -->
+										<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/mbrpf/listAllMbrpf.jsp">一般會員管理</a> <!-- 還沒放 -->
 	<!-- active測試，之後換頁面  -->			<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/shop/listAllShop.jsp">店家管理</a>
 									</div></li>
 								
@@ -162,7 +168,7 @@
 				<ul>
 		            <li><a href="#tabs-1">檢舉通知</a></li>
 		            <li><a href="#tabs-2">審核通知</a></li>
-		            <li><a href="#tabs-3">About</a></li>
+		            <li><a href="#tabs-3">未出貨通知</a></li>
 		        </ul>
 		        <div id="tabs-1"><!--以下每一條都是未處理的通知-->
 		        	<span class="news">
@@ -188,14 +194,14 @@
 		        </div>
 		        <div id="tabs-3">
 		        	<span class="news">
-		        		預計會出現要處的通知
+		        		<a href="<%=request.getContextPath()%>/back-end/mallOr/mallOrGet.jsp?active=getByBox">目前有<font style="color:red">${mallOrNum}</font>筆訂單尚未出貨</a>
 		        	</span>
 		        </div>
 			</div>
 		</div>
 	</div>
 
-	<script src="<%=request.getContextPath() %>/js/backJs/bootstrapOld.min.js"></script>
+	<script src="<%=request.getContextPath()%>/js/backJs/bootstrapOld.min.js"></script>
 	
 	<script>
 	    $(function() {
