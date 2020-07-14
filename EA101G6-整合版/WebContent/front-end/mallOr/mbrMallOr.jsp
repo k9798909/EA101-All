@@ -105,7 +105,7 @@ main {
 				<div class="col-12">
 					<c:forEach var="mallOr" items="${mallOrSvc.findByMbrNo(mbrpfVo.mbrno)}">
 						<table class="table table-bordered">
-							<thead class="bg-primary">
+							<thead class="bg-warning">
 								<tr>
 									<th>訂單編號</th>
 									<th>下訂日期</th>
@@ -162,7 +162,7 @@ main {
 							<div class="row">
 								<div class="col-8">
 									<table class="table table-bordered ">
-										<thead class="bg-warning">
+										<thead class="table-warning">
 											<tr>
 												<td>商品名稱</td>
 												<td>數量</td>

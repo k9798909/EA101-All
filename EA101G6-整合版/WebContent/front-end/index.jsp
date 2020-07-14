@@ -372,14 +372,6 @@ div.comm {
 		...........................<br>
 
 	</div>
-	<!--  -->
-	<div class="site-section bg-light block-13" id="testimonials-section"
-		data-aos="fade">
-		揪團區<br> .........................<br>
-		..........................<br> ...........................<br>
-		...........................<br>
-
-	</div>
 
 	<jsp:useBean id="shopSvc" class="com.shop.model.ShopService"
 		scope="request" />
@@ -416,16 +408,6 @@ div.comm {
 
 	</div>
 
-	<div class="site-section bg-light" id="contact-section">
-		討論區<br> .........................<br>
-		..........................<br> ...........................<br>
-		...........................<br>
-
-	</div>
-
-
-
-
 	<script
 		src="<%=request.getContextPath()%>/js/model/jquery-3.3.1.min.js"></script>
 	<script src="<%=request.getContextPath()%>/js/model/popper.min.js"></script>
@@ -448,7 +430,13 @@ div.comm {
 	<script src="<%=request.getContextPath()%>/js/model/aos.js"></script>
 	<script src="<%=request.getContextPath()%>/js/model/main.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
+<!-- 	聊天 -->
+	<c:if test="${mbrpfVO != null}">
+		<jsp:include page="/front-end/frontChat/frontChat.jsp"/>
+	</c:if>
+	
+	
+	
 	<!-- 	店家登出js -->
 	<script>
 		$(document).ready(function() {

@@ -1,16 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.util.*"%>
-<%@ page import="connectionpool.*"%>
-<%@ page import="redis.clients.*"%>
-<%@ page import="com.websocket.*"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>		
 <!DOCTYPE html>
 <html>
 <head>
 <title>Chat Room</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
 </head>
 
 <style>
@@ -48,7 +42,7 @@
 		width:110px;
 		text-align:center;
 	 	transform:rotate(180deg);
-	 	position:fixed;
+	 	position:absolute;
 		right:50px;
 		bottom:120px;
 		display:none;
@@ -56,15 +50,6 @@
 		border:1px solid;
 	}
 
-	
-	button#customerBtn{
-		position:fixed;
-		right:60px;
-		bottom:50px;
-		border:0px;
-		border-width: 0px;
-		
-	}
 	
 	img.msgicon{
 		width:60px;
@@ -82,24 +67,17 @@
 		height:30px;
 		padding:0px;
 		margin:0px 10px;
+		background-color:#007bff;
+		color:#ffffff;
+		border:0px;
 	}
 	
 	div.modal-footer button.btn:hover{
 		background-color:#007bff;
 		color:#ffffff;
+		border:0px;
 	}
 	
-	div.customer button.btn{
-		transform:rotate(180deg);
-		background-color:transparent;
-		color:#000000;
-		height:30px;
-		padding:0px;
-		border:0px;
-		display:block;
-		margin:0px auto;
-		width:100%;
-	}
 	
 	div.customer button.btn:hover{
 		background-color:#007bff;
@@ -112,28 +90,29 @@
 	}
 	
 	
-	button.msgBtn{
+	button#msgBtn{
 		border:none;
 		background-color:transparent;
 		outline:none;
+		position:fixed;
+		right:60px;
+		bottom:30px;
+		border:0px;
+		border-width: 0px;
 	}
+
+		
 	
-	button.msgBtn:hover{
+	button#msgBtn:hover{
 		border:0px;
 	}
 	
-	button#customerBtn div.redPoint{
-		border-radius:50%;
-		background-color:red;
-		width:15px;
-		height:15px;
-		position:relative;
-		right:-40px;
-		bottom:-15px;
-		margin:0px;
-		display:none;
+	div.modal-footer button#sendMessage:active{
+		background-color:#007bff;
+		color:#ffffff;
+		outline:none;
 	}
-	
+
 </style>
 
 <body onload="connect();" onunload="disconnect();">
@@ -158,43 +137,27 @@
       <div class="modal-footer">
       	<input id="message" type="text">
 		<button id="sendMessage" class="btn btn-primary">傳送</button> 
-        <button type="button" onclick="done();" class="btn btn-primary" data-dismiss="modal">完成</button>
       </div>
     </div>
   </div>
 </div>
-	
-	
-	<div class="customer">
-	</div>
-	<button id="customerBtn" class="msgBtn"><div class="redPoint"></div><img class="msgicon" src="<%=request.getContextPath()%>/image/message-icon.png"></button>
-	
-		
-	<% 
-	request.setAttribute("account","LE00001");
-	request.setAttribute("seName","客服1號");
-	%>
-	
-	<script>
-	var changeReceiver,changeSeName;
+
+	<button id="msgBtn"><img class="msgicon" src="<%=request.getContextPath()%>/image/message-icon.png"></button>
+
+<script>
 	var messagesArea=document.getElementById("messagesArea");
 	var statusOutput = document.getElementById("statusOutput");
 	var webSocket;
-	var set=new Set();
-	
-	$("#customerBtn").click(function(){
-		$(".customer").slideToggle();
-		if($("div.customer").val()==""){
-			$("div.customer").css("border","0px");
-		}else{
-			$("div.customer").css("border","1px");
-		}	
+	$("#msgBtn").click(function(){
+		
+		$("#basicModal").modal({show: true});
+		$("h5.modal-title").text("客服訊息");
+		msg_end.scrollIntoView(); 
+		
 	})
-	
-	
-	
+		
 	function connect() {
-		let MyPoint = "/MyWebSocket/${account}";
+		let MyPoint = "/MyWebSocket/${mbrpfVO.mbrno}";
 		let host = window.location.host;
 		let path = window.location.pathname;
 		let webCtx = path.substring(0, path.indexOf('/', 1));
@@ -207,46 +170,23 @@
 
 		webSocket.onmessage = function(event) {
 			let msgObj = JSON.parse(event.data);
-			//因為歷史訊息是一陣列
+
 			if(Array.isArray(msgObj)){
-				if(JSON.parse(msgObj[0]).type=="unDone"){
-					for (let i = 0; i < msgObj.length; i++) {
-						let unDone=JSON.parse(msgObj[i]);
-						unDoneShow(unDone);
-						set.add(unDone.sender);
-					}
-					return;
-				}
-				//歷史訊息
-				//讓聊天室窗初始化
+				//聊天室窗初始化
 				let msg_end=document.getElementById("msg_end");
 				let tampmsg_end = $(msg_end).clone();
 				$(messagesArea).text("");
 				$(messagesArea).append(tampmsg_end);
+				//歷史訊息
 				for (let i = 0; i < msgObj.length; i++) {
 					let messageObj = JSON.parse(msgObj[i]);
 					showMsg(messageObj);
 				}
 				
-			}else if(msgObj!=null){
-				
-				if(msgObj.type=="unDone"){
-					unDoneShow(msgObj);
-
-					return;
-				}
-				//取出set裡的值做比較
+			}else if(msgObj!=null){	
 				showMsg(msgObj);
-			    for (let str of set) {
-			        if(str == msgObj.sender) {
-			            return;
-			        }
-			    }
-				alert("有新訊息");
-			    set.add(msgObj.sender);
-			    unDoneShow(msgObj);
-				
 			}
+			
 			
 		};
 
@@ -262,10 +202,10 @@
 			return;
 			
 		let msgObj = {
-			"sender" : "${account}",
-			"seName":"${seName}",
+			"sender" : "${mbrpfVO.mbrno}",
+			"seName":"${mbrpfVO.mbrname}",
 			"message" : message,
-			"receiver" : changeReceiver
+			"receiver" :"LE00001"
 		};
 		
 		let msg=JSON.stringify(msgObj);
@@ -280,18 +220,7 @@
 		webSocket.close();
 	}
 	
-	function getHistory(receiver,seName) {
-		let msgObj = {
-				"sender" : "${account}",
-				"seName":"${seName}",
-				"receiver" : receiver,
-				"type":"history"
-			};
-		let msg=JSON.stringify(msgObj);
-		webSocket.send(msg);
-		$("#basicModal").modal({show: true});
-		$("h5.modal-title").text(seName+"訊息");
-	}
+
 	
 	function showMsg(msg) {
 		let msg_end=document.getElementById("msg_end");
@@ -302,7 +231,7 @@
 		$(inDiv).addClass("inDiv");
 		$(outDiv).addClass("outDiv");
 		$(textDiv).addClass("textDiv");
-		if(msg.sender==="${account}"){
+		if(msg.sender==="${mbrpfVO.mbrno}"){
 		$(outDiv).css({"text-align":"left",
 						"position":"relative",
 						"right":"-220px"});
@@ -313,42 +242,12 @@
 		$(msg_end).before(outDiv);
 		msg_end.scrollIntoView(); 
 	}
-	//show出未完成的按鈕
-	function unDoneShow(unDone){
-		let button=document.createElement("button");
-		$(button).text(unDone.seName);
-		$(button).addClass("btn btn-primary");
-		$(button).click(function(){
-					getHistory(unDone.sender,unDone.seName)
-					changeReceiver=unDone.sender;
-					changeSeName=unDone.seName;
-					});
-		$(button).addClass(unDone.sender);
-		$("div.customer").append(button);
-		$("button#customerBtn div.redPoint").show();
-	}
-	
-	function done(){
-		let msgObj = {
-				"type":"unDone",
-				"sender" : changeReceiver,
-				"seName":changeSeName
-			};
-		let msg=JSON.stringify(msgObj);
-		webSocket.send(msg);
-		$("div.customer button."+changeReceiver).remove();
-		set.delete(changeReceiver);
-		if($("div.customer").val()==""){
-			$("button#customerBtn div.redPoint").hide();
-		}	
-	}
-	
-	function prompt(){
-		
-	}
+
+
 
 </script>
-	
+
+
 </body>
 
 

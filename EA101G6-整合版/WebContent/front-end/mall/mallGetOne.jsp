@@ -19,14 +19,24 @@
 </head>
 <body>
 
-<%@ include file="/front-end/front-end-nav.jsp" %>
+<jsp:include page="/front-end/front-end-nav.jsp"/>
 
-	<%
-		String commNo = request.getParameter("commNo");
-		MallService mallSvc = new MallService();
-		request.setAttribute("mallSvc", mallSvc);
-		MallVO mallVo = mallSvc.findOneByNo(commNo);
-		pageContext.setAttribute("mallVo", mallVo);
+	<%	
+	
+		if(request.getParameter("commNo")!=null){
+			String commNo = request.getParameter("commNo");
+			MallService mallSvc = new MallService();
+			request.setAttribute("mallSvc", mallSvc);
+			MallVO mallVo = mallSvc.findOneByNo(commNo);
+			pageContext.setAttribute("mallVo", mallVo);
+			session.setAttribute("tempCommNo",commNo);
+		}else{
+			String commNo = (String)session.getAttribute("tempCommNo");
+			MallService mallSvc = new MallService();
+			request.setAttribute("mallSvc", mallSvc);
+			MallVO mallVo = mallSvc.findOneByNo(commNo);
+			pageContext.setAttribute("mallVo", mallVo);
+		}
 	%>
 
 	<main>

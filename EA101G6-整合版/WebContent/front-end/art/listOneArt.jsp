@@ -15,12 +15,12 @@
 		EmpService empSvc = new EmpService();
 		EmpVO empVO = empSvc.getOneEmp(artVO.getMbrno());
 		pageContext.setAttribute("empVO", empVO);
-		session.setAttribute("tampEmpVo",empVO);
-		session.setAttribute("tampArtVo",artVO);
+		session.setAttribute("tempEmpVo",empVO);
+		session.setAttribute("tempArtVo",artVO);
 	}else{
-		artVO=(ArtVO)session.getAttribute("tampArtVo");
+		artVO=(ArtVO)session.getAttribute("tempArtVo");
 		pageContext.setAttribute("artVO", artVO);
-		EmpVO empVO=(EmpVO)session.getAttribute("tampEmpVo");
+		EmpVO empVO=(EmpVO)session.getAttribute("tempEmpVo");
 		pageContext.setAttribute("empVO", empVO);
 	}
 %>

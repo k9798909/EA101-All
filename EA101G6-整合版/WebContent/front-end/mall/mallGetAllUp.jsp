@@ -29,7 +29,7 @@
 </head>
 <body>
 
-	<%@ include file="/front-end/front-end-nav.jsp"%>
+	<jsp:include page="/front-end/front-end-nav.jsp"/>
 
 	<main class="mall">
 

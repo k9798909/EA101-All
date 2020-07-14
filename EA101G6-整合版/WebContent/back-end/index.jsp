@@ -228,7 +228,7 @@
 </script>
 
 
-<%@ include file="/back-end/backChat/backChat.jsp"%>
+<jsp:include page="/back-end/backChat/backChat.jsp"/>
 	
 </body>
 </html>
