@@ -8,6 +8,7 @@ import javax.servlet.http.*;
 
 import com.rminfo.model.*;
 import com.joinrm.model.*;
+import com.shopbk.model.*;
 
 
 public class RminfoServlet extends HttpServlet{
@@ -74,6 +75,30 @@ if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 					endtime = java.sql.Timestamp.valueOf(req.getParameter("endtime").trim());
 				} catch (IllegalArgumentException e) {
 					errorMsgs.add("請選擇結束時間!");
+				}
+				
+				ShopbkService shopbkSvc = new ShopbkService();
+				List<ShopbkVO> shopbkList = shopbkSvc.getShopbkByShop(shopno);
+				for(int i = 0;i < shopbkList.size(); i++) {
+					ShopbkVO shopbk = shopbkList.get(i);
+					if(starttime.getTime() >= shopbk.getShoppds().getTime() && starttime.getTime() <= shopbk.getShoppde().getTime()) {
+						break;
+					}else {
+						if(i == (shopbkList.size()-1)) {
+							errorMsgs.add("遊玩開始時間不在營業時間內");
+						}
+					}
+				}
+				
+				for(int i = 0;i < shopbkList.size(); i++) {
+					ShopbkVO shopbk = shopbkList.get(i);
+					if(endtime.getTime() >= shopbk.getShoppds().getTime() && endtime.getTime() <= shopbk.getShoppde().getTime()) {
+						break;
+					}else {
+						if(i == (shopbkList.size()-1)) {
+							errorMsgs.add("遊玩結束時間不在營業時間內");
+						}
+					}
 				}
 				
 				if((endtime.getTime()-starttime.getTime()) <= 0) {

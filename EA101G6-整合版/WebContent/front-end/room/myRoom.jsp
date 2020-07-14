@@ -26,6 +26,11 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script type="text/javascript"> var jQuery_1_12_4 = $.noConflict(true); </script>
+<script>
+	function confirmMsg(){
+		var r = confirm
+	}
+</script>
 </head>
 <body>
 <%@ include file="/front-end/front-end-nav.jsp"%>
@@ -95,7 +100,7 @@
 				<input type="hidden" name="report" value="${rminfoSvc.getOneRm(joinrmVO.rmno).report}">
 				<input type="hidden" name="rmno" value="${joinrmVO.rmno}">
 				<input type="hidden" name="action" value="update">
-				<input class="btn btn-success btn-sm" type="submit" value="訂位">
+				<input class="btn btn-success btn-sm" type="submit" value="訂位" onclick="return(confirm('確定要定位嗎？確定後將無法取消'))">
 			</form>
 			</c:if>
 		</c:if>
@@ -105,7 +110,7 @@
 				<input type="hidden" name="report" value="${rminfoSvc.getOneRm(joinrmVO.rmno).report}">
 				<input type="hidden" name="rmno" value="${joinrmVO.rmno}">
 				<input type="hidden" name="action" value="update">
-				<input class="btn btn-danger btn-sm" type="submit" value="取消揪團">
+				<input class="btn btn-danger btn-sm" type="submit" value="取消揪團" onclick="return(confirm('確認要取消嗎？確認後將無法恢復'))">
 			</form>
 		</c:if>	
 		</td>

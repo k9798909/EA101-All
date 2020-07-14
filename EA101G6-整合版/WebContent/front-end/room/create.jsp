@@ -57,8 +57,7 @@
 <%@ include file="/front-end/front-end-nav.jsp"%>
 <!-- 開團表單 -->
 	<div id="dialog-form" title="設定揪團資訊">
-		<!-- 	<p class="validateTips">All form fields are required.</p> -->
-		<p>有*為必填欄位</p>
+		<span style="color:red;">有*為必填欄位</span>
 		<c:if test="${not empty errorMsgs}">
 			<font style="color: red">請修正以下錯誤:</font>
 			<ul>
@@ -71,11 +70,11 @@
 			<fieldset>
 				<input readonly type="hidden" name="mbrno" id="mbrno" value="${mbrpfVO.mbrno}" class="text ui-widget-content ui-corner-all"> 
 				<label for="naming">*房名: </label>	
-				<input type="text" name="naming" id="naming" value="${mbrpfVO.mbrname}的房間" class="text ui-widget-content ui-corner-all" maxlength="10">
+				<input type="text" name="naming" id="naming" value="<%= (rminfoVO==null)? "來決鬥吧!!": rminfoVO.getNaming()%>" class="text ui-widget-content ui-corner-all" maxlength="10">
 				*遊玩地點:
 				<select name="shopno">
 					<c:forEach var="shopVO" items="${shopSvc.getAll()}">
-						<option value="${shopVO.shopno}">${shopVO.shopname}
+						<option value="${shopVO.shopno}" ${(rminfoVO.shopno==shopVO.shopno)? 'selected':'' }>${shopVO.shopname}
 					</c:forEach>
 				</select><br><br>
 				
@@ -108,9 +107,9 @@
 					id="f_date3" class="text ui-widget-content ui-corner-all">
 				*預計玩的遊戲: <br>
 				<textarea placeholder="輸入想玩的遊戲 EX:卡卡頌" required="required"
-					name="game" maxlength="30"
-					style="resize: none; width: 280px; height: 60px;"><c:if
-						test="${not empty requestScope.rminfoVO}">${requestScope.rminfoVO.game}</c:if></textarea>
+				     name="game" maxlength="30"
+				     style="resize: none; width: 280px; height: 60px;"><c:if
+				      test="${not empty requestScope.rminfoVO}">${requestScope.rminfoVO.game}</c:if></textarea>
 				<br> <br>  *評價限制: <select name="restriction">
 					<option value="0">無</option>
 					<%
@@ -122,7 +121,7 @@
 					%>
 				</select><br> <br> 備註: <br>
 				<textarea name="remarks" maxlength="100"
-					style="resize: none; width: 280px; height: 120px;"></textarea>
+					style="resize: none; width: 280px; height: 120px;"><%= (rminfoVO==null)? "": rminfoVO.getRemarks()%></textarea>
 
 				<input type="hidden" name="action" value="insert">
 				<!--  	  <input type="submit" value="送出新增"> -->
@@ -153,7 +152,7 @@
 		    				<input class="btn btn-warning btn-sm" type="submit" value="人數已滿" disabled>
 		   		 		</c:when>					
 						<c:otherwise>
-			    			<input class="btn btn-warning btn-sm" type="submit" value="加入">
+			    			<input class="btn btn-warning btn-sm" type="submit" value="加入" onclick="return(confirm('確定要加入嗎？確認後將無法退出'))">
 			    		</c:otherwise>
 					</c:choose>
 				</form>				
@@ -186,8 +185,14 @@
 			<div class='roomtitle'>
 				<span class='titleType'><b>${rminfoVO.naming}</b></span>
 			</div>
-			<div>房主: ${mbrpfSvc.getOneMbrpf(rminfoVO.mbrno).mbrname}<button class="btn btn-outline-info btn-sm" id="opener3_${rminfoVO.rmno}">參加成員</button></div>
-			<div>遊玩店家: ${shopSvc.getOneShop(rminfoVO.shopno).shopname}</div>
+			<div style="height:32px">房主: ${mbrpfSvc.getOneMbrpf(rminfoVO.mbrno).mbrname}<button class="btn btn-outline-info btn-sm" id="opener3_${rminfoVO.rmno}">參加成員</button></div>
+			<div style="height:32px">遊玩店家: ${shopSvc.getOneShop(rminfoVO.shopno).shopname}
+				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/shop/shop.do" target="_blank" id="shopInfo">
+					<input type="hidden" name="shopno" value="${rminfoVO.shopno}">
+					<input type="hidden" name="action" value="getOne_For_Display">
+					<input type="submit" value="店家資訊" class="btn btn-outline-primary btn-sm">
+				</FORM>
+			</div>
 			<div>
 				人數限制:
 				${rminfoVO.lowlimit}~${rminfoVO.uplimit}人&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
@@ -368,6 +373,14 @@
 .btn-outline-info{
 	float:right;
 	margin:0px 5px;
+}
+.btn-outline-primary{
+	float:right;
+	margin:0px 5px;
+}
+#shopInfo{
+	display:inline;
+	margin:0px;
 }
 #form {
 	display: none;
