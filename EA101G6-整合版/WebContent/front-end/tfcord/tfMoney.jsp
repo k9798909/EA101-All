@@ -76,7 +76,7 @@
 </head>
 <body>
 
-<%@ include file="/front-end/front-end-nav.jsp" %>
+<jsp:include page="/front-end/front-end-nav.jsp"></jsp:include> 
 
 <!-- 錯誤列表  -->
 	<c:if test="${not empty errorMsgs}">

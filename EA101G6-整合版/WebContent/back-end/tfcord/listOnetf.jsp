@@ -39,7 +39,7 @@
 	</ul>
 </c:if>	
 
-<%@ include file="/back-end/back-end_nav.jsp" %>
+<jsp:include page="/back-end/back-end_nav.jsp"></jsp:include> 
 <div class="container">
 	<div class="row tm-content-row emptop">
 		<div class="tm-col emp">

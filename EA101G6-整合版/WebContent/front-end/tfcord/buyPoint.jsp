@@ -76,8 +76,8 @@
 </head>
 
 <body>
-
-<%@ include file="/front-end/front-end-nav.jsp"  %>
+<jsp:include page="/front-end/front-end-nav.jsp"></jsp:include> 
+<%-- <%@ include file="/front-end/front-end-nav.jsp"  %> --%>
 <!-- 錯誤列表  -->
 	<c:if test="${not empty errorMsgs}">
 		<font style="color: red">請修正以下錯誤：</font>

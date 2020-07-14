@@ -34,7 +34,7 @@
 </head>
 <body>
 
-<%@ include file="/back-end/back-end_nav.jsp" %>
+<jsp:include page="/back-end/back-end_nav.jsp"></jsp:include> 
 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
