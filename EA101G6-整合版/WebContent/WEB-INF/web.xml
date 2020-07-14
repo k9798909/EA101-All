@@ -249,7 +249,8 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>MbrpfServlet</servlet-name>
-		<url-pattern>/mbrpf/mbrpf.do</url-pattern>
+		<url-pattern>/front-end/mbrpf/mbrpf.do</url-pattern>
+		<url-pattern>/back-end/mbrpf/mbrpf.do</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>

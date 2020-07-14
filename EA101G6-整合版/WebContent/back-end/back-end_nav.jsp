@@ -62,7 +62,7 @@
 								role="button" data-toggle="dropdown" aria-haspopup="true"
 								aria-expanded="false"> 會員管理 </a>
 								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/mbrpf/listAllMbrpf.jsp">一般會員管理</a> 
+									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/mbrpf/select_page.jsp">一般會員管理</a> 
 <!-- active測試，之後換頁面  -->			<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/shop/listAllShop.jsp">店家管理</a>
 								</div></li>
 							
