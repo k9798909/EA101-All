@@ -364,35 +364,12 @@ div.comm {
 
 	</div>
 
-<jsp:useBean id="shgmsvc" class="com.shgm.model.ShgmService" scope="request" />
 
-	<div class="accordion col-md-10 offset-md-1">
-		<h1>
-			<span class="badge badge-light">市集商品</span>
-		</h1>
-	</div>
-	<div id="services-section">
-		<div class="container commMain">
-			<div class="row">
-			<div class="card-deck" style="margin: 0 auto;">
-				<c:forEach var="ShgmVO" items="${shgmsvc.getAllShuffled()}" begin="0" end="4">
-					<div class="mb-4">
-							<a target="_self" href="<%=request.getContextPath()%>/front-end/shgm/shgm.do?action=getOneForMoreInfo&shgmno=${ShgmVO.shgmno}">
-								<div class="card" style="width: 228px;float: left;margin: 3% 5%;">
-									<img
-										src="<%=request.getContextPath()%>/shgm/displayimg?shgmno=${ShgmVO.shgmno}"
-										class="card-img-top" alt="Sorry! there's no image..."style="width: 225px;height: 240px;object-fit: contain;">
-									<div class="card-body" style="height:128px;">
-										<h5 class="card-title">${ShgmVO.shgmname}</h5>
-										<p class="card-text">$${ShgmVO.price}</p>
-									</div>
-								</div>
-							</a>
-						</div>
-				</c:forEach>
-			</div>
-			</div>
-		</div>
+
+	<div class="site-section" id="press-section">
+		市集<br> .........................<br>
+		..........................<br> ...........................<br>
+		...........................<br>
 
 	</div>
 
@@ -430,6 +407,9 @@ div.comm {
 		</div>
 
 	</div>
+	
+	
+	<jsp:include page="/front-end/footer.jsp"/>
 
 	<script
 		src="<%=request.getContextPath()%>/js/model/jquery-3.3.1.min.js"></script>

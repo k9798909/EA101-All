@@ -121,7 +121,7 @@ opacity:0.8;
 </head>
 <body>
 
-<%@ include file="/front-end/front-end-nav.jsp" %>
+<jsp:include page="/front-end/front-end-nav.jsp"/>
 
 <main>
 	
@@ -169,7 +169,8 @@ opacity:0.8;
     <h4 class="fs-title">訂單資訊</h4>
     	<div>
 			<label>會員姓名：<input class="mbrName" type="text" value="${mbrpfVo.mbrname}" readonly>
-			取貨方式： <input name="take" type="radio" value="超商取貨" ${"超商取貨"==take?"checked":""}>超商取貨      <input style="margin-left:3px;" name="take" type="radio" value="住家取貨" ${"住家取貨"==take?"checked":""}>住家取貨</label>	
+<%-- 			<INPUT NAME="TAKE" TYPE="RADIO" VALUE="超商取貨" ${"超商取貨"==TAKE?"CHECKED":""}>超商取貨 --%>
+			取貨方式:<input style="margin-left:3px;" name="take" type="radio" value="住家取貨" checked>住家取貨</label>	
 			<label>取貨地點：
 			<select name="city" id="縣市2"></select>
 			<select name="area" id="鄉鎮市區2"></select>

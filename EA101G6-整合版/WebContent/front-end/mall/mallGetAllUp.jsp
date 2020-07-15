@@ -120,9 +120,11 @@
 				file="/front-end/mall/page2.file"%></div>
 
 		<a href="<%=request.getContextPath()%>/front-end/buyCar/buyCar.jsp" class="shopcar">
-			<img src="<%= request.getContextPath()%>/image/buyCar.jpg"></a>
+			<img src="<%= request.getContextPath()%>/image/buyCar.png"></a>
 
 	</main>
+	
+	<jsp:include page="/front-end/footer.jsp"/>
 
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 

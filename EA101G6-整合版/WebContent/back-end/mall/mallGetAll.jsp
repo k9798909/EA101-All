@@ -109,33 +109,26 @@
 <%@ include file="/back-end/mall/mallUpdate.jsp" %>
 </c:if>
 
-
-
-<c:if test="${param.call=='addModel'}">
-<%@ include file="/back-end/mall/mallAdd.jsp" %>
-</c:if>
-<c:if test="${param.call=='updateModel'}">
-<%@ include file="/back-end/mall/mallUpdate.jsp" %>
-</c:if>
-
-
-
 <script>var ctx ="<%=request.getContextPath()%>"</script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="<%= request.getContextPath() %>/js/malljs.js"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-
 <script>
 
 <%session.removeAttribute("selNameMallVoSet"); //移除掉搜尋商品時會留的session%>
 
 <!-- 有成功訊息就啟動 -->
-<c:if test="${not empty successMsg}">
-	swal({text:"${successMsg}" });
+<c:if test="${not empty successMsg}"> 
+	Swal.fire({
+	  position: 'center',
+	  icon: 'success',
+	  title: '${successMsg}',
+	  showConfirmButton: false,
+	  timer: 1500
+	})
 	<%session.removeAttribute("successMsg");%>
 </c:if>
 
@@ -144,9 +137,39 @@
 </c:if>
 
 <c:if test="${not empty selErroMsg}">
-		swal({text:"${selErroMsg}" });
-		<% session.removeAttribute("selErroMsg");%>
-</c:if>					
+	Swal.fire({
+  		icon: 'error',
+  		title: '錯誤訊息',
+ 	 	text:"${selErroMsg}"
+	})
+</c:if>	
+
+<!-- //有錯誤就自動展開  -->
+<c:if test="${not empty erroMsg}">
+	let erroMsg='';
+	<c:forEach var="msg" items="${erroMsg}">
+		erroMsg+='<div style="color:red; text-align:left;padding:0px 35px;">${msg}<br></div>';
+	</c:forEach>
+	Swal.fire({
+		  icon: 'error',
+		  title: '錯誤訊息',
+		  html:erroMsg
+		})
+</c:if>
+
+<!--有錯誤就自動展開 -->
+<c:if test="${not empty updateerroMsg}">
+	let erroMsg='';
+	<c:forEach var="msg" items="${updateerroMsg}">
+		erroMsg+='<div style="color:red; text-align:left;padding:0px 35px;">${msg}<br></div>';
+	</c:forEach>
+	Swal.fire({
+		  icon: 'error',
+		  title: '錯誤訊息',
+		  html:erroMsg
+		})
+</c:if>	
+	
 
 </script>
 

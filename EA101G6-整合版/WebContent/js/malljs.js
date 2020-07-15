@@ -120,7 +120,13 @@ $(document).ready(function() {
 					function(data,status){
 						if(status=="success"){
 							$("div."+typeNo+"").remove();
-							swal({text:data });
+							Swal.fire({
+								  position: 'center',
+								  icon: 'success',
+								  title: data,
+								  showConfirmButton: false,
+								  timer: 1500
+								})
 						}	
 					}
 			)
@@ -135,6 +141,15 @@ $(document).ready(function() {
 		});
 	//遊戲類型確定
 	  $("div.gmtypezone button.confirm").click(function(){
+		  if($("#typeNameInput").val().length==0||$("#typeNameInput").val().length>10){
+				Swal.fire({
+					  icon: 'error',
+					  title: '錯誤訊息',
+					  text:"請確認長度"
+					})
+					return;
+		  }
+		  
 		  
 		  $.ajax({
 			  dataType: "json",
@@ -145,13 +160,19 @@ $(document).ready(function() {
 		  			typeName:$("#typeNameInput").val()
 				},
 			  success:function(data){
-						swal({text:data.msg});
+						Swal.fire({
+						  position: 'center',
+						  icon: 'success',
+						  title: data.msg,
+						  showConfirmButton: false,
+						  timer: 1500
+						})
 						let tampDiv=document.createElement("div");
 						let tampP=document.createElement("p");
 						let tampButton=document.createElement("button");
 						$(tampDiv).addClass(data.typeNo);
 						$(tampButton).val(data.typeNo);
-						$(tampButton).addClass("deltypebtn");
+						$(tampButton).addClass("deltypebtn btn btn-secondary");
 						$(tampButton).text("刪除");
 						$(tampP).text(data.typeName);
 						$("#tampAddDiv").before(tampDiv);
