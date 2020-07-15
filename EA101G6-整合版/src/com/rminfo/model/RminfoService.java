@@ -8,7 +8,7 @@ public class RminfoService {
 	private RminfoDAO_interface dao;
 	
 	public RminfoService() {
-		dao = new RminfoJDBCDAO();
+		dao = new RminfoDAO();
 	}
 	
 	public RminfoVO createRm(String shopno, Timestamp cutoff, String naming, Integer uplimit, Integer lowlimit, Timestamp starttime, Timestamp endtime, String mbrno, String game, String remarks, Integer restriction) {

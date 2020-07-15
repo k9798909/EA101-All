@@ -4,13 +4,24 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import com.rminfo.model.RminfoVO;
 
-public class RateJDBCDAO implements RateDAO_interface{
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "EA101";
-	String passwd = "123456";
+public class RateJNDIDAO implements RateDAO_interface{
+	
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	private static final String INSERT_STMT ="INSERT INTO RATE(RATENO,RMNO,RATINGMBRNO,RATEDMBRNO,DETAIL,SCORE) VALUES ('SS'||LPAD(TO_CHAR(RATE_SEQ.NEXTVAL),5,'0'),?,?,?,?,?)";
 	private static final String DELETE ="DELETE FROM RATE WHERE RATENO = ?";
@@ -23,8 +34,7 @@ public class RateJDBCDAO implements RateDAO_interface{
 		
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
 			pstmt.setString(1, rateVO.getRmno());
@@ -35,11 +45,6 @@ public class RateJDBCDAO implements RateDAO_interface{
 			
 			pstmt.executeUpdate();
 
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -71,8 +76,7 @@ public class RateJDBCDAO implements RateDAO_interface{
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
 			pstmt.setString(1, rateno);
@@ -80,10 +84,6 @@ public class RateJDBCDAO implements RateDAO_interface{
 
 			pstmt.executeUpdate();
 
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -108,19 +108,6 @@ public class RateJDBCDAO implements RateDAO_interface{
 		
 	}
 	
-	public static void main(String[] args) {
-		RateJDBCDAO dao = new RateJDBCDAO();
-		RateVO rateVO1 = new RateVO();
-		rateVO1.setRmno("SR00004");
-		rateVO1.setRatingmbrno("BM00005");
-		rateVO1.setRatedmbrno("BM00004");
-		rateVO1.setDetail("�ӯ���666");
-		rateVO1.setScore(5);
-		
-		
-		dao.insert(rateVO1);
-		
-	}
 	
 	@Override
 	public List<RateVO> getAll() {
@@ -134,8 +121,7 @@ public class RateJDBCDAO implements RateDAO_interface{
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 
@@ -152,10 +138,6 @@ public class RateJDBCDAO implements RateDAO_interface{
 				list.add(rateVO); // Store the row in the list
 			}
 
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "

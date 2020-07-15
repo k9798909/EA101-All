@@ -4,15 +4,26 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import com.joinrm.model.JoinrmJDBCDAO;
 import com.joinrm.model.JoinrmVO;
 import com.rate.model.RateVO;
 
-public class ShoprpJDBCDAO implements ShoprpDAO_interface{
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "EA101";
-	String passwd = "123456";
+public class ShoprpJNDIDAO implements ShoprpDAO_interface{
+	
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	private static final String INSERT_STMT = "INSERT INTO SHOPRP(MBRNO,RMNO,DETAIL,ATTEND) VALUES (?,?,?,?)";
 	private static final String GET_ALL_STMT = "SELECT * FROM SHOPRP";
@@ -25,8 +36,7 @@ public class ShoprpJDBCDAO implements ShoprpDAO_interface{
 		
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
 			pstmt.setString(1, shoprpVO.getMbrno());
@@ -36,10 +46,6 @@ public class ShoprpJDBCDAO implements ShoprpDAO_interface{
 			
 			pstmt.executeUpdate();
 
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -77,8 +83,7 @@ public class ShoprpJDBCDAO implements ShoprpDAO_interface{
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 
@@ -93,10 +98,6 @@ public class ShoprpJDBCDAO implements ShoprpDAO_interface{
 				list.add(shoprpVO); // Store the row in the list
 			}
 
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -136,8 +137,7 @@ public class ShoprpJDBCDAO implements ShoprpDAO_interface{
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
 			pstmt.setString(1, rmno);
@@ -146,10 +146,6 @@ public class ShoprpJDBCDAO implements ShoprpDAO_interface{
 
 			pstmt.executeUpdate();
 
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -174,19 +170,4 @@ public class ShoprpJDBCDAO implements ShoprpDAO_interface{
 		
 	}
 	
-	public static void main(String[] args) {
-		ShoprpJDBCDAO dao = new ShoprpJDBCDAO();
-		ShoprpVO shoprpVO1 = new ShoprpVO();
-		shoprpVO1.setMbrno("BM00001");
-		shoprpVO1.setRmno("SR00011");
-		shoprpVO1.setDetail("");
-		shoprpVO1.setAttend(1);
-		
-		
-		dao.insert(shoprpVO1);
-		
-	}
-	
-	
-
 }

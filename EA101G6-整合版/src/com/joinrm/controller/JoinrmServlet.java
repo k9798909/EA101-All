@@ -7,6 +7,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import com.joinrm.model.*;
 import com.rminfo.model.*;
+import com.mbrpf.model.*;
 
 
 public class JoinrmServlet extends HttpServlet{
@@ -37,9 +38,18 @@ if ("insert".equals(action)) {
 				String rmno= req.getParameter("rmno");
 				
 				JoinrmService joinrmSvc = new JoinrmService();
+				MbrpfService mbrSvc = new MbrpfService();
 				List<JoinrmVO> findByPK = joinrmSvc.findByPK(rmno,"");
 				HttpSession session =req.getSession();
 				String account = (String) session.getAttribute("account");
+				MbrpfVO mbrpfVO = mbrSvc.getOneMbrpf(mbrno);
+				RminfoService rminfoSvc = new RminfoService();
+				RminfoVO rminfoVO = rminfoSvc.getOneRm(rmno);
+				
+				int mbrrate = 0;
+				if(mbrpfVO.getRatedtotal() != 0) {
+					mbrrate = mbrpfVO.getStartotal() / mbrpfVO.getRatedtotal() ;
+				}
 				
 				if(account == null) {
 					joinMsg.add("請先登入");
@@ -47,7 +57,9 @@ if ("insert".equals(action)) {
 					for(JoinrmVO memberNo:findByPK) {
 						if(memberNo.getMbrno().equals(mbrno)) {
 							joinMsg.add("您已經在此房間內");
-						}							
+						}else if(mbrrate < rminfoVO.getRestriction()) {
+							joinMsg.add("您的評價不足以加入此房間");
+						}
 					}
 				}
 				System.out.println(mbrno + "," + rmno);
@@ -64,8 +76,7 @@ if ("insert".equals(action)) {
 				/***************************2.開始新增資料***************************************/
 				joinrmVO = joinrmSvc.insertMbr(rmno,mbrno);
 				List<JoinrmVO> memberNumber = joinrmSvc.findByPK(rmno,"");
-				RminfoService rminfoSvc = new RminfoService();
-				RminfoVO rminfoVO = rminfoSvc.getOneRm(rmno);
+				
 				
 				if(memberNumber.size() == rminfoVO.getUplimit()) {
 					rminfoSvc.update(2, 0, rmno);
