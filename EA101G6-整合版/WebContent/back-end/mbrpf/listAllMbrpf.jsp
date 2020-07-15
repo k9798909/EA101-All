@@ -46,6 +46,7 @@
   th, td {
     padding: 5px;
     text-align: center;
+    position:relative;
   }
 </style>
 
