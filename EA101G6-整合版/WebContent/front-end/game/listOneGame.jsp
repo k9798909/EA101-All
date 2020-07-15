@@ -63,8 +63,8 @@ h4 {
 							src="<%=request.getContextPath()%>/GameShowImg?gmno=${gameVO.gmno}"></td>
 						<td>
 							<FORM METHOD="post" ACTION="game.do" style="margin-bottom: 0px;">
-								<input type="submit" value="н╫зя"> <input type="hidden"
-									name="gmno" value="${gameVO.gmno}"> <input
+								<input type="submit" value="н╫зя" class="btn btn-secondary"> <input type="hidden"
+									name="gmno"  value="${gameVO.gmno}"> <input
 									type="hidden" name="action" value="getOne_For_Update">
 							</FORM>
 						</td>
