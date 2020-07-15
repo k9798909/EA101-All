@@ -67,7 +67,7 @@
 						  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/mbrpf/mbrpf.do" style="margin-bottom: 0px;">
 						     <input type="submit" value="н╫зя">
 						     <input type="hidden" name="mbrno"  value="${mbrpfVO.mbrno}">
-						     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
+						     <input type="hidden" name="action"	value="getOne_To_Update"></FORM>
 						</td>
 						
 				</table>

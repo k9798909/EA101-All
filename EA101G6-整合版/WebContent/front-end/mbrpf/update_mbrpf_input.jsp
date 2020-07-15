@@ -98,7 +98,6 @@ body {
 					enctype="multipart/form-data">
 					<table>
 						<tr>
-							<td class="tdtitle">會員頭像</td>
 							<td>會員頭像:</td>
 		<img alt=""src="<%= request.getContextPath()%>/mbrpf/mbrimg.do?mbrno=${mbrpfVO.mbrno}" width="200" height="175" id="demo1">		
 							<tr>
