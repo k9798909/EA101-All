@@ -12,48 +12,71 @@
 <title>會員資料修改 - update_mbrpf_input.jsp</title>
 
 <style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
+.mainF{
+	border:1px;
+	border-bottom-style: solid;
+	border-top-style: none;
+	border-left-style:none;
+	border-right-style:none;
+	background-color:transparent;
+}
+.mainF:focus{
+	outline: none;
+}
 
-<style>
-  table {
-	width: 450px;
-	background-color: white;
-	margin-top: 1px;
-	margin-bottom: 1px;
-  }
-  table, th, td {
-    border: 0px solid #CCCCFF;
-  }
-  th, td {
-    padding: 1px;
-  }
+.button{
+	display: inline-block;
+	max-height:24px;
+    text-align: center;
+    vertical-align: middle;
+    padding: 4px 6px;
+    border: 0px solid #ab612e;
+    border-radius: 50px;
+    background: #ffba82;
+    background: -webkit-gradient(linear, left top, left bottom, from(#ffba82), to(#f5c9ab));
+    background: -moz-linear-gradient(top, #ffba82, #f5c9ab);
+    background: linear-gradient(to bottom, #ffba82, #f5c9ab);
+    font: normal normal bold 12px arial;
+    color: #ffffff;
+    text-decoration: none;
+}
+.button:hover,
+.button:focus {
+    border: 0px solid ##d6793a;
+    background: #ffdf9c;
+    background: -webkit-gradient(linear, left top, left bottom, from(#ffdf9c), to(#fff1cd));
+    background: -moz-linear-gradient(top, #ffdf9c, #fff1cd);
+    background: linear-gradient(to bottom, #ffdf9c, #fff1cd);
+    color: #ffffff;
+    text-decoration: none;
+}
+.button:active {
+    background: #99704e;
+    background: -webkit-gradient(linear, left top, left bottom, from(#99704e), to(#f5c9ab));
+    background: -moz-linear-gradient(top, #99704e, #f5c9ab);
+    background: linear-gradient(to bottom, #99704e, #f5c9ab);
+}
+body {
+	background-size: cover;
+	background-repeat: no-repeat;
+	}
+
+</style>
 </style>
 
 </head>
 <body bgcolor='white'>
 
-<table id="table-1">
-	<tr><td>
-		 <h3>會員資料修改 - update_mbrpf_input.jsp</h3>
-		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
+<%@ include file="/front-end/front-end-nav.jsp"%>
 
-<h3>資料修改:</h3>
+<!-- <table id="table-1"> -->
+<!-- 	<tr><td> -->
+<!-- 		 <h3>會員資料修改 - update_mbrpf_input.jsp</h3> -->
+<!-- 		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4> -->
+<!-- 	</td></tr> -->
+<!-- </table> -->
+
+<!-- <h3>資料修改:</h3> -->
 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
@@ -65,89 +88,137 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="mbrpf.do" enctype="multipart/form-data">
-<table>
+	<div class="container">
+		<div class="row">
 
-	<tr>
-		<td>會員頭像:</td>
-		<img alt=""src="<%= request.getContextPath()%>/mbrpf/mbrimg.do?mbrno=${mbrpfVO.mbrno}" width="200" height="175" id="demo1">
-		<td><input type="FILE" name="mbrimg" onchange="loadFile1(event)" size="45"  /></td>
-	</tr>
-	<tr>
-		<td>會員編號:<font color=red><b>*</b></font></td>
-		<td><%=mbrpfVO.getMbrno()%></td>
-	</tr>
-	<tr>
-		<td>會員帳號:</td>
-		<td><input type="TEXT" name="mbract" size="45" value="<%=mbrpfVO.getMbract()%>" /></td>
-	</tr>
-	<tr>
-		<td>會員密碼:</td>
-		<td><input type="TEXT" name="mbrpw" size="45" value="<%=mbrpfVO.getMbrpw()%>" /></td>
-	</tr>
-	
-	<tr>
-		<td>會員姓名:</td>
-		<td><input type="TEXT" name="mbrname" size="45" value="<%=mbrpfVO.getMbrname()%>" /></td>
-	</tr>
-	<tr>
-		<td>出生年月日:</td>
-		<td><input name="birth" id="f_date1" type="text" value="<%=mbrpfVO.getBirth()%>" ></td>
-	</tr>
-	<tr>
-		<td>性別:</td>
-		<td><input type="TEXT" name="sex" size="45" value="<%=mbrpfVO.getSex()%>" /></td>
-	</tr>
-	<tr>
-		<td>電子郵件:</td>
-		<td><input type="TEXT" name="mail" size="45" value="<%=mbrpfVO.getMail()%>" /></td>
-	</tr>
-	<tr>
-		<td>電話:</td>
-		<td><input type="TEXT" name="phone" size="45" value="<%=mbrpfVO.getPhone()%>" /></td>
-	</tr>
-	<tr>
-		<td>接收款項帳戶:</td>
-		<td><input type="TEXT" name="mbrac" size="45" value="<%=mbrpfVO.getMbrac()%>" /></td>
-	</tr>
-	<tr>
-		<td>暱稱:</td>
-		<td><input type="TEXT" name="nickname" size="45" value="<%=mbrpfVO.getNickname()%>" /></td>
-	</tr>
-<!-- 	<tr> -->
-<!-- 		<td>點數餘額:</td> -->
-<%-- 		<td><input type="TEXT" name="points" size="45" value="<%=mbrpfVO.getPoints()%>" /></td> --%>
-<!-- 	</tr> -->
-<!-- 	<tr> -->
-<!-- 		<td>一般會員狀態:</td> -->
-<%-- 		<td><input type="TEXT" name="status" size="45" value="<%=mbrpfVO.getStatus()%>" /></td> --%>
-<!-- 	</tr> -->
-<!-- 	<tr> -->
-<!-- 		<td>被評價總人數:</td> -->
-<%-- 		<td><input type="TEXT" name="ratedtotal" size="45" value="<%=mbrpfVO.getRatedtotal()%>" /></td> --%>
-<!-- 	</tr> -->
-<!-- 	<tr> -->
-<!-- 		<td>被評價總星數:</td> -->
-<%-- 		<td><input type="TEXT" name="startotal" size="45" value="<%=mbrpfVO.getStartotal()%>" /></td> --%>
-<!-- 	</tr> -->
-<!-- 	<tr> -->
-<!-- 		<td>未出席次數:</td> -->
-<%-- 		<td><input type="TEXT" name="unattend" size="45" value="<%=mbrpfVO.getUnattend()%>" /></td> --%>
-<!-- 	</tr> -->
-<!-- 	<tr> -->
-<!-- 		<td>總參團次數:</td> -->
-<%-- 		<td><input type="TEXT" name="ttattend" size="45" value="<%=mbrpfVO.getTtattend()%>" /></td> --%>
-<!-- 	</tr> -->
-	
+			<div class="col-4"></div>
+			<div class="col-7">
+				<FORM METHOD="post"
+					ACTION="<%=request.getContextPath()%>/front-end/mbrpf/mbrpf.do" name="form1"
+					enctype="multipart/form-data">
+					<table>
+						<tr>
+							<td class="tdtitle">會員頭像</td>
+							<td>會員頭像:</td>
+		<img alt=""src="<%= request.getContextPath()%>/mbrpf/mbrimg.do?mbrno=${mbrpfVO.mbrno}" width="200" height="175" id="demo1">		
+							<tr>
+							<tr style="display: none">
+								<td>會員編號:<font color=red><b>*</b></font></td>
+								<td><%=mbrpfVO.getMbrno()%></td>
+							</tr>
+							
+						<td><label><input type="FILE" class="mainF" name="mbrimg" style="display:none"
+								onchange="loadFile1(event)" size="30" /><a class="button">上傳圖片</a></label></td>
+						</tr>
+						</tr><tr>
+							<td class="tdtitle">一般會員帳號</td>
+						<tr>
+							<td><input type="TEXT" class="mainF" name="mbract" size="45"
+								value="<%=mbrpfVO.getMbract()%>" /></td>
 
-	
+						</tr>
+						<tr>
+							<td class="tdtitle">一般會員密碼</td>
+						<tr>
+							<td><input type="TEXT" class="mainF" name="mbrpw" size="45"
+								value="<%=mbrpfVO.getMbrpw()%>" /></td>
+						</tr>
+						</tr>
+						<tr>
+							<td class="tdtitle">會員姓名</td>
+						<tr>
+							<td><input type="TEXT" class="mainF" name="mbrname" size="45"
+								value="<%=mbrpfVO.getMbrname()%>" /></td>
+						</tr>
+						</tr>
+						<tr>
+							<td class="tdtitle"><a>生日</a><a style="position: relative; right: -180px;">性別</a></td>
+						<tr>
+							<td><input name="birth" class="mainF" id="f_date1" type="date" value="<%=mbrpfVO.getBirth()%>">
+								<a style="position: relative; right: -50px;"><input type="radio" name="sex" value="1" <%=mbrpfVO.getSex()==1?"checked":""%>>男
+								<input type="radio" name="sex" value="2" <%=mbrpfVO.getSex()==2?"checked":""%>>女</a></td>
+						</tr>
+						</tr>
 
 
-</table>
-<br>
-<input type="hidden" name="action" value="update">
-<input type="hidden" name="mbrno" value="<%=mbrpfVO.getMbrno()%>">
-<input type="submit" value="送出修改"></FORM>
+						<tr>
+							<td class="tdtitle">電子郵件</td>
+						<tr>
+							<td><input type="TEXT" class="mainF" name="mail" size="45"
+								value="<%=mbrpfVO.getMail()%>" /></td>
+						</tr>
+						</tr>
+						<tr>
+							<td class="tdtitle">電話</td>
+						<tr>
+							<td><input type="TEXT" class="mainF" name="phone" size="45"
+								value="<%=mbrpfVO.getPhone()%>" /></td>
+						</tr>
+						</tr>
+						<tr>
+							<td class="tdtitle">接收款項帳戶</td>
+						<tr>
+							<td><input type="TEXT" class="mainF" name="mbrac" size="45"
+								value="<%=mbrpfVO.getMbrac()%>" /></td>
+						</tr>
+						</tr>
+						<tr>
+							<td class="tdtitle">暱稱</td>
+						<tr>
+							<td><input type="TEXT" class="mainF" name="nickname" size="45"
+								value="<%=mbrpfVO.getNickname()%>" /></td>
+						</tr>
+						</tr>
+						<tr style="display: none">
+							<td class="tdtitle">點數餘額:</td>
+							<td><input type="TEXT" name="points" size="45"
+								value="<%=mbrpfVO.getPoints()%>" /></td>
+						</tr>
+						<tr style="display: none">
+							<td class="tdtitle">一般會員狀態:</td>
+							<td><input type="TEXT" name="status" size="45"
+								value="<%=mbrpfVO.getStatus()%>" /></td>
+						</tr>
+						<tr style="display: none">
+							<td class="tdtitle">被評價總人數:</td>
+							<td><input type="TEXT" name="ratedtotal" size="45"
+								value="<%=mbrpfVO.getRatedtotal()%>" /></td>
+						</tr>
+						<tr style="display: none">
+							<td class="tdtitle">被評價總星數:</td>
+							<td><input type="TEXT" name="startotal" size="45"
+								value="<%=mbrpfVO.getStartotal()%>" /></td>
+						</tr>
+						<tr style="display: none">
+							<td class="tdtitle">未出席次數:</td>
+							<td><input type="TEXT" name="unattend" size="45"
+								value="<%=mbrpfVO.getUnattend()%>" /></td>
+						</tr>
+						<tr style="display: none">
+							<td class="tdtitle">總參團次數:</td>
+							<td><input type="TEXT" name="ttattend" size="45"
+								value="<%=mbrpfVO.getTtattend()%>" /></td>
+						</tr>
+						
+						
+						
+						
+
+					</table>
+					<br>
+						<input type="hidden" name="action" value="update">
+						<input type="hidden" name="mbrno" value="<%=mbrpfVO.getMbrno()%>">
+						<input type="submit" value="送出修改"></FORM>
+				</FORM>
+			</div>
+
+			<div class="col-1"></div>
+		</div>
+	</div>
+
+
+
+
 </body>
 
 
