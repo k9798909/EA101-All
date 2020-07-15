@@ -180,9 +180,18 @@ div.pageselect-area {
 	$(document).ready(function(){
 		$("#upshgm,#myshgm,#seller").click(function(){
 			if($('#mbrpfVO').val() === ''){
-				alert('您未登入');
-				window.location.href = "<%= request.getContextPath()%>/front-end/shgm/simpleLogin.jsp";
-				return false;
+				Swal.fire({
+					  title: '您尚未登入',
+					  icon: 'info',
+					  html:'請先登入再執行動作',
+					  showCancelButton: true,
+					  focusConfirm: false,
+					  confirmButtonText:
+					    '<a style="color:white;" href="<%=request.getContextPath()%>/front-end/login.jsp" class="fa">前往登入</a>',
+					  cancelButtonText:
+					    '<span class="fa fa-thumbs-down">繼續逛逛</span>',
+					})
+				event.preventDefault();
 			}
 		});
 	});

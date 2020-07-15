@@ -683,7 +683,7 @@ public class ShgmServlet extends HttpServlet {
 						String detail = null;
 						ShgmrpService shgmrpsvc = new ShgmrpService();
 						// 判斷是否有被檢舉的內容
-						if (shgmrpsvc.getOnerpByShgmno(shgmno) != null) {
+						if(shgmrpsvc.getOnerpByShgmno(shgmno).getStatus() == 1){
 							detail = shgmrpsvc.getOnerpByShgmno(shgmno).getDetail();
 						} else {
 							detail = "自行下架";

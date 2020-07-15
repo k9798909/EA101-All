@@ -78,7 +78,7 @@
 </head>
 <body>
 
-<jsp:include page="/back-end/back-end_nav.jsp"></jsp:include>
+<jsp:include page="/back-end/back-end_nav-boyuan.jsp"></jsp:include>
 <jsp:include page="/back-end/shgm/shgm_select_page.jsp"></jsp:include>
 
 <ul>
@@ -255,12 +255,16 @@
 		</tr>
 		</c:forEach>
 	</table>
+	<jsp:include page="/back-end/shgm/alert-area-backend.jsp"></jsp:include>
+	
 	<input type="hidden" id="mbrno" value="shgmBackEnd">
 	<input type="hidden" id="wsShgmno" value="${param.shgmno}">
 </div>
-	<%@ include file="page2.file" %>
+	<%@ include file="/back-end/shgmrp/page2.file" %>
 		
+	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/ajaxForMbrmsgs-backend.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/wsForShgm.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/jsForAlert-area.js"></script>
 	<script>
 	function showmodal(){
 		$(this).modal("show");

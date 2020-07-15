@@ -55,12 +55,9 @@ public class WsMessage {
 
 			String MbrnoKey = Mbrno + ":Msg";
 			String mbrMsgJson = jedis.lindex(MbrnoKey, index);// 從索引值取出
-			System.out.println(mbrMsgJson);
 			MsgVO msgvo = gson.fromJson(mbrMsgJson, MsgVO.class);
 			msgvo.setRead(1);// 設為已讀
 			String msgvoJson = gson.toJson(msgvo);
-			System.out.println(index);
-			System.out.println(msgvoJson);
 			jedis.lset(MbrnoKey, index, msgvoJson);// 存回原本的索引值
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
