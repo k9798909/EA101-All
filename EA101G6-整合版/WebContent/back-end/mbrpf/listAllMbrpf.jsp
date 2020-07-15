@@ -36,7 +36,7 @@
   }
   table {
 	width: 800px;
-	background-color: white;
+	background-color: rgba(210,210,210,0.6);
 	margin-top: 5px;
 	margin-bottom: 5px;
   }
