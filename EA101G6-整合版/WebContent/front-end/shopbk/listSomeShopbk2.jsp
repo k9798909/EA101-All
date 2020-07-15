@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.shopbk.model.*"%>
-<%@ include file="/front-end/front-end-nav.jsp" %>
+<%@ include file="/front-end/front-end-nav.jsp"%>
 <%
 	ShopbkService shopbkSvc = new ShopbkService();
 	String shopno = request.getParameter("shopno");
@@ -15,17 +15,12 @@
 <head>
 <meta charset="utf-8">
 
-	<style>
+<style>
 table {
 	margin-top: 10px;
 }
 
-tr th {
-	border: 2px solid black;
-	text-align: center;
-}
-
-td {
+td th tr {
 	text-align: center;
 }
 
@@ -34,29 +29,25 @@ td {
 	height: 20px;
 }
 
-tr:nth-child(odd) {
-	background-color: #FFED97;
-}
-
 img {
 	width: 50px;
 	height: 50px;
 }
-div { 
-	margin-left: auto;
-	margin-right: auto;
- } 
- .class { 
+
+.class {
 	margin-left: 200px;
 	margin-right: auto;
- } 
+}
+
 h4 {
 	margin-left: 20px;
 }
-button{
+
+button {
 	margin-left: auto;
 	margin-right: auto;
 }
+
 .xdsoft_datetimepicker .xdsoft_datepicker {
 	width: 300px; /* width:  300px; */
 }
@@ -73,134 +64,168 @@ button{
 <script src="../../datetimepicker/jquery.datetimepicker.full.js"></script>
 <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
 <body>
-
-<div class="row">
-		<div class="col-sm-4"></div></div>
-		<div class="col-sm-5">
-<div>
-<div>
-<button data-toggle="modal" data-target="#exampleModal" class="btn btn-primary btn-lg">新增</button></div>
-	<table>
-		<tr>
-			<th>店家編號</th>
-			<th>提供人數</th>
-			<th>開始時間</th>
-			<th>結束時間</th>
-			<th>以小時計算</th>
-			<th>包日</th>
-		</tr>
-		<c:forEach var="shopbkVO" items="${list}">
-			<tr>
-				<td>${shopbkVO.shopno}</td>
-				<td>${shopbkVO.ofdtable}</td>
-				<td>${shopbkVO.shoppds}</td>
-				<td>${shopbkVO.shoppde}</td>
-				<td>${shopbkVO.payinfohr}</td>
-				<td>${shopbkVO.payinfoday}</td>
-			</tr>
-		</c:forEach>
-	</table>
-</div>
-</div>
-
-
-
-<div class="modal fade" id="exampleModal" tabindex="-1"
-					role="dialog" aria-labelledby="exampleModalLabel"
-					aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content rp-2">				
-			<div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLabel">提供訂位</h3>
-                <hr class="my-3">
-            </div>
-			
-			<div class="modal-body">
-				<div class="form-group">
-<!-- =========================================以下為原listOneEmp.jsp的內容========================================== -->
-               <FORM id="create" METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/shopbk/shopbk.do">
-			<table>
-			<input type="hidden" name="shopno" value="<%=shopno%>"/>
-<%-- 					value="<%=(shopbkVO == null) ? "" : shopbkVO.getShopno()%>"  --%>
-				
-			<tr>
-				<td>提供人數:</td>
-				<td><input type="TEXT" name="ofdtable"
-<%-- 					value="<%=(shopbkVO == null) ? "" : shopbkVO.getOfdtable()%>"  --%>
-					/></td>
-			</tr>
-			<tr>
-				<td>起:</td>
-				<td><input type="TEXT" name="shoppds"  id="f_date1"
-<%-- 					value="<%=(shopbkVO == null) ? "" : shopbkVO.getShoppds()%>"  --%>
-					/></td>
-			</tr>
-			<tr>
-				<td>迄:</td>
-				<td><input type="TEXT" name="shoppde"  id="f_date2"
-<%-- 					value="<%=(shopbkVO == null) ? "" : shopbkVO.getShoppde()%>"  --%>
-					/></td>
-			</tr>
-			<tr>
-				<td>每小時:</td>
-				<td><input type="TEXT" name="payinfohr" 
-<%-- 			value="<%=(shopbkVO == null) ? "" : shopbkVO.getPayinfohr()%>"  --%>
-				/>元</td>
-			</tr>
-			<tr>
-				<td>包日:</td>
-				<td><input type="TEXT" name="payinfoday" 
-<%-- 					value="<%=(shopbkVO == null) ? "" : shopbkVO.getPayinfoday()%>"  --%>
-					/>元</td>
-			</tr>
-		</table>
-		<br> <input type="hidden" name="action" value="insert">
-	</FORM>
-
-<!-- =========================================以上為原listOneEmp.jsp的內容========================================== -->
-			</div></div>
-			
-			<div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button id="go" type="button" class="btn btn-primary">送出新增</button>
-            </div>
-		
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-3">
+				<div style="witdh: 20px;">
+					<ul class="list-group list-group-item-action">
+						<li class="list-group-item list-group-item-action"
+							onclick="location.href='<%=request.getContextPath()%>/front-end/shop/shopArea.jsp';">我的資訊</li>
+						<li class="list-group-item list-group-item-action" id="goGmlist"
+							onclick="location.href='<%=request.getContextPath()%>/front-end/gmlist/addGmlist.jsp';">我的遊戲</li>
+						<FORM id="gmlist" METHOD="post"
+							ACTION="<%=request.getContextPath()%>/front-end/gmlist/gmlist.do">
+							<input type="hidden" name="shopno" value="${shopVO.shopno}">
+							<input type="hidden" name="action" value="getSome_For_Display">
+						</FORM>
+						<li class="list-group-item list-group-item-action active"
+							id="goShopbk">我的揪團</li>
+						<FORM id="shopbk" METHOD="post"
+							ACTION="<%=request.getContextPath()%>/front-end/shopbk/shopbk.do">
+							<input type="hidden" name="shopno" value="${shopVO.shopno}">
+							<input type="hidden" name="action" value="getSome_For_Display2">
+						</FORM>
+						<li class="list-group-item list-group-item-action" id="goUpdate">更改店家資料</li>
+						<FORM id="getOne_For_Update" METHOD="post"
+							ACTION="<%=request.getContextPath()%>/front-end/shop/shop.do">
+							<input type="hidden" name="action" value="getOne_For_Update">
+						</FORM>
+						<li class="list-group-item list-group-item-action" id="goUpdate">我的訂位</li>
+						<FORM id="getOne_For_Update" METHOD="post"
+							ACTION="<%=request.getContextPath()%>/front-end/shop/shop.do">
+							<input type="hidden" name="action" value="getOne_For_Update">
+						</FORM>
+					</ul>
+				</div>
+			</div>
+			<!-- 		<div class="col-sm-1"></div> -->
+			<div class="col-sm-8">
+				<div>
+					<div>
+						<button data-toggle="modal" data-target="#exampleModal"
+							class="btn btn-primary btn-lg">新增</button>
+					</div>
+					<table class="table table-sm">
+						<tr>
+							<th scope="col">店家編號</th>
+							<th scope="col">提供人數</th>
+							<th scope="col">開始時間</th>
+							<th scope="col">結束時間</th>
+							<th scope="col">以小時計算</th>
+							<th scope="col">包日</th>
+						</tr>
+						<c:forEach var="shopbkVO" items="${list}">
+							<tr>
+								<td>${shopbkVO.shopno}</td>
+								<td>${shopbkVO.ofdtable}</td>
+								<td>${shopbkVO.shoppds}</td>
+								<td>${shopbkVO.shoppde}</td>
+								<td>${shopbkVO.payinfohr}</td>
+								<td>${shopbkVO.payinfoday}</td>
+							</tr>
+						</c:forEach>
+					</table>
+				</div>
+			</div>
 		</div>
 	</div>
-</div>
-<!-- 	=================================datetimepicker============================ -->
+
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content rp-2">
+				<div class="modal-header"  style="text-align:center;">
+				</div>
+
+				<div class="modal-body">
+					<div class="form-group">
+						<!-- =========================================以下為原listOneEmp.jsp的內容========================================== -->
+						<div class="container">
+							<FORM id="create" METHOD="post"
+								ACTION="<%=request.getContextPath()%>/front-end/shopbk/shopbk.do">
+
+								<input type="hidden" name="shopno" value="<%=shopno%>" />
+								<%-- 					value="<%=(shopbkVO == null) ? "" : shopbkVO.getShopno()%>"  --%>
+								<div class="form-row">
+									<div class="form-group col-md-4">
+										<label for="1">提供人數</label> <input type="TEXT"
+											name="ofdtable" class="form-control" id="1" placeholder="單位:人頭"/>
+										<%-- 					value="<%=(shopbkVO == null) ? "" : shopbkVO.getOfdtable()%>"  --%>
+									</div>
+									<div class="form-group col-md-4">
+										<label for="2">每小時</label> <input type="TEXT"
+											name="payinfohr" class="form-control" id="2" placeholder="每小時/元"/>
+									</div>
+									<div class="form-group col-md-4">
+										<label for="3">包日:</label> <input type="TEXT"
+											name="payinfoday" class="form-control" id="3" placeholder="整天/元"/>
+									</div>
+								</div>
+								<div class="form-row">
+									<div class="form-group col-md-12">
+										<label for="f_date1">起:</label> <input type="datetime"
+											name="shoppds" id="f_date1" class="form-control" />
+									</div>
+								</div>
+								<div class="form-row">
+									<div class="form-group col-md-12">
+										<label for="f_date2">迄:</label> <input type="datetime"
+											name="shoppde" id="f_date2" class="form-control" />
+									</div>
+									</div>
+								 <input type="hidden" name="action" value="insert">
+							</FORM>
+						</div>
+						<!-- =========================================以上為原listOneEmp.jsp的內容========================================== -->
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button id="go" type="button" class="btn btn-primary">送出新增</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- 	=================================datetimepicker============================ -->
 	<script>
-	$.datetimepicker.setLocale('en'); // kr ko ja en
-	$('#f_date1').datetimepicker({
-		theme : '', //theme: 'dark',
-		timepicker : true, //timepicker: false,
-		step : 30, //step: 60 (這是timepicker的預設間隔60分鐘)
-		format : 'Y-m-d H:i:s',
-		value : new Date(),
-		//disabledDates:    ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
-		//startDate:	        '2017/07/10',  // 起始日
-		minDate : '-1970-01-01 00:00:00', // 去除今日(不含)之前
+		$.datetimepicker.setLocale('en'); // kr ko ja en
+		$('#f_date1').datetimepicker({
+			theme : '', //theme: 'dark',
+			timepicker : true, //timepicker: false,
+			step : 30, //step: 60 (這是timepicker的預設間隔60分鐘)
+			format : 'Y-m-d H:i:s',
+			value : new Date(),
+			//disabledDates:    ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
+			//startDate:	        '2017/07/10',  // 起始日
+			minDate : '-1970-01-01 00:00:00', // 去除今日(不含)之前
 		//maxDate:  '+1970-01-01'  // 去除今日(不含)之後
-	});
-	$('#f_date2').datetimepicker({
-		theme : '', //theme: 'dark',
-		timepicker : true, //timepicker: false,
-		step : 30, //step: 60 (這是timepicker的預設間隔60分鐘)
-		format : 'Y-m-d H:i:s',
-		value : new Date(),
-		//disabledDates:    ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
-		//startDate:	        '2017/07/10',  // 起始日
-		minDate : '-1970-01-01 00:00:00', // 去除今日(不含)之前
-	//maxDate:           '+1970-01-01'  // 去除今日(不含)之後
-	});
-	
+		});
+		$('#f_date2').datetimepicker({
+			theme : '', //theme: 'dark',
+			timepicker : true, //timepicker: false,
+			step : 30, //step: 60 (這是timepicker的預設間隔60分鐘)
+			format : 'Y-m-d H:i:s',
+			value : new Date(),
+			//disabledDates:    ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
+			//startDate:	        '2017/07/10',  // 起始日
+			minDate : '-1970-01-01 00:00:00', // 去除今日(不含)之前
+		//maxDate:           '+1970-01-01'  // 去除今日(不含)之後
+		});
 	</script>
 	<script>
-	$(document).ready(function(){
-		$("#go").click(function(){
-			$("#create").submit();
+		$(document).ready(function() {
+			$("#go").click(function() {
+				$("#create").submit();
+			})
+			$("#goUpdate").click(function() {
+				$("#getOne_For_Update").submit();
+			})
+			$("#goShopbk").click(function() {
+				$("#shopbk").submit();
+			})
 		})
-	})	
 	</script>
 
 </body>

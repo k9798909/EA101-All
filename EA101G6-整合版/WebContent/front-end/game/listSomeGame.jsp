@@ -23,23 +23,14 @@ table {
 	margin-top: 10px;
 }
 
-tr th {
-	border: 2px solid black;
+td th tr {
 	text-align: center;
 }
-
-td {
-	text-align: center;
-}
-
 .icon {
 	width: 20px;
 	height: 20px;
 }
 
-tr:nth-child(odd) {
-	background-color: #FFED97;
-}
 
 img {
 	width: 50px;
@@ -54,24 +45,11 @@ h4 {
 
 <body>
 
-<%@ include file="/front-end/front-end-nav.jsp" %>
+<jsp:include page="/front-end/front-end-nav.jsp" flush="true"></jsp:include>
 
-<h4>
-	<a href="../shop/index.jsp"><img src="images/add-icon.png"
-		class="icon">回首頁</a>
-</h4>
 
-<jsp:include page="select_page.jsp" flush="true">
-	<jsp:param name="" value="" />
-</jsp:include>
+<jsp:include page="select_page.jsp" flush="true"></jsp:include>
 
-<table>
-	<tr style="background-color: #FFFFFF; border: 0px; font:;">
-		<td style="background-color: #FFFFFF; border: 0px;">
-			<h3>遊戲列表</h3>
-		</td>
-	</tr>
-</table>
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
 	<font style="color: red">請修正以下錯誤:</font>
@@ -81,31 +59,43 @@ h4 {
 		</c:forEach>
 	</ul>
 </c:if>
-<div>
-	<table>
-		<tr>
-			<th>遊戲編號</th>
-			<th>遊戲名稱</th>
-			<th>遊戲圖片</th>
-			<th>修改</th>
-		</tr>
-		<c:forEach var="gameVO" items="${list}">
-			<tr>
-				<td>${gameVO.gmno}</td>
-				<td>${gameVO.gmname}</td>
-				<td><img
-					src="<%=request.getContextPath()%>/GameShowImg?gmno=${gameVO.gmno}"></td>
-				<td>
-					<FORM METHOD="post" ACTION="game.do" style="margin-bottom: 0px;">
-						<input type="submit" value="修改"> <input type="hidden"
-							name="gmno" value="${gameVO.gmno}"> <input type="hidden"
-							name="action" value="getOne_For_Update">
-					</FORM>
-				</td>
-			</tr>
-		</c:forEach>
-	</table>
-</div>
+<div class="container">
+		<div class="row">
+			<%@ include file="page1.file"%>
+			<table class="table table-sm">
+				<tr>
+					<th>遊戲編號</th>
+					<th>遊戲名稱</th>
+					<th>遊戲圖片</th>
+					<th>修改</th>
+				</tr>
+				<c:forEach var="gameVO" items="${list}" begin="<%=pageIndex%>"
+					end="<%=pageIndex+rowsPerPage-1%>">
+					<tr>
+						<td>${gameVO.gmno}</td>
+						<td>${gameVO.gmname}</td>
+						<td><img
+							src="<%=request.getContextPath()%>/GameShowImg?gmno=${gameVO.gmno}"></td>
+						<td>
+							<FORM METHOD="post" ACTION="game.do" style="margin-bottom: 0px;">
+								<input type="submit" value="修改"> <input type="hidden"
+									name="gmno" value="${gameVO.gmno}"> <input
+									type="hidden" name="action" value="getOne_For_Update">
+							</FORM>
+						</td>
+					</tr>
+				</c:forEach>
+			</table>
+			<div class="d-flex justify-content-center container"
+				style="margin-left: auto; margin-right: auto;">
+				<div class="row">
+					<div class="col-sm-12">
+						<%@ include file="page2.file"%>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 

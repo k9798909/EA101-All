@@ -18,12 +18,7 @@ table {
 	margin-top: 10px;
 }
 
-tr th {
-	border: 2px solid black;
-	text-align: center;
-}
-
-td {
+td th tr {
 	text-align: center;
 }
 
@@ -32,9 +27,6 @@ td {
 	height: 20px;
 }
 
-tr:nth-child(odd) {
-	background-color: #FFED97;
-}
 
 img {
 	width: 50px;
@@ -49,36 +41,37 @@ h4 {
 
 <body>
 
-<%@ include file="/front-end/front-end-nav.jsp" %>
+<jsp:include page="/front-end/front-end-nav.jsp" flush="true"></jsp:include>
 
-<h4>
-	<a href="../shop/index.jsp"><img src="images/add-icon.png" class="icon">回首頁</a>
-</h4>
 
-<jsp:include page="select_page.jsp" flush="true">
-	<jsp:param name="" value="" />
-</jsp:include>
 
-<table>
-	<tr>
-		<th>遊戲編號</th>
-		<th>遊戲名稱</th>
-		<th>遊戲圖片</th>
-		<th>修改</th>
-	</tr>
-	<tr>
-		<td><%=gameVO.getGmno()%></td>
-		<td><%=gameVO.getGmname()%></td>
-		<td><img src="<%=request.getContextPath()%>/GameShowImg?gmno=${gameVO.gmno}" /></td>
-		<td>
-					<FORM METHOD="post" ACTION="game.do" style="margin-bottom: 0px;">
-						<input type="submit" value="修改"> <input type="hidden"
-							name="gmno" value="${gameVO.gmno}"> <input
-							type="hidden" name="action" value="getOne_For_Update">
-					</FORM>
-		</td>
-	</tr>
-</table>
+<jsp:include page="select_page.jsp" flush="true"></jsp:include>
+
+<div class="container">
+		<div class="row">
+			<table class="table table-sm">
+				<tr>
+					<th>遊戲編號</th>
+					<th>遊戲名稱</th>
+					<th>遊戲圖片</th>
+					<th>修改</th>
+				</tr>
+					<tr>
+						<td>${gameVO.gmno}</td>
+						<td>${gameVO.gmname}</td>
+						<td><img
+							src="<%=request.getContextPath()%>/GameShowImg?gmno=${gameVO.gmno}"></td>
+						<td>
+							<FORM METHOD="post" ACTION="game.do" style="margin-bottom: 0px;">
+								<input type="submit" value="修改"> <input type="hidden"
+									name="gmno" value="${gameVO.gmno}"> <input
+									type="hidden" name="action" value="getOne_For_Update">
+							</FORM>
+						</td>
+					</tr>
+			</table>
+		</div>
+	</div>
 
 </body>
 </html>

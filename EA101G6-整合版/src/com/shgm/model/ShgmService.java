@@ -14,9 +14,9 @@ public class ShgmService {
 		dao = new ShgmDAO();
 	}
 
-	public ShgmVO addShgm(String sellerno, String buyerno, String shgmname, Integer price,
-			String intro, byte[] img, Integer upcheck, Timestamp uptime, String take, String takernm, String takerph, String address,
-			Integer boxstatus, Integer paystatus, Integer status,Timestamp soldtime) {
+	public ShgmVO addShgm(String sellerno, String buyerno, String shgmname, Integer price, String intro, byte[] img,
+			Integer upcheck, Timestamp uptime, String take, String takernm, String takerph, String address,
+			Integer boxstatus, Integer paystatus, Integer status, Timestamp soldtime) {
 
 		ShgmVO shgmvo = new ShgmVO();
 
@@ -36,18 +36,18 @@ public class ShgmService {
 		shgmvo.setPaystatus(paystatus);
 		shgmvo.setStatus(status);
 		shgmvo.setSoldtime(soldtime);
-		
+
 		ShgmService shgmsvc = new ShgmService();
 		shgmvo = shgmsvc.timeUpdate(shgmvo);
-		
+
 		dao.insertShgm(shgmvo);
 
 		return shgmvo;
 	}
 
 	public ShgmVO updateShgm(String shgmno, String sellerno, String buyerno, String shgmname, Integer price,
-			String intro, byte[] img, Integer upcheck, Timestamp uptime, String take, String takernm, String takerph, String address,
-			Integer boxstatus, Integer paystatus, Integer status,Timestamp soldtime) {
+			String intro, byte[] img, Integer upcheck, Timestamp uptime, String take, String takernm, String takerph,
+			String address, Integer boxstatus, Integer paystatus, Integer status, Timestamp soldtime) {
 
 		ShgmVO shgmvo = new ShgmVO();
 		shgmvo.setShgmno(shgmno);
@@ -67,18 +67,18 @@ public class ShgmService {
 		shgmvo.setPaystatus(paystatus);
 		shgmvo.setStatus(status);
 		shgmvo.setSoldtime(soldtime);
-		
+
 		ShgmService shgmsvc = new ShgmService();
 		shgmvo = shgmsvc.timeUpdate(shgmvo);
-		
+
 		dao.update(shgmvo);
 
 		return shgmvo;
 	}
 
 	public ShgmVO updateShgm(String shgmno, String sellerno, String buyerno, String shgmname, Integer price,
-			String intro, byte[] img, Integer upcheck, Timestamp uptime, String take, String takernm, String takerph, String address,
-			Integer boxstatus, Integer paystatus, Integer status,Timestamp soldtime, MbrpfVO mbrpfVO) {
+			String intro, byte[] img, Integer upcheck, Timestamp uptime, String take, String takernm, String takerph,
+			String address, Integer boxstatus, Integer paystatus, Integer status, Timestamp soldtime, MbrpfVO mbrpfVO) {
 
 		ShgmVO shgmvo = new ShgmVO();
 		shgmvo.setShgmno(shgmno);
@@ -98,7 +98,7 @@ public class ShgmService {
 		shgmvo.setPaystatus(paystatus);
 		shgmvo.setStatus(status);
 		shgmvo.setSoldtime(soldtime);
-		
+
 		ShgmService shgmsvc = new ShgmService();
 		shgmvo = shgmsvc.timeUpdate(shgmvo);
 
@@ -106,10 +106,10 @@ public class ShgmService {
 
 		return shgmvo;
 	}
-	
+
 	public ShgmVO updateShgm(String shgmno, String sellerno, String buyerno, String shgmname, Integer price,
-			String intro, byte[] img, Integer upcheck, Timestamp uptime, String take, String takernm, String takerph, String address,
-			Integer boxstatus, Integer paystatus, Integer status,Timestamp soldtime, Connection con) {
+			String intro, byte[] img, Integer upcheck, Timestamp uptime, String take, String takernm, String takerph,
+			String address, Integer boxstatus, Integer paystatus, Integer status, Timestamp soldtime, Connection con) {
 
 		ShgmVO shgmvo = new ShgmVO();
 		shgmvo.setShgmno(shgmno);
@@ -129,7 +129,7 @@ public class ShgmService {
 		shgmvo.setPaystatus(paystatus);
 		shgmvo.setStatus(status);
 		shgmvo.setSoldtime(soldtime);
-		
+
 		ShgmService shgmsvc = new ShgmService();
 		ShgmVO shgmvo2 = shgmsvc.timeUpdate(shgmvo);
 
@@ -175,7 +175,7 @@ public class ShgmService {
 
 		return dao.findByPrimaryKey(shgmno);
 	}
-	
+
 	public HashMap<String, String> splitAddress(String address) {
 		HashMap<String, String> hashmap = new HashMap<String, String>();
 		// 將address分割為city、area、ads
@@ -228,12 +228,15 @@ public class ShgmService {
 
 		return dao.getAllForMain();
 	}
-	
-	public List<ShgmVO> getAllForInfoShuffle() {
 
-		return dao.getAllForInfoShuffle();
+	public List<ShgmVO> getAllShuffled() {
+
+		List<ShgmVO> list = dao.getAllForInfoShuffle();
+		Collections.shuffle(list);
+
+		return list;
 	}
-	
+
 	public Set<ShgmVO> allForPersonalMkt(String sellerno) {
 
 		return dao.allForPpersonalMkt(sellerno);
@@ -243,10 +246,10 @@ public class ShgmService {
 
 		return dao.searchForMain(word);
 	}
-	
+
 	public Set<ShgmVO> getAllShgmUncheck() {
 
 		return dao.getAllUncheck();
-	} 
+	}
 
 }

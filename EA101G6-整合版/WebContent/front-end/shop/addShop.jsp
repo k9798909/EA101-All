@@ -73,12 +73,12 @@ img {
 							placeholder="±b¸¹" />
 					</div>
 				</div>
-<!-- 				<div class="form-row"> -->
-<!-- 					<div class="col-md-12"> -->
-<!-- 						<label for="inputEmail">Email</label> <input type="email" -->
-<!-- 							class="form-control" id="inputEmail" placeholder="Email"> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
+				<div class="form-row">
+					<div class="col-md-12">
+						<label for="inputEmail">Email</label> <input type="email" name="email"
+							class="form-control" id="inputEmail" placeholder="Email">
+					</div>
+				</div>
 
 				<div class="form-row">
 					<div class="form-group col-md-6">

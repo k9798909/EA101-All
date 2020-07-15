@@ -124,7 +124,7 @@ public class MbrpfDAO implements MbrpfDAO_interface {
 			pstmt.setInt(14, mbrpfVO.getStartotal());
 			pstmt.setInt(15, mbrpfVO.getUnattend());
 			pstmt.setInt(16, mbrpfVO.getTtattend());
-
+			pstmt.setString(17, mbrpfVO.getMbrno());
 			pstmt.executeUpdate();
 
 			// Handle any driver errors

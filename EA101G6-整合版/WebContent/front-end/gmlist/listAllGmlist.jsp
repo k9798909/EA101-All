@@ -2,13 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.gmlist.model.*"%>
-<%@ page import="com.shop.model.*"%>
-<%@ page import="com.game.model.*"%>
 
 <%
 	GmlistService gmlistSvc = new GmlistService();
-	ShopService shopSvc = new ShopService();
-	GameService gameSvc = new GameService();
 	List<GmlistVO> list = gmlistSvc.getAll();
 	pageContext.setAttribute("list", list);
 %>
@@ -25,7 +21,7 @@ table {
 }
 
 tr th {
-	border: 2px solid black;
+
 	text-align: center;
 }
 
@@ -38,9 +34,6 @@ td {
 	height: 20px;
 }
 
-tr:nth-child(odd) {
-	background-color: #FFED97;
-}
 
 img {
 	width: 150px;
@@ -77,8 +70,10 @@ h4 {
 		</c:forEach>
 	</ul>
 </c:if>
-
-	<table>
+<div class="container">
+		<div class="row">
+			<%@ include file="page1.file"%>
+	<table class="table table-sm">
 		<tr>
 			<th>店家名稱</th>
 			<th>店家照片</th>
@@ -86,21 +81,44 @@ h4 {
 			<th>遊戲名稱</th>
 			<th>遊戲圖片</th>
 		</tr>
-		<% for(GmlistVO gmlistVO:list) {
-				ShopVO shopVO = shopSvc.getOneShop(gmlistVO.getShopno());
-				GameVO gameVO = gameSvc.getOneGame(gmlistVO.getGmno());
-		%>
-			<tr>
-				<td><%= shopVO.getShopname()%></td>
-				<td><img src="<%=request.getContextPath()%>/ShopShowImg?shopno=<%=gmlistVO.getShopno()%>"></td>
-				<td><%= shopVO.getShoploc()%></td>
-				<td><%= gameVO.getGmname()%></td>
-				<td><img style="width: 50px; height: 50px;" src="<%=request.getContextPath()%>/GameShowImg?gmno=<%=gmlistVO.getGmno()%>"></td>
-			</tr>
-		<% }%>
+		<jsp:useBean id="gameSvc" scope="page"
+	class="com.game.model.GameService" />
+<jsp:useBean id="shopSvc" scope="page"
+	class="com.shop.model.ShopService" />
+	
+		<c:forEach var="gmlistVO" items="${list}" begin="<%=pageIndex%>"
+					end="<%=pageIndex+rowsPerPage-1%>">
+					<tr>
+						<td>${shopSvc.getOneShop(gmlistVO.shopno).shopname}</td>
+						<td><img src="<%=request.getContextPath()%>/ShopShowImg?shopno=${gmlistVO.shopno}"></td>			
+						<td>${shopSvc.getOneShop(gmlistVO.shopno).shoploc}</td>
+						<td>${gameSvc.getOneGame(gmlistVO.gmno).gmname}</td>
+						<td><img style="width: 50px; height: 50px;" src="<%=request.getContextPath()%>/GameShowImg?gmno=${gmlistVO.gmno}"></td>
+					</tr>
+				</c:forEach>
 	</table>
-
-
+	<div class="d-flex justify-content-center container"
+				style="margin-left: auto; margin-right: auto;">
+				<div class="row">
+					<div class="col-sm-12">
+						<%@ include file="page2.file"%>
+					</div>
+				</div>
+			</div>
+</div>
+</div>
+<%-- <% for(GmlistVO gmlistVO:list) { --%>
+<!--  				ShopVO shopVO = shopSvc.getOneShop(gmlistVO.getShopno()); -->
+<!-- 				GameVO gameVO = gameSvc.getOneGame(gmlistVO.getGmno()); -->
+<%-- 		%> --%>
+<!-- 			<tr> -->
+<%-- 				<td><%= shopVO.getShopname()%></td> --%>
+<%-- 				<td><img src="<%=request.getContextPath()%>/ShopShowImg?shopno=<%=gmlistVO.getShopno()%>"></td> --%>
+<%-- 				<td><%= shopVO.getShoploc()%></td> --%>
+<%-- 				<td><%= gameVO.getGmname()%></td> --%>
+<%-- 				<td><img style="width: 50px; height: 50px;" src="<%=request.getContextPath()%>/GameShowImg?gmno=<%=gmlistVO.getGmno()%>"></td> --%>
+<!-- 			</tr> -->
+<%-- 		<% }%> --%>
 
 
 </body>

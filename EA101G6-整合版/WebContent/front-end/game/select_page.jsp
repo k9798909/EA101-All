@@ -17,13 +17,7 @@ table {
 	margin-right: auto;
 }
 
-tr th {
-	border: 2px solid black;
-	text-align: center;
-}
-
-td {
-	border: 2px solid black;
+td th tr {
 	text-align: center;
 }
 
@@ -32,9 +26,7 @@ td {
 	height: 20px;
 }
 
-tr:nth-child(odd) {
-	background-color: #FFED97;
-}
+
 h3 {
 	margin-left: auto;
 	margin-rghit: auto;
@@ -48,7 +40,6 @@ li {
 	margin-top: 15px;
 }
 </style>
-	<h3 style="margin-left:20px;">資料查詢:</h3>
 	<%-- 錯誤表列 --%>
 	<c:if test="${not empty errorMsgs}">
 		<font style="color: red">請修正以下錯誤:</font>
@@ -59,44 +50,58 @@ li {
 		</ul>
 	</c:if>
 
-	<ul>
-		<li><a href='listAllGame.jsp' >List</a> all Games. <br></li>
+<!-- 	<ul> -->
+<!-- 		<li><a href='listAllGame.jsp' >List</a> all Games. <br></li> -->
 
 
-		<li>
-			<FORM METHOD="post" ACTION="game.do">
-				<b>輸入遊戲名稱關鍵字 (如狼人殺):</b> <input type="text" name="gmname">
-				<input type="hidden" name="action" value="getSome_For_Display">
-				<input type="submit" value="送出">
-			</FORM>
-		</li>
+<!-- 		<li> -->
+<!-- 			<FORM METHOD="post" ACTION="game.do"> -->
+<!-- 				<b>輸入遊戲名稱關鍵字 (如狼人殺):</b> <input type="text" name="gmname"> -->
+<!-- 				<input type="hidden" name="action" value="getSome_For_Display"> -->
+<!-- 				<input type="submit" value="送出"> -->
+<!-- 			</FORM> -->
+<!-- 		</li> -->
 
-		<jsp:useBean id="gameSvc" scope="page"
-			class="com.game.model.GameService" />
 
-		<li>
-			<FORM METHOD="post" ACTION="game.do">
-				<b>選擇遊戲編號:</b> <select size="1" name="gmno">
-					<c:forEach var="gameVO" items="${gameSvc.all}">
-						<option value="${gameVO.gmno}">${gameVO.gmno}
-					</c:forEach>
-				</select> <input type="hidden" name="action" value="getOne_For_Display">
-				<input type="submit" value="送出">
-			</FORM>
-		</li>
 
-		<li>
-			<FORM METHOD="post" ACTION="game.do">
-				<b>選擇遊戲名稱:</b> <select size="1" name="gmno">
-					<c:forEach var="gameVO" items="${gameSvc.all}">
-						<option value="${gameVO.gmno}">${gameVO.gmname}
-					</c:forEach>
-				</select> <input type="hidden" name="action" value="getOne_For_Display">
-				<input type="submit" value="送出">
-			</FORM>
-		</li>
-	</ul>
+<!-- 		<li> -->
+<!-- 			<FORM METHOD="post" ACTION="game.do"> -->
+<!-- 				<b>選擇遊戲名稱:</b> <select size="1" name="gmno"> -->
+<%-- 					<c:forEach var="gameVO" items="${gameSvc.all}"> --%>
+<%-- 						<option value="${gameVO.gmno}">${gameVO.gmname} --%>
+<%-- 					</c:forEach> --%>
+<!-- 				</select> <input type="hidden" name="action" value="getOne_For_Display"> -->
+<!-- 				<input type="submit" value="送出"> -->
+<!-- 			</FORM> -->
+<!-- 		</li> -->
+<!-- 	</ul> -->
+<!-- --------------------------------------------------------------------------------------------------------------------------- -->
+<nav class="navbar navbar-expand-lg navbar-light bg-gradient-info shadow p-3 mb-5 rounded">
 
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item"><a class="nav-link" href='listAllGame.jsp'>List
+						all Games.</a></li>
+			</ul>
+			<jsp:useBean id="gameSvc" scope="page"
+				class="com.game.model.GameService" />
+
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item">
+					<FORM METHOD="post" class="form-inline my-2 my-lg-0"					
+						ACTION="<%=request.getContextPath()%>/front-end/game/game.do">
+						<select class="custom-select form-control mr-sm-1" name="gmno">
+							<option value="">選擇遊戲名稱
+								<c:forEach var="gameVO" items="${gameSvc.getAll()}">
+									<option value="${gameVO.gmno}">${gameVO.gmname}
+								</c:forEach>
+						</select> <input type="hidden" name="action" value="getOne_For_Display">
+						<button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">送出</button>
+					</FORM>
+				</li>
+			</ul>
+		</div>
+	</nav>
 
 </body>
 </html>

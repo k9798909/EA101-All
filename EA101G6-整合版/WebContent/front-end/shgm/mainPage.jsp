@@ -156,10 +156,6 @@ footer{
 	width: 100%;
 	height: 150px;
 }
-.wrap{
-	margin:auto;
-	width:80%;
-}
 .footerdiv{
 	display:inline-block;
 }
@@ -187,7 +183,7 @@ footer{
 		<div class="top-info-wrapper">
 			<nav aria-label="breadcrumb" class="breadcrumb-nav">
 				<ol class="breadcrumb d-flex">
-					<li class="breadcrumb-item"><a href="#">首頁</a></li>
+					<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/front-end/index.jsp">首頁</a></li>
 					<c:choose>
 						<c:when test="${searchResult == null}">
 							<li class="breadcrumb-item active" aria-current="page">市集</li>
@@ -241,20 +237,6 @@ footer{
 	<input type="hidden" id="MbrpfVO" value="${mbrpfVO.mbrname}">
 	
 	<jsp:include page="/front-end/shgm/alert-area.jsp"></jsp:include>
-	
-	<footer class="top-bar">
-		<div class="wrap">
-			<div class="footer-left footerdiv">
-			asdfadsf
-			</div>
-			<div class="footer-mid footerdiv">
-			asdfasdfa
-			</div>
-			<div class="footer-right footerdiv">
-			asdfasdfdsf	
-			</div>
-		</div>
-	</footer>
 	
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/ajaxForMbrmsgs.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/wsForShgm.js"></script>

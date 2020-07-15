@@ -407,6 +407,9 @@ div.comm {
 		</div>
 
 	</div>
+	
+	
+	<jsp:include page="/front-end/footer.jsp"/>
 
 	<script
 		src="<%=request.getContextPath()%>/js/model/jquery-3.3.1.min.js"></script>

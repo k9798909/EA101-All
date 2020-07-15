@@ -2,7 +2,9 @@ package com.shgm.controller;
 
 import java.io.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -437,8 +439,16 @@ public class ShgmServlet extends HttpServlet {
 
 			ShgmService shgmsvc = new ShgmService();
 			ShgmVO shgmvo = shgmsvc.getOneForInfo(shgmno);
-
 			session.setAttribute("infoshgm", shgmvo);
+
+			List<ShgmVO> list = new ArrayList<ShgmVO>();
+			list = shgmsvc.getAllShuffled();
+			for (Iterator<ShgmVO> it = list.iterator(); it.hasNext();) {
+				ShgmVO shgm = it.next();
+				if (shgm.getShgmno().equals(shgmvo.getShgmno()))
+					it.remove();
+			}
+			session.setAttribute("randlist", list);
 
 			MbrpfService mbrpfsvc = new MbrpfService();
 			MbrpfVO mbrpfvo = mbrpfsvc.getOneMbrpf(shgmvo.getSellerno());
@@ -633,19 +643,18 @@ public class ShgmServlet extends HttpServlet {
 				failedview.forward(request, response);
 			}
 		}
-		
+
 		if ("MsgUpdate".equals(action)) {
 			response.setContentType("text/html; charset=utf-8");
 			Writer out = response.getWriter();
 			JSONObject jsonobj = new JSONObject();
-			
+
 			String mbrno = request.getParameter("mbrno");
 			Integer index = new Integer(request.getParameter("index"));
-			
+
 			WsMessage wsMsg = new WsMessage();
 			wsMsg.updateMbrmsg(mbrno, index);
-			
-			
+
 			jsonobj.put("success", "updateSuccess!!");
 			out.write(jsonobj.toString());
 		}
@@ -810,7 +819,7 @@ public class ShgmServlet extends HttpServlet {
 
 			List<String> errormsgs = new LinkedList<String>();
 			request.setAttribute("errormsgs", errormsgs);
-			
+
 			String whichPage = request.getParameter("whichPage");
 			request.setAttribute("whichPage", whichPage);
 
@@ -820,12 +829,12 @@ public class ShgmServlet extends HttpServlet {
 				ShgmService shgmsvc = new ShgmService();
 				shgmsvc.deleteShgm(shgmno);
 
-				String url = "/back-end/shgm/listAllShgm.jsp?whichPage="+whichPage;
+				String url = "/back-end/shgm/listAllShgm.jsp?whichPage=" + whichPage;
 				RequestDispatcher successview = request.getRequestDispatcher(url);
 				successview.forward(request, response);
 			} catch (Exception e) {
 				errormsgs.add("刪除發生錯誤" + e.getMessage());
-				String url = "/back-end/shgm/listAllShgm.jsp?whichPage="+whichPage;
+				String url = "/back-end/shgm/listAllShgm.jsp?whichPage=" + whichPage;
 				RequestDispatcher errorview = request.getRequestDispatcher(url);
 				errorview.forward(request, response);
 			}

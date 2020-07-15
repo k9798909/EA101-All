@@ -4,10 +4,6 @@
 <%@ page import="com.shgm.model.*"%>
 <%@ page import="com.mbrpf.model.*"%>
 <%@ page import="java.util.*"%>
-<%
-	List<ShgmVO> list = (List<ShgmVO>) request.getAttribute("randlist");
-	pageContext.setAttribute("list", list);
-%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -126,7 +122,7 @@ a img:hover{
 		<div class="top-info-wrapper">
 			<nav aria-label="breadcrumb" class="breadcrumb-nav">
 				<ol class="breadcrumb d-flex">
-					<li class="breadcrumb-item"><a href="#">首頁</a></li>
+					<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/front-end/index.jsp">首頁</a></li>
 					<li class="breadcrumb-item"><a
 						href="<%=request.getContextPath()%>/front-end/shgm/mainPage.jsp">市集</a></li>
 					<li class="breadcrumb-item active" aria-current="page">商品頁面</li>
@@ -232,8 +228,8 @@ a img:hover{
 											<c:forEach var="i" begin="0" end="3">
 												<div class="col-md-3">
 													<a
-														href="<%=request.getContextPath()%>/front-end/shgm/shgm.do?action=getOneForMoreInfo&shgmno=${list.get(i).shgmno}">
-														<img src="<%=request.getContextPath()%>/shgm/displayimg?shgmno=${list.get(i).shgmno}" alt="Image"
+														href="<%=request.getContextPath()%>/front-end/shgm/shgm.do?action=getOneForMoreInfo&shgmno=${randlist.get(i).shgmno}">
+														<img src="<%=request.getContextPath()%>/shgm/displayimg?shgmno=${randlist.get(i).shgmno}" alt="Image"
 														style="max-width: 100%;">
 													</a>
 												</div>
@@ -245,8 +241,8 @@ a img:hover{
 											<c:forEach var="i" begin="4" end="7">
 												<div class="col-md-3">
 													<a
-														href="<%=request.getContextPath()%>/front-end/shgm/shgm.do?action=getOneForMoreInfo&shgmno=${list.get(i).shgmno}">
-														<img src="<%=request.getContextPath()%>/shgm/displayimg?shgmno=${list.get(i).shgmno}" alt="Image"
+														href="<%=request.getContextPath()%>/front-end/shgm/shgm.do?action=getOneForMoreInfo&shgmno=${randlist.get(i).shgmno}">
+														<img src="<%=request.getContextPath()%>/shgm/displayimg?shgmno=${randlist.get(i).shgmno}" alt="Image"
 														style="max-width: 100%;">
 													</a>
 												</div>

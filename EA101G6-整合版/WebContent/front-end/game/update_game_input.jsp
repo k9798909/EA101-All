@@ -3,7 +3,6 @@
 <%@ page import="com.game.model.*"%>
 
 <%
-// 	GameService gameSvc = new GameService();
 	GameVO gameVO = (GameVO) request.getAttribute("gameVO"); //gameServlet.java (Concroller) 存入req的gameVO物件 (包括幫忙取出的gameVO, 也包括輸入資料錯誤時的shopVO物件)
 %>
 
@@ -34,9 +33,6 @@ td {
 	height: 20px;
 }
 
-tr:nth-child(odd) {
-	background-color: #FFED97;
-}
 
 img {
 	width: 300px;
@@ -49,38 +45,9 @@ h4 {
 </style>
 
 <body>
-
-<%@ include file="/front-end/front-end-nav.jsp" %>
+<jsp:include page="/front-end/front-end-nav.jsp" flush="true"></jsp:include>
 
 </head>
-<h4>
-	<a href="../shop/index.jsp"><img src="images/add-icon.png" class="icon">回首頁</a>
-</h4>
-
-<%-- <jsp:include page="select_page.jsp" flush="true"> --%>
-<%-- 	<jsp:param name="" value="" /> --%>
-<%-- </jsp:include> --%>
-
-<table>
-	<tr style="background-color: #FFFFFF; border: 0px; font:;">
-		<td style="background-color: #FFFFFF; border: 0px;">
-			<h3>遊戲列表</h3>
-		</td>
-	</tr>
-</table>
-<%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-	<font style="color: red">請修正以下錯誤:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color: red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
-<div>
-
-
-	<h3>資料修改:</h3>
 
 	<%-- 錯誤表列 --%>
 	<c:if test="${not empty errorMsgs}">
@@ -91,31 +58,41 @@ h4 {
 			</c:forEach>
 		</ul>
 	</c:if>
-
+<div class="container">
 	<FORM METHOD="post" ACTION="game.do" name="form1"
 		enctype="multipart/form-data">
-		<table>
-			<input type="hidden" name="gmno" value="<%=gameVO.getGmno()%>" />
-			<tr>
-				<td>遊戲名稱:</td>
-				<td><input type="TEXT" name="gmname" size="45"
-					value="<%=gameVO.getGmname()%>" /></td>
-			</tr>
-			<tr>
-				<td>遊戲圖片:</td>
-				<td><input type="file" id="myFile" name="gmimg">
+		<div class="form-row">
+					<div class="form-group col-md-5">
+						<label for="name">遊戲名稱</label> <input class="form-control"
+							type="TEXT" name="gmname" size=100% id="name"
+							value="<%=(gameVO == null) ? "" : gameVO.getGmname()%>"
+							placeholder="name" />
+					</div>
+					</div>
+				<div class="form-group">
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text" id="inputGroupFileAddon01">pic</span>
+						</div>
+						<div class="custom-file">
+							<input type="file" class="custom-file-input" id="myFile"
+								aria-describedby="myFile" name="gmimg"> <label
+								class="custom-file-label" for="inputGroupFile01">Choose
+								file</label>
+						</div>
+					</div>
+				</div>
+				<div class="form-row">
+				<div class="form-group col-md-3"></div>
+					<div class="form-group col-md-6">
 					<div type="file" id="preview">
 						<img src="<%=request.getContextPath()%>/GameShowImg?gmno=${gameVO.gmno}" />
-					</div></td>
-			</tr>
-
-
-
-		</table>
-		<br> <input type="hidden" name="action" value="update"> <input
+					</div>
+					</div>
+				</div> <input type="hidden" name="action" value="update"> <input
 			type="hidden" name="shopno" value="<%=gameVO.getGmno()%>">
-		<input type="submit" value="送出修改">
 	</FORM>
+</div>
 </body>
 
 

@@ -42,17 +42,16 @@ td {
 	height: 20px;
 }
 
-tr:nth-child(odd) {
-	background-color: #FFED97;
-}
 
 img {
 	width: 50px;
 	height: 50px;
 }
-.iimmgg img{
+#preview img{
 	width: 200px;
 	height: 200px;
+	margin-left:auto;
+	margin-top:auto;
 }
 
 h4 {
@@ -68,13 +67,43 @@ h4 {
 
 <div class="container">
 <div class="row">
-<div class="col-sm-5">
+<div class="col-sm-3">
+			<div style="witdh: 20px;">
+				<ul class="list-group list-group-item-action">
+					<li class="list-group-item list-group-item-action" onclick="location.href='<%=request.getContextPath()%>/front-end/shop/shopArea.jsp';">我的資訊</li>	
+					<li class="list-group-item list-group-item-action active" id="goGmlist" onclick="location.href='<%=request.getContextPath()%>/front-end/gmlist/addGmlist.jsp';">我的遊戲</li>
+					<FORM id="gmlist" METHOD="post"
+						ACTION="<%=request.getContextPath()%>/front-end/gmlist/gmlist.do">
+						<input type="hidden" name="shopno" value="${shopVO.shopno}">
+						<input type="hidden" name="action" value="getSome_For_Display">
+					</FORM>
+					<li class="list-group-item list-group-item-action" id="goShopbk">我的揪團</li>
+					<FORM id="shopbk" METHOD="post"
+						ACTION="<%=request.getContextPath()%>/front-end/shopbk/shopbk.do">
+						<input type="hidden" name="shopno" value="${shopVO.shopno}">
+						<input type="hidden" name="action" value="getSome_For_Display2">
+					</FORM>
+					<li class="list-group-item list-group-item-action" id="goUpdate">更改店家資料</li>
+					<FORM id="getOne_For_Update" METHOD="post"
+						ACTION="<%=request.getContextPath()%>/front-end/shop/shop.do">
+						<input type="hidden" name="action" value="getOne_For_Update">
+					</FORM>
+					<li class="list-group-item list-group-item-action" id="goUpdate">我的訂位</li>
+					<FORM id="getOne_For_Update" METHOD="post"
+						ACTION="<%=request.getContextPath()%>/front-end/shop/shop.do">
+						<input type="hidden" name="action" value="getOne_For_Update">
+					</FORM>
+				</ul>
+			</div>
+		</div>
+		<div class="col-sm-1"></div>
+<div class="col-sm-3">
 	<table class="table table-sm">
 		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/gmlist/gmlist.do">
 		<tr>
 		<h4 class="text-dark">我的桌遊</h4>
 		<input type="hidden" name="action" value="delete">
-		<input type="submit" value="刪除" class="btn btn-primary">
+		<input type="submit" value="刪除" class="btn btn-secondary">
 		</tr>
 		
 		<c:forEach var="gmlistVO" items="${list}">				
@@ -95,14 +124,16 @@ h4 {
 		</FORM>
 	</table>
 </div>
-<div class="col-sm-5">
+<div class="col-sm-1"></div>
+<div class="col-sm-4">
 	<table class="table table-sm">
 		
 		<tr>
 			<h4 class="text-dark">其他桌遊</h4>
 			
-			<button id="create" class="btn btn-primary">增加</button>
-			<button data-toggle="modal" data-target="#exampleModal" class="btn btn-success" style="margin-left:10px;">我有新遊戲</button>
+			<button id="create" class="btn btn-secondary">增加</button>
+			<button data-toggle="modal" data-target="#exampleModal" class="btn btn-secondary" style="margin-left:10px;">我有新桌遊</button>
+			<button class="btn btn-secondary" style="margin-left:10px;" onclick="location.href='<%=request.getContextPath()%>/front-end/game/listAllGame.jsp';">更改桌遊</button>
 		</tr>
 		<FORM id="goCreate" METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/gmlist/gmlist.do">		
 		<input type="hidden" name="action" value="insert">
@@ -150,7 +181,16 @@ h4 {
 		%>
 	</c:if>
 	
-
+		<script>
+			$(document).ready(function() {
+				$("#goUpdate").click(function() {
+					$("#getOne_For_Update").submit();
+				})
+				$("#goShopbk").click(function() {
+					$("#shopbk").submit();
+				})
+			})
+		</script>
 
 
 <div class="modal fade" id="exampleModal" tabindex="-1"
@@ -166,24 +206,41 @@ h4 {
 			<div class="modal-body">
 				<div class="form-group">
 <!-- =========================================以下為原addGame.jsp的內容========================================== -->
-		<FORM id="ya" METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/game/game.do" enctype="multipart/form-data">
-		<table>
-			<tr>
-				<td>遊戲名稱:</td>
-				<td><input type="TEXT" name="gmname"
-					value="<%=(gameVO == null) ? "" : gameVO.getGmname()%>" /></td>
-			</tr>
-			<tr>
-				<td>遊戲圖片:</td>
-				<td>
-					<input type="file" id="myFile" name="gmimg">				
-					<div id="preview" class="iimmgg">
-					</div>	
-				</td>
-			</tr>
-		</table>
+		<div class="container">
+			<form METHOD="post" id="ya"
+				ACTION="<%=request.getContextPath()%>/front-end/game/game.do"
+				enctype="multipart/form-data">
+				<div class="form-row">
+					<div class="col-md-5">
+						<label for="name">遊戲名稱</label> <input class="form-control"
+							type="TEXT" name="gmname" size=100% id="name"
+							value="<%=(gameVO == null) ? "" : gameVO.getGmname()%>"
+							placeholder="name" />
+					</div>
+					</div>
+				<div class="form-group">
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text" id="inputGroupFileAddon01">pic</span>
+						</div>
+						<div class="custom-file">
+							<input type="file" class="custom-file-input" id="myFile"
+								aria-describedby="myFile" name="gmimg"> <label
+								class="custom-file-label" for="inputGroupFile01">Choose
+								file</label>
+						</div>
+					</div>
+				</div>
+				<div class="form-row">
+				<div class="col-md-3"></div>
+					<div class="col-md-6">
+					<div id="preview">
+					</div>
+					</div>
+				</div>
 		<input type="hidden" name="action" value="insert">
 		</FORM>
+		</div>
 <!-- =========================================以上為原addGame.jsp的內容========================================== -->
 			</div></div>			
 			<div class="modal-footer">

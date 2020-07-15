@@ -25,12 +25,6 @@
      <div class="modal-body"> 
 		<div class="commDiv" id="addDiv" title="mallAdd">
 			<form method="post" action="<%= request.getContextPath()%>/Mall/BackMallServlet" enctype="multipart/form-data">
-				<!-- //有錯誤就自動展開  -->
-				<c:if test="${not empty erroMsg}">
-					<c:forEach var="msg" items="${erroMsg}">
-						<p class="erroMsg" style="color:red;"> ${msg} </p>
-					</c:forEach>
-				</c:if>
 				
 				<div><label for="name">商品名稱:</label> 
 					<input name="commName" type="text" class="text" value="${tempmallVo.commName}"></div>

@@ -55,7 +55,7 @@ margin:30px 0px;
 
 <main>
 
-<div class="thank"><h1>謝謝您的購買！</h1></div>
+<div class="thank"><h1></h1></div>
 	<div class="container">
 		<div class="row">
 			<table class="table col-6 text-center margin-center">
@@ -118,7 +118,17 @@ margin:30px 0px;
 			src="<%=request.getContextPath()%>/js/model/popper.min.js"></script>
 		<script
 			src="<%=request.getContextPath()%>/js/model/bootstrap.min.js"></script>
+		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 		
+		<script>
+		Swal.fire({
+	  		icon: 'success',
+	  		title: '謝謝您的購買！',
+	  		showConfirmButton: false,
+	  		timer: 1500
+		})
+		</script>
 			
 </body>
 </html>

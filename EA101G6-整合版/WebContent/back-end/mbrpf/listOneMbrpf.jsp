@@ -63,18 +63,7 @@ th, td {
 
 <%@ include file="/back-end/back-end_nav.jsp"%>
 
-	<h4>此頁暫練習採用 Script 的寫法取值:</h4>
-	<table id="table-1">
-		<tr>
-			<td>
-				<h3>會員資料 - ListOneMbrpf.jsp</h3>
-				<h4>
-					<a href="select_page.jsp"><img src="<%= request.getContextPath()%>/front-end/images/back1.gif"
-						width="100" height="32" border="0">回首頁</a>
-				</h4>
-			</td>
-		</tr>
-	</table>
+	
 
 	<table>
 		<tr>
@@ -116,6 +105,18 @@ th, td {
 			<td>${mbrpfVO.startotal}</td>
 			<td>${mbrpfVO.unattend}</td>
 			<td>${mbrpfVO.ttattend}</td>
+			<td>
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/mbrpf/mbrpf.do" style="margin-bottom: 0px;">
+			     <input type="submit" value="修改">
+			     <input type="hidden" name="mbrno"  value="${mbrpfVO.mbrno}">
+			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
+			</td>
+			<td>
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/mbrpf/mbrpf.do" style="margin-bottom: 0px;">
+			     <input type="submit" value="刪除">
+			     <input type="hidden" name="mbrno"  value="${mbrpfVO.mbrno}">
+			     <input type="hidden" name="action" value="delete"></FORM>
+			</td>
 		</tr>
 	</table>
 
