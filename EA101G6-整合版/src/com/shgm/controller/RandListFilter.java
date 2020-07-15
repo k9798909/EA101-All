@@ -27,8 +27,7 @@ public class RandListFilter extends HttpServlet implements Filter {
     	ShgmVO shgmvo = shgmsvc.getOneShgm(shgmno);//取得使用者點選的市集商品
     	
     	List<ShgmVO> list = new ArrayList<ShgmVO>();
-    	list = shgmsvc.getAllForInfoShuffle();
-    	
+    	list = shgmsvc.getAllShuffled();
     	
     	for(Iterator<ShgmVO> it = list.iterator();it.hasNext();) {
     		ShgmVO shgm = it.next();
@@ -36,7 +35,6 @@ public class RandListFilter extends HttpServlet implements Filter {
     			it.remove();
     		}
     	}
-    	Collections.shuffle(list);//打亂
     	request.setAttribute("randlist", list);
     	chain.doFilter(request1, response1);
     }

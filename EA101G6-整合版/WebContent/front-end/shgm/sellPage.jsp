@@ -118,7 +118,7 @@ div.top-info {
 		<div class="top-info-wrapper">
 			<nav aria-label="breadcrumb" class="breadcrumb-nav">
 				<ol class="breadcrumb d-flex">
-					<li class="breadcrumb-item"><a href="#">首頁</a></li>
+					<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/front-end/index.jsp">首頁</a></li>
 					<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/front-end/shgm/mainPage.jsp">市集</a></li>
 					<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/front-end/shgm/sellerPage.jsp">賣家專區</a></li>
 					<li class="breadcrumb-item active" aria-current="page">我要上架</li>
