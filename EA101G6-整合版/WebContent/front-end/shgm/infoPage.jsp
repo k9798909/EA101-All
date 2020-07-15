@@ -4,10 +4,6 @@
 <%@ page import="com.shgm.model.*"%>
 <%@ page import="com.mbrpf.model.*"%>
 <%@ page import="java.util.*"%>
-<%
-	List<ShgmVO> list = (List<ShgmVO>) request.getAttribute("randlist");
-	pageContext.setAttribute("list", list);
-%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -232,8 +228,8 @@ a img:hover{
 											<c:forEach var="i" begin="0" end="3">
 												<div class="col-md-3">
 													<a
-														href="<%=request.getContextPath()%>/front-end/shgm/shgm.do?action=getOneForMoreInfo&shgmno=${list.get(i).shgmno}">
-														<img src="<%=request.getContextPath()%>/shgm/displayimg?shgmno=${list.get(i).shgmno}" alt="Image"
+														href="<%=request.getContextPath()%>/front-end/shgm/shgm.do?action=getOneForMoreInfo&shgmno=${randlist.get(i).shgmno}">
+														<img src="<%=request.getContextPath()%>/shgm/displayimg?shgmno=${randlist.get(i).shgmno}" alt="Image"
 														style="max-width: 100%;">
 													</a>
 												</div>
@@ -245,8 +241,8 @@ a img:hover{
 											<c:forEach var="i" begin="4" end="7">
 												<div class="col-md-3">
 													<a
-														href="<%=request.getContextPath()%>/front-end/shgm/shgm.do?action=getOneForMoreInfo&shgmno=${list.get(i).shgmno}">
-														<img src="<%=request.getContextPath()%>/shgm/displayimg?shgmno=${list.get(i).shgmno}" alt="Image"
+														href="<%=request.getContextPath()%>/front-end/shgm/shgm.do?action=getOneForMoreInfo&shgmno=${randlist.get(i).shgmno}">
+														<img src="<%=request.getContextPath()%>/shgm/displayimg?shgmno=${randlist.get(i).shgmno}" alt="Image"
 														style="max-width: 100%;">
 													</a>
 												</div>
