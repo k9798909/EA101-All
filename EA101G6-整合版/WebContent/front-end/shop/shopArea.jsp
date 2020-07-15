@@ -46,25 +46,30 @@ h4 {
 </head>
 
 <body>
-
+<div class="container">
 	<div class="row">
-		<div class="col-sm-4">
-			<div class="col-sm-1"></div>
+		<div class="col-sm-3">
 			<div style="witdh: 20px;">
-				<ul class="list-group-flush position-absolute">
-					<li class="list-group-item" id="goGmlist"><a href="<%=request.getContextPath()%>/front-end/gmlist/addGmlist.jsp">我的遊戲</a></li>
+				<ul class="list-group list-group-item-action">
+					<li class="list-group-item list-group-item-action active" onclick="location.href='<%=request.getContextPath()%>/front-end/shop/shopArea.jsp';">我的資訊</li>	
+					<li class="list-group-item list-group-item-action" id="goGmlist" onclick="location.href='<%=request.getContextPath()%>/front-end/gmlist/addGmlist.jsp';">我的遊戲</li>
 					<FORM id="gmlist" METHOD="post"
 						ACTION="<%=request.getContextPath()%>/front-end/gmlist/gmlist.do">
 						<input type="hidden" name="shopno" value="${shopVO.shopno}">
 						<input type="hidden" name="action" value="getSome_For_Display">
 					</FORM>
-					<li class="list-group-item" id="goShopbk" href="#"><a href="#">我的揪團</a></li>
+					<li class="list-group-item list-group-item-action" id="goShopbk">我的揪團</li>
 					<FORM id="shopbk" METHOD="post"
 						ACTION="<%=request.getContextPath()%>/front-end/shopbk/shopbk.do">
 						<input type="hidden" name="shopno" value="${shopVO.shopno}">
 						<input type="hidden" name="action" value="getSome_For_Display2">
 					</FORM>
-					<li class="list-group-item" id="goUpdate" href="#"><a href="#">更改店家資料</a></li>
+					<li class="list-group-item list-group-item-action" id="goUpdate">更改店家資料</li>
+					<FORM id="getOne_For_Update" METHOD="post"
+						ACTION="<%=request.getContextPath()%>/front-end/shop/shop.do">
+						<input type="hidden" name="action" value="getOne_For_Update">
+					</FORM>
+					<li class="list-group-item list-group-item-action" id="goUpdate">我的訂位</li>
 					<FORM id="getOne_For_Update" METHOD="post"
 						ACTION="<%=request.getContextPath()%>/front-end/shop/shop.do">
 						<input type="hidden" name="action" value="getOne_For_Update">
@@ -72,6 +77,7 @@ h4 {
 				</ul>
 			</div>
 		</div>
+		<div class="col-sm-1"></div>
 		<div class="col-sm-5">
 			<h1 class="display-4" style="margin-left: auto;">${shopVO.shopname}</h1>
 			<p class="lead">
@@ -83,7 +89,8 @@ h4 {
 			<p>電話:0${shopVO.shopphone}</p>
 			<p>位置:${shopVO.shoploc}</p>
 		</div>
-
+	</div>
+	</div>
 		<script>
 			$(document).ready(function() {
 				$("#goUpdate").click(function() {

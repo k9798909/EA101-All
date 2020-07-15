@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.shop.model.*"%>
-<%@ include file="/front-end/front-end-nav.jsp" %>
+<%@ include file="/front-end/shop/front-end-nav.jsp" %>
 <%
 	java.util.HashMap<String, String> hashmap = (java.util.HashMap<String, String>) request.getAttribute("cityarea");
 	ShopVO shopVO = (ShopVO) request.getAttribute("shopVO");
@@ -47,64 +47,143 @@ img {
 
 
 
-	<h3>資料修改:</h3>
-
-
+	
+<div class="container">
+<div class="row">
+			<div class="col-sm-3">
+			<div style="witdh: 20px;">
+				<ul class="list-group list-group-item-action">
+					<li class="list-group-item list-group-item-action" onclick="location.href='<%=request.getContextPath()%>/front-end/shop/shopArea.jsp';">我的資訊</li>	
+					<li class="list-group-item list-group-item-action" id="goGmlist" onclick="location.href='<%=request.getContextPath()%>/front-end/gmlist/addGmlist.jsp';">我的遊戲</li>
+					<FORM id="gmlist" METHOD="post"
+						ACTION="<%=request.getContextPath()%>/front-end/gmlist/gmlist.do">
+						<input type="hidden" name="shopno" value="${shopVO.shopno}">
+						<input type="hidden" name="action" value="getSome_For_Display">
+					</FORM>
+					<li class="list-group-item list-group-item-action" id="goShopbk">我的揪團</li>
+					<FORM id="shopbk" METHOD="post"
+						ACTION="<%=request.getContextPath()%>/front-end/shopbk/shopbk.do">
+						<input type="hidden" name="shopno" value="${shopVO.shopno}">
+						<input type="hidden" name="action" value="getSome_For_Display2">
+					</FORM>
+					<li class="list-group-item list-group-item-action active" id="goUpdate">更改店家資料</li>
+					<FORM id="getOne_For_Update" METHOD="post"
+						ACTION="<%=request.getContextPath()%>/front-end/shop/shop.do">
+						<input type="hidden" name="action" value="getOne_For_Update">
+					</FORM>
+					<li class="list-group-item list-group-item-action" id="goUpdate">我的訂位</li>
+					<FORM id="getOne_For_Update" METHOD="post"
+						ACTION="<%=request.getContextPath()%>/front-end/shop/shop.do">
+						<input type="hidden" name="action" value="getOne_For_Update">
+					</FORM>
+				</ul>
+			</div>
+		</div><div class="col-sm-1"></div>
+		<div class="col-sm-5" style="text-align: center; width: 500px; height: 50px;">
 	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/shop/shop.do" name="form1"
 		enctype="multipart/form-data">
-		<table>
-			<tr>
-				<td>店家帳號:</td>
-				<td><input type="TEXT" name="shopact" size="45"
-					value="${shopVO.shopact}" /></td>
-			</tr>
-			<tr>
-				<td>店家密碼:</td>
-				<td><input type="password" name="shoppw" size="45"
-					value="${shopVO.shoppw}" /></td>
-			</tr>
-			<tr>
-				<td>店家名稱:</td>
-				<td><input type="text" name="shopname" size="45"
-					value="${shopVO.shopname}" /></td>
-			</tr>
-			<tr>
-				<td>店家位置:</td>
-				<td><select name="city" id="縣市1">
-				<option value"${city.city}">${city.city}</option></select>
-				<select name="area" id="鄉鎮市區1"></select>
-				<input type="text" id="ads" name="addr" class="address" value="<%= (hashmap == null)? "":hashmap.get("addr") %>"></td>
-				<input id="address" name="address" type="hidden" value="<%= (shopVO == null)? "":shopVO.getShoploc() %>"/>			
-			</tr>
-			<tr>
-				<td>場地:</td>
-				<td><input type="TEXT" name="shopcy" size="45"
-					value="${shopVO.shopcy}" /></td>
-			</tr>
-			<tr>
-				<td>電話:</td>
-				<td><input type="TEXT" name="shopphone" size="45"
-					value="${shopVO.shopphone}" /></td>
-			</tr>
-			<tr>
-				<td>店家圖片:</td>
-				<td><input type="file" id="myFile" name="shopimg">
-					<div type="file" id="preview">
+		<div class="form-row">
+					<div class="col-md-2"></div>
+				<div class="form-row">
+					<div class="col-md-5">
+						<label for="name">店家名稱</label> <input class="form-control"
+							type="TEXT" name="shopname" size=100% id="name"
+							value="${shopVO.shopname}"
+							placeholder="name" />
+					</div>
+					<div class="col-md-7">
+						<label for="act">帳號</label> <input class="form-control" type="TEXT"
+							name="shopact" size=100% id="act"
+							value="${shopVO.shopact}"
+							placeholder="帳號" />
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="col-md-12">
+						<label for="inputPw">Password</label> <input type="password" size=100%
+							class="form-control" id="inputPw" name="shoppw" value="${shopVO==null ? sessionScope.shopVO.shoppw:shopVO.shoppw}">
+					</div>
+				</div>
+
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label for="縣市1">City</label> <select name="city" id="縣市1"
+							class="form-control">
+							<option value="${city.city}">${city.city}</option>
+						</select>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="鄉鎮市區1">Area</label> <select name="area" id="鄉鎮市區1"
+							class="form-control"></select>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-12">
+						<label for="ads">Address</label> <input type="text"
+							id="ads" name="addr" class="address form-control" size=100%
+							value="<%=(hashmap == null) ? "" : hashmap.get("addr")%>"><input
+							id="address" name="address" type="hidden"
+							value="<%=(shopVO == null) ? "" : shopVO.getShoploc()%>" />
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-4">
+						<label for="inputCy">場地</label><input id="inputCy" name="shopcy"
+							class="form-control" type="text"
+							value="${shopVO.shopcy}"
+							placeholder="六人桌*10" />
+					</div>
+					<div class="form-group col-md-8">
+						<label for="inputPhone">電話</label><input id="inputPhone"
+							name="shopphone" type="tel" class="form-control"
+							value="0${shopVO.shopphone}"
+							placeholder="0912345678" />
+					</div>
+				</div>
+				<div class="form-row">
+				<div class="form-group col-md-12">
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+						</div>
+						<div class="custom-file">
+							<input type="file" class="custom-file-input" id="myFile"
+								aria-describedby="myFile" name="shopimg"> <label
+								class="custom-file-label" for="inputGroupFile01">Choose
+								file</label>
+						</div>
+						</div>
+						</div>
+						</div>
+						<div class="form-row">
+						<div class="form-group col-md-12">
+						<div id="preview">
 						<img src="<%=request.getContextPath()%>/ShopShowImg?shopno=${shopVO.shopno}" />
-					</div></td>
-			</tr>
-			<input type="hidden" name="status" value="${shopVO.status}" />
-
-
-
-		</table>
+						</div>
+					</div>
+				</div>
+				</div>
+		<input type="hidden" name="status" value="${shopVO.status}" />
 		<br> <input type="hidden" name="action" value="update"> <input
 			type="hidden" name="shopno" value="${shopVO.shopno}">
-		<input type="submit" value="送出修改">
+		<input type="submit" class="btn btn-secondary" value="送出修改" style="margin-bottom:20px;">
 	</FORM>
+	</div>
+	</div>
+	</div>
 </body>
 
+<!-- 				<td>店家圖片:</td> -->
+<!-- 				<td><input type="file" id="myFile" name="shopimg"> -->
+<!-- 					<div type="file" id="preview"> -->
+<%-- 						<img src="<%=request.getContextPath()%>/ShopShowImg?shopno=${shopVO.shopno}" /> --%>
+<!-- 					</div></td> -->
 
+<!-- 				<td><select name="city" id="縣市1"> -->
+<%-- 				<option value"${city.city}">${city.city}</option></select> --%>
+<!-- 				<select name="area" id="鄉鎮市區1"></select> -->
+<%-- 				<input type="text" id="ads" name="addr" class="address" value="<%= (hashmap == null)? "":hashmap.get("addr") %>"></td> --%>
+<%-- 				<input id="address" name="address" type="hidden" value="<%= (shopVO == null)? "":shopVO.getShoploc() %>"/> --%>
 
 <script>
 	function init() {
@@ -163,9 +242,18 @@ img {
 	       console.log(address.value);
      };
   }
-   	
-   	
+   	 	
 </script>
+<script>
+			$(document).ready(function() {
+				$("#goUpdate").click(function() {
+					$("#getOne_For_Update").submit();
+				})
+				$("#goShopbk").click(function() {
+					$("#shopbk").submit();
+				})
+			})
+		</script>
 <script
 		src="<%=request.getContextPath()%>/js/address2.js"></script>	
 		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

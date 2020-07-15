@@ -20,12 +20,7 @@ table {
 	margin-top: 10px;
 }
 
-tr th {
-	border: 2px solid black;
-	text-align: center;
-}
-
-td {
+td th tr {
 	text-align: center;
 }
 
@@ -34,9 +29,6 @@ td {
 	height: 20px;
 }
 
-tr:nth-child(odd) {
-	background-color: #FFED97;
-}
 
 img {
 	width: 50px;
@@ -60,13 +52,6 @@ button{
 
 <jsp:include page="select_page.jsp" flush="true"/>
 
-	<table>
-		<tr style="background-color: #FFFFFF; border: 0px; font:;">
-			<td style="background-color: #FFFFFF; border: 0px;">
-				<h3>遊戲列表</h3>
-			</td>
-		</tr>
-	</table>
 <%-- 	<%-- 錯誤表列 --%>
 <%-- 	<c:if test="${not empty errorMsgs}"> --%>
 <!-- 		<font style="color: red">請修正以下錯誤:</font> -->
@@ -78,9 +63,9 @@ button{
 <%-- 	</c:if> --%>
 <jsp:useBean id="shopSvc" scope="page"
 	class="com.shop.model.ShopService" />
-	<div>
+	<div class="container">
 		<input type="hidden" name="shopbkno" value="${shopbkVO.shopbkno}">
-		<table>
+		<table class="table table-sm">
 			<tr>
 				<th>店家名稱</th>
 				<th>提供人數</th>
@@ -91,7 +76,7 @@ button{
 			</tr>
 			<c:forEach var="shopbkVO" items="${list}">
 				<tr>
-					<td><A href="<%=request.getContextPath()%>/front-end/shop/shop.do?shopno=${shopbkVO.shopno}&action=getOne_For_Display2&requestURL=<%=request.getServletPath()%>">${shopSvc.getOneShop(shopbkVO.shopno).shopname}</a></td>
+					<td><A style="color:black;" href="<%=request.getContextPath()%>/front-end/shop/shop.do?shopno=${shopbkVO.shopno}&action=getOne_For_Display2&requestURL=<%=request.getServletPath()%>"><b>${shopSvc.getOneShop(shopbkVO.shopno).shopname}</b></a></td>
 					<td>${shopbkVO.ofdtable}</td>
 					<td>${shopbkVO.shoppds}</td>
 					<td>${shopbkVO.shoppde}</td>

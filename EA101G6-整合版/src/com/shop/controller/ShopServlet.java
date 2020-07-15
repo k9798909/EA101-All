@@ -130,7 +130,7 @@ public class ShopServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 			ShopVO shopVO = new ShopVO();
 			ShopService shopSvc = new ShopService();
-//			try {
+			try {
 				/*********************** 1.�����ШD�Ѽ� - ��J�榡�����~�B�z *************************/
 			if("update".equals(action)) {
          		System.out.println("front");
@@ -152,7 +152,12 @@ public class ShopServlet extends HttpServlet {
 				}
 
 				String shoppw = req.getParameter("shoppw");
-				
+				String shoppwReg = "^[(a-zA-Z0-9)]{3,10}$";
+				if (shoppw == null || shoppw.trim().length() == 0) {
+					errorMsgs.add("店家密碼請勿空白");
+				} else if (!shoppw.trim().matches(shoppwReg)) { // �H�U�m�ߥ��h(�W)��ܦ�(regular-expression)
+					errorMsgs.add("店家密碼格式錯誤");
+				}
 				String shoploc = "";
 				String city = req.getParameter("city");
 				String area = req.getParameter("area");
@@ -277,11 +282,11 @@ public class ShopServlet extends HttpServlet {
 				successView.forward(req, res);
 
 				/*************************** ��L�i�઺���~�B�z *************************************/
-//			} catch (Exception e) {
-//				errorMsgs.add("修改資料失敗:" + e.getMessage());
-//				RequestDispatcher failureView = req.getRequestDispatcher("update_shop_input.jsp");
-//				failureView.forward(req, res);
-//			}
+			} catch (Exception e) {
+				errorMsgs.add("修改資料失敗:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("update_shop_input.jsp");
+				failureView.forward(req, res);
+			}
 		}
 
 		if ("insert".equals(action)) { // �Ӧ�addshop.jsp���ШD
@@ -394,7 +399,7 @@ public class ShopServlet extends HttpServlet {
 					return;
 				}
 				
-				String to = "chizai1101@gmail.com";		      
+				String to = req.getParameter("email");		      
 			    String subject = "密碼通知";			      
 			    String ch_name = "peter1";
 			    String messageText = "Hello! " + ch_name + " 請謹記此密碼: " + passRandom + "\n" +" (已經啟用)"; 
