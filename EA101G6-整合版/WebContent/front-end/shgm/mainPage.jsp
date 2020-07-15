@@ -35,10 +35,6 @@ div.main-area {
 	margin: 2% auto;
 }
 
-div.card-body{
-	height:127px;
-}
-
 .top-info-wrapper {
 	position: relative;
 	text-align: center;
@@ -94,6 +90,11 @@ div.shgm-area {
 }
 .card-deck {
 	margin: 0 auto;
+}
+
+div.card-body{
+	height:127px;
+	padding:3% 15px;
 }
 
 .card {
@@ -216,9 +217,9 @@ footer{
 									<img
 										src="<%=request.getContextPath()%>/shgm/displayimg?shgmno=${shgmvo.shgmno}"
 										class="card-img-top" alt="Sorry! there's no image...">
-									<div class="card-body">
+									<div class="card-body d-flex flex-column">
 										<h5 class="card-title">${shgmvo.shgmname}</h5>
-										<p class="card-text">$${shgmvo.price}</p>
+										<p class="card-text mt-auto">$${shgmvo.price}</p>
 									</div>
 								</div>
 							</a>
