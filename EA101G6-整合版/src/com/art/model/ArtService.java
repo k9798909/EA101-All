@@ -73,5 +73,8 @@ public class ArtService {
 	public List<ArtVO> getArtsByAtno(String atno) {
 		return dao.getArtsByAtno(atno);
 	}
+	public List<ArtVO> getArtsByStatus(Integer status) {
+		return dao.getArtsByStatus(status);
+	}
 
 }

@@ -29,6 +29,7 @@ public class ArtDAO implements ArtDAO_interface {
 
 	private static final String GET_STMT_MBRNO = "SELECT artno,mbrno,detail,arttt,to_char(pdate,'yyyy-mm-dd')pdate,status,atno,apic FROM art where mbrno = ?";
 	private static final String GET_STMT_ATNO = "SELECT artno,mbrno,detail,arttt,to_char(pdate,'yyyy-mm-dd')pdate,status,atno,apic FROM art where atno = ?";
+	private static final String GET_STMT_STATUS = "SELECT artno,mbrno,detail,arttt,to_char(pdate,'yyyy-mm-dd')pdate,status,atno,apic FROM art where status = ?";
 	private static final String DELETE = "DELETE FROM art where artno = ?";
 	private static final String UPDATE = "UPDATE art set detail=?, arttt=?, atno=?, apic=? where artno = ?";
 	private static final String GET_ARTTT = "SELECT artno,mbrno,detail,arttt,to_char(pdate,'yyyy-mm-dd')pdate,atno,apic FROM art WHERE arttt LIKE ?";
@@ -475,6 +476,66 @@ public class ArtDAO implements ArtDAO_interface {
 			pstmt = con.prepareStatement(GET_STMT_ATNO);
 			
 			pstmt.setString(1, atno);
+			
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				artVO = new ArtVO();
+				artVO.setArtno(rs.getString("artno"));
+				artVO.setMbrno(rs.getString("mbrno"));
+				artVO.setArttt(rs.getString("arttt"));
+				artVO.setDetail(rs.getString("detail"));
+				artVO.setPdate(rs.getDate("pdate"));
+				
+				artVO.setStatus(rs.getInt("status"));
+				artVO.setAtno(rs.getString("atno"));
+				artVO.setApic(rs.getBytes("apic"));
+				
+				list.add(artVO);
+			}
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
+	@Override
+	public List<ArtVO> getArtsByStatus(Integer status) {
+		List<ArtVO> list = new ArrayList<ArtVO>();
+		ArtVO artVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_STMT_STATUS);
+			
+			pstmt.setInt(1, status);
 			
 			rs = pstmt.executeQuery();
 			

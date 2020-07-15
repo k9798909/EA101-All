@@ -10,7 +10,7 @@
 	
 	MbrpfVO mbrpfVO = (MbrpfVO)session.getAttribute("mbrpfVO");
 	ArtService artSvc = new ArtService();
-	List<ArtVO> list = artSvc.getAll();
+	List<ArtVO> list = artSvc.getArtsByStatus(0);
 	pageContext.setAttribute("list",list);
 %>
 
@@ -150,7 +150,7 @@
           <div class="row">
           <%@ include file="page1.file" %>
           <c:forEach var="artVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-          <c:if test="${artVO.status == 0}">
+          
           <FORM class="col-md-4" METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/art/art.do" style="margin-bottom: 0px;">
             
               <div class="card mb-4 box-shadow shadow p-3 mb-5 bg-white rounded">
@@ -171,7 +171,7 @@
                 </div>
               </div>
               
-             </FORM> </c:if> </c:forEach>
+             </FORM>  </c:forEach>
        		<c:if test="${mbrpfVO != null}">
        		<a href="<%=request.getContextPath()%>/front-end/art/addArt.jsp"><img class="h1-png col-md-2" src="<%=request.getContextPath()%>/images/h1.png" title="Add Article"></a>
        		</c:if>

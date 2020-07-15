@@ -14,5 +14,6 @@ public interface ArtDAO_interface {
 		public List<ArtVO> getArtsByArttt(String arttt); 
 		public List<ArtVO> getArtsByMbrno(String mbrno);
 		public List<ArtVO> getArtsByAtno(String atno);
+		public List<ArtVO> getArtsByStatus(Integer status);
 		
 }
