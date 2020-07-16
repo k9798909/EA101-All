@@ -130,8 +130,8 @@
  #h33{
  	margin-top: 10px;
  }
- .updown1{
- 	margin-top: 20px;
+ .updown{
+ 	margin-top: 10px;
  	margin-bottom: 20px;
  }
  #bbttnn{
@@ -139,6 +139,9 @@
  }
  .bread1{
  	margin-bottom: 50px;
+ }
+ .rapper{
+ 	text-align: center;
  }
   
 </style>
@@ -177,7 +180,7 @@
   			<ol class="breadcrumb bg-white">
   			
   				<c:if test="${empVO == null}">
-  					<li class="breadcrumb-item"><a target="_self"  href="<%=request.getContextPath()%>/mbrpf/mbrpf.do?action=getOne_For_Display&mbrno=${artVO.mbrno}" class="text-black"><span class="d-md-inline-block"><img class="icon-2" src="<%=request.getContextPath()%>/images/User-icon.png">${mbrVO.mbrname}</span></a></li>
+  					<li class="breadcrumb-item"><a target="_self"  href="<%=request.getContextPath()%>/mbrpf/mbrpf.do?action=getOne_To_Display&mbrno=${artVO.mbrno}" class="text-black"><span class="d-md-inline-block"><img class="icon-2" src="<%=request.getContextPath()%>/images/User-icon.png">${mbrVO.mbrname}</span></a></li>
   				</c:if>
   				<c:if test="${empVO != null}">
   					<li class="breadcrumb-item"><img class="icon-2" src="<%=request.getContextPath()%>/images/User-icon.png">[管理員] ${empVO.empname}</span></li>
@@ -273,23 +276,34 @@
 	</c:forEach>
 	
 	
+	<!-- 上下頁按鈕 -->
 	
-	<div class="container col-md-8 offset-md-2  updown1">
-		<c:if test="${fc != sc }">
-			<a href="javascript:presses${sc-1}()"><button type="button" class="btn btn-primary col-md-4">上一篇</button></a>
-		</c:if>
-		
-		<c:if test="${lc != sc }">
-			<a href="javascript:presses${sc+1}()"><button type="button" class="btn btn-primary col-md-4" id="bbttnn">下一篇</button></a>
-		</c:if>
-	</div>
 
 
-	
-	
+	<nav aria-label="breadcrumb"
+		class="breadcrumb-nav col-md-8 offset-md-2 bg-transparent updown">
+		<ol class="breadcrumb d-flex justify-content-center bg-transparent">
+			<li class="rapper"><c:if test="${fc != sc }">
+					<a href="javascript:presses${sc-1}()"><button type="button"
+							class="btn btn-primary">上一篇</button></a>
+				</c:if> <c:if test="${lc != sc }">
+					<a href="javascript:presses${sc+1}()"><button type="button"
+							class="btn btn-primary">下一篇</button></a>
+				</c:if>
+		</ol>
+	</nav>
+
+
+
+
+
+
+
+
+
+
+	<!-- 留言區 -->
 	<jsp:useBean id="msgSvc" scope="page" class="com.msg.model.MsgService"/>
-
-
 
 	<c:if test="${mbrpfVO != null}">
 

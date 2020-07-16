@@ -119,8 +119,9 @@
           <FORM class="col-md-4" METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/art/art.do" style="margin-bottom: 0px;">
             
               <div class="card mb-4 box-shadow shadow p-3 mb-5 bg-white rounded">
-              	
-                <img class="card-img-top" src="<%=request.getContextPath()%>/art/artpic.do?artno=${artVO.artno}" alt="Card image cap">
+              
+              	<a target="_self" href="<%=request.getContextPath()%>/front-end/art/art.do?action=get_One_Detail&artno=${artVO.artno}"><img class="card-img-top" src="<%=request.getContextPath()%>/art/artpic.do?artno=${artVO.artno}" alt="Card image cap"></a>
+          
                 <div class="card-body">
                  <h5 class="card-title">${artVO.arttt}</h5>
                  <p class="card-text">${artVO.detail}</p>
