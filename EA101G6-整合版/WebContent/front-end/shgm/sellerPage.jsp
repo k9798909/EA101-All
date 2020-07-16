@@ -211,7 +211,7 @@ div.pageselect-area {
 								<div class="tab-content" id="myTabContent">
 									<div class="tab-pane fade show active" id="upcheck0"
 										role="tabpanel" aria-labelledby="upcheck0-tab">
-										未經審核的市集商品(可自行下架)商品名稱、圖片、售價、下架選項
+<!-- 										未經審核的市集商品(可自行下架)商品名稱、圖片、售價、下架選項 -->
 										<ul class="list-group list-group-horizontal four-li">
 											<li class="list-group-item firstlis">商品名稱</li>
 											<li class="list-group-item firstlis">圖片</li>
@@ -237,7 +237,7 @@ div.pageselect-area {
 									</div>
 									<div class="tab-pane fade" id="upcheck1" role="tabpanel"
 										aria-labelledby="upcheck1-tab">
-										已上架的市集商品(可自行下架)商品名稱、圖片、售價、上架時間
+<!-- 										已上架的市集商品(可自行下架)商品名稱、圖片、售價、上架時間 -->
 										<ul class="list-group list-group-horizontal four-li">
 											<li class="list-group-item firstlis">商品名稱</li>
 											<li class="list-group-item firstlis">圖片</li>
@@ -264,7 +264,7 @@ div.pageselect-area {
 									</div>
 									<div class="tab-pane fade" id="upcheck2" role="tabpanel"
 										aria-labelledby="upcheck2-tab">
-										已下架的市集商品(自行下架/被檢舉:都顯示可修改的按鈕)商品名稱、圖片、下架原因、修改(用上架頁面修改，內含申請重新上架？)
+<!-- 										已下架的市集商品(自行下架/被檢舉:都顯示可修改的按鈕)商品名稱、圖片、下架原因、修改(用上架頁面修改，內含申請重新上架？) -->
 										<ul class="list-group list-group-horizontal five-li">
 											<li class="list-group-item firstlis">商品名稱</li>
 											<li class="list-group-item firstlis">圖片</li>
@@ -327,7 +327,7 @@ div.pageselect-area {
 									<div class="tab-content" id="myTabContent">
 										<div class="tab-pane fade show active" id="boxstatus0"
 											role="tabpanel" aria-labelledby="boxstatus0-tab">
-											boxstatus == 0 商品名稱、圖片、買家姓名、電話、地址、更改出貨狀態(0→1)
+<!-- 											boxstatus == 0 商品名稱、圖片、買家姓名、電話、地址、更改出貨狀態(0→1) -->
 											<ul class="list-group list-group-horizontal six-li">
 												<li class="list-group-item firstlis">商品名稱</li>
 												<li class="list-group-item firstlis">圖片</li>
@@ -358,7 +358,7 @@ div.pageselect-area {
 										</div>
 										<div class="tab-pane fade" id="boxstatus1" role="tabpanel"
 											aria-labelledby="boxstatus1-tab">
-											boxstatus == 1商品名稱、圖片、買家姓名、電話、地址、更改出貨狀態(1→2)
+<!-- 											boxstatus == 1商品名稱、圖片、買家姓名、電話、地址、更改出貨狀態(1→2) -->
 											<ul class="list-group list-group-horizontal six-li">
 												<li class="list-group-item firstlis">商品名稱</li>
 												<li class="list-group-item firstlis">圖片</li>
@@ -389,7 +389,7 @@ div.pageselect-area {
 										</div>
 										<div class="tab-pane fade" id="boxstatus2" role="tabpanel"
 											aria-labelledby="boxstatus2-tab">
-											boxstatus == 2商品名稱、圖片、買家姓名、電話、地址、等待買家收貨中
+<!-- 											boxstatus == 2商品名稱、圖片、買家姓名、電話、地址、等待買家收貨中 -->
 											<ul class="list-group list-group-horizontal six-li">
 												<li class="list-group-item firstlis">商品名稱</li>
 												<li class="list-group-item firstlis">圖片</li>
@@ -420,7 +420,7 @@ div.pageselect-area {
 							</div>
 							<div class="tab-pane fade" id="list-status2" role="tabpanel"
 								aria-labelledby="list-status2-list">
-								status == 2商品名稱、圖片、售價、上架日期、售出日期
+<!-- 								status == 2商品名稱、圖片、售價、上架日期、售出日期 -->
 								<ul class="list-group list-group-horizontal five-li">
 									<li class="list-group-item firstlis">商品名稱</li>
 									<li class="list-group-item firstlis">圖片</li>
@@ -448,7 +448,7 @@ div.pageselect-area {
 							</div>
 							<div class="tab-pane fade" id="list-status3" role="tabpanel"
 								aria-labelledby="list-status3-list">
-								status == 3
+<!-- 								status == 3 -->
 								<ul class="list-group list-group-horizontal four-li">
 									<li class="list-group-item firstlis">商品名稱</li>
 									<li class="list-group-item firstlis">圖片</li>

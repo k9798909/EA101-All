@@ -134,6 +134,9 @@ public class MyWebSocket {
 				if (shgmvo.getStatus() == 2) {
 					sendthis.append("買家 " + shgmorg.getTakernm() + "，已確認收貨，您的商品「" + shgmorg.getShgmname() + "」已賣出！");
 					sendmsg(sellerno, sendthis);
+					sendthis.setLength(0);
+					sendthis.append("已確認收貨！您已成功購買商品「" + shgmorg.getShgmname() + "」！");
+					sendmsg(buyerno, sendthis);
 				} else if (shgmvo.getStatus() == 3) {
 					sendthis.append(
 							"買家 " + shgmorg.getTakernm() + "，已取消購買「" + shgmorg.getShgmname() + "」，請至賣家專區回收商品。");
