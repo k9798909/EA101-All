@@ -12,7 +12,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <title>遊戲列表</title>
 
 <style>
@@ -83,9 +83,24 @@ button{
 					<td>${shopbkVO.shoppde}</td>
 					<td>${shopbkVO.payinfohr}</td>
 					<td>${shopbkVO.payinfoday}</td>
-					<td><a href="<%=request.getContextPath()%>/front-end/room/create.jsp?shopno=${shopbkVO.shopno}&shoppds=${shopbkVO.shoppds}&shoppde=${shopbkVO.shoppde}"><button class="btn btn-primary" >來去開團</button></a></td>
+					<td><a href="#" id="goCreate"><button class="btn btn-primary">來去開團</button></a></td>
 <%-- 					onclick="location.href='<%=request.getContextPath()%>/front-end/room/create.jsp?shopno=${shopbkVO.shopno}&shoppds=${shopbkVO.shoppds}&shoppde=${shopbkVO.shoppde}';" --%>
 				</tr>
+				<script>
+		    		 $("#goCreate").click(function() {
+		    			 <c:choose>		    		
+		    			 	<c:when test="${empty account}">
+					    			Swal.fire({
+										  icon: 'error',
+										  title: '請先登入',
+									});
+					    	</c:when>					
+							<c:otherwise>
+								location.href="<%=request.getContextPath()%>/front-end/room/create.jsp?shopno=${shopbkVO.shopno}&shoppds=${shopbkVO.shoppds}&shoppde=${shopbkVO.shoppde}";
+							</c:otherwise>
+						</c:choose>		
+		     	     });
+				</script>
 			</c:forEach>
 		</table>
 	</div>
@@ -111,7 +126,6 @@ button{
     		 $("#basicModal").modal({show: true});
         </script>
  </c:if>
-
 
 </body>
 </html>
