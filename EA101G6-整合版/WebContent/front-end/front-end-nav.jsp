@@ -157,7 +157,7 @@
 									<li><a href="<%=request.getContextPath()%>/front-end/tfcord/tfMoney.jsp" class="nav-link">兌換現金</a></li>
 									<li class="has-children"><a href="#">More Links</a>
 										<ul class="dropdown">
-											<li><a href="#">Menu One</a></li>
+											<li><a href="<%=request.getContextPath()%>/front-end/mbrpf/listOneMbrpf.jsp" class="nav-link">個人資訊</a></li>
 											<li><a href="#">Menu Two</a></li>
 											<li><a href="#">Menu Three</a></li>
 										</ul></li>
