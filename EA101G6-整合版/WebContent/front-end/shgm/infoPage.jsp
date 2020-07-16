@@ -273,22 +273,7 @@ a img:hover{
 	
 	<script>
 	$(document).ready(function(){
-		var $buysuccess = $("#buysuccess").val();
-		if($buysuccess === "success"){
-			var $shgmno = $("#shgmno").val();
-			Swal.fire({
-				  icon: 'success',
-				  title: '您已購買成功！',
-				  showConfirmButton: false,
-				  timer: 1500
-				})
-			var successObj = {
-				"shgmno":$shgmno,
-				"paystatus":1
-			}
-			var successJson = JSON.stringify(successObj);
-			webSocket.send(successJson);
-		}
+		
 		if($("#rpsuccess").val() == "success"){
 			Swal.fire({
 				  icon: 'success',

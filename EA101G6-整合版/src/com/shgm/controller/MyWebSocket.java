@@ -88,22 +88,37 @@ public class MyWebSocket {
 			return;
 
 		} else {
-			// 從前台頁面ajax送來的json格式資料，這裡的data是json格式的市集商品物件
+			// 這裡的data是json格式的市集商品物件
 			JSONObject jsonobj = new JSONObject(data);
-			ShgmVO shgmorg = shgmsvc.getOneShgm(jsonobj.getString("shgmno"));
-			ShgmrpVO shgmrpvo = shgmrpsvc.getOnerpByShgmno(jsonobj.getString("shgmno"));
-
-			sellerno = shgmorg.getSellerno();
-			buyerno = shgmorg.getBuyerno();
-			sellerVO = mbrpfsvc.getOneMbrpf(sellerno);
-			buyerVO = mbrpfsvc.getOneMbrpf(buyerno);
+			ShgmVO shgmorg = null;
+			ShgmrpVO shgmrpvo = null;
+			String shgmno = (String) jsonobj.get("shgmno");
+			System.out.println(shgmno);
+			//sendSellSuccess()送來的json，沒有pk，經過controller時，shgmno存著"noPK"，還有sellerno和shgmname
+			if (shgmno.equals("noPK")) {
+				sendthis.append("市集商品「" + jsonobj.get("shgmname") + "」正申請上架，請至市集管理審核！");
+				sendmsg("shgmBackEnd", sendthis);
+				return;
+				// 從前台頁面ajax送來的json格式資料，有pk
+			} else {
+				shgmorg = shgmsvc.getOneShgm(shgmno);
+				sellerno = shgmorg.getSellerno();
+				sellerVO = mbrpfsvc.getOneMbrpf(sellerno);
+				
+				shgmrpvo = shgmrpsvc.getOnerpByShgmno(shgmno);
+				buyerno = shgmorg.getBuyerno();
+				buyerVO = mbrpfsvc.getOneMbrpf(buyerno);
+			}
 
 			Gson gson = new Gson();
 			ShgmVO shgmvo = gson.fromJson(data, ShgmVO.class);
-			// 確定檢舉的市集商品，在前台是待上架狀態，可能是賣家修改後重新上架，通知後台做重新審核
-			if (shgmvo.getUpcheck() == 0) {
+			if (shgmvo.getUpcheck() != null) {
+				// 確定檢舉的市集商品，在前台是待上架狀態，可能是賣家修改後重新上架，通知後台做重新審核
 				if (shgmrpvo != null && shgmrpvo.getStatus() == 1) {
-					sendthis.append("市集商品「" + shgmvo.getShgmname() + "」重新申請上架了，請至檢舉管理進行審核！");
+					sendthis.append("被檢舉的商品「" + shgmvo.getShgmname() + "」已重新申請上架，請至檢舉管理審核！");
+					sendmsg("shgmBackEnd", sendthis);
+				} else if (shgmrpvo != null ){
+					sendthis.append("市集商品「" + shgmvo.getShgmname() + "」正申請上架，請至市集管理審核！asdfdsf");
 					sendmsg("shgmBackEnd", sendthis);
 				}
 			} else if (shgmvo.getBoxstatus() != null) {
