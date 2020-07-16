@@ -5,7 +5,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.rminfo.model.*"%>
 <%@ page import="com.joinrm.model.*"%>
-
+<%@ page import="java.sql.*"%>
 <%
 	RminfoService rminfoSvc = new RminfoService();
 	List<RminfoVO> list = rminfoSvc.getAll();
@@ -85,7 +85,7 @@
 				*¹Cª±¦aÂI:
 				<select name="shopno">
 					<c:forEach var="shopVO" items="${shopSvc.getAll()}">
-						<option value="${shopVO.shopno}" ${(rminfoVO.shopno==shopVO.shopno)? 'selected':'' }>${shopVO.shopname}
+						<option value="${shopVO.shopno}" ${(rminfoVO.shopno==shopVO.shopno)? 'selected':'' }${(param.shopno==shopVO.shopno)? 'selected':'' }>${shopVO.shopname}
 					</c:forEach>
 				</select><br><br>
 				
@@ -231,21 +231,34 @@
 </body>
 <%
 	java.sql.Timestamp starttime = null;
-	try {
-		starttime = rminfoVO.getStarttime();
-	} catch (Exception e) {
-		starttime = new java.sql.Timestamp(
-				(System.currentTimeMillis() / 1800000) * 1800000 + (1000 * 60 * 60 * 72));
-	}
+
+	if(request.getParameter("shoppds") != null){
+		String starttimeStr = request.getParameter("shoppds");
+		starttime = Timestamp.valueOf(starttimeStr);
+	}else{
+		try {
+			starttime = rminfoVO.getStarttime();
+		} catch (Exception e) {
+			starttime = new java.sql.Timestamp(
+					(System.currentTimeMillis() / 1800000) * 1800000 + (1000 * 60 * 60 * 72));
+		}
+	}	
 %>
 <%
 	java.sql.Timestamp endtime = null;
-	try {
-		endtime = rminfoVO.getEndtime();
-	} catch (Exception e) {
-		endtime = new java.sql.Timestamp(
-				(System.currentTimeMillis() / 1800000) * 1800000 + (1000 * 60 * 60 * 75));
+	
+	if(request.getParameter("shoppde") != null){
+		String endtimeStr = request.getParameter("shoppde");
+		endtime = Timestamp.valueOf(endtimeStr);
+	}else{
+		try {
+			endtime = rminfoVO.getEndtime();
+		} catch (Exception e) {
+			endtime = new java.sql.Timestamp(
+					(System.currentTimeMillis() / 1800000) * 1800000 + (1000 * 60 * 60 * 75));
+		}
 	}
+	
 %>
 <script>
 (function($){
@@ -354,6 +367,11 @@
 	
 	$(window).load(function() {
 		<c:if test="${not empty errorMsgs}">
+			dialog2.dialog("open");
+		</c:if>
+	});
+	$(window).load(function() {
+		<c:if test="${not empty param.shopno}">
 			dialog2.dialog("open");
 		</c:if>
 	});
