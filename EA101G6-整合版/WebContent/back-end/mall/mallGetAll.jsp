@@ -14,6 +14,15 @@
 <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/mallCss/mallcss.css">
 
+<style>
+div.backNav .dropdown-item.active, div.backNav .dropdown-item:active {
+    color: #000000;
+    text-decoration: none;
+    background-color: #ffffff;
+}
+
+</style>
+
 </head>
 
 

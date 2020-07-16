@@ -208,15 +208,20 @@ div.navdiv{
 	<script src="<%=request.getContextPath()%>/js/model/jquery-3.3.1.min.js"></script>
 	<script src="<%=request.getContextPath()%>/js/model/popper.min.js"></script>
 	<script src="<%=request.getContextPath()%>/js/model/bootstrap.min.js"></script>
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-    <script>
-    <c:if test="${showDetail}">
-	 	$("#basicModal").modal({show: true});
-	 </c:if>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+	
+	
+	<script>
+	<c:if test="${not empty msg}">
+	Swal.fire('${msg}');
+	</c:if>	
 	</script>
-
-
-
+	<%session.removeAttribute("msg");%>
+	
+    <script>
+    	<c:if test="${showDetail}">
+	 		$("#basicModal").modal({show: true});
+		 </c:if>
+	</script>
 </body>
 </html>
