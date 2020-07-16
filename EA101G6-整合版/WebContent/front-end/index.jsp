@@ -343,7 +343,7 @@ div.comm {
 		</h1>
 	</div>
 	<div id="services-section">
-		<div class="container commMain">
+		<div class="container commMain col-10">
 			<div class="row">
 				<c:forEach var="mallVo" items="${mallSvc.getNew()}">
 					<div class="col-lg-2 col-4 comm">
