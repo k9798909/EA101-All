@@ -36,7 +36,7 @@
   }
   table {
 	width: 800px;
-	background-color: rgba(210,210,210,0.6);
+	background-color: rgba(255,255,255,0.7);
 	margin-top: 5px;
 	margin-bottom: 5px;
   }
@@ -48,6 +48,7 @@
     text-align: center;
     position:relative;
   }
+  
 </style>
 
 <meta charset="utf-8">
@@ -73,8 +74,13 @@
 		</c:forEach>
 	</ul>
 </c:if>
-
-<table>
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+     
+    </div>
+    <div class="col-sm">
+      <table>
 	<tr>
 		<th style="text-align:center">會員照片</th>
 		<th>會員編號</th>
@@ -135,6 +141,20 @@
 	</c:forEach>
 </table>
 <%@ include file="page2.file" %>
+    </div>
+    <div class="col-sm">
+   
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
 
 </body>
 </html>
