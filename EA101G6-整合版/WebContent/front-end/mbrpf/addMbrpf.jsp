@@ -104,21 +104,21 @@ body {
 						</tr><tr>
 							<td class="tdtitle">一般會員帳號</td>
 						<tr>
-							<td><input type="TEXT" class="mainF" name="mbract" size="45"
+							<td><input type="TEXT" class="mainF" id="tmbract" name="mbract" size="45"
 								value="<%=(erroMbrpfVO == null) ? "" : erroMbrpfVO.getMbract()%>" /></td>
 
 						</tr>
 						<tr>
 							<td class="tdtitle">一般會員密碼</td>
 						<tr>
-							<td><input type="TEXT" class="mainF" name="mbrpw" size="45"
+							<td><input type="TEXT" class="mainF" id="tmbrpw" name="mbrpw" size="45"
 								value="<%=(erroMbrpfVO == null) ? "" : erroMbrpfVO.getMbrpw()%>" /></td>
 						</tr>
 						</tr>
 						<tr>
 							<td class="tdtitle">會員姓名</td>
 						<tr>
-							<td><input type="TEXT" class="mainF" name="mbrname" size="45"
+							<td><input type="TEXT" class="mainF" id="tmbrname" name="mbrname" size="45"
 								value="<%=(erroMbrpfVO == null) ? "" : erroMbrpfVO.getMbrname()%>" /></td>
 						</tr>
 						</tr>
@@ -126,8 +126,9 @@ body {
 							<td class="tdtitle"><a>生日</a><a style="position: relative; right: -180px;">性別</a></td>
 						<tr>
 							<td><input name="birth" class="mainF" id="f_date1" type="date">
-								<a style="position: relative; right: -50px;"><input type="radio" name="sex" value="1">男
-								<input type="radio" name="sex" value="2">男</a></td>
+								<a style="position: relative; right: -50px;"><input type="radio" name="sex" value="1"
+								 checked="true">男
+								<input type="radio" name="sex" value="2">女</a></td>
 						</tr>
 						</tr>
 
@@ -135,28 +136,28 @@ body {
 						<tr>
 							<td class="tdtitle">電子郵件</td>
 						<tr>
-							<td><input type="TEXT" class="mainF" name="mail" size="45"
+							<td><input type="TEXT" class="mainF" id="temail" name="mail" size="45"
 								value="<%=(erroMbrpfVO == null) ? "" : erroMbrpfVO.getMail()%>" /></td>
 						</tr>
 						</tr>
 						<tr>
 							<td class="tdtitle">電話</td>
 						<tr>
-							<td><input type="TEXT" class="mainF" name="phone" size="45"
+							<td><input type="TEXT" class="mainF" id="tphone" name="phone" size="45"
 								value="<%=(erroMbrpfVO == null) ? "" : erroMbrpfVO.getPhone()%>" /></td>
 						</tr>
 						</tr>
 						<tr>
 							<td class="tdtitle">接收款項帳戶</td>
 						<tr>
-							<td><input type="TEXT" class="mainF" name="mbrac" size="45"
+							<td><input type="TEXT" class="mainF" id="tmbrac" name="mbrac" size="45"
 								value="<%=(erroMbrpfVO == null) ? "" : erroMbrpfVO.getMbrac()%>" /></td>
 						</tr>
 						</tr>
 						<tr>
 							<td class="tdtitle">暱稱</td>
 						<tr>
-							<td><input type="TEXT" class="mainF" name="nickname" size="45"
+							<td><input type="TEXT" class="mainF" id="tnickname" name="nickname" size="45"
 								value="<%=(erroMbrpfVO == null) ? "" : erroMbrpfVO.getNickname()%>" /></td>
 						</tr>
 						</tr>
@@ -194,6 +195,10 @@ body {
 					</table>
 					<br> <input type="hidden" name="action" value="insert">
 					<input type="submit" value="送出新增">
+					<div>
+					<button type="button" id="testman">測試人</button>
+				</div>
+					
 				</FORM>
 			</div>
 
@@ -246,6 +251,37 @@ body {
 	alert(erroStr);
 	</c:if>
 	
+</script>
+
+<script>
+// 給input  date設定預設值
+var now = new Date();
+//格式化日，如果小於9，前面補0
+var day = ("0" + now.getDate()).slice(-2);
+//格式化月，如果小於9，前面補0
+var month = ("0" + (now.getMonth() + 1)).slice(-2);
+//拼裝完整日期格式
+var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+//完成賦值
+$('#f_date1').val(today);
+
+</script>
+
+
+<script>
+
+$(document).ready(function(){
+	   $("#testman").click(function(){
+	     $("#tmbract").val("iaresad");
+	     $("#tmbrpw").val("123456");
+	     $("#tmbrname").val("我難過");
+	     $("#temail").val("iaresad@gmail.com");
+	     $("#tphone").val("0987654321");
+	     $("#tmbrac").val("1234-5678-8765-4321");
+	     $("#tnickname").val("難過");
+	   });
+	 });
+
 </script>
 
 <script>

@@ -235,7 +235,7 @@ div.comm {
 
 
 		<div class="site-section-cover  img-bg-section"
-			style="background-image: url('images/logo.gif');">
+			style="background-image: url('<%=request.getContextPath() %>/images/logo.gif');">
 			<div class="container">
 				<div
 					class="row align-items-center justify-content-center text-center">
@@ -256,7 +256,7 @@ div.comm {
 
 
 		<div class="site-section-cover  img-bg-section"
-			style="background-image: url('images/game.png');">
+			style="background-image: url('<%=request.getContextPath() %>/images/game.png');">
 			<div class="container">
 				<div
 					class="row align-items-center justify-content-center text-center">
@@ -267,7 +267,7 @@ div.comm {
 		</div>
 
 		<div class="site-section-cover  img-bg-section"
-			style="background-image: url('images/game2.png');">
+			style="background-image: url('<%=request.getContextPath() %>/images/game2.png');">
 			<div class="container">
 				<div
 					class="row align-items-center justify-content-center text-center">
@@ -279,7 +279,7 @@ div.comm {
 
 
 		<div class="site-section-cover overlay img-bg-section"
-			style="background-image: url('images/game2.png');">
+			style="background-image: url('<%=request.getContextPath() %>/images/game2.png');">
 			<div class="container">
 				<div
 					class="row align-items-center justify-content-center text-center">

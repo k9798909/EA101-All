@@ -46,7 +46,7 @@ if ("getOne_For_Display".equals(action)) {//來自select_page.jsp的請求
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/front-end/mbrpf/select_page.jsp");
+							.getRequestDispatcher("/back-end/mbrpf/listAllMbrpf.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -60,7 +60,7 @@ if ("getOne_For_Display".equals(action)) {//來自select_page.jsp的請求
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/front-end/mbrpf/select_page.jsp");
+							.getRequestDispatcher("/back-end/mbrpf/listAllMbrpf.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -74,7 +74,7 @@ if ("getOne_For_Display".equals(action)) {//來自select_page.jsp的請求
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/front-end/mbrpf/select_page.jsp");
+							.getRequestDispatcher("/back-end/mbrpf/listAllMbrpf.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -89,7 +89,7 @@ if ("getOne_For_Display".equals(action)) {//來自select_page.jsp的請求
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front-end/mbrpf/select_page.jsp");
+						.getRequestDispatcher("/back-end/mbrpf/select_page.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -750,7 +750,7 @@ if ("delete".equals(action)) { // 來自listAllEmp.jsp
 				mbrpfSvc.deleteMbrpf(mbrno);
 				
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
-				String url = "/front-end/mbrpf/listAllMbrpf.jsp";
+				String url = "/back-end/mbrpf/listAllMbrpf.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
 				
@@ -758,7 +758,7 @@ if ("delete".equals(action)) { // 來自listAllEmp.jsp
 			} catch (Exception e) {
 				errorMsgs.add("刪除資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front-end/mbrpf/listAllMbrpf.jsp");
+						.getRequestDispatcher("/back-end/mbrpf/listAllMbrpf.jsp");
 				failureView.forward(req, res);
 			}
 		}
