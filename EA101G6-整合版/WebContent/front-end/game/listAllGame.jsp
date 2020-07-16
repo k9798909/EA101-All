@@ -20,7 +20,12 @@ table {
 	margin-top: 10px;
 }
 
-td th tr {
+tr th {
+
+	text-align: center;
+}
+
+td {
 	text-align: center;
 }
 
@@ -56,15 +61,7 @@ h4 {
 	</jsp:include>
 
 
-	<%-- 錯誤表列 --%>
-	<c:if test="${not empty errorMsgs}">
-		<font style="color: red">請修正以下錯誤:</font>
-		<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color: red">${message}</li>
-			</c:forEach>
-		</ul>
-	</c:if>
+
 	<div class="container-fluid">
 		<div class="row">
 			<%@ include file="page1.file"%>
@@ -185,14 +182,12 @@ h4 {
 <script>
 	function init() {
 		var myFile = document.getElementById("myFile");
-		var filename = document.getElementById("filename");
 		var preview = document.getElementById('preview');
 		myFile.addEventListener('change', function(e) {
 			var files = myFile.files;
 			if (files !== null && files.length > 0) {
 				var file = files[0];
 				if (file.type.indexOf('image') > -1) {
-					// 					filename.value = file.name;
 					var reader = new FileReader();
 					reader.addEventListener('load', function(e) {
 						var result = e.target.result;

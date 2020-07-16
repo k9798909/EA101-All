@@ -68,8 +68,8 @@ li {
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item"><a class="nav-link" href='listAllShop.jsp'>List
-						all Shops.</a></li>
+				<li class="nav-item"><a href='listAllShop.jsp'>List</a>
+						all Shops.</li>
 			</ul>
 			<jsp:useBean id="shopSvc" scope="page"
 				class="com.shop.model.ShopService" />

@@ -12,7 +12,6 @@
 <!doctype html>
 <html lang="zh">
 <head>
-<meta charset="utf-8">
 	<title>店家提供遊戲列表</title>
 
 	<style>
@@ -43,6 +42,10 @@ img {
 h4 {
 	margin-left: 20px;
 }
+button{
+	margin-left: auto;
+	margin-right: auto;
+}
 </style>
 </head>
 <body>
@@ -50,10 +53,7 @@ h4 {
 <%@ include file="/front-end/front-end-nav.jsp" %>
 
 
-<jsp:include page="select_page.jsp" flush="true">
-	<jsp:param name="" value="" />
-</jsp:include>
-
+<jsp:include page="select_page.jsp" flush="true"/>
 <table>
 	<tr style="background-color: #FFFFFF; border: 0px; font:;">
 		<td style="background-color: #FFFFFF; border: 0px;">

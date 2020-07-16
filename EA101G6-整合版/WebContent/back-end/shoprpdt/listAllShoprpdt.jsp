@@ -96,7 +96,7 @@ h4 {
 				<td>
 					<FORM METHOD="post" ACTION="shoprpdt.do"
 							style="margin-bottom: 0px;">
-							<input type="submit" value="н╫зя"> 
+							<input type="submit" value="н╫зя" class="btn btn-secondary"> 
 							<input type="hidden" name="shoprpno" value="${shoprpdtVO.shoprpno}">
 							<input type="hidden" name="rmno" value="${shoprpdtVO.rmno}"> 
 							<input type="hidden" name="mbrno" value="${shoprpdtVO.mbrno}">

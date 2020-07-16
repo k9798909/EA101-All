@@ -28,7 +28,9 @@ td {
 	width: 20px;
 	height: 20px;
 }
-
+nav {
+	background-color: white;
+}
 
 h3 {
 	margin-left: auto;
@@ -45,7 +47,6 @@ li {
 </style>
 </head>
 <body bgcolor='white'>
-	<h3 style="margin-left:20px;">資料查詢:</h3>
 	<%-- 錯誤表列 --%>
 	<c:if test="${not empty errorMsgs}">
 		<font style="color: red">請修正以下錯誤:</font>
@@ -55,15 +56,18 @@ li {
 			</c:forEach>
 		</ul>
 	</c:if>
+<nav 
+		class="navbar navbar-expand-lg navbar-light bg-gradient-info shadow p-3 mb-5 rounded">
 
-	<ul>
-		<li><a href='listAllShop.jsp' >List</a> all Shop. <br></li>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+	<ul class="navbar-nav mr-auto">
+		<li class="nav-item"><a href='listAllShop.jsp' >List</a> all Shop. <br></li>
 <jsp:useBean id="shopSvc" scope="page" class="com.shop.model.ShopService" />
+	</ul>
 
 
-
-
-		<li>
+	<ul class="navbar-nav mr-auto">
+		<li class="nav-item">
 			<FORM METHOD="post" ACTION="<%= request.getContextPath()%>/back-end/shop/shop.do">
 				<b>選擇處理狀態:</b> <select size="1" name="status">
 						<option value=0>未審核	
@@ -74,7 +78,8 @@ li {
 			</FORM>
 		</li>
 	</ul>
-
+</div>
+	</nav>
 
 </body>
 </html>

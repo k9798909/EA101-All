@@ -15,11 +15,7 @@ table {
 	margin-right: auto;
 }
 
-tr th {
-	text-align: center;
-}
-
-td {
+td th tr {
 	text-align: center;
 }
 
@@ -35,8 +31,8 @@ h3 {
 }
 ul {
 	margin-top: 2px;
-	margin-left: center;
-	margin-right: center;
+	margin-left: auto;
+	margin-right: auto;
 }
 li {
 	margin-top: 15px;
@@ -66,8 +62,8 @@ div {
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item"><a class="nav-link" href='listAllGmlist.jsp'>List
-						all Gmlist.</a></li>
+				<li class="nav-item "><a href='listAllGmlist.jsp'>List
+						</a>all Gmlist.</li>
 			</ul>
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item">

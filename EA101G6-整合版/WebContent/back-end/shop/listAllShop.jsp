@@ -55,9 +55,7 @@ td {
 tr:nth-child(odd) {
 	background-color: white;
 }
-tr:nth-child(even) {
-	background-color: gray;
-}
+
 
 img {
 	width: 300px;
@@ -96,7 +94,7 @@ h4 {
 					</select></td>
 				<td>
 					<FORM METHOD="post" ACTION="<%= request.getContextPath()%>/back-end/shop/shop.do" enctype="multipart/form-data">
-						<input type="submit" value="н╫зя"> 
+						<input type="submit" value="н╫зя" class="btn btn-secondary"> 
 						<input type="hidden" name="shopno" value="${shopVO.shopno}"> 
 						<input type="hidden" name="status" value="${shopVO.status}" class="status">	
 						<input type="hidden" name="URL" value="<%=request.getServletPath()%>">

@@ -55,7 +55,7 @@ h4 {
 
 
 
-	<jsp:include page="select_page.jsp"/>
+	<jsp:include page="select_page.jsp" />
 	<div class="row">
 		<div class="col-sm-4"></div>
 		<div class="col-sm-5">
@@ -69,28 +69,36 @@ h4 {
 			<p>電話:0${shopVO.shopphone}</p>
 			<p>位置:${shopVO.shoploc}</p>
 			<p class="lead">
-			<FORM id="gmlist" METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/gmlist/gmlist.do">
+			<FORM id="gmlist" METHOD="post"
+				ACTION="<%=request.getContextPath()%>/front-end/gmlist/gmlist.do">
 				<input type="hidden" name="shopno" value="${shopVO.shopno}">
 				<input type="hidden" name="action" value="getSome_For_Display">
-				</FORM>
-				<button type="submit" class="btn btn-primary btn-lg" id="goGmlist">店家遊戲</button>
-				<button type="submit" class="btn btn-primary btn-lg" id="goShopbk">查看揪團</button>
+			</FORM>
+			<button type="submit" class="btn btn-primary btn-lg" id="goGmlist">店家遊戲</button>
+			<button type="submit" class="btn btn-primary btn-lg" id="goShopbk">查看揪團</button>
 			</p>
-		</div></div>
-<FORM id="shopbk" METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/shopbk/shopbk.do">
-				<input type="hidden" name="shopno" value="${shopVO.shopno}">
-				<input type="hidden" name="action" value="getSome_For_Display">
-				</FORM>
-<script>
-$(document).ready(function() {
-	$("#goGmlist").click(function(){
-		$("#gmlist").submit();
-	})
-	
-	$("#goShopbk").click(function(){
-		$("#shopbk").submit();
-	})
-})
-</script>
+		</div>
+	</div>
+	<FORM id="shopbk" METHOD="post"
+		ACTION="<%=request.getContextPath()%>/front-end/shopbk/shopbk.do">
+		<input type="hidden" name="shopno" value="${shopVO.shopno}"> <input
+			type="hidden" name="action" value="getSome_For_Display">
+	</FORM>
+
+
+
+
+	<script>
+		$(document).ready(function() {
+			$("#goGmlist").click(function() {
+				$("#gmlist").submit();
+			})
+
+			$("#goShopbk").click(function() {
+				$("#shopbk").submit();
+			})
+		})
+	</script>
+
 </body>
 </html>

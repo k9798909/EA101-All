@@ -23,14 +23,24 @@ table {
 	margin-top: 10px;
 }
 
-td th tr {
+tr th {
+
 	text-align: center;
 }
+
+td {
+	text-align: center;
+}
+
 .icon {
 	width: 20px;
 	height: 20px;
 }
 
+#preview img {
+	width: 150px;
+	height: 150px;
+}
 
 img {
 	width: 50px;
@@ -45,21 +55,21 @@ h4 {
 
 <body>
 
-<jsp:include page="/front-end/front-end-nav.jsp" flush="true"></jsp:include>
+	<jsp:include page="/front-end/front-end-nav.jsp" flush="true"></jsp:include>
 
 
-<jsp:include page="select_page.jsp" flush="true"></jsp:include>
+	<jsp:include page="select_page.jsp" flush="true"></jsp:include>
 
-<%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-	<font style="color: red">請修正以下錯誤:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color: red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
-<div class="container-fluid">
+	<%-- 錯誤表列 --%>
+	<c:if test="${not empty errorMsgs}">
+		<font style="color: red">請修正以下錯誤:</font>
+		<ul>
+			<c:forEach var="message" items="${errorMsgs}">
+				<li style="color: red">${message}</li>
+			</c:forEach>
+		</ul>
+	</c:if>
+	<div class="container-fluid">
 		<div class="row">
 			<%@ include file="page1.file"%>
 			<table class="table table-sm">
@@ -78,8 +88,9 @@ h4 {
 							src="<%=request.getContextPath()%>/GameShowImg?gmno=${gameVO.gmno}"></td>
 						<td>
 							<FORM METHOD="post" ACTION="game.do" style="margin-bottom: 0px;">
-								<input type="submit" value="修改"> <input type="hidden"
-									name="gmno" value="${gameVO.gmno}"> <input
+								<input type="submit" value="修改"
+									class="btn btn-outline-secondary my-2 my-sm-0"> <input
+									type="hidden" name="gmno" value="${gameVO.gmno}"> <input
 									type="hidden" name="action" value="getOne_For_Update">
 							</FORM>
 						</td>

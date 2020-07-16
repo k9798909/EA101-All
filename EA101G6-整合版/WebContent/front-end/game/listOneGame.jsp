@@ -18,7 +18,12 @@ table {
 	margin-top: 10px;
 }
 
-td th tr {
+tr th {
+
+	text-align: center;
+}
+
+td {
 	text-align: center;
 }
 

@@ -76,40 +76,9 @@ public class ShoprpdtServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
-//		if ("getOne_For_Update".equals(action)) { // �Ӧ�listAllshop.jsp���ШD
-//
-//			List<String> errorMsgs = new LinkedList<String>();
-//			// Store this set in the request scope, in case we need to
-//			// send the ErrorPage view.
-//			req.setAttribute("errorMsgs", errorMsgs);
-//
-//			try {
-//				/*************************** 1.�����ШD�Ѽ� ****************************************/
-//				String shoprpdtno = req.getParameter("shoprpdtno");
-//
-//				/*************************** 2.�}�l�d�߸�� ****************************************/
-//				ShoprpdtService shoprpdtSvc = new ShoprpdtService();
-//				ShoprpdtVO shoprpdtVO = shoprpdtSvc.getOneShoprpdt(shoprpdtno);
-//
-//				/*************************** 3.�d�ߧ���,�ǳ����(Send the Success view) ************/
-//				req.setAttribute("shoprpdtVO", shoprpdtVO); // ��Ʈw���X��shopVO����,�s�Jreq
-//				String url = "update_shoprpdt_input.jsp";
-//				RequestDispatcher successView = req.getRequestDispatcher(url);// ���\��� update_shop_input.jsp
-//				successView.forward(req, res);
-//
-//				/*************************** ��L�i�઺���~�B�z **********************************/
-//			} catch (Exception e) {
-//				errorMsgs.add("有錯誤:" + e.getMessage());
-//				RequestDispatcher failureView = req.getRequestDispatcher("listAllShoprpdt.jsp");
-//				failureView.forward(req, res);
-//			}
-//		}
-//
 		if ("update".equals(action)) { // �Ӧ�update_shop_input.jsp���ШD
 
 			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
