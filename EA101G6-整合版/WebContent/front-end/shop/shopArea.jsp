@@ -70,11 +70,7 @@ h4 {
 						ACTION="<%=request.getContextPath()%>/front-end/shop/shop.do">
 						<input type="hidden" name="action" value="getOne_For_Update">
 					</FORM>
-					<li class="list-group-item list-group-item-action" id="goUpdate">我的訂位</li>
-					<FORM id="getOne_For_Update" METHOD="post"
-						ACTION="<%=request.getContextPath()%>/front-end/shop/shop.do">
-						<input type="hidden" name="action" value="getOne_For_Update">
-					</FORM>
+					<li class="list-group-item list-group-item-action" onclick="location.href='<%=request.getContextPath()%>/front-end/room/shop_roomList.jsp';">我的訂位</li>
 				</ul>
 			</div>
 		</div>

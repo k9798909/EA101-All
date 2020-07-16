@@ -21,7 +21,7 @@
 </head>
 <body>
 <form METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/room/rate.do">
-<table>
+<table class="table table-striped">
 <tr><th style="width:130px">成員名稱</th><th style="width:100px">評價分數</th><th >評價內容</th></tr>
 	<c:forEach var="joinrmVO2" items="${list2}">
 		<c:if test="${joinrmVO2.mbrno ne mbrpfVO.mbrno}">
@@ -32,7 +32,7 @@
 			      <input type="hidden" name="rmno" value="<%=request.getParameter("rmno")%>">
 			      <input type="hidden" name="ratingmbrno" value="${mbrpfVO.mbrno}">
 		      </td>
-		      <td> 
+		      <td align="center"> 
 		      	<select name="score">
 					<%for (int i = 5; i >= 1; i--) {%>
 					<option value="<%=i%>"><%=i%></option>
@@ -43,9 +43,13 @@
 		    </tr>    		 	  
 		</c:if>
 	</c:forEach>
-	<tr><td colspan="3" align="right"><input type="hidden" name="action" value="insert">
-	<input type="submit" value="送出"></td></tr>
+<!-- 	<tr><td colspan="3" align="right"><input type="hidden" name="action" value="insert"> -->
+<!-- 	<input type="submit" value="送出"></td></tr> -->
 	</table>
+	<div style="text-align:right">
+		<input type="hidden" name="action" value="insert">
+		<input type="submit" value="送出" onclick="return(confirm('送出後將無法修改'))">
+	</div>
 </form>
 
 </body>

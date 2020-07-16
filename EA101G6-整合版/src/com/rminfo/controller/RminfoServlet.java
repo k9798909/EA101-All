@@ -177,9 +177,9 @@ if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 		if ("update".equals(action)) { // 來自addEmp.jsp的請求 
 			
 			List<String> errorMsgs = new LinkedList<String>();
-		
+			List<String> updateMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-		
+			req.setAttribute("updateMsgs", updateMsgs);
 			try {
 				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 				
@@ -205,6 +205,11 @@ if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 				RminfoService rminfoSvc = new RminfoService();
 				rminfoVO = rminfoSvc.update(status,report,rmno);
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
+				if(status == 4) {
+					updateMsgs.add("取消成功");
+				}else if(status == 3){
+					updateMsgs.add("訂位成功");
+				}
 				String url = "/front-end/room/myRoom.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);				

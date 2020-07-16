@@ -26,14 +26,21 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script type="text/javascript"> var jQuery_1_12_4 = $.noConflict(true); </script>
-<script>
-	function confirmMsg(){
-		var r = confirm
-	}
-</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
 <body>
 <%@ include file="/front-end/front-end-nav.jsp"%>
+<c:if test="${not empty updateMsgs}">
+	<script>
+		Swal.fire({
+			  position: 'center',
+			  icon: 'success',
+			  title: '${updateMsgs}',
+			  showConfirmButton: false,
+			  timer: 1500
+			})
+	</script>
+</c:if>
 <div id="listAll">
 <table class="table table-striped">
 	<tr>
@@ -100,7 +107,7 @@
 				<input type="hidden" name="report" value="${rminfoSvc.getOneRm(joinrmVO.rmno).report}">
 				<input type="hidden" name="rmno" value="${joinrmVO.rmno}">
 				<input type="hidden" name="action" value="update">
-				<input class="btn btn-success btn-sm" type="submit" value="訂位" onclick="return(confirm('確定要定位嗎？確定後將無法取消'))">
+				<input class="btn btn-success btn-sm" type="submit" value="訂位" onclick="return(confirm('確定要訂位嗎？確定後將無法取消'))">
 			</form>
 			</c:if>
 		</c:if>

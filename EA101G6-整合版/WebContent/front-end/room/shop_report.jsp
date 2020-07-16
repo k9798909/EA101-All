@@ -16,30 +16,36 @@
 </head>
 <body>
 <form METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/room/shoprp.do">
-	<table>
+	<table class="table table-striped">
 	<tr>
-		<th>會員名稱</th><th>是否到場</th><th>備註</th>
+		<th style="width:100px">會員名稱</th><th style="width:100px;text-align:center">是否到場</th><th>備註</th>
 	</tr>
 	<c:forEach var="joinrmVO2" items="${list2}">
 		<tr>
 		    <td><input type="hidden" name="rmno" value="<%=request.getParameter("rmno")%>">
-			<input type="text" name="mbrno" value="${mbrpfSvc.getOneMbrpf(joinrmVO2.mbrno).mbrname}" readonly></td>
+			${mbrpfSvc.getOneMbrpf(joinrmVO2.mbrno).mbrname}
+			<input type="hidden" name="mbrno" value="${joinrmVO2.mbrno}">
+			</td>
 			<td style="text-align:center">
 				<select name="attend">
 					<option value="1">是</option>
 					<option value="0">否</option>
 				</select>
 			</td>
-			<td><input type="text" name="detail" value="123"></td>
+			<td><input type="text" name="detail" maxlength="15"></td>
 		</tr>	             		 	  
 	</c:forEach>
-	<tr>
-		<td colspan="3" align="right">
-			<input type="hidden" name="action" value="insert">
-			<input type="submit" value="送出">
-		</td>
-	</tr>
+<!-- 	<tr> -->
+<!-- 		<td colspan="3" align="right"> -->
+<!-- 			<input type="hidden" name="action" value="insert"> -->
+<!-- 			<input type="submit" value="送出"> -->
+<!-- 		</td> -->
+<!-- 	</tr> -->
 	</table>
+	<div style="text-align:right">
+		<input type="hidden" name="action" value="insert">
+		<input type="submit" value="送出">
+	</div>
 </form>
 
 </body>

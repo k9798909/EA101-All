@@ -43,6 +43,17 @@
 		})
 	</script>
 </c:if>
+<c:if test="${not empty joinSuccessMsg}">
+	<script>
+		Swal.fire({
+			  position: 'center',
+			  icon: 'success',
+			  title: '${joinSuccessMsg}',
+			  showConfirmButton: false,
+			  timer: 1500
+			})
+	</script>
+</c:if>
 <c:if test="${not empty successMsgs}">
 	<script>
 		Swal.fire({

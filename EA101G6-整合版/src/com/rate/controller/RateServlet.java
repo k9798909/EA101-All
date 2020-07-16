@@ -24,9 +24,9 @@ public class RateServlet extends HttpServlet{
 	if ("insert".equals(action)) { 
 		
 		List<String> errorMsgs = new LinkedList<String>();
-
 		req.setAttribute("errorMsgs", errorMsgs);
-
+		List<String> updateMsgs = new LinkedList<String>();
+		req.setAttribute("updateMsgs", updateMsgs);
 		try {
 //			/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 //			
@@ -69,6 +69,7 @@ public class RateServlet extends HttpServlet{
 //			
 //			
 //			/***************************3.新增完成,準備轉交(Send the Success view)***********/
+			updateMsgs.add("評價成功");
 			String url = "/front-end/room/myRoom.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successView.forward(req, res);				

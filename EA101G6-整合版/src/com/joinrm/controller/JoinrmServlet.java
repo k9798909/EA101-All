@@ -26,9 +26,9 @@ public class JoinrmServlet extends HttpServlet{
 if ("insert".equals(action)) { 
 			
 			List<String> joinMsg = new LinkedList<String>();
-
+			List<String> joinSuccessMsg = new LinkedList<String>();
 			req.setAttribute("joinMsg", joinMsg);
-
+			req.setAttribute("joinSuccessMsg", joinSuccessMsg);
 			try {
 				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 				
@@ -86,6 +86,7 @@ if ("insert".equals(action)) {
 					System.out.println("change status to 1");
 				}
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
+				joinSuccessMsg.add("加入成功!!");
 				String url = "/front-end/room/create.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);				

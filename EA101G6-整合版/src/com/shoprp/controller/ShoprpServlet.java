@@ -80,9 +80,8 @@ public class ShoprpServlet extends HttpServlet{
 		} catch (Exception e) {
 			System.out.println(e);
 //			errorMsgs.add(e.getMessage());
-//			RequestDispatcher failureView = req
-//					.getRequestDispatcher("/front-end/create.jsp");
-//			failureView.forward(req, res);
+			RequestDispatcher failureView = req.getRequestDispatcher("/front-end/room/shop_roomList.jsp");
+			failureView.forward(req, res);
 		}
 		}
 	if ("delete".equals(action)) { 
