@@ -15,7 +15,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>All_Shgmrp</title>
+<title>市集商品檢舉審核</title>
 
 <style>
 	.logoutPIC{
@@ -68,8 +68,9 @@
 <body>
 
 <jsp:include page="/back-end/back-end_nav-boyuan.jsp"></jsp:include>
-<jsp:include page="/back-end/shgmrp/shgmrp_select_page.jsp"></jsp:include>
-
+<div class="col-10" style="margin: 0 auto;">
+	<jsp:include page="/back-end/shgmrp/shgmrp_select_page.jsp"></jsp:include>
+</div>
 <ul>
 	<c:if test="${not empty errormsgs}">
 		<c:forEach var="error" items="${errormsgs}">
@@ -77,6 +78,7 @@
 		</c:forEach>
 	</c:if>
 </ul>
+<div class="col-10" style="margin: 0 auto;">
 <%@ include file="/back-end/shgmrp/page1.file" %> 
 	<table id="table" class="table bg-white">
 		<tr style="background-color:#e6e6e6;">
@@ -133,6 +135,7 @@
 		</tr>
 		</c:forEach>
 	</table>
+</div>
 <%@ include file="/back-end/shgmrp/page2.file" %>
 	<jsp:include page="/back-end/shgm/alert-area-backend.jsp"></jsp:include>
 	<input type="hidden" id="mbrno" value="shgmBackEnd">

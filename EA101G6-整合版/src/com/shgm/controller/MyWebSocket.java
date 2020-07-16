@@ -76,7 +76,7 @@ public class MyWebSocket {
 				sendthis.append(sellerVO.getNickname() + "，您的商品「" + shgmvo.getShgmname() + "」，已經上架了！");
 				sendmsg(sellerno, sendthis);
 				sendthis.setLength(0);
-				sendthis.append(sellerVO.getNickname() + "有新上架商品「" + shgmvo.getShgmname() + "」，趕快去市集看看！");
+				sendthis.append("賣家 " + sellerVO.getNickname() + "，有新上架商品「" + shgmvo.getShgmname() + "」，趕快去市集看看！");
 				sendMsgToAll(sellerno, sendthis);
 			} else if (shgmvo.getUpcheck() == 2) {
 				sendthis.append(sellerVO.getNickname() + "，您的商品「" + shgmvo.getShgmname() + "」，已經下架了！");
@@ -94,7 +94,7 @@ public class MyWebSocket {
 			ShgmrpVO shgmrpvo = null;
 			String shgmno = (String) jsonobj.get("shgmno");
 			System.out.println(shgmno);
-			//sendSellSuccess()送來的json，沒有pk，經過controller時，shgmno存著"noPK"，還有sellerno和shgmname
+			//sendSellSuccess()送來的json，沒有pk，經過controller時，shgmno的value值存著"noPK"，還有sellerno和shgmname
 			if (shgmno.equals("noPK")) {
 				sendthis.append("市集商品「" + jsonobj.get("shgmname") + "」正申請上架，請至市集管理審核！");
 				sendmsg("shgmBackEnd", sendthis);
@@ -117,8 +117,8 @@ public class MyWebSocket {
 				if (shgmrpvo != null && shgmrpvo.getStatus() == 1) {
 					sendthis.append("被檢舉的商品「" + shgmvo.getShgmname() + "」已重新申請上架，請至檢舉管理審核！");
 					sendmsg("shgmBackEnd", sendthis);
-				} else if (shgmrpvo != null ){
-					sendthis.append("市集商品「" + shgmvo.getShgmname() + "」正申請上架，請至市集管理審核！asdfdsf");
+				} else if (shgmrpvo == null && shgmvo.getUpcheck() == 0){
+					sendthis.append("市集商品「" + shgmvo.getShgmname() + "」正申請上架，請至市集管理審核！");
 					sendmsg("shgmBackEnd", sendthis);
 				}
 			} else if (shgmvo.getBoxstatus() != null) {
@@ -132,11 +132,11 @@ public class MyWebSocket {
 			}
 			if (shgmvo.getStatus() != null) {
 				if (shgmvo.getStatus() == 2) {
-					sendthis.append("買家 " + buyerVO.getNickname() + "，已確認收貨，您的商品「" + shgmorg.getShgmname() + "」已賣出！");
+					sendthis.append("買家 " + shgmorg.getTakernm() + "，已確認收貨，您的商品「" + shgmorg.getShgmname() + "」已賣出！");
 					sendmsg(sellerno, sendthis);
 				} else if (shgmvo.getStatus() == 3) {
 					sendthis.append(
-							"買家 " + buyerVO.getNickname() + "，已取消購買「" + shgmorg.getShgmname() + "」，請至賣家專區回收商品。");
+							"買家 " + shgmorg.getTakernm() + "，已取消購買「" + shgmorg.getShgmname() + "」，請至賣家專區回收商品。");
 					sendmsg(sellerno, sendthis);
 					sendthis.setLength(0);
 					sendthis.append(buyerVO.getNickname() + "，您已成功取消購買「" + shgmorg.getShgmname() + "」，點數共 "
@@ -146,10 +146,10 @@ public class MyWebSocket {
 			}
 			// 購買成功，前台送過來
 			if (shgmvo.getPaystatus() != null) {
-				sendthis.append("買家 " + buyerVO.getNickname() + "，已購買您的商品「" + shgmorg.getShgmname() + "」，請至賣家專區出貨。");
+				sendthis.append("買家 " + shgmorg.getTakernm() + "，已購買您的商品「" + shgmorg.getShgmname() + "」，請至賣家專區出貨。");
 				sendmsg(sellerno, sendthis);
 				sendthis.setLength(0);
-				sendthis.append(sellerVO.getNickname() + "，您已成功購買商品「" + shgmorg.getShgmname() + "」，請等待賣家出貨。");
+				sendthis.append(buyerVO.getNickname() + "，您已成功購買商品「" + shgmorg.getShgmname() + "」，請等待賣家出貨。");
 				sendmsg(buyerno, sendthis);
 			}
 		}

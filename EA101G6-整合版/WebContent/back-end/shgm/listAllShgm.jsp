@@ -12,7 +12,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>All_Shgm</title>
+<title>市集商品管理</title>
 <style>
 	.logoutPIC{
 		margin-top:18%;
@@ -79,8 +79,9 @@
 <body>
 
 <jsp:include page="/back-end/back-end_nav-boyuan.jsp"></jsp:include>
-<jsp:include page="/back-end/shgm/shgm_select_page.jsp"></jsp:include>
-
+<div class="col-10" style="margin: 0 auto;">
+	<jsp:include page="/back-end/shgm/shgm_select_page.jsp"></jsp:include>
+</div>
 <ul>
 	<c:if test="${not empty errormsgs}">
 		<c:forEach var="error" items="${errormsgs}">
@@ -89,6 +90,7 @@
 	</c:if>
 </ul>
 <div id="shgmall-mainarea">
+<div class="col-10" style="margin: 0 auto;">
 		<%@ include file="/back-end/shgm/page1.file" %> 
 	<table id="table" class="table bg-white">
 		<tr style="background-color:#e6e6e6;">
@@ -226,10 +228,10 @@
         	</td>
         	<c:choose>
         		<c:when test="${shgmvo.upcheck == 2}">
-        			<td>本商品已審核下架</td>
+        			<td>已審核下架</td>
         		</c:when>
         		<c:when test="${shgmvo.soldtime == null}">
-        			<td>本商品尚未售出</td>
+        			<td>尚未售出</td>
         		</c:when>
         		<c:otherwise>
 	        		<td><fmt:formatDate value="${shgmvo.soldtime}" pattern="yyyy/MM/dd HH:mm:ss"/></td>
@@ -255,6 +257,7 @@
 		</tr>
 		</c:forEach>
 	</table>
+</div>
 	<jsp:include page="/back-end/shgm/alert-area-backend.jsp"></jsp:include>
 	
 	<input type="hidden" id="mbrno" value="shgmBackEnd">

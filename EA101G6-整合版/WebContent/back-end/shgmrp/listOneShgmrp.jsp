@@ -12,7 +12,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>One_Shgmrp</title>
+<title>檢視市集商品檢舉</title>
 
 <style>
 	table{

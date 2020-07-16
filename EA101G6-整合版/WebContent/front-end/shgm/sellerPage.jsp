@@ -17,7 +17,7 @@
 
 <html lang="en">
 <head>
-<title>sellerPage</title>
+<title>賣家專區</title>
 <meta charset="utf-8">
 </head>
 <style>
@@ -596,6 +596,8 @@ div.pageselect-area {
 				dataType: "json",
 				cache: false,
 				success: function(response){
+					jsondata = JSON.stringify(response);
+					webSocket.send(jsondata);
 					$('#upcheck0 ul').eq(0).after('<ul class="list-group list-group-horizontal four-li"></ul>');
 					$('#upcheck0 ul').eq(1).append('<li class="list-group-item">'+response.shgmname+'</li>');
 					$('#upcheck0 ul').eq(1).append('<li class="list-group-item"><div class="imgwrapper">'+

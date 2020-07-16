@@ -765,7 +765,8 @@ public class ShgmServlet extends HttpServlet {
 						jsonobj.put("shgmno", shgmno);
 						jsonobj.put("shgmname", shgmvo.getShgmname());
 						jsonobj.put("price", shgmvo.getPrice());
-						jsonobj.put("status", 0);
+						//送去WebSocket提醒後台用的
+						jsonobj.put("upcheck", 0);
 					}
 					// 已送達，買家確認收貨，下訂改成完成
 					if (status == 2) {

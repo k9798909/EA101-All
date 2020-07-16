@@ -58,7 +58,7 @@
 					選擇要修改的市集商品：
 					<select size="1" name="shgmno">
 						<c:forEach var="shgmvo" items="${shgmsvc.allShgm}">
-							<option value="${shgmvo.shgmno}">${shgmvo.shgmno}
+							<option value="${shgmvo.shgmno}">${shgmvo.shgmname}
 						</c:forEach>
 					</select>
 					<input type="hidden" name="action" value="getone_update" >

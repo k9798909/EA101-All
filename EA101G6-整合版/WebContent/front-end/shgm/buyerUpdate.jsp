@@ -11,7 +11,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-<title>buyerUpdate</title>
+<title>更改取貨資訊</title>
 <meta charset="utf-8">
 </head>
 <style>
