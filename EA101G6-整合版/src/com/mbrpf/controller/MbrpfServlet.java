@@ -610,7 +610,19 @@ if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 			    Part part = req.getPart("mbrimg");
 			    InputStream in =  part.getInputStream();
 			    byte[] buf = new byte[in.available()];
+			    if(part.getSize() == 0) {
+					in = getServletContext().getResourceAsStream("/NoData/EmpPic.jpg");
+					buf = new byte[in.available()];
+					
+				}else {
+					 in= part.getInputStream();
+					 buf= new byte[in.available()];
+				}
+			    
 			    in.read(buf);
+			    
+			    
+			    
 				
 				java.sql.Date birth = null;
 				try {
