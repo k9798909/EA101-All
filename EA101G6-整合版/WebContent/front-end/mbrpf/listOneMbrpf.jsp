@@ -8,7 +8,15 @@
 <head>
 <title>會員資料 - listOneMbrpf.jsp</title>
 
-
+<% 
+	if(request.getAttribute("mbrVO")!=null){
+		MbrpfVO vo=(MbrpfVO)request.getAttribute("mbrVO");
+		pageContext.setAttribute("mbrVO",vo);
+	}else if(session.getAttribute("mbrpfVO")!=null){
+		MbrpfVO vo=(MbrpfVO)session.getAttribute("mbrpfVO");
+		pageContext.setAttribute("mbrVO",vo);
+	}
+%>
 
 </head>
 
