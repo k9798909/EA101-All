@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Update_Shgame</title>
+<title>修改市集商品</title>
 <style>
 	table, td,tr{
 		text-align:center;

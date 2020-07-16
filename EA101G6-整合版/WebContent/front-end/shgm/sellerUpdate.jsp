@@ -11,7 +11,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-<title>update_page</title>
+<title>更新市集商品</title>
 <meta charset="utf-8">
 </head>
 <style>

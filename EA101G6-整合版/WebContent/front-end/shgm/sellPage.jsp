@@ -12,7 +12,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-<title>sell_page</title>
+<title>上架市集商品</title>
 <meta charset="utf-8">
 </head>
 <style>

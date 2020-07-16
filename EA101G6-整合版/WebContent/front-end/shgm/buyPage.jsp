@@ -12,7 +12,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>buy_page</title>
+<title>${infoshgm.shgmname}</title>
 </head>
 <style>
 body {

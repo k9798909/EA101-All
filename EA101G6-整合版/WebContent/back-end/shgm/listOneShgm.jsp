@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>One_Shgm</title>
+<title>檢視市集商品</title>
 
 <style>
 table {

@@ -103,6 +103,7 @@ public class TfcordServlet extends HttpServlet {
 				
 				TfcordService TfcordSvc = new TfcordService();
 				String tfno = TfcordSvc.addTfcordPoint(mbrno, tftype, price, tfstatus, mbrpfVO);
+				session.setAttribute("mbrpfVO", mbrpfVO);
 				session.setAttribute("mbrPoint", mbrpfVO.getPoints());//將已經加值過的點數set進sesssion中，讓帳戶管理頁面(listOneMbrtf.jsp)可以抓到最新的點數
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/

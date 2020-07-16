@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type"content="text/html; charset=UTF-8">
-<title>Add_Shgamerp</title>
+<title>新增市集商品檢舉</title>
 <style>
 	table, td,tr{
 		text-align:center;

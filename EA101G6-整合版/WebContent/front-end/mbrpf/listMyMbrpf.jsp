@@ -26,31 +26,31 @@
 			<div class="col">
 				<table class="memInfo">
 					<tr>
-						<td ><img width="200" height="175" src="<%= request.getContextPath()%>/mbrpf/mbrimg.do?mbrno=${mbrVO.mbrno}"></td>
+						<td ><img width="200" height="175" src="<%= request.getContextPath()%>/mbrpf/mbrimg.do?mbrno=${mbrpfVO.mbrno}"></td>
 					</tr>
 						<tr><td>&nbsp;</td></tr>
-						<tr><td>會員帳戶</td><td>${mbrVO.mbract}</td></tr>
+						<tr><td>會員帳戶</td><td>${mbrpfVO.mbract}</td></tr>
 						<tr><td>&nbsp;</td></tr>
-						<tr><td>會員姓名</td><td>${mbrVO.mbrname}</td></tr>
+						<tr><td>會員姓名</td><td>${mbrpfVO.mbrname}</td></tr>
 						<tr><td>&nbsp;</td></tr>
-						<tr><td>生日</td><td>${mbrVO.birth}</td></tr>
+						<tr><td>生日</td><td>${mbrpfVO.birth}</td></tr>
 						<tr><td>&nbsp;</td></tr>
 						<tr><td>性別</td><td>
-							<c:if test="${mbrVO.sex ==1}">
+							<c:if test="${mbrpfVO.sex ==1}">
 							<c:out value="男"/>
 							</c:if>
-							<c:if test="${mbrVO.sex ==2}">
+							<c:if test="${mbrpfVO.sex ==2}">
 							<c:out value="女"/>
 							</c:if>
 						</td></tr>
 						<tr><td>&nbsp;</td></tr>
-						<tr><td>電子郵件</td><td>${mbrVO.mail}</td></tr>
+						<tr><td>電子郵件</td><td>${mbrpfVO.mail}</td></tr>
 						<tr><td>&nbsp;</td></tr>
-						<tr><td>電話</td><td>${mbrVO.phone}</td></tr>
+						<tr><td>電話</td><td>${mbrpfVO.phone}</td></tr>
 						<tr><td>&nbsp;</td></tr>
-<%-- 						<tr><td>接收款項帳戶</td><td>${mbrVO.mbrac}</td></tr> --%>
-<!-- 						<tr><td>&nbsp;</td></tr> -->
-						<tr><td>暱稱</td><td>${mbrVO.nickname}</td></tr>
+						<tr><td>接收款項帳戶</td><td>${mbrpfVO.mbrac}</td></tr>
+						<tr><td>&nbsp;</td></tr>
+						<tr><td>暱稱</td><td>${mbrpfVO.nickname}</td></tr>
 <!-- 						<tr><td>&nbsp;</td></tr> -->
 <%-- 						<tr><td>點數餘額</td><td>${mbrpfVO.points}</td></tr> --%>
 <!-- 						<tr><td>&nbsp;</td></tr> -->
@@ -61,12 +61,12 @@
 <%-- 						<tr><td>未出席次數</td><td>${mbrpfVO.unattend}</td></tr> --%>
 <!-- 						<tr><td>&nbsp;</td></tr> -->
 <%-- 						<tr><td>總參團次數</td><td>${mbrpfVO.ttattend}</td></tr> --%>
-<!-- 						<td> -->
-<%-- 						  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/mbrpf/mbrpf.do" style="margin-bottom: 0px;"> --%>
-<!-- 						     <input type="submit" value="修改"> -->
-<%-- 						     <input type="hidden" name="mbrno"  value="${mbrVO.mbrno}"> --%>
-<!-- 						     <input type="hidden" name="action"	value="getOne_To_Update"></FORM> -->
-<!-- 						</td> -->
+						<td>
+						  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/mbrpf/mbrpf.do" style="margin-bottom: 0px;">
+						     <input type="submit" value="修改">
+						     <input type="hidden" name="mbrno"  value="${mbrpfVO.mbrno}">
+						     <input type="hidden" name="action"	value="getOne_To_Update"></FORM>
+						</td>
 						
 				</table>
 			</div>

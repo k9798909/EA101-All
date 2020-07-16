@@ -12,7 +12,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-<title>main_page</title>
+<title>市集商品首頁</title>
 <meta charset="utf-8">
 </head>
 <style>
@@ -236,7 +236,7 @@ footer{
 		</c:if>
 	</div>
 	<input type="hidden" id="MbrpfVO" value="${mbrpfVO.mbrname}">
-	
+	<div id="sellsuccess" style="display:none;">${sellsuccess}</div>
 	<jsp:include page="/front-end/shgm/alert-area.jsp"></jsp:include>
 	
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/ajaxForMbrmsgs.js"></script>

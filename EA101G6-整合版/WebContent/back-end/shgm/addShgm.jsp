@@ -13,7 +13,7 @@
 <head>
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/taiwan_address_auto_change.js"></script>
 <meta charset="UTF-8">
-<title>Add_Shgame</title>
+<title>新增市集商品</title>
 <style>
 	table, td, tr{
 		text-align:center;

@@ -17,7 +17,7 @@
 
 <html lang="en">
 <head>
-<title>myShgame</title>
+<title>我的市集商品</title>
 <meta charset="utf-8">
 </head>
 <style>
@@ -184,7 +184,7 @@ div.pageselect-area {
 						<div class="tab-content" id="nav-tabContent">
 						<div class="tab-pane fade active show" id="list-boxstatus0" role="tabpanel"
 								aria-labelledby="list-boxstatus0-list">
-								boxstatus0
+<!-- 								boxstatus0 -->
 								<ul class="list-group list-group-horizontal four-li">
 									<li class="list-group-item firstlis">商品名稱</li>
 									<li class="list-group-item firstlis">圖片</li>
@@ -213,7 +213,7 @@ div.pageselect-area {
 							</div>
 							<div class="tab-pane fade" id="list-boxstatus1" role="tabpanel"
 								aria-labelledby="list-boxstatus1-list">
-								boxstatus1
+<!-- 								boxstatus1 -->
 								<ul class="list-group list-group-horizontal four-li">
 									<li class="list-group-item firstlis">商品名稱</li>
 									<li class="list-group-item firstlis">圖片</li>
@@ -236,7 +236,7 @@ div.pageselect-area {
 							</div>
 							<div class="tab-pane fade" id="list-boxstatus2" role="tabpanel"
 								aria-labelledby="list-boxstatus2-list">
-								boxstatus2
+<!-- 								boxstatus2 -->
 								<ul class="list-group list-group-horizontal four-li">
 									<li class="list-group-item firstlis">商品名稱</li>
 									<li class="list-group-item firstlis">圖片</li>
@@ -261,7 +261,7 @@ div.pageselect-area {
 							</div>
 							<div class="tab-pane fade" id="list-status2" role="tabpanel"
 								aria-labelledby="list-status2-list">
-								status == 2商品名稱、圖片、售價、上架日期、售出日期
+<!-- 								status == 2商品名稱、圖片、售價、上架日期、售出日期 -->
 								<ul class="list-group list-group-horizontal five-li">
 									<li class="list-group-item firstlis">商品名稱</li>
 									<li class="list-group-item firstlis">圖片</li>
@@ -288,7 +288,7 @@ div.pageselect-area {
 							</div>
 							<div class="tab-pane fade" id="list-status3" role="tabpanel"
 								aria-labelledby="list-status3-list">
-								status == 3
+<!-- 								status == 3 -->
 								<ul class="list-group list-group-horizontal four-li">
 									<li class="list-group-item firstlis">商品名稱</li>
 									<li class="list-group-item firstlis">圖片</li>

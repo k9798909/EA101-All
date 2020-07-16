@@ -26,6 +26,7 @@ import com.mbrpf.model.MbrpfVO;
 import com.shgm.model.ShgmService;
 import com.shgm.model.ShgmVO;
 import com.shgmrp.model.ShgmrpService;
+import com.shgmrp.model.ShgmrpVO;
 
 import connectionpool.WsMessage;
 
@@ -315,8 +316,15 @@ public class ShgmServlet extends HttpServlet {
 				ShgmService shgmsvc = new ShgmService();
 				shgmsvc.addShgm(sellerno, null, shgmname, price, intro, img, 0, null, null, null, null, null, 0, 0, 0,
 						null);
+				
+				JSONObject jsonobj = new JSONObject();
+				jsonobj.put("shgmno", "noPK");
+				jsonobj.put("sellerno", sellerno);
+				jsonobj.put("shgmname", shgmname);
+				String jsonstr = jsonobj.toString();
+				request.setAttribute("sellsuccess", jsonstr);//提示賣家成功新增商品用的(還要審核)，並經由webSocket送出提醒後台
 
-				String url = "/front-end/shgm/mainPage.jsp";// forward到mainPage or myshgamePage??
+				String url = "/front-end/shgm/mainPage.jsp";
 				RequestDispatcher successview = request.getRequestDispatcher(url);
 				successview.forward(request, response);
 			} catch (Exception e) {
@@ -683,10 +691,13 @@ public class ShgmServlet extends HttpServlet {
 						String detail = null;
 						ShgmrpService shgmrpsvc = new ShgmrpService();
 						// 判斷是否有被檢舉的內容
-						if(shgmrpsvc.getOnerpByShgmno(shgmno).getStatus() == 1){
-							detail = shgmrpsvc.getOnerpByShgmno(shgmno).getDetail();
-						} else {
-							detail = "自行下架";
+						ShgmrpVO shgmrpvo = shgmrpsvc.getOnerpByShgmno(shgmno);
+						if(shgmrpvo != null) {
+							if(shgmrpvo.getStatus() == 1){
+								detail = shgmrpsvc.getOnerpByShgmno(shgmno).getDetail();
+							} else {
+								detail = "自行下架";
+							}
 						}
 
 						// 把jquery動態改變頁面需要的資料放入json
@@ -754,7 +765,8 @@ public class ShgmServlet extends HttpServlet {
 						jsonobj.put("shgmno", shgmno);
 						jsonobj.put("shgmname", shgmvo.getShgmname());
 						jsonobj.put("price", shgmvo.getPrice());
-						jsonobj.put("status", 0);
+						//送去WebSocket提醒後台用的
+						jsonobj.put("upcheck", 0);
 					}
 					// 已送達，買家確認收貨，下訂改成完成
 					if (status == 2) {
