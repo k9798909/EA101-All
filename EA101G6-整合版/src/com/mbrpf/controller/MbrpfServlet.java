@@ -611,7 +611,7 @@ if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 			    InputStream in =  part.getInputStream();
 			    byte[] buf = new byte[in.available()];
 			    if(part.getSize() == 0) {
-					in = getServletContext().getResourceAsStream("/NoData/EmpPic.jpg");
+					in = getServletContext().getResourceAsStream("/NoData/noImage.jpg");
 					buf = new byte[in.available()];
 					
 				}else {
