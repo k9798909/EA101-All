@@ -18,6 +18,17 @@
 	}
 %>
 
+<style>
+	table{
+		width:100%;
+	}
+	
+	td{
+		text-align:center;
+	}
+
+</style>
+
 </head>
 
 
@@ -34,7 +45,7 @@
 			<div class="col">
 				<table class="memInfo">
 					<tr>
-						<td ><img width="200" height="175" src="<%= request.getContextPath()%>/mbrpf/mbrimg.do?mbrno=${mbrVO.mbrno}"></td>
+						<td colspan="2" style="text-align:center;" ><img width="200" height="175" src="<%= request.getContextPath()%>/mbrpf/mbrimg.do?mbrno=${mbrVO.mbrno}"></td>
 					</tr>
 						<tr><td>&nbsp;</td></tr>
 						<tr><td>·|­û±b¤á</td><td>${mbrVO.mbract}</td></tr>

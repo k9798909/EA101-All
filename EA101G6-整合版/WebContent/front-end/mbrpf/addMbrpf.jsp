@@ -68,7 +68,7 @@ body {
 </head>
 
 
-<body background="try.jpg">
+<body background="<%= request.getContextPath()%>/front-end/mbrpf/try.jpg">
 
 	<%@ include file="/front-end/front-end-nav.jsp"%>
 
@@ -86,22 +86,22 @@ body {
 		<div class="row">
 
 			<div class="col-4"></div>
-			<div class="col-7">
+			<div class="col-4">
 				<FORM METHOD="post"
 					ACTION="<%=request.getContextPath()%>/mbrpf/mbrpf.do" name="form1"
 					enctype="multipart/form-data">
 					<table>
 						<tr>
-							<td class="tdtitle">會員頭像</td>
-							<img id="demo1" width="175" height="175"
-								style="position: relative; right: -150px;"
-								src="<%=(erroMbrpfVO == null) ? "09.jpg" : erroMbrpfVO.getMbract()%>">
-
-							<tr>
-						<td><label><input type="FILE" class="mainF" name="mbrimg" style="display:none"
-								onchange="loadFile1(event)" size="30" /><a class="button">上傳圖片</a></label></td>
+							<td style="text-align:center;">
+							<img id="demo1" 
+							src="<%=request.getContextPath()+"/front-end/mbrpf/09.jpg"%>">
+							</td>
+						<tr >
+						<td class="tdtitle" style="text-align:center;" ><div>會員頭像</div>
+						<label><input type="FILE" class="mainF" name="mbrimg" style="display:none"
+								onchange="loadFile1(event)" size="30" /><a class="btn btn-secondary" style="color:#ffffff;padding:4px;">上傳圖片</a></label></td>
 						</tr>
-						</tr><tr>
+						<tr>
 							<td class="tdtitle">一般會員帳號</td>
 						<tr>
 							<td><input type="TEXT" class="mainF" id="tmbract" name="mbract" size="45"
@@ -114,13 +114,11 @@ body {
 							<td><input type="TEXT" class="mainF" id="tmbrpw" name="mbrpw" size="45"
 								value="<%=(erroMbrpfVO == null) ? "" : erroMbrpfVO.getMbrpw()%>" /></td>
 						</tr>
-						</tr>
 						<tr>
 							<td class="tdtitle">會員姓名</td>
 						<tr>
 							<td><input type="TEXT" class="mainF" id="tmbrname" name="mbrname" size="45"
 								value="<%=(erroMbrpfVO == null) ? "" : erroMbrpfVO.getMbrname()%>" /></td>
-						</tr>
 						</tr>
 						<tr>
 							<td class="tdtitle"><a>生日</a><a style="position: relative; right: -180px;">性別</a></td>
@@ -130,7 +128,6 @@ body {
 								 checked="true">男
 								<input type="radio" name="sex" value="2">女</a></td>
 						</tr>
-						</tr>
 
 
 						<tr>
@@ -139,13 +136,11 @@ body {
 							<td><input type="TEXT" class="mainF" id="temail" name="mail" size="45"
 								value="<%=(erroMbrpfVO == null) ? "" : erroMbrpfVO.getMail()%>" /></td>
 						</tr>
-						</tr>
 						<tr>
 							<td class="tdtitle">電話</td>
 						<tr>
 							<td><input type="TEXT" class="mainF" id="tphone" name="phone" size="45"
 								value="<%=(erroMbrpfVO == null) ? "" : erroMbrpfVO.getPhone()%>" /></td>
-						</tr>
 						</tr>
 						<tr>
 							<td class="tdtitle">接收款項帳戶</td>
@@ -153,13 +148,11 @@ body {
 							<td><input type="TEXT" class="mainF" id="tmbrac" name="mbrac" size="45"
 								value="<%=(erroMbrpfVO == null) ? "" : erroMbrpfVO.getMbrac()%>" /></td>
 						</tr>
-						</tr>
 						<tr>
 							<td class="tdtitle">暱稱</td>
 						<tr>
 							<td><input type="TEXT" class="mainF" id="tnickname" name="nickname" size="45"
 								value="<%=(erroMbrpfVO == null) ? "" : erroMbrpfVO.getNickname()%>" /></td>
-						</tr>
 						</tr>
 						<tr style="display: none">
 							<td class="tdtitle">點數餘額:</td>
@@ -194,15 +187,15 @@ body {
 
 					</table>
 					<br> <input type="hidden" name="action" value="insert">
-					<input type="submit" value="送出新增">
-					<div>
-					<button type="button" id="testman">測試人</button>
-				</div>
+					<div style="text-align:center; margin-left:50px;"><input type="submit" value="送出新增"></div>
+					<div style="text-align:center; padding-top:10px;">
+					<button type="button" class="btn btn-secondary" style="margin-left:50px; color:#ffffff;padding:4px;" id="testman">測試人</button>
+					</div>
 					
 				</FORM>
 			</div>
 
-			<div class="col-1"></div>
+			<div class="col-4"></div>
 		</div>
 	</div>
 
@@ -236,7 +229,7 @@ body {
 	height: 151px; /* height:  151px; */
 }
 </style>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script type="text/javascript">
 	var loadFile1 = function(event){
 		var output = document.getElementById("demo1");
@@ -248,7 +241,7 @@ body {
 	<c:forEach var="str" items="${errorMsgs}">
 		erroStr+="${str}"+"\n";
 	</c:forEach>
-	alert(erroStr);
+	Swal.fire(erroStr);
 	</c:if>
 	
 </script>

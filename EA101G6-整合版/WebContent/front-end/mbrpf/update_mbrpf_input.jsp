@@ -62,7 +62,6 @@ body {
 	}
 
 </style>
-</style>
 
 </head>
 <body bgcolor='white'>
@@ -92,24 +91,28 @@ body {
 		<div class="row">
 
 			<div class="col-4"></div>
-			<div class="col-7">
+			<div class="col-4">
 				<FORM METHOD="post"
 					ACTION="<%=request.getContextPath()%>/front-end/mbrpf/mbrpf.do" name="form1"
 					enctype="multipart/form-data">
 					<table>
-						<tr>
-							<td>會員頭像:</td>
-		<img alt=""src="<%= request.getContextPath()%>/mbrpf/mbrimg.do?mbrno=${mbrpfVO.mbrno}" width="200" height="175" id="demo1">		
 							<tr>
+							<td colspan="2" style="text-align:center;">
+								<img alt=""src="<%= request.getContextPath()%>/mbrpf/mbrimg.do?mbrno=${mbrpfVO.mbrno}" width="200" height="175" id="demo1">		
+							</td>
+							</tr>					
+						<tr>
+							<td colspan="2" style="text-align:center;">會員頭像:</td>
+
 							<tr style="display: none">
-								<td>會員編號:<font color=red><b>*</b></font></td>
+								<td>會員編號<font color=red><b>*</b></font></td>
 								<td><%=mbrpfVO.getMbrno()%></td>
 							</tr>
-							
-						<td><label><input type="FILE" class="mainF" name="mbrimg" style="display:none"
-								onchange="loadFile1(event)" size="30" /><a class="button">上傳圖片</a></label></td>
-						</tr>
-						</tr><tr>
+						<tr><td colspan="2" style="text-align:center;">	
+						<label><input type="FILE" class="mainF" name="mbrimg" style="display:none"
+								onchange="loadFile1(event)" size="30" /><a class="button">上傳圖片</a></label>
+						</td></tr>
+						<tr>
 							<td class="tdtitle">一般會員帳號</td>
 						<tr>
 							<td><input type="TEXT" class="mainF" name="mbract" size="45"
@@ -207,11 +210,10 @@ body {
 					<br>
 						<input type="hidden" name="action" value="update">
 						<input type="hidden" name="mbrno" value="<%=mbrpfVO.getMbrno()%>">
-						<input type="submit" value="送出修改"></FORM>
-				</FORM>
+						<div style="text-align:center;"><input type="submit" value="送出修改"></div></FORM>
 			</div>
 
-			<div class="col-1"></div>
+			<div class="col-4"></div>
 		</div>
 	</div>
 

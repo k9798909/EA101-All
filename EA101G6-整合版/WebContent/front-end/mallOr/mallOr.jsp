@@ -175,12 +175,13 @@ opacity:0.8;
 			<select name="city" id="縣市2"></select>
 			<select name="area" id="鄉鎮市區2"></select>
 			</label>
-						<input type="text" name="addr" class="addr" value="${not empty addr?addr:''}" placeholder="請輸入地址">
+			<input id="addr" type="text" name="addr" class="addr" value="${not empty addr?addr:''}" placeholder="請輸入地址">
 			<div><p id="total">總金額：${totalPrice}元</p></div>
 		</div>
 				<input  type="hidden" name="price" value="${totalPrice}">
 				<input type="hidden" name="action" value="checkOut">
     <div class="paydiv"><input type="submit" class="paybtn" value="確定付款"><a href="<%= request.getContextPath()%>/front-end/mall/mallGetAllUp.jsp"><input type="button" class="cancel" value="取消"></a></div>
+    	<button id="magicBtn" style="height:20px;padding:0px; width:80px;font-size:12px;" class="btn btn-light" type="button">神奇海螺</button>	
   </fieldset>
 </form>
 		
@@ -195,19 +196,23 @@ opacity:0.8;
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/js/address.js"></script>	
-	
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 	
 	
 	<script>
 		
 		<c:if test="${not empty erroList}">	
-		 	var erromsg="";
+		 	let erromsg="";
+		 	let pointUrl="<%=request.getContextPath()%>/front-end/tfcord/buyPoint.jsp";
 			<c:forEach var="erromsg" items="${erroList}">
-					erromsg+="${erromsg}\n"
+					erromsg+="<p>${erromsg}</p>"
 			</c:forEach>
-			swal({text:erromsg });
+				Swal.fire({
+					icon: 'error',
+					html:erromsg,
+					${pointErro?"footer:'<a href='+pointUrl+'>移至點數儲值網頁</a>'":""}
+				})
 		</c:if>
-		
 		
 		   window.onload = function () {
 		       //當頁面載完之後，用AddressSeleclList.Initialize()，
@@ -220,7 +225,13 @@ opacity:0.8;
 		      </c:if> 
 		  }
 
-		  
+		  $(document).ready(function(){
+			  $("#magicBtn").click(function(){
+				  $("#addr").val("中大路300號");
+				  AddressSeleclList.erroAdd("桃園市","320中壢區");
+			
+			  })
+		  })
 		
 	</script>
 
