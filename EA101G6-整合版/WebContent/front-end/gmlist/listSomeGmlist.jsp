@@ -74,16 +74,18 @@ h4 {
 	</tr>
 </table>
 <%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-	<font style="color: red">請修正以下錯誤:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color: red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
-<div>
-	<table>
+<%-- <c:if test="${not empty errorMsgs}"> --%>
+<!-- 	<font style="color: red">請修正以下錯誤:</font> -->
+<!-- 	<ul> -->
+<%-- 		<c:forEach var="message" items="${errorMsgs}"> --%>
+<%-- 			<li style="color: red">${message}</li> --%>
+<%-- 		</c:forEach> --%>
+<!-- 	</ul> -->
+<%-- </c:if> --%>
+<div class="container">
+		<div class="row">
+			<%@ include file="page1.file"%>
+	<table class="table table-sm">
 		<tr>
 			<th>店家名稱</th>
 			<th>店家照片</th>
@@ -91,18 +93,31 @@ h4 {
 			<th>遊戲名稱</th>
 			<th>遊戲圖片</th>
 		</tr>
-<jsp:useBean id="gameSvc" scope="page" class="com.game.model.GameService" />
-<jsp:useBean id="shopSvc" scope="page" class="com.shop.model.ShopService" />
-		<c:forEach var="gmlistVO" items="${list}">
-			<tr>
-				<td>${ shopSvc.getOneShop(gmlistVO.shopno).shopname }</td>
-				<td><img src="<%=request.getContextPath()%>/ShopShowImg?shopno=${gmlistVO.shopno}"></td>
-				<td>${ shopSvc.getOneShop(gmlistVO.shopno).shoploc }</td>
-				<td>${ gameSvc.getOneGame(gmlistVO.gmno).gmname }</td>
-				<td><img style="width: 50px; height: 50px;" src="<%=request.getContextPath()%>/GameShowImg?gmno=${gmlistVO.gmno}"></td>
-			</tr>
-		</c:forEach>
+		<jsp:useBean id="gameSvc" scope="page"
+	class="com.game.model.GameService" />
+<jsp:useBean id="shopSvc" scope="page"
+	class="com.shop.model.ShopService" />
+	
+		<c:forEach var="gmlistVO" items="${list}" begin="<%=pageIndex%>"
+					end="<%=pageIndex+rowsPerPage-1%>">
+					<tr>
+						<td>${shopSvc.getOneShop(gmlistVO.shopno).shopname}</td>
+						<td><img src="<%=request.getContextPath()%>/ShopShowImg?shopno=${gmlistVO.shopno}"></td>			
+						<td>${shopSvc.getOneShop(gmlistVO.shopno).shoploc}</td>
+						<td>${gameSvc.getOneGame(gmlistVO.gmno).gmname}</td>
+						<td><img style="width: 50px; height: 50px;" src="<%=request.getContextPath()%>/GameShowImg?gmno=${gmlistVO.gmno}"></td>
+					</tr>
+				</c:forEach>
 	</table>
+	<div class="d-flex justify-content-center container"
+				style="margin-left: auto; margin-right: auto;">
+				<div class="row">
+					<div class="col-sm-12">
+						<%@ include file="page2.file"%>
+					</div>
+				</div>
+			</div>
+</div>
 </div>
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

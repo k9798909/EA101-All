@@ -12,7 +12,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>遊戲列表</title>
 
 <style>
@@ -29,7 +29,10 @@ td th tr {
 	height: 20px;
 }
 
-
+#preview img {
+	width: 150px;
+	height: 150px;
+}
 
 img {
 	width: 50px;
@@ -74,18 +77,19 @@ h4 {
 				</tr>
 				<c:forEach var="gameVO" items="${list}" begin="<%=pageIndex%>"
 					end="<%=pageIndex+rowsPerPage-1%>">
-					<tr>
+					<tr ${(gameVO.gmno==param.gmno) ? 'bgcolor=#CCCCFF':''}>
 						<td>${gameVO.gmno}</td>
 						<td>${gameVO.gmname}</td>
 						<td><img
 							src="<%=request.getContextPath()%>/GameShowImg?gmno=${gameVO.gmno}"></td>
 						<td>
-<!-- 							<FORM METHOD="post" ACTION="game.do" style="margin-bottom: 0px;"> -->
-								<input type="submit" value="修改" data-toggle="modal" data-target="#exampleModal" class="btn btn-secondary"> <input type="hidden"
-									name="gmno" value="${gameVO.gmno}"> 
+							<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/game/listAllGame.jsp?gmno=${gameVO.gmno}&whichPage=${param.whichPage}" style="margin-bottom: 0px;">
+								<input type="submit" value="修改" data-toggle="modal" data-target="#exampleModal" class="btn btn-secondary"> 
+								 <input type="hidden" name="gmno" value="${gameVO.gmno}"> 
+								 <input type="hidden" name="call" value="updateModel">
 <%-- 									 onclick="location.href='<%=request.getContextPath()%>/front-end/game/game.do?gmno=$gameVO.gmno&action=getOne_For_Update';" --%>
 <!-- 									<input type="hidden" name="action" value="getOne_For_Update"> -->
-<!-- 							</FORM> -->
+							</FORM>
 						</td>
 					</tr>
 				</c:forEach>
@@ -100,11 +104,13 @@ h4 {
 			</div>
 		</div>
 	</div>
-	
-	
+	<jsp:useBean id="gmSvc" scope="page"
+	class="com.game.model.GameService" />
+
+
+<c:if test="${param.call=='updateModel'}">	
 	<div class="modal fade" id="exampleModal" tabindex="-1"
-					role="dialog" aria-labelledby="exampleModalLabel"
-					aria-hidden="true">
+					role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content rp-2">				
 			<div class="modal-header">
@@ -116,6 +122,46 @@ h4 {
 				<div class="form-group">
 <!-- =========================================以下為原addGame.jsp的內容========================================== -->
 <%-- 		<jsp:include page="update_game_input.jsp" flush="true"/> --%>
+<div class="container">
+	<FORM METHOD="post" id="ya" ACTION="game.do" name="form1"
+		enctype="multipart/form-data">
+		<div class="form-row"><div class="form-group col-md-2"></div>
+					<div class="form-group col-md-8">
+						<label for="name">遊戲名稱</label> <input class="form-control"
+							type="TEXT" name="gmname" size=100% id="name"
+							value="${gmSvc.getOneGame(param.gmno).gmname}"
+							placeholder="name" />
+					</div>
+					</div>
+				<div class="form-row">
+				<div class="form-group col-md-2"></div>
+				<div class="form-group col-md-8">
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text" id="inputGroupFileAddon01">pic</span>
+						</div>
+						<div class="custom-file">
+							<input type="file" class="custom-file-input" id="myFile"
+								aria-describedby="myFile" name="gmimg"> <label
+								class="custom-file-label" for="inputGroupFile01">Choose
+								file</label>
+						</div>
+					</div>
+					</div>
+				</div>
+				<div class="form-row">
+				<div class="form-group col-md-4"></div>
+					<div class="form-group col-md-6">
+					<div type="file" id="preview">
+						<img src="<%=request.getContextPath()%>/GameShowImg?gmno=${param.gmno}" />
+					</div>
+					</div>
+				</div> <input type="hidden" name="action" value="update"> <input
+			type="hidden" name="gmno" value="${param.gmno}">
+			<input type="hidden" name="whichPage"	value="<%=whichPage%>">
+			<input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>">
+	</FORM>
+</div>
 <!-- =========================================以上為原addGame.jsp的內容========================================== -->
 			</div></div>			
 			<div class="modal-footer">
@@ -124,11 +170,45 @@ h4 {
 		</div>
 	</div>
 </div>
-	
-	
-	
-	
-	
+
+	<script>
+	$(document).ready(function(){
+		 		 
+		 $("#go").click(function(){
+				$("#ya").submit();
+			})
+		$("#exampleModal").modal({show: true})
+	})
+    		
+    </script>
+</c:if>	
+<script>
+	function init() {
+		var myFile = document.getElementById("myFile");
+		var filename = document.getElementById("filename");
+		var preview = document.getElementById('preview');
+		myFile.addEventListener('change', function(e) {
+			var files = myFile.files;
+			if (files !== null && files.length > 0) {
+				var file = files[0];
+				if (file.type.indexOf('image') > -1) {
+					// 					filename.value = file.name;
+					var reader = new FileReader();
+					reader.addEventListener('load', function(e) {
+						var result = e.target.result;
+						console.log(result);
+						var img = document.createElement('img');
+						img.src = result;
+						preview.innerHTML='';
+						preview.append(img);
+					});
+					reader.readAsDataURL(file);
+				}
+			}
+		});
+	}
+	window.onload = init;
+</script>	
 	
 	
 	

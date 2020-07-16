@@ -4,10 +4,10 @@ import java.util.List;
 
 
 public class RateService {
-	private RateJDBCDAO_interface dao;
+	private RateDAO_interface dao;
 	
 	public RateService() {
-		dao = new RateJDBCDAO();
+		dao = new RateDAO();
 	}
 	public RateVO sendRate(String rmno, String ratingmbrno, String ratedmbrno, String detail, Integer score) {
 		RateVO rateVO = new RateVO();

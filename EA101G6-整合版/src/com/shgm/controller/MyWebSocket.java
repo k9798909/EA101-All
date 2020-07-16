@@ -57,29 +57,28 @@ public class MyWebSocket {
 		httpsession = (HttpSession) conf.getUserProperties().get("httpsession");
 		StringBuilder sendthis = new StringBuilder();
 		ShgmService shgmsvc = new ShgmService();
+		ShgmrpService shgmrpsvc = new ShgmrpService();
 		MbrpfService mbrpfsvc = new MbrpfService();
 		String sellerno = null;
 		String buyerno = null;
 		MbrpfVO sellerVO = null;
 		MbrpfVO buyerVO = null;
 
-		// 只有後台會送出市集商品編號的資料
+		// 只有市集商品後台會送出市集商品編號的資料，這裡的參數data是市集商品編號
 		String shgmRegexp = "^CA\\d{5}$";
 		if (data.matches(shgmRegexp)) {
 			System.out.println("enter data send");
 			ShgmVO shgmvo = shgmsvc.getOneShgm(data);
 			sellerno = shgmvo.getSellerno();
 			sellerVO = mbrpfsvc.getOneMbrpf(sellerno);
-			if (shgmvo.getUpcheck() == 0) {
-				;// do nothing
-			} else if (shgmvo.getUpcheck() == 1) {
+
+			if (shgmvo.getUpcheck() == 1) {
 				sendthis.append(sellerVO.getNickname() + "，您的商品「" + shgmvo.getShgmname() + "」，已經上架了！");
 				sendmsg(sellerno, sendthis);
 				sendthis.setLength(0);
 				sendthis.append(sellerVO.getNickname() + "有新上架商品「" + shgmvo.getShgmname() + "」，趕快去市集看看！");
 				sendMsgToAll(sellerno, sendthis);
 			} else if (shgmvo.getUpcheck() == 2) {
-				ShgmrpService shgmrpsvc = new ShgmrpService();
 				sendthis.append(sellerVO.getNickname() + "，您的商品「" + shgmvo.getShgmname() + "」，已經下架了！");
 				ShgmrpVO shgmrpvo = shgmrpsvc.getOnerpByShgmno(data);
 				if (shgmrpvo != null && shgmrpvo.getStatus() == 1)
@@ -89,9 +88,10 @@ public class MyWebSocket {
 			return;
 
 		} else {
-			// 從前台頁面ajax送來的json格式資料
+			// 從前台頁面ajax送來的json格式資料，這裡的data是json格式的市集商品物件
 			JSONObject jsonobj = new JSONObject(data);
 			ShgmVO shgmorg = shgmsvc.getOneShgm(jsonobj.getString("shgmno"));
+			ShgmrpVO shgmrpvo = shgmrpsvc.getOnerpByShgmno(jsonobj.getString("shgmno"));
 
 			sellerno = shgmorg.getSellerno();
 			buyerno = shgmorg.getBuyerno();
@@ -100,7 +100,13 @@ public class MyWebSocket {
 
 			Gson gson = new Gson();
 			ShgmVO shgmvo = gson.fromJson(data, ShgmVO.class);
-			if (shgmvo.getBoxstatus() != null) {
+			// 確定檢舉的市集商品，在前台是待上架狀態，可能是賣家修改後重新上架，通知後台做重新審核
+			if (shgmvo.getUpcheck() == 0) {
+				if (shgmrpvo != null && shgmrpvo.getStatus() == 1) {
+					sendthis.append("市集商品「" + shgmvo.getShgmname() + "」重新申請上架了，請至檢舉管理進行審核！");
+					sendmsg("shgmBackEnd", sendthis);
+				}
+			} else if (shgmvo.getBoxstatus() != null) {
 				if (shgmvo.getBoxstatus() == 1) {
 					sendthis.append("賣家 " + sellerVO.getNickname() + "，已將您購買的商品「" + shgmorg.getShgmname() + "」出貨。");
 					sendmsg(buyerno, sendthis);
@@ -136,9 +142,9 @@ public class MyWebSocket {
 
 	public void sendmsg(String mbrno, StringBuilder sendthis) {
 		String strSendThis = sendthis.toString();
+		wsmsg.saveMbrmsg(mbrno, strSendThis);// 送出之前保存
 		for (String hashmapkey : connectedSessions.keySet()) {
 			if (mbrno.equals(hashmapkey)) {// 挑出此會員
-				wsmsg.saveMbrmsg(mbrno, strSendThis);// 送出之前保存
 				if (connectedSessions.get(hashmapkey).isOpen())
 					connectedSessions.get(hashmapkey).getAsyncRemote().sendText(strSendThis);// sendToOne
 			}

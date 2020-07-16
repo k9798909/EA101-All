@@ -67,7 +67,7 @@
 </head>
 <body>
 
-<jsp:include page="/back-end/back-end_nav.jsp"></jsp:include>
+<jsp:include page="/back-end/back-end_nav-boyuan.jsp"></jsp:include>
 <jsp:include page="/back-end/shgmrp/shgmrp_select_page.jsp"></jsp:include>
 
 <ul>
@@ -134,11 +134,12 @@
 		</c:forEach>
 	</table>
 <%@ include file="/back-end/shgmrp/page2.file" %>
+	<jsp:include page="/back-end/shgm/alert-area-backend.jsp"></jsp:include>
 	<input type="hidden" id="mbrno" value="shgmBackEnd">
 	<input type="hidden" id="wsShgmno" value="${param.shgmno}">
 
-	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/ajaxForMbrmsgs-backend.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/wsForShgm.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/jsForAlert-area.js"></script>
 </body>
 </html>

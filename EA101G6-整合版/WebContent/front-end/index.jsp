@@ -63,6 +63,11 @@ div.imgdiv {
 div.comm {
 	height: 250px;
 }
+
+.card:hover {
+	cursor: pointer;
+	box-shadow: 0 0 11px rgba(33, 33, 33, .2);
+}
 </style>
 
 </head>
@@ -364,13 +369,35 @@ div.comm {
 
 	</div>
 
-
+<jsp:useBean id="shgmsvc" class="com.shgm.model.ShgmService" scope="request" />
 
 	<div class="site-section" id="press-section">
-		市集<br> .........................<br>
-		..........................<br> ...........................<br>
-		...........................<br>
-
+		<div class="accordion col-md-10 offset-md-1">
+		<h1>
+			<span class="badge badge-light">市集商品</span>
+		</h1>
+	</div>
+	<div id="services-section">
+		<div class="container commMain col-10">
+			<div class="row">
+				<c:forEach var="ShgmVO" items="${shgmsvc.getAllShuffled()}" begin="0" end="5">
+						<div class="mb-4" style="margin:0 auto;">
+							<a target="_self" href="<%=request.getContextPath()%>/front-end/shgm/shgm.do?action=getOneForMoreInfo&shgmno=${ShgmVO.shgmno}">
+								<div class="card" style="width: 198px;float: left;margin: 3% 5%;">
+									<img
+										src="<%=request.getContextPath()%>/shgm/displayimg?shgmno=${ShgmVO.shgmno}"
+										class="card-img-top" alt="Sorry! there's no image..."style="width: 195px;height: 200px;object-fit: contain;">
+									<div class="card-body d-flex flex-column" style="height:128px; padding:3% 15px">
+										<h5 class="card-title">${ShgmVO.shgmname}</h5>
+										<p class="card-text mt-auto">$${ShgmVO.price}</p>
+									</div>
+								</div>
+							</a>
+						</div>
+				</c:forEach>
+			</div>
+		</div>
+	</div>
 	</div>
 
 	<jsp:useBean id="shopSvc" class="com.shop.model.ShopService"

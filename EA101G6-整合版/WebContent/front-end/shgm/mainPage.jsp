@@ -35,10 +35,6 @@ div.main-area {
 	margin: 2% auto;
 }
 
-div.card-body{
-	height:127px;
-}
-
 .top-info-wrapper {
 	position: relative;
 	text-align: center;
@@ -94,6 +90,11 @@ div.shgm-area {
 }
 .card-deck {
 	margin: 0 auto;
+}
+
+div.card-body{
+	height:127px;
+	padding:3% 15px;
 }
 
 .card {
@@ -216,9 +217,9 @@ footer{
 									<img
 										src="<%=request.getContextPath()%>/shgm/displayimg?shgmno=${shgmvo.shgmno}"
 										class="card-img-top" alt="Sorry! there's no image...">
-									<div class="card-body">
+									<div class="card-body d-flex flex-column">
 										<h5 class="card-title">${shgmvo.shgmname}</h5>
-										<p class="card-text">$${shgmvo.price}</p>
+										<p class="card-text mt-auto">$${shgmvo.price}</p>
 									</div>
 								</div>
 							</a>
@@ -251,9 +252,18 @@ footer{
 		
 		$("#myshgm,#seller").click(function(){
 			if($('#MbrpfVO').val() === ''){
-				alert('您未登入');
-				window.location.href = "<%= request.getContextPath()%>/front-end/shgm/simpleLogin.jsp";
-				return false;
+				Swal.fire({
+					  title: '您尚未登入',
+					  icon: 'info',
+					  html:'請先登入再執行動作',
+					  showCancelButton: true,
+					  focusConfirm: false,
+					  confirmButtonText:
+					    '<a style="color:white;" href="<%=request.getContextPath()%>/front-end/login.jsp" class="fa">前往登入</a>',
+					  cancelButtonText:
+					    '<span class="fa fa-thumbs-down">繼續逛逛</span>',
+					})
+				event.preventDefault();
 			}
 		});
 	});

@@ -7,7 +7,7 @@ public class JoinrmService {
 	private JoinrmDAO_interface dao;
 	
 	public JoinrmService() {
-		dao = new JoinrmJDBCDAO();
+		dao = new JoinrmDAO();
 	}
 	
 	

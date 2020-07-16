@@ -61,7 +61,7 @@ h4 {
 <div class="container">
 	<FORM METHOD="post" ACTION="game.do" name="form1"
 		enctype="multipart/form-data">
-		<div class="form-row">
+		<div class="form-row"><div class="form-group col-md-3"></div>
 					<div class="form-group col-md-5">
 						<label for="name">¹CÀ¸¦WºÙ</label> <input class="form-control"
 							type="TEXT" name="gmname" size=100% id="name"
@@ -69,7 +69,9 @@ h4 {
 							placeholder="name" />
 					</div>
 					</div>
-				<div class="form-group">
+				<div class="form-row">
+				<div class="form-group col-md-3"></div>
+				<div class="form-group col-md-5">
 					<div class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text" id="inputGroupFileAddon01">pic</span>
@@ -81,16 +83,18 @@ h4 {
 								file</label>
 						</div>
 					</div>
+					</div>
 				</div>
 				<div class="form-row">
-				<div class="form-group col-md-3"></div>
-					<div class="form-group col-md-6">
+				<div class="form-group col-md-4"></div>
+					<div class="form-group col-md-4">
 					<div type="file" id="preview">
 						<img src="<%=request.getContextPath()%>/GameShowImg?gmno=${gameVO.gmno}" />
 					</div>
 					</div>
-				</div> <input type="hidden" name="action" value="update"> <input
-			type="hidden" name="shopno" value="<%=gameVO.getGmno()%>">
+				</div> <div class="form-row"><div class="form-group col-md-4"></div><input type="hidden" name="action" value="update"> <input
+			type="hidden" name="gmno" value="<%=gameVO.getGmno()%>"><input type="submit" value="­×§ï" class="btn-lg btn-primary"></div> 	
+				<input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>">
 	</FORM>
 </div>
 </body>

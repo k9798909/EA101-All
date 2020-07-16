@@ -175,7 +175,7 @@ if ("getOne_To_Update".equals(action)) { // 來自listAllMbrpf.jsp的請求
 								
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("mbrpfVO", mbrpfVO);         // 資料庫取出的empVO物件,存入req
-				String url = "/back-end/mbrpf/update_mbrpf_input.jsp";
+				String url = "/front-end/mbrpf/update_mbrpf_input.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 				successView.forward(req, res);
 
@@ -183,7 +183,7 @@ if ("getOne_To_Update".equals(action)) { // 來自listAllMbrpf.jsp的請求
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/mbrpf/listAllMbrpf.jsp");
+						.getRequestDispatcher("/front-end/mbrpf/listAllMbrpf.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -807,11 +807,11 @@ if ("tryLogin".equals(action)) {// 來自login.jsp的請求
 							return;
 						}
 					} catch (Exception e) {
-						res.sendRedirect(req.getContextPath() + "/front-end/mbrpf/select_page.jsp");
+						res.sendRedirect(req.getContextPath() + "/front-end/index.jsp");
 						return;
 					}
 					// 沒有來源網頁的話就去首頁
-					res.sendRedirect(req.getContextPath() + "/front-end/mbrpf/select_page.jsp");
+					res.sendRedirect(req.getContextPath() + "/front-end/index.jsp");
 					return;
 				} else {
 					errorMsgs.add("帳號、密碼錯誤");

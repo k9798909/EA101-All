@@ -4,10 +4,10 @@ import java.util.List;
 
 public class ShoprpService {
 	
-	private ShoprpJDBCDAO_interface dao;
+	private ShoprpDAO_interface dao;
 
 	public ShoprpService() {
-		dao = new ShoprpJDBCDAO();
+		dao = new ShoprpDAO();
 	}
 	
 	public ShoprpVO report(String mbrno,String rmno,String detail,Integer attend) {

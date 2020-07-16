@@ -18,7 +18,7 @@ public class ShgmrpDAO implements ShgmrpDAO_interface {
 	static {
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/EA101G6DB");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}

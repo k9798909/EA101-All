@@ -22,16 +22,17 @@
 <body>
 <form METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/room/rate.do">
 <table>
-<tr><th>Θ嘿</th><th style="width:100px">蝶基だ计</th><th >蝶基ず甧</th></tr>
+<tr><th style="width:130px">Θ嘿</th><th style="width:100px">蝶基だ计</th><th >蝶基ず甧</th></tr>
 	<c:forEach var="joinrmVO2" items="${list2}">
 		<c:if test="${joinrmVO2.mbrno ne mbrpfVO.mbrno}">
 			<tr>		  
 		      <td>
-			      <input type="text" name="ratedmbrno" value="${mbrpfSvc.getOneMbrpf(joinrmVO2.mbrno).mbrname}" readonly>
+			      ${mbrpfSvc.getOneMbrpf(joinrmVO2.mbrno).mbrname}
+			      <input type="hidden" name="ratedmbrno" value="${joinrmVO2.mbrno}">
 			      <input type="hidden" name="rmno" value="<%=request.getParameter("rmno")%>">
 			      <input type="hidden" name="ratingmbrno" value="${mbrpfVO.mbrno}">
 		      </td>
-		      <td align="center"> 
+		      <td> 
 		      	<select name="score">
 					<%for (int i = 5; i >= 1; i--) {%>
 					<option value="<%=i%>"><%=i%></option>
