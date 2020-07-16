@@ -48,9 +48,10 @@ img {
 
 
 	
-<div class="container">
+<div class="container-fluid">
 <div class="row">
-			<div class="col-sm-3">
+<div class="col-sm-1"></div>
+			<div class="col-sm-2">
 			<div style="witdh: 20px;">
 				<ul class="list-group list-group-item-action">
 					<li class="list-group-item list-group-item-action" onclick="location.href='<%=request.getContextPath()%>/front-end/shop/shopArea.jsp';">我的資訊</li>	
@@ -129,13 +130,13 @@ img {
 				<div class="form-row">
 					<div class="form-group col-md-4">
 						<label for="inputCy">場地</label><input id="inputCy" name="shopcy"
-							class="form-control" type="text"
+							class="form-control" type="text" size=100%
 							value="${shopVO.shopcy}"
 							placeholder="六人桌*10" />
 					</div>
 					<div class="form-group col-md-8">
 						<label for="inputPhone">電話</label><input id="inputPhone"
-							name="shopphone" type="tel" class="form-control"
+							name="shopphone" type="tel" class="form-control" size=100%
 							value="0${shopVO.shopphone}"
 							placeholder="0912345678" />
 					</div>

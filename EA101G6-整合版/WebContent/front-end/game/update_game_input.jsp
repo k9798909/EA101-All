@@ -58,7 +58,7 @@ h4 {
 			</c:forEach>
 		</ul>
 	</c:if>
-<div class="container">
+<div class="container-fluid">
 	<FORM METHOD="post" ACTION="game.do" name="form1"
 		enctype="multipart/form-data">
 		<div class="form-row"><div class="form-group col-md-3"></div>

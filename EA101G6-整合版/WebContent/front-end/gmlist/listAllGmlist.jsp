@@ -70,7 +70,7 @@ h4 {
 		</c:forEach>
 	</ul>
 </c:if>
-<div class="container">
+<div class="container-fluid">
 		<div class="row">
 			<%@ include file="page1.file"%>
 	<table class="table table-sm">

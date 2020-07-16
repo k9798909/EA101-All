@@ -46,9 +46,10 @@ h4 {
 </head>
 
 <body>
-<div class="container">
+<div class="container-fluid">
 	<div class="row">
-		<div class="col-sm-3">
+		<div class="col-sm-1"></div>
+			<div class="col-sm-2">
 			<div style="witdh: 20px;">
 				<ul class="list-group list-group-item-action">
 					<li class="list-group-item list-group-item-action active" onclick="location.href='<%=request.getContextPath()%>/front-end/shop/shopArea.jsp';">我的資訊</li>	
