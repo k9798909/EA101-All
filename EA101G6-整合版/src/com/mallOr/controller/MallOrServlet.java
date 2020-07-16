@@ -206,7 +206,7 @@ public class MallOrServlet extends HttpServlet{
 			    //因為傳送郵件需要時間所以我改成多執行緒版
 				
 				MbrpfService mbrpfSvc = new MbrpfService();
-				MbrpfVO mbrpfVo=mbrpfSvc.getOneMbrpf(mallOrNo);
+				MbrpfVO mbrpfVo=mbrpfSvc.getOneMbrpf(mbrNo);
 				if(mbrpfVo.getMail()!=null) {
 					String to = mbrpfVo.getMail();  
 					String subject = "您好!您的訂單"+mallOrNo+"已出貨"; 
@@ -216,13 +216,13 @@ public class MallOrServlet extends HttpServlet{
 					orderMail.start();
 				}
 				/*************************** 3.修改完成,準備轉交(Send the Success view) ***********/
-				RequestDispatcher dispatcher = req.getRequestDispatcher("/back-end/mallOr/mallOrGet.jsp");
-				dispatcher.forward(req, res);
-				
+				session.setAttribute("msg","出貨成功");
+				res.sendRedirect(req.getContextPath() + "/back-end/mallOr/mallOrGet.jsp?active=getByBox");
 				return;
 			} catch (Exception e) {
 				e.printStackTrace();
-				res.sendRedirect(req.getContextPath() + "/back-end/mallOr/mallOrGet.jsp");
+				session.setAttribute("msg","系統忙碌中請稍後在試!");
+				res.sendRedirect(req.getContextPath() + "/back-end/mallOr/mallOrGet.jsp?active=getByBox");
 				return;
 			}
 
