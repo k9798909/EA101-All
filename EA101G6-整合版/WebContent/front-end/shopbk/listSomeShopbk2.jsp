@@ -64,9 +64,10 @@ button {
 <script src="../../datetimepicker/jquery.datetimepicker.full.js"></script>
 <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
 <body>
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row">
-			<div class="col-sm-3">
+			<div class="col-sm-1"></div>
+			<div class="col-sm-2">
 				<div style="witdh: 20px;">
 					<ul class="list-group list-group-item-action">
 						<li class="list-group-item list-group-item-action"

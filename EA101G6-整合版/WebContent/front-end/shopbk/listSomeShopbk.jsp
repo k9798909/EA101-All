@@ -69,7 +69,7 @@ h4 {
 <%-- 		</c:forEach> --%>
 <!-- 	</ul> -->
 <%-- </c:if> --%>
-<div class="container">
+<div class="container-fluid">
 	<table class="table table-sm">
 		<tr>
 			<th>©±®a¦WºÙ</th>

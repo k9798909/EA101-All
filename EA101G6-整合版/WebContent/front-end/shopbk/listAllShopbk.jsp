@@ -63,7 +63,7 @@ button{
 <%-- 	</c:if> --%>
 <jsp:useBean id="shopSvc" scope="page"
 	class="com.shop.model.ShopService" />
-	<div class="container">
+	<div class="container-fluid">
 		<input type="hidden" name="shopbkno" value="${shopbkVO.shopbkno}">
 		<table class="table table-sm">
 			<tr>

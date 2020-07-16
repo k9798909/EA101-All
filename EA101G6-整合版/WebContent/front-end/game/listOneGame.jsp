@@ -47,7 +47,7 @@ h4 {
 
 <jsp:include page="select_page.jsp" flush="true"></jsp:include>
 
-<div class="container">
+<div class="container-fluid">
 		<div class="row">
 			<table class="table table-sm">
 				<tr>
