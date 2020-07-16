@@ -41,6 +41,10 @@ ul {
 li {
 	margin-top: 15px;
 }
+div {
+	margin-left: auto;
+	margin-right: auto;
+}
 </style>
 </head>
 <body bgcolor='white'>
@@ -58,7 +62,7 @@ li {
 <jsp:useBean id="gameSvc" scope="page" class="com.game.model.GameService" />
 <jsp:useBean id="shopSvc" scope="page" class="com.shop.model.ShopService" />
 
-<nav class="navbar navbar-expand-lg navbar-light">
+<nav class="navbar navbar-expand-lg navbar-light  bg-gradient-info shadow p-3 mb-5 rounded">
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">

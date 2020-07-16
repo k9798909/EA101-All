@@ -31,7 +31,6 @@ table {
 }
 
 tr th {
-	border: 2px solid black;
 	text-align: center;
 }
 
@@ -44,9 +43,6 @@ td {
 	height: 20px;
 }
 
-tr:nth-child(odd) {
-	background-color: #FFED97;
-}
 
 img {
 	width: 150px;

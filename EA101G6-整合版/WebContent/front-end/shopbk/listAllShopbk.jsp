@@ -73,6 +73,7 @@ button{
 				<th>結束時間</th>
 				<th>以小時計算</th>
 				<th>包日</th>
+				<th></th>
 			</tr>
 			<c:forEach var="shopbkVO" items="${list}">
 				<tr>
@@ -82,6 +83,8 @@ button{
 					<td>${shopbkVO.shoppde}</td>
 					<td>${shopbkVO.payinfohr}</td>
 					<td>${shopbkVO.payinfoday}</td>
+					<td><a href="<%=request.getContextPath()%>/front-end/room/create.jsp?shopno=${shopbkVO.shopno}&shoppds=${shopbkVO.shoppds}&shoppde=${shopbkVO.shoppde}"><button class="btn btn-primary" >來去開團</button></a></td>
+<%-- 					onclick="location.href='<%=request.getContextPath()%>/front-end/room/create.jsp?shopno=${shopbkVO.shopno}&shoppds=${shopbkVO.shoppds}&shoppde=${shopbkVO.shoppde}';" --%>
 				</tr>
 			</c:forEach>
 		</table>

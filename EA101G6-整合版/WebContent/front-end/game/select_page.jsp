@@ -39,6 +39,10 @@ ul {
 li {
 	margin-top: 15px;
 }
+div {
+	margin-left: auto;
+	margin-right: auto;
+}
 </style>
 	<%-- ¿ù»~ªí¦C --%>
 	<c:if test="${not empty errorMsgs}">
