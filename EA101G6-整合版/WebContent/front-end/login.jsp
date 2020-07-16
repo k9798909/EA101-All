@@ -55,7 +55,8 @@
 <body>
 
 
-<div class="site-wrap" id="home-section">
+	<div class="site-wrap" id="home-section">
+
 		<div class="site-mobile-menu site-navbar-target">
 			<div class="site-mobile-menu-header">
 				<div class="site-mobile-menu-close mt-3">
@@ -65,6 +66,9 @@
 			<div class="site-mobile-menu-body"></div>
 		</div>
 	</div>
+
+
+
 
 	<div class="top-bar">
 		<div class="container">
@@ -76,7 +80,7 @@
 						<span id="mbrname" class="d-md-inline-block text-white">歡迎你！${mbrpfVO.mbrname}</span>
 						</c:when>
 						<c:otherwise>
-						<a href="<%=request.getContextPath()%>/front-end/mbrpf/addMbrpf.jsp" class="text-white"><span class="d-md-inline-block">
+						<a href="<%= request.getContextPath()%>/front-end/mbrpf/addMbrpf.jsp" class="text-white"><span class="d-md-inline-block">
 								<img class="icon reg1"
 								src="<%=request.getContextPath()%>/images/reg3.png">註冊
 						</span></a>
@@ -130,8 +134,10 @@
 
 
 				<div class="site-logo">
-					<a href="<%= request.getContextPath()%>/front-end/index.jsp" class="text-black"><span
-						class="text-primary">Gameing on Board</span></a>
+					<a href="<%=request.getContextPath()%>/front-end/index.jsp"
+						class="text-black"> <span class="text-primary">Gameing
+							on Board</span>
+					</a>
 				</div>
 
 				<div class="col-12">
@@ -139,36 +145,42 @@
 
 						<ul
 							class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
-							<li><a href="<%=request.getContextPath()%>/front-end/index.jsp" class="nav-link">首頁</a></li>
-
-							<li class="has-children"><a href="" class="nav-link">會員專區</a>
+							<li><a
+								href="<%=request.getContextPath()%>/front-end/index.jsp"
+								class="nav-link">首頁</a></li>
+							<li class="has-children"><a href="#about-section"
+								class="nav-link">會員專區</a>
 								<ul class="dropdown arrow-top">
-									<li><a href="<%= request.getContextPath()%>/front-end/mallOr/mbrMallOr.jsp" class="nav-link">查詢訂單</a></li>
+									<li><a
+										href="<%=request.getContextPath()%>/front-end/mallOr/mbrMallOr.jsp"
+										class="nav-link">查詢訂單</a></li>
+									<li><a href="<%= request.getContextPath()%>/front-end/tfcord/listOneMbrtf.jsp" class="nav-link">帳戶管理</a></li>
+									<li><a href="<%=request.getContextPath()%>/front-end/tfcord/buyPoint.jsp" class="nav-link">購買點數</a></li>
+									<li><a href="<%=request.getContextPath()%>/front-end/tfcord/tfMoney.jsp" class="nav-link">兌換現金</a></li>
 									<li><a href="<%=request.getContextPath()%>/front-end/mbrpf/listOneMbrpf.jsp" class="nav-link">個人資訊</a></li>
-									<li><a href="#pricing-section" class="nav-link">Pricing</a></li>
-									<li><a href="#faq-section" class="nav-link">FAQ</a></li>
-									<li class="has-children"><a href="#">More Links</a>
-										<ul class="dropdown">
-											<li><a href="#">Menu One</a></li>
-											<li><a href="#">Menu Two</a></li>
-											<li><a href="#">Menu Three</a></li>
-										</ul></li>
 								</ul></li>
 
-							<li><a href="<%=request.getContextPath()%>/front-end/mall/mallGetAllUp.jsp" class="nav-link">商城</a></li>
-							<li><a href="<%=request.getContextPath()%>/front-end/shgm/mainPage.jsp" class="nav-link">市集</a></li>
+							<li><a
+								href="<%=request.getContextPath()%>/front-end/mall/mallGetAllUp.jsp"
+								class="nav-link">商城</a></li>
+							<li><a
+								href="<%=request.getContextPath()%>/front-end/shgm/mainPage.jsp"
+								class="nav-link">市集</a></li>
 							<li class="has-children"><a href="#" class="nav-link">揪團區</a>
 								<ul class="dropdown arrow-top">
-									<li><a href="<%=request.getContextPath()%>/front-end/room/create.jsp" class="nav-link">房間列表</a></li>
-									<li><a href="<%=request.getContextPath()%>/front-end/room/myRoom.jsp" class="nav-link">我的房間</a></li>
-								</ul>
-							</li>
-							<li class="has-children"><a href="<%=request.getContextPath()%>/front-end/shop/listAllShop.jsp" class="nav-link">店家列表</a>
-							<ul class="dropdown arrow-top">
-							<li><a href="<%= request.getContextPath()%>/front-end/gmlist/listAllGmlist.jsp" class="nav-link">店家遊戲</a></li>
-							<li><a href="<%= request.getContextPath()%>/front-end/shopbk/listAllShopbk.jsp" class="nav-link">店家訂位</a></li>
-							</ul></li>
-							<li><a href="<%=request.getContextPath()%>/front-end/art/listAllArt.jsp" class="nav-link">討論區</a></li>
+									<li><a
+										href="<%=request.getContextPath()%>/front-end/room/create.jsp"
+										class="nav-link">房間列表</a></li>
+									<li><a
+										href="<%=request.getContextPath()%>/front-end/room/myRoom.jsp"
+										class="nav-link">我的房間</a></li>
+								</ul></li>
+							<li><a
+								href="<%=request.getContextPath()%>/front-end/shop/listAllShop.jsp"
+								class="nav-link">店家列表</a></li>
+							<li><a
+								href="<%=request.getContextPath()%>/front-end/art/listAllArt.jsp"
+								class="nav-link">討論區</a></li>
 						</ul>
 					</nav>
 
@@ -178,8 +190,10 @@
 					<a href="#" class="site-menu-toggle py-5 js-menu-toggle text-black"><span
 						class="icon-menu h3"></span></a>
 				</div>
+
 			</div>
 		</div>
+
 	</header>
 
 
