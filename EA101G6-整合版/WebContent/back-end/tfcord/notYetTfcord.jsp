@@ -19,6 +19,8 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/> <!--要有這條 -->
+<link rel="stylesheet" href="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.css">
+<script src="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.js"></script>
 <title>尚未處理的點數轉換紀錄</title>
 
 <style type="text/css">
@@ -117,7 +119,7 @@
 											<input type ="hidden" name="price" value="${tfcordVO.price}">
 											<input type ="hidden" name="requestURL" value="<%=request.getServletPath()%>">					
 											<input type ="hidden" name="whichPage" value="<%=whichPage%>">					
-											<input type ="hidden" name="action" value="changeStatue">
+											<input type ="hidden" name="action" value="changeStatus">
 										</form>
 									</td>
 								</tr>
@@ -170,6 +172,17 @@
 	
 <!-- </table> -->
 <%-- <%@ include file="page2.file"%> --%>
+
+<script>
+if(${ok}){
+	 swal({ 
+		  title : "審核完成" ,
+		  type : "success" ,
+		  buttons : false ,
+		  confirmButtonColor : "#9CCC65"
+		});
+}
+</script>
 
 
 </body>

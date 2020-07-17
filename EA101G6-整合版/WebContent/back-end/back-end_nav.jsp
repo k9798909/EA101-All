@@ -10,6 +10,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<link rel="stylesheet" href="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.css">
+<script src="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.js"></script>
 
 
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
@@ -123,8 +125,9 @@
 						<ul class="navbar-nav">
 							<li class="nav-item logoutPIC">
 								<form method="post" action="<%=request.getContextPath()%>/emp/EmpServlet">
-									<a class="nav-link d-flex" href="<%=request.getContextPath()%>/emp/EmpServlet?action=logout">
-										<i class="far fa-user mr-2 tm-logout-icon"></i> <span>Logout</span>
+									<a class="nav-link d-flex" id="empout">
+										<i class="far fa-user mr-2 tm-logout-icon" id="empout"></i> 
+										<span>Logout</span>
 										<input type="hidden" name="action" value="logout">
 									</a>
 								</form>
@@ -135,7 +138,6 @@
 			</div>
 		</div>
 	</div>
-	
 	
 	
 	<script src="<%=request.getContextPath() %>/js/backJs/bootstrapOld.min.js"></script>
@@ -173,7 +175,20 @@
 			});
 		});
 		
-		
+		$('#empout').click(function(e){
+			
+			e.preventDefault();
+			
+			swal({ 
+				  title : "已登出" ,
+				  type : "success" ,
+				  buttons : false ,
+				  confirmButtonColor : "#9CCC65"
+				});
+			setTimeout(function(){
+				$('#empout').parent('form').submit();
+			},1000);
+		});
 </script>
 
 </body>

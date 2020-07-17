@@ -480,6 +480,7 @@ public class EmpServlet extends HttpServlet {
 				empSvc.updateEmpPwd(emppwd, empno);
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
+				req.setAttribute("ok",true);
 				String url = "/loginBack.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交loginBack.jsp，重新登入
 				successView.forward(req, res);
@@ -533,6 +534,7 @@ public class EmpServlet extends HttpServlet {
 				String newPwd = empSvc.getNewPwd(mail,empno);//透過信箱更改密碼
 				EmpMailService empMailSvc = new EmpMailService(empVO, mail, newPwd);//將寄信改成用執行緒去跑，畫面會比較快顯示出來
 				empMailSvc.start();//將上面取出的員工物件和信箱，跟上面取得的新密碼傳給empMailSvc，用start()呼叫執行緒的run()啟動
+				req.setAttribute("pwdok", true);
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				String url = "/loginBack.jsp";
@@ -557,7 +559,6 @@ public class EmpServlet extends HttpServlet {
 			try {
 				HttpSession session = req.getSession();
 				session.removeAttribute("accountBack");
-				
 				/***************************2.登出成功,準備轉交(Send the Success view)*************/
 				successMsgs.add("帳號已登出");
 				RequestDispatcher failView = req.getRequestDispatcher("/loginBack.jsp");

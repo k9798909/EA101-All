@@ -19,6 +19,8 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/backCss/fontawesomeOld.min.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/backCss/bootstrapOld.min.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/backCss/tooplateOld.css">
+<link rel="stylesheet" href="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.css">
+<script src="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.js"></script>
 </head>
 
 
@@ -37,7 +39,7 @@
 
 
 <body>
-
+${pwdok}
 <!-- 錯誤表列 -->
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
@@ -116,7 +118,17 @@
 <%-- 	<a href="<%=request.getContextPath()%>/forgetPwd.jsp">忘記密碼</a> --%>
 	
 	
-	
+	<script>
+	if(${ok}){
+		 swal({ 
+			  title : "修改密碼成功" ,
+			  type : "success" ,
+			  buttons : false ,
+			  confirmButtonColor : "#9CCC65"
+			});
+	 }
+
+</script>
 	
 </body>
 </html>
