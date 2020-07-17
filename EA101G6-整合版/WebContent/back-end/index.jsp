@@ -36,7 +36,7 @@
 	
 	ShgmrpService shgmrpSvc = new ShgmrpService();
 	Set<ShgmrpVO> haveShgmrp = shgmrpSvc.getAllShgmrpUncheck();
-	int shgmrpNum = haveShgm.size();
+	int shgmrpNum = haveShgmrp.size();
 	pageContext.setAttribute("shgmrpNum", shgmrpNum);
 	
 	ArtrpService artrpSvc = new ArtrpService();
