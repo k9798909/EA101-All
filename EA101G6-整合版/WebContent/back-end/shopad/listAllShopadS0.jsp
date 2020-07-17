@@ -7,7 +7,7 @@
 
 <% 
 	ShopadService shopadSvc = new ShopadService();
-	List<ShopadVO> list = shopadSvc.getAll();
+	List<ShopadVO> list = shopadSvc.getAllStatus(0);
 	pageContext.setAttribute("list",list);
 %>
 
@@ -63,13 +63,25 @@
 
 <%@ include file="/back-end/back-end_nav.jsp"%>
 
-
-<table class="col-md-10 offset-md-1 t1">
+<div class="container">
+	<table class="col-md-12 t1">
 	<tr><td>
-		<h3>所有店家廣告 -listAllShopad.jsp</h3>
+		<h3>未審核店家廣告</h3>
 		
 	</td></tr>
 </table>
+
+<ul class="nav col-12 justify-content-center">
+  <li class="nav-item" >
+    <a class="nav-link disabled" href="<%=request.getContextPath()%>/back-end/shopad/listAllShopadS0.jsp">未審核</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="<%=request.getContextPath()%>/back-end/shopad/listAllShopadS1.jsp">上架中</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="<%=request.getContextPath()%>/back-end/shopad/listAllShopadS2.jsp">已下架</a>
+  </li>
+</ul>
 
 
 <%-- 錯誤表列 --%>
@@ -82,7 +94,7 @@
 	</ul>
 </c:if>
 
-<table class="col-md-10 offset-md-1 table table-striped bg-white">
+<table class="table table-striped bg-white">
 	<tr>
 		<th>店家廣告編號</th>
 		<th>店家編號</th>
@@ -91,7 +103,7 @@
 		<th>開始日期</th>
 		<th>結束日期</th>
 		<th>審核狀態</th>
-		<th>刪除</th>
+		<th>修改</th>
 	</tr>
 	
 	
@@ -116,25 +128,19 @@
 				
 					<input type="submit" value="修改" >
 					<input type="hidden" name="shopadno" value="${shopadVO.shopadno}">
-					<input type="hidden" name="action" value="update">
+					<input type="hidden" name="action" value="update0">
 				
 			</td>
 		</tr></FORM>
 		
 	</c:forEach>
 	
-	<marquee onMouseOver="this.stop()" onMouseOut="this.start()"  bgcolor=ffcc00 class="col-md-10 offset-md-1">
-		<c:forEach var="shopadVO" items="${list}">
-			<c:if test="${shopadVO.status == 1}">
-				<a target="_self" style="text-decoration:none;" href="<%=request.getContextPath()%>/shop/shop.do?action=getOne_Detail&shopno=${shopadVO.shopno}">
-					${shopadVO.shopno}
-				</a> : ${shopadVO.shopadtt} &nbsp;&nbsp;&nbsp;
-			</c:if>
-		</c:forEach>
-	</marquee>
 	
 	
 </table>
+</div>
+
+
 
 
 </body>

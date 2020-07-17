@@ -30,6 +30,7 @@ public class ShopadDAO implements ShopadDAO_interface{
 	private static final String DELETE = "DELETE FROM shopad WHERE shopadno = ?";
 	private static final String GET_ALL_STMT = "SELECT shopadno,shopno,shopadtt,startt,stopt,status FROM shopad ORDER BY shopadno DESC";
 	private static final String GET_ONE_STMT = "SELECT shopadno,shopno,shopadtt,startt,stopt,status FROM shopad WHERE shopadno = ?";
+	private static final String GET_ONE_STATUS = "SELECT shopadno,shopno,shopadtt,startt,stopt,status FROM shopad WHERE status = ?";
 	
 	@Override
 	public void insert(ShopadVO shopadVO) {
@@ -218,6 +219,63 @@ public class ShopadDAO implements ShopadDAO_interface{
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			
 			
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				shopadVO = new ShopadVO();
+				shopadVO.setShopadno(rs.getString("shopadno"));
+				shopadVO.setShopno(rs.getString("shopno"));
+				shopadVO.setShopadtt(rs.getString("shopadtt"));
+				shopadVO.setStartt(rs.getDate("startt"));
+				shopadVO.setStopt(rs.getDate("stopt"));
+				shopadVO.setStatus(rs.getInt("status"));
+				list.add(shopadVO);
+			}	
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	@Override
+	public List<ShopadVO> getAllStatus(Integer status) {
+		List<ShopadVO> list = new ArrayList<ShopadVO>();
+		ShopadVO shopadVO = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ONE_STATUS);
+			
+			pstmt.setInt(1, status);
 			
 			rs = pstmt.executeQuery();
 			

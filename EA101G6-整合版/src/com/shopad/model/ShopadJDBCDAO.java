@@ -16,6 +16,8 @@ public class ShopadJDBCDAO implements ShopadDAO_interface{
 	private static final String DELETE = "DELETE FROM shopad WHERE shopadno = ?";
 	private static final String GET_ALL_STMT = "SELECT shopadno,shopno,shopadtt,startt,stopt,status FROM shopad ORDER BY shopadno";
 	private static final String GET_ONE_STMT = "SELECT shopadno,shopno,shopadtt,startt,stopt,status FROM shopad WHERE shopadno = ?";
+	private static final String GET_ONE_STATUS = "SELECT shopadno,shopno,shopadtt,startt,stopt,status FROM shopad WHERE status = ?";
+	
 	
 	@Override
 	public void insert(ShopadVO shopadVO) {
@@ -272,6 +274,71 @@ public class ShopadJDBCDAO implements ShopadDAO_interface{
 		return list;
 	}
 	
+	@Override
+	public List<ShopadVO> getAllStatus(Integer status) {
+		List<ShopadVO> list = new ArrayList<ShopadVO>();
+		ShopadVO shopadVO = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ONE_STATUS);
+			
+			pstmt.setInt(1, status);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				shopadVO = new ShopadVO();
+				shopadVO.setShopadno(rs.getString("shopadno"));
+				shopadVO.setShopno(rs.getString("shopno"));
+				shopadVO.setShopadtt(rs.getString("shopadtt"));
+				shopadVO.setStartt(rs.getDate("startt"));
+				shopadVO.setStopt(rs.getDate("stopt"));
+				shopadVO.setStatus(rs.getInt("status"));
+				list.add(shopadVO);
+			}	
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
+	
+	
 	public static void main(String[] args) {
 		
 		ShopadJDBCDAO dao = new ShopadJDBCDAO();
@@ -287,11 +354,11 @@ public class ShopadJDBCDAO implements ShopadDAO_interface{
 //		System.out.println("success");
 		
 		//修改
-		ShopadVO sa2 = new ShopadVO();
-		sa2.setStatus(new Integer(1));
-		sa2.setShopadno("MSA0008");
-		dao.update(sa2);
-		System.out.println("success");
+//		ShopadVO sa2 = new ShopadVO();
+//		sa2.setStatus(new Integer(1));
+//		sa2.setShopadno("MSA0008");
+//		dao.update(sa2);
+//		System.out.println("success");
 		
 		//刪除
 //		dao.delete("MSA0009");
@@ -320,6 +387,19 @@ public class ShopadJDBCDAO implements ShopadDAO_interface{
 //			System.out.println("==============================");
 //			System.out.println();
 //		}
+		
+		List<ShopadVO> list = dao.getAllStatus(1);
+		for(ShopadVO sa4 : list) {
+			System.out.print(sa4.getShopadno() + ",");
+			System.out.print(sa4.getShopno() + ",");
+			System.out.print(sa4.getShopadtt() + ",");
+			System.out.print(sa4.getStartt() + ",");
+			System.out.print(sa4.getStopt() + ",");
+			System.out.print(sa4.getStatus());
+			System.out.println();
+			System.out.println("==============================");
+			System.out.println();
+		}
 	}
 
 }

@@ -68,6 +68,7 @@
 								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/mbrpf/listAllMbrpf.jsp">一般會員管理</a> 
 									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/shop/listAllShop.jsp">店家管理</a>
+									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/shopad/listAllShopadS0.jsp">店家廣告管理</a>
 								</div></li>
 								
 							<li class="nav-item dropdown backnavdown">
