@@ -7,7 +7,7 @@
 <%@ include file="/front-end/front-end-nav.jsp"%>
 <%
 	GmlistService gmlistSvc = new GmlistService();
-	ShopVO shopVO = (ShopVO)session.getAttribute("shopVO");
+	ShopVO shopVO = (ShopVO)session.getAttribute("shopAcount");
 	List<GmlistVO> list = gmlistSvc.getSomeGmlistByShop(shopVO.getShopno());
 	pageContext.setAttribute("list", list);
 	GameVO gameVO = (GameVO)request.getAttribute("gameVO");

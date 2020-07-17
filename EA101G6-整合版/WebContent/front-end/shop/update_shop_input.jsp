@@ -61,13 +61,13 @@ img {
 							onclick="location.href='<%=request.getContextPath()%>/front-end/gmlist/addGmlist.jsp';">我的遊戲</li>
 						<FORM id="gmlist" METHOD="post"
 							ACTION="<%=request.getContextPath()%>/front-end/gmlist/gmlist.do">
-							<input type="hidden" name="shopno" value="${shopVO.shopno}">
+							<input type="hidden" name="shopno" value="${shopAcount.shopno}">
 							<input type="hidden" name="action" value="getSome_For_Display">
 						</FORM>
 						<li class="list-group-item list-group-item-action" id="goShopbk">我的揪團</li>
 						<FORM id="shopbk" METHOD="post"
 							ACTION="<%=request.getContextPath()%>/front-end/shopbk/shopbk.do">
-							<input type="hidden" name="shopno" value="${shopVO.shopno}">
+							<input type="hidden" name="shopno" value="${shopAcount.shopno}">
 							<input type="hidden" name="action" value="getSome_For_Display2">
 						</FORM>
 						<li class="list-group-item list-group-item-action active"
@@ -92,19 +92,19 @@ img {
 							<div class="col-md-5">
 								<label for="name">店家名稱</label> <input class="form-control"
 									type="TEXT" name="shopname" size=100% id="name"
-									value="${shopVO.shopname}" placeholder="name" />
+									value="${shopAcount.shopname}" placeholder="name" />
 							</div>
 							<div class="col-md-7">
 								<label for="act">帳號</label> <input class="form-control"
 									type="TEXT" name="shopact" size=100% id="act"
-									value="${shopVO.shopact}" placeholder="帳號" />
+									value="${shopAcount.shopact}" placeholder="帳號" />
 							</div>
 						</div>
 						<div class="form-row">
 							<div class="col-md-12">
 								<label for="inputPw">Password</label> <input type="password"
 									size=100% class="form-control" id="inputPw" name="shoppw"
-									value="${shopVO==null ? sessionScope.shopVO.shoppw:shopVO.shoppw}">
+									value="${shopVO==null ? shopAcount.shoppw:shopVO.shoppw}">
 							</div>
 						</div>
 
@@ -124,21 +124,22 @@ img {
 							<div class="form-group col-md-12">
 								<label for="ads">Address</label> <input type="text" id="ads"
 									name="addr" class="address form-control" size=100%
-									value="<%=(hashmap == null) ? "" : hashmap.get("addr")%>"><input
+									value="${hashmap == null ? shopAcount.shoploc.substring(9):hashmap.get("addr")}"><input
 									id="address" name="address" type="hidden"
-									value="<%=(shopVO == null) ? "" : shopVO.getShoploc()%>" />
+									value="<%=(shopVO == null) ? "${shopAcount.shoploc}" : shopVO.getShoploc()%>" />
+<%-- 									<%=(hashmap == null) ? "" : hashmap.get("addr")%> --%>
 							</div>
 						</div>
 						<div class="form-row">
 							<div class="form-group col-md-4">
 								<label for="inputCy">場地</label><input id="inputCy" name="shopcy"
 									class="form-control" type="text" size=100%
-									value="${shopVO.shopcy}" placeholder="六人桌*10" />
+									value="${shopAcount.shopcy}" placeholder="六人桌*10" />
 							</div>
 							<div class="form-group col-md-8">
 								<label for="inputPhone">電話</label><input id="inputPhone"
 									name="shopphone" type="tel" class="form-control" size=100%
-									value="0${shopVO.shopphone}" placeholder="0912345678" />
+									value="0${shopAcount.shopphone}" placeholder="0912345678" />
 							</div>
 						</div>
 						<div class="form-row">
@@ -160,14 +161,14 @@ img {
 							<div class="form-group col-md-12" id="preview">
 <!-- 								<div > -->
 									<img
-										src="<%=request.getContextPath()%>/ShopShowImg?shopno=${shopVO.shopno}" />
+										src="<%=request.getContextPath()%>/ShopShowImg?shopno=${shopAcount.shopno}" />
 <!-- 								</div> -->
 							</div>
 						</div>
 					</div>
-					<input type="hidden" name="status" value="${shopVO.status}" /> <br>
+					<input type="hidden" name="status" value="${shopAcount.status}" /> <br>
 					<input type="hidden" name="action" value="update"> <input
-						type="hidden" name="shopno" value="${shopVO.shopno}"> <input
+						type="hidden" name="shopno" value="${shopAcount.shopno}"> <input
 						type="submit" class="btn btn-secondary" value="送出修改"
 						style="margin-bottom: 20px;">
 				</FORM>

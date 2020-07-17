@@ -94,7 +94,7 @@ public class ShopServlet extends HttpServlet {
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-			ShopVO shopVO = (ShopVO) session.getAttribute("shopVO");
+			ShopVO shopVO = (ShopVO) session.getAttribute("shopAcount");
 			try {
 				
 				String city = shopVO.getShoploc().substring(0,3);
