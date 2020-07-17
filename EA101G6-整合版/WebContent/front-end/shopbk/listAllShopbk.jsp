@@ -84,7 +84,6 @@ button{
 					<td>${shopbkVO.payinfohr}</td>
 					<td>${shopbkVO.payinfoday}</td>
 					<td><a href="#" id="goCreate"><button class="btn btn-primary">來去開團</button></a></td>
-<%-- 					onclick="location.href='<%=request.getContextPath()%>/front-end/room/create.jsp?shopno=${shopbkVO.shopno}&shoppds=${shopbkVO.shoppds}&shoppde=${shopbkVO.shoppde}';" --%>
 				</tr>
 				<script>
 		    		 $("#goCreate").click(function() {

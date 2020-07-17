@@ -60,10 +60,10 @@ button {
 </head>
 
 <link rel="stylesheet" type="text/css"
-	href="../../datetimepicker/jquery.datetimepicker.css" />
-<script src="../../datetimepicker/jquery.js"></script>
-<script src="../../datetimepicker/jquery.datetimepicker.full.js"></script>
-<!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
+	href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
+<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
+<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <body>
 	<div class="container-fluid">
 		<div class="row">
@@ -102,7 +102,7 @@ button {
 				
 					<div>
 						<button data-toggle="modal" data-target="#exampleModal"
-							class="btn btn-primary btn-lg" <c:if test="${shopVO.status!=1}">disabled="disabled"</c:if>>新增</button>
+							class="btn btn-primary btn-lg" <c:if test="${shopAcount.status!=1}">disabled="disabled"</c:if>>新增</button>
 					</div>
 				
 				
@@ -192,14 +192,14 @@ button {
 		try {
 			start = shopbkVO.getShoppds();
 		} catch (Exception e) {
-			start = new java.sql.Timestamp(System.currentTimeMillis()+ (1000 * 60 * 60 * 96));
+			start = new java.sql.Timestamp((System.currentTimeMillis()/18000)*18000+ (1000 * 60 * 60 * 96));
 		}
 
 		java.sql.Timestamp stop = null;
 		try {
 			stop = shopbkVO.getShoppde();
 		} catch (Exception e) {
-			stop = new java.sql.Timestamp(System.currentTimeMillis()+ (1000 * 60 * 60 * 106));
+			stop = new java.sql.Timestamp((System.currentTimeMillis()/18000)*18000+ (1000 * 60 * 60 * 106));
 		}
 	%>
 	<script>
@@ -208,7 +208,7 @@ button {
 			theme : '', //theme: 'dark',
 			timepicker : true, //timepicker: false,
 			step : 30, //step: 60 (這是timepicker的預設間隔60分鐘)
-			format : 'Y-m-d H:i:s',
+			format : 'Y-m-d H:i',
 			value : '<%=start%>',
 			//disabledDates:    ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
 			//startDate:	        '2017/07/10',  // 起始日
@@ -219,7 +219,7 @@ button {
 			theme : '', //theme: 'dark',
 			timepicker : true, //timepicker: false,
 			step : 30, //step: 60 (這是timepicker的預設間隔60分鐘)
-			format : 'Y-m-d H:i:s',
+			format : 'Y-m-d H:i',
 			value : '<%=stop%>',
 			//disabledDates:    ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
 			//startDate:	        '2017/07/10',  // 起始日
@@ -234,12 +234,18 @@ button {
 	<c:forEach var="erromsg" items="${errorMsgs}">
 			erromsg+="${erromsg}\n"
 	</c:forEach>
-	swal({text:erromsg });
+	swal("",erromsg,"error");
 	</c:if>
 	</script>
 	
+
 	<script>
 		$(document).ready(function() {
+			<c:if test="${not empty successMsgs}">
+			swal("", "新增成功!", "success");
+			</c:if>
+			
+			
 			$("#go").click(function() {
 				$("#create").submit();
 			})
@@ -251,6 +257,5 @@ button {
 			})
 		})
 	</script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
 </html>

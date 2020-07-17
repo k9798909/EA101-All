@@ -2,8 +2,10 @@ package com.game.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -235,23 +237,33 @@ System.out.println("1");
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
+			Map successMsgs = new HashMap();
 			req.setAttribute("errorMsgs", errorMsgs);
 //			try {
 				/*********************** 1.�����ШD�Ѽ� - ��J�榡�����~�B�z *************************/
 
-				String gmname = req.getParameter("gmname");
+				String gmname = null;
+				if(req.getParameter("gmname")==null||req.getParameter("gmname").trim().length()==0) {
+					gmname="";
+					errorMsgs.add("遊戲名稱不得為空");
+				}
 				byte[] gmimg = null;
 				Part part = req.getPart("gmimg");
 				InputStream in = null;
-				try {
-					in = part.getInputStream();
-					gmimg = new byte[in.available()];
-					in.read(gmimg);
-				} catch (IOException e) {
-					e.getMessage();
-				} finally {
-					in.close();
+				if(part.getSize()==0) {
+					errorMsgs.add("請選擇圖片");
+				}else {
+					try {
+						in = part.getInputStream();
+						gmimg = new byte[in.available()];
+						in.read(gmimg);
+					} catch (IOException e) {
+						e.getMessage();
+					} finally {
+						in.close();
+					}
 				}
+				
 
 				GameVO gameVO = new GameVO();
 				gameVO.setGmname(gmname);
@@ -267,12 +279,14 @@ System.out.println("1");
 
 				/*************************** 2.�}�l�s�W��� ***************************************/
 				GameService gameSvc = new GameService();			
-				ShopVO shopVO = (ShopVO)session.getAttribute("shopVO");
+				ShopVO shopVO = (ShopVO)session.getAttribute("shopAcount");
 				gameSvc.addGame(gmname, gmimg, shopVO);
 
 				
 				/*************************** 3.�s�W����,�ǳ����(Send the Success view) ***********/
 				String url = "/front-end/gmlist/addGmlist.jsp";
+				successMsgs.put("successMsgs","123");
+				req.setAttribute("successMsgs", successMsgs);
 				RequestDispatcher successView = req.getRequestDispatcher(url); // �s�W���\�����listAllshop.jsp
 				successView.forward(req, res);
 

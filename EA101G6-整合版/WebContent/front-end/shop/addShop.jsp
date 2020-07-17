@@ -129,9 +129,9 @@ img {
 					</div>
 				</div>
 				<input type="hidden" name="status" value="0">
-				<input type="hidden" name="action" value="insert">
-				<button type="submit" class="btn btn-primary">µù¥U</button>
+				<input type="hidden" name="action" value="insert">			
 			</form>
+				<button id="add" class="btn btn-primary">µù¥U</button>
 		</div>
 </body>
 <script>
@@ -165,7 +165,7 @@ img {
 	<c:forEach var="erromsg" items="${errorMsgs}">
 			erromsg+="${erromsg}\n"
 	</c:forEach>
-	swal({text:erromsg });
+	swal("",erromsg,"error");
 	</c:if>
 
 
@@ -191,9 +191,31 @@ img {
 	       console.log(address.value);
      };
   }
-   	
-   	
+   	  	
 </script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#add").click(function(){
+			console.log($("#name").val());
+			$.ajax({
+				url: "<%=request.getContextPath()%>/front-end/shop/shop.do",
+				type:"POST",
+				action:"insert",
+				shopname:$("#name").val(),
+				shopact:$("#act").val(),
+				city:$("#¿¤¥«1").val(),
+				area:$("#¶mÂí¥«°Ï1").val(),
+				addr:$("#ads").val(),
+				shopcy:$("#inputCy").val(),
+				shopphone:$("#inputPhone").val(),
+				shopimg:$("#myFile").val()
+			})	
+			console.log($("#name").val());
+		})
+	})
+</script>
+
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 

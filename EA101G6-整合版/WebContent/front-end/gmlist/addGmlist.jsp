@@ -167,19 +167,23 @@ h4 {
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 	<!-- 查詢時有錯誤啟動 -->
-	<c:if test="${not empty errorMsgs}">
-		<script>
-			swal({
-				text : "${errorMsgs}"
-			});
-		</script>
-		<%
-			request.removeAttribute("errorMsgs");
-		%>
+	<script>
+	<c:if test="${not empty errorMsgs}">	
+ 	var erromsg="";
+	<c:forEach var="erromsg" items="${errorMsgs}">
+			erromsg+="${erromsg}\n"
+	</c:forEach>
+	swal("",erromsg,"error");
 	</c:if>
+	</script>
 	
 		<script>
 			$(document).ready(function() {
+				<c:if test="${not empty successMsgs}">
+				swal("", "新增成功!", "success");
+				</c:if>
+				
+				
 				$("#goUpdate").click(function() {
 					$("#getOne_For_Update").submit();
 				})

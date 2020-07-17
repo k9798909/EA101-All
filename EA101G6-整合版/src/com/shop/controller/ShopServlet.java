@@ -416,6 +416,7 @@ public class ShopServlet extends HttpServlet {
 
 				/*************************** 3.�s�W����,�ǳ����(Send the Success view) ***********/
 				String url = "login.jsp";
+				req.setAttribute("successMsgs", "a");
 				RequestDispatcher successView = req.getRequestDispatcher(url); // �s�W���\�����listAllshop.jsp
 				successView.forward(req, res);
 

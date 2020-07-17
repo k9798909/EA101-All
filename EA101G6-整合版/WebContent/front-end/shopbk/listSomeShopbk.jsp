@@ -13,7 +13,8 @@
 		list = shopbkSvc.getShopbkByShop(shopno);
 	}
 	if(request.getParameter("shopno")==null) {
-		shoppds = java.sql.Timestamp.valueOf(request.getParameter("shoppds"));
+		String s = req.getParameter("shoppds").trim()+":00";
+		shoppds = java.sql.Timestamp.valueOf(s);
 		list = shopbkSvc.getShopbkByTime(shoppds);
 	}
 	pageContext.setAttribute("list", list);
@@ -89,8 +90,24 @@ h4 {
 				<td>${shopbkVO.shoppde}</td>
 				<td>${shopbkVO.payinfohr}</td>
 				<td>${shopbkVO.payinfoday}</td>
-				<td><a href="<%=request.getContextPath()%>/front-end/room/create.jsp?shopno=${shopbkVO.shopno}&shoppds=${shopbkVO.shoppds}&shoppde=${shopbkVO.shoppde}"><button class="btn btn-primary" >來去開團</button></a></td>		
-			</tr>
+				<td><a href="#" id="goCreate"><button class="btn btn-primary">來去開團</button></a></td>
+<%-- 					onclick="location.href='<%=request.getContextPath()%>/front-end/room/create.jsp?shopno=${shopbkVO.shopno}&shoppds=${shopbkVO.shoppds}&shoppde=${shopbkVO.shoppde}';" --%>
+				</tr>
+				<script>
+		    		 $("#goCreate").click(function() {
+		    			 <c:choose>		    		
+		    			 	<c:when test="${empty account}">
+					    			Swal.fire({
+										  icon: 'error',
+										  title: '請先登入',
+									});
+					    	</c:when>					
+							<c:otherwise>
+								location.href="<%=request.getContextPath()%>/front-end/room/create.jsp?shopno=${shopbkVO.shopno}&shoppds=${shopbkVO.shoppds}&shoppde=${shopbkVO.shoppde}";
+							</c:otherwise>
+						</c:choose>		
+		     	     });
+				</script></tr>
 		</c:forEach>
 	</table>
 </div>
