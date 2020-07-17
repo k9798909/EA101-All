@@ -39,7 +39,7 @@
    </form>
   </main>
   
-   
+ <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>  
    
 <!-- partial -->
   <script  src="<%= request.getContextPath()%>/js/script_login.js"></script>
