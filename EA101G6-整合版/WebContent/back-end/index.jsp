@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.tfcord.model.*" %>
 <%@ page import="com.shop.model.*" %>
+<%@ page import="com.shopad.model.*" %>
 <%@ page import="com.shoprpdt.model.*" %>
 <%@ page import="com.mallOr.model.*" %>
 <%@ page import="com.shgm.model.*" %>
@@ -42,6 +43,11 @@
 	List<ArtrpVO> haveArtrp = artrpSvc.getAllByStatus(0);
 	int artrpNum = haveArtrp.size();
 	pageContext.setAttribute("artrpNum", artrpNum);
+	
+	ShopadService shopadSvc = new ShopadService();
+	List<ShopadVO> haveShopad = shopadSvc.getAllStatus(0);
+	int shopadNum = haveShopad.size();
+	pageContext.setAttribute("shopadNum", shopadNum);
 %>
 
 <!DOCTYPE html>
@@ -209,6 +215,9 @@
 		        <div id="tabs-2">
 		        	<span class="news">
 		        		<a href="<%=request.getContextPath()%>/back-end/shop/listAllShop.jsp">目前有<font style="color:red">${shopNum}</font>筆_店家申請_尚未處理</a>
+		        	</span>
+		        	<span class="news">
+		        		<a href="<%=request.getContextPath()%>/back-end/shopad/listAllShopadS0.jsp">目前有<font style="color:red">${shopadNum}</font>筆_店家廣告申請_尚未處理</a>
 		        	</span>
 		        	<span class="news">
 		        		<a href="<%=request.getContextPath()%>/back-end/shgm/listAllShgm.jsp">目前有<font style="color:red">${shgmNum}</font>筆_市集商品審核_尚未處理</a>
