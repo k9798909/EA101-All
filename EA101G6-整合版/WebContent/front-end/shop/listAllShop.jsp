@@ -261,7 +261,7 @@ footer {
 $(document).ready(function(){
 	$("#action").click(function(){
     	if ($("#shopadtt").val() == ''){
-    		swal("Fuck you!", "請輸入廣告標題!", "error");
+    		swal("失敗!", "請輸入廣告標題!", "error");
     	} else{
     		$.ajax({
         		url: "<%=request.getContextPath()%>/shopad/shopad.do",

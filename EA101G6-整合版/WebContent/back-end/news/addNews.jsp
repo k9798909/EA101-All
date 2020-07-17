@@ -112,7 +112,7 @@
 				<br> <input type="hidden" name="newsno"
 					value="${newsVO.newsno}"> <input type="hidden"
 					name="action" value="insert"> <input type="submit"
-					value="送出修改">
+					value="送出新增">
 
 			</FORM>
 
