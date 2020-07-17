@@ -79,7 +79,7 @@ public class MallOrServlet extends HttpServlet{
 					dispatcher.forward(req, res);
 					return;
 				}
-
+				Boolean pointErro=false;
 				List<String> erroList = new LinkedList<String>();
 				MallOrService mallOrSvc = new MallOrService();
 							
@@ -129,6 +129,7 @@ public class MallOrServlet extends HttpServlet{
 					mbrpfVo.setPoints(mbrpfVo.getPoints()-price);
 				} else{
 					erroList.add("點數不夠請儲值");
+					pointErro=true;
 				}
 
 				if (!erroList.isEmpty()) {
@@ -139,6 +140,7 @@ public class MallOrServlet extends HttpServlet{
 					req.setAttribute("addr", addr);
 					req.setAttribute("take", take);
 					req.setAttribute("totalPrice", price);
+					req.setAttribute("pointErro",pointErro);
 					dispatcher.forward(req, res);
 					return;
 				}

@@ -58,7 +58,7 @@
 				<input type="hidden" name="rmno" value="${shoprpVO.rmno}">
 				<input type="hidden" name="mbrno" value="${shoprpVO.mbrno}">
 				<input type="hidden" name="action" value="delete">
-				<input type="submit" value="刪除">
+				<input type="submit" value="刪除" onclick="return(confirm('確認要刪除嗎？刪除後將無法恢復'))">
 			</form>
 		</td>
 	</tr>

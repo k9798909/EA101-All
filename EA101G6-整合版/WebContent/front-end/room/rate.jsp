@@ -39,7 +39,7 @@
 					<%}%>
 				</select>
 			  </td>
-		      <td><input type="text" name="detail" value="·F¸}¶W¯ä"></td>     
+		      <td><input type="text" name="detail" value="·F¸}¶W¯ä" maxlength="15"></td>     
 		    </tr>    		 	  
 		</c:if>
 	</c:forEach>

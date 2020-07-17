@@ -58,8 +58,8 @@
    }
    .add7{
   	position: fixed;
-  	bottom: 50px;
-  	right: 50px;
+  	bottom: 30px;
+  	right: 30px;
   	width: 70px;
   	height: 70px;
   }
@@ -70,64 +70,74 @@
 
 <%@ include file="/back-end/back-end_nav.jsp"%>
 
-<table class="col-md-10 offset-md-1">
-	<tr><td>
-		<h3>所有商城廣告</h3>
-		
-	</td></tr>
-</table>
+
+	<div class="container">
+		<table class="col-12">
+			<tr>
+				<td>
+					<h3>所有商城廣告</h3>
+
+				</td>
+			</tr>
+		</table>
 
 
-<%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-	<font style="color:red">請修正以下錯誤:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
+		<%-- 錯誤表列 --%>
+		<c:if test="${not empty errorMsgs}">
+			<font style="color: red">請修正以下錯誤:</font>
+			<ul>
+				<c:forEach var="message" items="${errorMsgs}">
+					<li style="color: red">${message}</li>
+				</c:forEach>
+			</ul>
+		</c:if>
 
-<table class="col-md-10 offset-md-1 table table-striped bg-white">
-	<tr>
-		<th class="www align-middle">商城廣告編號</th>
-		<th class="www align-middle">商品編號</th>
-		<th class="www align-middle">商城廣告標題</th>
-		
-		<th class="www align-middle">開始日期</th>
-		<th class="www align-middle">結束日期</th>
-		<th class="www align-middle">廣告圖示</th>	
-		<th class="yyy align-middle">刪除</th>
-	</tr>
-	
-	
-	
-	<c:forEach var="malladVO" items="${list}">
-		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/mallad/mallad.do" style="margin-bottom: 0px;">
-		<tr>
-			<td class="align-middle">${malladVO.malladno}</td>
-			<td class="align-middle">${malladVO.commno}</td>
-			<td class="align-middle">${malladVO.gmadtt}</td>		
-			<td class="align-middle">${malladVO.startt}</td>
-			<td class="align-middle">${malladVO.stopt}</td>
-			<td class="align-middle"><img src="<%=request.getContextPath()%>/mallad/malladpic.do?malladno=${malladVO.malladno}"/></td>
-			
-			
-			
-			</FORM>
-			
-			<td class="align-middle">
-				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/mallad/mallad.do" style="margin-bottom: 0px;">
-					<input type="submit" value="刪除" >
-					<input type="hidden" name="malladno" value="${malladVO.malladno}">
-					<input type="hidden" name="action" value="delete">
+
+
+		<table class="table table-striped bg-white">
+			<tr>
+				<th class="www align-middle">商城廣告編號</th>
+				<th class="www align-middle">商品編號</th>
+				<th class="www align-middle">商城廣告標題</th>
+
+				<th class="www align-middle">開始日期</th>
+				<th class="www align-middle">結束日期</th>
+				<th class="www align-middle">廣告圖示</th>
+				<th class="yyy align-middle">刪除</th>
+			</tr>
+
+
+
+			<c:forEach var="malladVO" items="${list}">
+				<FORM METHOD="post"
+					ACTION="<%=request.getContextPath()%>/mallad/mallad.do"
+					style="margin-bottom: 0px;">
+					<tr>
+						<td class="align-middle">${malladVO.malladno}</td>
+						<td class="align-middle">${malladVO.commno}</td>
+						<td class="align-middle">${malladVO.gmadtt}</td>
+						<td class="align-middle">${malladVO.startt}</td>
+						<td class="align-middle">${malladVO.stopt}</td>
+						<td class="align-middle"><img
+							src="<%=request.getContextPath()%>/mallad/malladpic.do?malladno=${malladVO.malladno}" /></td>
 				</FORM>
-			</td>
-		</tr>
-	</c:forEach>
-</table>
 
-<a target="_self" href="<%=request.getContextPath()%>/back-end/mallad/addMallad.jsp"><img class="add7" src="<%=request.getContextPath()%>/back-end/mallad/images/addMad.png" title="Add Mallad"></a>
+				<td class="align-middle">
+					<FORM METHOD="post"
+						ACTION="<%=request.getContextPath()%>/mallad/mallad.do"
+						style="margin-bottom: 0px;">
+						<input type="submit" value="刪除"> <input type="hidden"
+							name="malladno" value="${malladVO.malladno}"> <input
+							type="hidden" name="action" value="delete">
+					</FORM>
+				</td>
+				</tr>
+			</c:forEach>
+		</table>
+	</div>
+
+
+	<a target="_self" href="<%=request.getContextPath()%>/back-end/mallad/addMallad.jsp"><img class="add7" src="<%=request.getContextPath()%>/back-end/mallad/images/addMad.png" title="Add Mallad"></a>
 
 
 </body>

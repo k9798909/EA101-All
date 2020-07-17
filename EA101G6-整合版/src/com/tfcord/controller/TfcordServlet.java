@@ -107,6 +107,7 @@ public class TfcordServlet extends HttpServlet {
 				session.setAttribute("mbrPoint", mbrpfVO.getPoints());//將已經加值過的點數set進sesssion中，讓帳戶管理頁面(listOneMbrtf.jsp)可以抓到最新的點數
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
+				
 				try{//查看是否有來源網頁(EX:商城或市集購買東西，發現點數不夠，欲購買)
 					
 					String pointLocation = (String) session.getAttribute("pointLocation");
@@ -251,7 +252,7 @@ public class TfcordServlet extends HttpServlet {
 			}
 		}
 		
-		if("changeStatue".equals(action)) { // 來自 /back-end/tfcord/listAllTfcord.jsp 或  /back-end/tfcord/listOnetf.jsp 或 /back-end/tfcord/notYetTfcord.jsp 或  /back-end/tfcord/listMbrtf.jsp 的請求
+		if("changeStatus".equals(action)) { // 來自 /back-end/tfcord/listAllTfcord.jsp 或  /back-end/tfcord/listOnetf.jsp 或 /back-end/tfcord/notYetTfcord.jsp 或  /back-end/tfcord/listMbrtf.jsp 的請求
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			
@@ -268,6 +269,7 @@ public class TfcordServlet extends HttpServlet {
 				tfcordSvc.changeTfcordStatus(tfno);
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
+				req.setAttribute("ok", true);
 				String url = requestURL;
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);

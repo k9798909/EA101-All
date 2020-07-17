@@ -79,7 +79,7 @@
 				<input type="hidden" name="report" value="${rminfoVO.report}">
 				<input type="hidden" name="rmno" value="${rminfoVO.rmno}">
 				<input type="hidden" name="action" value="update">
-				<input class="floatButton" type="submit" value="取消揪團">
+				<input class="floatButton" type="submit" value="刪除" onclick="return(confirm('確認要刪除嗎？刪除後將無法恢復'))">
 			</form>
 					
 		</td>

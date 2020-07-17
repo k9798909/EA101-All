@@ -8,7 +8,13 @@
 <head>
 <title>會員資料 - listOneMbrpf.jsp</title>
 
+<style>
 
+	table{
+		width:100%;
+	}
+
+</style>
 
 </head>
 
@@ -26,16 +32,16 @@
 			<div class="col">
 				<table class="memInfo">
 					<tr>
-						<td ><img width="200" height="175" src="<%= request.getContextPath()%>/mbrpf/mbrimg.do?mbrno=${mbrpfVO.mbrno}"></td>
+						<td colspan="2" style="text-align:center;"><img width="200" height="175" src="<%= request.getContextPath()%>/mbrpf/mbrimg.do?mbrno=${mbrpfVO.mbrno}"></td>
 					</tr>
 						<tr><td>&nbsp;</td></tr>
-						<tr><td>會員帳戶</td><td>${mbrpfVO.mbract}</td></tr>
+						<tr><td>會員帳戶:</td><td>${mbrpfVO.mbract}</td></tr>
 						<tr><td>&nbsp;</td></tr>
-						<tr><td>會員姓名</td><td>${mbrpfVO.mbrname}</td></tr>
+						<tr><td>會員姓名:</td><td>${mbrpfVO.mbrname}</td></tr>
 						<tr><td>&nbsp;</td></tr>
-						<tr><td>生日</td><td>${mbrpfVO.birth}</td></tr>
+						<tr><td>生日:</td><td>${mbrpfVO.birth}</td></tr>
 						<tr><td>&nbsp;</td></tr>
-						<tr><td>性別</td><td>
+						<tr><td>性別:</td><td>
 							<c:if test="${mbrpfVO.sex ==1}">
 							<c:out value="男"/>
 							</c:if>
@@ -44,13 +50,13 @@
 							</c:if>
 						</td></tr>
 						<tr><td>&nbsp;</td></tr>
-						<tr><td>電子郵件</td><td>${mbrpfVO.mail}</td></tr>
+						<tr><td>電子郵件:</td><td>${mbrpfVO.mail}</td></tr>
 						<tr><td>&nbsp;</td></tr>
-						<tr><td>電話</td><td>${mbrpfVO.phone}</td></tr>
+						<tr><td>電話:</td><td>${mbrpfVO.phone}</td></tr>
 						<tr><td>&nbsp;</td></tr>
-						<tr><td>接收款項帳戶</td><td>${mbrpfVO.mbrac}</td></tr>
+						<tr><td>接收款項帳戶:</td><td>${mbrpfVO.mbrac}</td></tr>
 						<tr><td>&nbsp;</td></tr>
-						<tr><td>暱稱</td><td>${mbrpfVO.nickname}</td></tr>
+						<tr><td>暱稱:</td><td>${mbrpfVO.nickname}</td></tr>
 <!-- 						<tr><td>&nbsp;</td></tr> -->
 <%-- 						<tr><td>點數餘額</td><td>${mbrpfVO.points}</td></tr> --%>
 <!-- 						<tr><td>&nbsp;</td></tr> -->
@@ -61,9 +67,10 @@
 <%-- 						<tr><td>未出席次數</td><td>${mbrpfVO.unattend}</td></tr> --%>
 <!-- 						<tr><td>&nbsp;</td></tr> -->
 <%-- 						<tr><td>總參團次數</td><td>${mbrpfVO.ttattend}</td></tr> --%>
-						<td>
+						<tr><td>&nbsp;</td></tr>
+						<td colspan="2">
 						  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/mbrpf/mbrpf.do" style="margin-bottom: 0px;">
-						     <input type="submit" value="修改">
+						     <div style="text-align:center;"><input type="submit" value="修改"></div>
 						     <input type="hidden" name="mbrno"  value="${mbrpfVO.mbrno}">
 						     <input type="hidden" name="action"	value="getOne_To_Update"></FORM>
 						</td>

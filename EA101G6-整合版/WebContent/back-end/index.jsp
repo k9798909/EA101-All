@@ -57,6 +57,8 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<link rel="stylesheet" href="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.css">
+<script src="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.js"></script>
 
 <style>
 
@@ -176,7 +178,7 @@
 							<ul class="navbar-nav">
 								<li class="nav-item logoutPIC">
 									<form method="post" action="<%=request.getContextPath()%>/emp/EmpServlet">
-										<a class="nav-link d-flex" href="<%=request.getContextPath()%>/emp/EmpServlet?action=logout">
+										<a class="nav-link d-flex" id="empout">
 											<i class="far fa-user mr-2 tm-logout-icon"></i> <span>Logout</span>
 											<input type="hidden" name="action" value="logout">
 										</a> 
@@ -264,6 +266,21 @@
 		 		}
 			});
 		});
+		
+		$('#empout').click(function(e){
+					
+					e.preventDefault();
+					
+					swal({ 
+						  title : "已登出" ,
+						  type : "success" ,
+						  buttons : false ,
+						  confirmButtonColor : "#9CCC65"
+						});
+					setTimeout(function(){
+						$('#empout').parent('form').submit();
+					},1500);
+				});
 </script>
 
 

@@ -382,8 +382,9 @@ if ("update".equals(action)) { // 來自update_mbrpf_input.jsp的請求
 		//session刪掉,不然會抓到舊圖
 				HttpSession session = req.getSession();
 				session.removeAttribute(mbrno);
-				
-				String url = "/front-end/mbrpf/listOneMbrpf.jsp";
+				//讓原本的session更新
+				session.setAttribute("mbrpfVO",mbrpfVO);
+				String url = "/front-end/mbrpf/listMyMbrpf.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneMbrpf.jsp
 				successView.forward(req, res);
 
@@ -611,7 +612,7 @@ if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 			    InputStream in =  part.getInputStream();
 			    byte[] buf = new byte[in.available()];
 			    if(part.getSize() == 0) {
-					in = getServletContext().getResourceAsStream("/NoData/EmpPic.jpg");
+					in = getServletContext().getResourceAsStream("/NoData/noImage.jpg");
 					buf = new byte[in.available()];
 					
 				}else {

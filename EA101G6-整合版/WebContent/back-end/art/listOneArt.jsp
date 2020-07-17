@@ -58,51 +58,62 @@
 
 <%@ include file="/back-end/back-end_nav.jsp"%>
 
-<table class="col-md-10 offset-md-1">
-	<tr><td>
-		<h3>文章資料</h3>
-		<h4><a href="listAllArt.jsp">回首頁</a></h4>
-	</td></tr>
-</table>
+	<div class="container">
+		<table class="col-12">
+			<tr>
+				<td>
+					<h3>文章資料</h3>
+					<h4>
+						<a href="listAllArt.jsp">回首頁</a>
+					</h4>
+				</td>
+			</tr>
+		</table>
 
-<table class="col-md-10 offset-md-1">
-	<tr>
-		<th class="www">文章編號</th>
-		<th class="www">作者編號</th>
-		<th class="www">文章標題</th>
-		<th class="www">發文日期</th>
-		
-		<th class="www">文章狀態</th>
-		<th class="www">文章種類</th>
-		<th class="www">修改</th>
-		<th class="www">刪除</th>
-		
-		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/art/art.do" style="margin-bottom: 0px;">
-		<tr>
-			<td>${artVO.artno}</td>
-			<td>${artVO.mbrno}</td>
-			<td>${artVO.arttt}</td>
-			<td>${artVO.pdate}</td>
-			
-			<td><select size="1" name="status">
-				<option value="0" ${(artVO.status==0)?'selected':'' }>正常顯示</option>
-				<option value="1" ${(artVO.status==1)?'selected':'' }>隱藏文章</option>	
-			</select></td>
-			<td>${artVO.atno}</td>
-			<td>
-				<input type="hidden" name="artno" value="${artVO.artno}">
-				<input type="hidden" name="action" value="update_Art_Status">
-				<input type="submit" value="修改">
-			</td></FORM>
-			<td>
-				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/art/art.do" style="margin-bottom: 0px;">	
-				<input type="submit" value="刪除">
-				<input type="hidden" name="artno" value="${artVO.artno}">
-				<input type="hidden" name="action" value="delete">
+		<table class="col-12">
+			<tr>
+				<th class="www">文章編號</th>
+				<th class="www">作者編號</th>
+				<th class="www">文章標題</th>
+				<th class="www">發文日期</th>
+
+				<th class="www">文章狀態</th>
+				<th class="www">文章種類</th>
+				<th class="www">修改</th>
+				<th class="www">刪除</th>
+
+				<FORM METHOD="post"
+					ACTION="<%=request.getContextPath()%>/back-end/art/art.do"
+					style="margin-bottom: 0px;">
+					<tr>
+						<td>${artVO.artno}</td>
+						<td>${artVO.mbrno}</td>
+						<td>${artVO.arttt}</td>
+						<td>${artVO.pdate}</td>
+
+						<td><select size="1" name="status">
+								<option value="0" ${(artVO.status==0)?'selected':'' }>正常顯示</option>
+								<option value="1" ${(artVO.status==1)?'selected':'' }>隱藏文章</option>
+						</select></td>
+						<td>${artVO.atno}</td>
+						<td><input type="hidden" name="artno" value="${artVO.artno}">
+							<input type="hidden" name="action" value="update_Art_Status">
+							<input type="submit" value="修改"></td>
 				</FORM>
-			</td>
-		</tr>
-	
-</table>
+				<td>
+					<FORM METHOD="post"
+						ACTION="<%=request.getContextPath()%>/back-end/art/art.do"
+						style="margin-bottom: 0px;">
+						<input type="submit" value="刪除"> <input type="hidden"
+							name="artno" value="${artVO.artno}"> <input type="hidden"
+							name="action" value="delete">
+					</FORM>
+				</td>
+			</tr>
+
+		</table>
+	</div>
+
+
 </body>
 </html>

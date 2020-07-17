@@ -20,9 +20,9 @@ public class JoinrmDAO implements JoinrmDAO_interface{
 	}
 	
 	private static final String INSERT_STMT = "INSERT INTO JOINRM(MBRNO,RMNO) VALUES (?,?)";
-	private static final String GET_ROOMMENBER_STMT = "SELECT * FROM JOINRM WHERE RMNO = ? OR MBRNO = ?";
+	private static final String GET_ROOMMENBER_STMT = "SELECT * FROM JOINRM WHERE RMNO = ? OR MBRNO = ? ORDER BY RMNO DESC";
 	private static final String DELETE = "DELETE FROM JOINRM WHERE RMNO = ? AND MBRNO = ?";
-	private static final String GET_ALL_STMT = "SELECT * FROM JOINRM";
+	private static final String GET_ALL_STMT = "SELECT * FROM JOINRM ORDER BY RMNO DESC";
 
 	@Override
 	public void insert(JoinrmVO joinrmVO) {

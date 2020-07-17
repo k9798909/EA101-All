@@ -63,6 +63,13 @@
   .logoutPIC{
    	margin-top: 18%;
    }
+   .add7{
+  	position: fixed;
+  	bottom: 30px;
+  	right: 30px;
+  	width: 70px;
+  	height: 70px;
+  }
 </style>
 
 </head>
@@ -84,7 +91,9 @@
 	</ul>
 </c:if>
 
-<table class="col-md-10 offset-md-1 table table-striped bg-white ttt">
+
+<div class="container">
+	<table class="table table-striped bg-white ttt">
 	<tr>
 		<th class="yyy">最新消息編號</th>
 		<th class="www yyy">最新消息標題</th>
@@ -123,6 +132,10 @@
 		</tr>
 	</c:forEach>
 </table>
+</div>
+
+
+<a target="_self" href="<%=request.getContextPath()%>/back-end/news/addNews.jsp"><img class="add7" src="<%=request.getContextPath()%>/images/news.png" title="Add News"></a>
 
 
 </body>

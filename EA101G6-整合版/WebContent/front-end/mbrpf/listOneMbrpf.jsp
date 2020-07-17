@@ -9,14 +9,30 @@
 <title>會員資料 - listOneMbrpf.jsp</title>
 
 <% 
+MbrpfVO vo;
 	if(request.getAttribute("mbrVO")!=null){
-		MbrpfVO vo=(MbrpfVO)request.getAttribute("mbrVO");
+		 vo=(MbrpfVO)request.getAttribute("mbrVO");
 		pageContext.setAttribute("mbrVO",vo);
 	}else if(session.getAttribute("mbrpfVO")!=null){
-		MbrpfVO vo=(MbrpfVO)session.getAttribute("mbrpfVO");
+		 vo=(MbrpfVO)session.getAttribute("mbrpfVO");
 		pageContext.setAttribute("mbrVO",vo);
 	}
 %>
+
+<style>
+	table{
+		width:100%;
+	}
+	
+	td{
+		text-align:center;
+	}
+
+.cho{
+	display:none;
+}
+
+</style>
 
 </head>
 
@@ -34,7 +50,7 @@
 			<div class="col">
 				<table class="memInfo">
 					<tr>
-						<td ><img width="200" height="175" src="<%= request.getContextPath()%>/mbrpf/mbrimg.do?mbrno=${mbrVO.mbrno}"></td>
+						<td colspan="2" style="text-align:center;" ><img width="200" height="175" src="<%= request.getContextPath()%>/mbrpf/mbrimg.do?mbrno=${mbrVO.mbrno}"></td>
 					</tr>
 						<tr><td>&nbsp;</td></tr>
 						<tr><td>會員帳戶</td><td>${mbrVO.mbract}</td></tr>
@@ -69,12 +85,12 @@
 <%-- 						<tr><td>未出席次數</td><td>${mbrpfVO.unattend}</td></tr> --%>
 <!-- 						<tr><td>&nbsp;</td></tr> -->
 <%-- 						<tr><td>總參團次數</td><td>${mbrpfVO.ttattend}</td></tr> --%>
-<!-- 						<td> -->
-<%-- 						  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/mbrpf/mbrpf.do" style="margin-bottom: 0px;"> --%>
-<!-- 						     <input type="submit" value="修改"> -->
-<%-- 						     <input type="hidden" name="mbrno"  value="${mbrVO.mbrno}"> --%>
-<!-- 						     <input type="hidden" name="action"	value="getOne_To_Update"></FORM> -->
-<!-- 						</td> -->
+						<td>
+						  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/mbrpf/mbrpf.do" style="margin-bottom: 0px;">
+						     <input type="submit" value="修改" class="cho">
+						     <input type="hidden" name="mbrno"  value="${mbrVO.mbrno}">
+						     <input type="hidden" name="action"	value="getOne_To_Update"></FORM>
+						</td>
 						
 				</table>
 			</div>

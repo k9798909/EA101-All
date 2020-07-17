@@ -364,7 +364,7 @@
     $(document).ready(function(){
     	$("#action").click(function(){
         	if ($("#rp_detail").val() == ''){
-        		swal("Fuck you!", "請輸入檢舉內容!", "error");
+        		swal("失敗!", "請輸入檢舉內容!", "error");
         	} else{
         		$.ajax({
             		url: "<%=request.getContextPath()%>/artrp/artrp.do",

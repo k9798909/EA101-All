@@ -120,6 +120,17 @@
 				<label for="p1000"><input type="radio" name="price" value="1000" id="p1000"> 儲值1000點 / NT$ 1000<br><img class="pointpic" src="<%=request.getContextPath()%>/img/Point/1000.png"></label>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-sm">
+<%-- 				<label for="p10000"><input type="radio" name="price" value="10000" id="p10000"> 儲值10000點 / NT$ 10000<br><img class="pointpic" src="<%=request.getContextPath()%>/img/Point/10000.png"></label> --%>
+			</div>
+			<div class="col-sm">
+					<label for="p10000"><input type="radio" name="price" value="10000" id="p10000"> 儲值10000點 / NT$ 10000<br><img class="pointpic" src="<%=request.getContextPath()%>/img/Point/10000.png"></label>
+			</div>
+			<div class="col-sm">
+<%-- 				<label for="p1000"><input type="radio" name="price" value="1000" id="p1000"> 儲值1000點 / NT$ 1000<br><img class="pointpic" src="<%=request.getContextPath()%>/img/Point/1000.png"></label> --%>
+			</div>
+		</div>
 			
 		<input type="hidden" name="mbrno" value="${mbrpfVO.mbrno}">
 		<input type="hidden" name="tftype" value="P">

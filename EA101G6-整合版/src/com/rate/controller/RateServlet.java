@@ -6,6 +6,8 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+import com.joinrm.model.JoinrmService;
+import com.joinrm.model.JoinrmVO;
 import com.rate.model.*;
 
 public class RateServlet extends HttpServlet{
@@ -113,5 +115,7 @@ public class RateServlet extends HttpServlet{
 //			failureView.forward(req, res);
 		}
 	}
+	
+	
 	}
 }	

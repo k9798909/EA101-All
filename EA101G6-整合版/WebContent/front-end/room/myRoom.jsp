@@ -30,6 +30,17 @@
 </head>
 <body>
 <%@ include file="/front-end/front-end-nav.jsp"%>
+<c:if test="${not empty successMsgs}">
+	<script>
+		Swal.fire({
+			  position: 'center',
+			  icon: 'success',
+			  title: '${successMsgs}',
+			  showConfirmButton: false,
+			  timer: 1500
+			})
+	</script>
+</c:if>
 <c:if test="${not empty updateMsgs}">
 	<script>
 		Swal.fire({

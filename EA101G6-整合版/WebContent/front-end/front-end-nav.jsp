@@ -155,12 +155,11 @@
 									<li><a href="<%= request.getContextPath()%>/front-end/tfcord/listOneMbrtf.jsp" class="nav-link">帳戶管理</a></li>
 									<li><a href="<%=request.getContextPath()%>/front-end/tfcord/buyPoint.jsp" class="nav-link">購買點數</a></li>
 									<li><a href="<%=request.getContextPath()%>/front-end/tfcord/tfMoney.jsp" class="nav-link">兌換現金</a></li>
-									<li class="has-children"><a href="#">More Links</a>
-										<ul class="dropdown">
-											<li><a href="<%=request.getContextPath()%>/front-end/mbrpf/listMyMbrpf.jsp" class="nav-link">個人資訊</a></li>
-											<li><a href="#">Menu Two</a></li>
-											<li><a href="#">Menu Three</a></li>
-										</ul></li>
+									<c:choose>
+										<c:when test="${mbrpfVO.mbrname != null}">
+											<li><a href="<%=request.getContextPath()%>/front-end/mbrpf/listMyMbrpf.jsp" class="nav-link">個人資訊</a></li>																	
+										</c:when>
+									</c:choose>
 								</ul></li>
 
 							<li><a href="<%=request.getContextPath()%>/front-end/mall/mallGetAllUp.jsp" class="nav-link">商城</a></li>
@@ -176,7 +175,11 @@
 							<li><a href="<%= request.getContextPath()%>/front-end/gmlist/listAllGmlist.jsp" class="nav-link">店家遊戲</a></li>
 							<li><a href="<%= request.getContextPath()%>/front-end/shopbk/listAllShopbk.jsp" class="nav-link">店家訂位</a></li>
 							</ul></li>
-							<li><a href="<%=request.getContextPath()%>/front-end/art/listAllArt.jsp" class="nav-link">討論區</a></li>
+							<li class="has-children"><a href="<%=request.getContextPath()%>/front-end/art/listAllArt.jsp" class="nav-link">討論區</a>
+							<c:if test="${mbrpfVO != null}">
+							<ul class="dropdown arrow-top">
+							<li><a href="<%= request.getContextPath()%>/front-end/art/listOwnArt.jsp" class="nav-link">個人文章</a></li>
+							</ul></c:if></li>
 						</ul>
 					</nav>
 

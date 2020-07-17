@@ -28,4 +28,8 @@ public class RateService {
 	public List<RateVO> getAll(){
 		return dao.getAll();
 	}
+	
+	public List<RateVO> findByRatedmbrno(String ratedmbrno){
+		return dao.findByRatedmbrno(ratedmbrno);
+	}
 }
