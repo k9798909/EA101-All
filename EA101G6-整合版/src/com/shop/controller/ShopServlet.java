@@ -297,7 +297,7 @@ public class ShopServlet extends HttpServlet {
 			
 			System.out.println("1111111111");
 			req.setAttribute("errorMsgs", errorMsgs);
-//			try {
+			try {
 				/*********************** 1.�����ШD�Ѽ� - ��J�榡�����~�B�z *************************/
 			System.out.println("222222222222");
 				String shopname = req.getParameter("shopname");
@@ -420,11 +420,11 @@ public class ShopServlet extends HttpServlet {
 				successView.forward(req, res);
 
 				/*************************** ��L�i�઺���~�B�z **********************************/
-//			} catch (Exception e) {
-//				errorMsgs.add(e.getMessage());
-//				RequestDispatcher failureView = req.getRequestDispatcher("addShop.jsp");
-//				failureView.forward(req, res);
-//			}
+			} catch (Exception e) {
+				errorMsgs.add(e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("addShop.jsp");
+				failureView.forward(req, res);
+			}
 		}
 		if ("login".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
@@ -468,7 +468,7 @@ public class ShopServlet extends HttpServlet {
 		if ("logout".equals(action)) {
 			session.removeAttribute("shopVO");
 			String url = req.getParameter("requestURL");
-			if(url.equals("/front-end/shop/shopArea.jsp") || url.equals("/front-end/gmlist/addGmlist.jsp")){
+			if(url.equals("/front-end/shop/shopArea.jsp") || url.equals("/front-end/gmlist/addGmlist.jsp")|| url.equals("/front-end/room/shop_roomList.jsp")){
 				url ="/front-end/index.jsp";
 			}
 			res.sendRedirect(req.getContextPath()+url);

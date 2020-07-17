@@ -2,12 +2,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.shopbk.model.*"%>
-<%@ include file="/front-end/front-end-nav.jsp"%>
+<%@ include file="/front-end/shopbk/front-end-nav.jsp"%>
 <%
 	ShopbkService shopbkSvc = new ShopbkService();
 	String shopno = request.getParameter("shopno");
 	List<ShopbkVO> list = shopbkSvc.getShopbkByShop(shopno);
 	pageContext.setAttribute("list", list);
+	ShopbkVO shopbkVO = (ShopbkVO)request.getAttribute("shopvkVO");
 %>
 
 <!doctype html>
@@ -98,13 +99,15 @@ button {
 			<!-- 		<div class="col-sm-1"></div> -->
 			<div class="col-sm-8">
 				<div>
+				
 					<div>
 						<button data-toggle="modal" data-target="#exampleModal"
-							class="btn btn-primary btn-lg">新增</button>
+							class="btn btn-primary btn-lg" <c:if test="${shopVO.status!=1}">disabled="disabled"</c:if>>新增</button>
 					</div>
+				
+				
 					<table class="table table-sm">
 						<tr>
-							<th scope="col">店家編號</th>
 							<th scope="col">提供人數</th>
 							<th scope="col">開始時間</th>
 							<th scope="col">結束時間</th>
@@ -113,7 +116,6 @@ button {
 						</tr>
 						<c:forEach var="shopbkVO" items="${list}">
 							<tr>
-								<td>${shopbkVO.shopno}</td>
 								<td>${shopbkVO.ofdtable}</td>
 								<td>${shopbkVO.shoppds}</td>
 								<td>${shopbkVO.shoppde}</td>
@@ -146,28 +148,27 @@ button {
 								<div class="form-row">
 									<div class="form-group col-md-4">
 										<label for="1">提供人數</label> <input type="TEXT"
-											name="ofdtable" class="form-control" id="1" placeholder="單位:人頭"/>
-										<%-- 					value="<%=(shopbkVO == null) ? "" : shopbkVO.getOfdtable()%>"  --%>
+											name="ofdtable" class="form-control" id="1" value="<%=(shopbkVO == null) ? "" : shopbkVO.getOfdtable()%>" placeholder="單位:人頭"/>
 									</div>
 									<div class="form-group col-md-4">
 										<label for="2">每小時</label> <input type="TEXT"
-											name="payinfohr" class="form-control" id="2" placeholder="每小時/元"/>
+											name="payinfohr" class="form-control" id="2" value="<%=(shopbkVO == null) ? "" : shopbkVO.getPayinfohr()%>" placeholder="每小時/元"/>
 									</div>
 									<div class="form-group col-md-4">
 										<label for="3">包日:</label> <input type="TEXT"
-											name="payinfoday" class="form-control" id="3" placeholder="整天/元"/>
+											name="payinfoday" class="form-control" id="3"  value="<%=(shopbkVO == null) ? "" : shopbkVO.getPayinfoday()%>" placeholder="整天/元"/>
 									</div>
 								</div>
 								<div class="form-row">
 									<div class="form-group col-md-12">
 										<label for="f_date1">起:</label> <input type="datetime"
-											name="shoppds" id="f_date1" class="form-control" />
+											name="shoppds" id="f_date1" class="form-control"  value="<%=(shopbkVO == null) ? "" : shopbkVO.getShoppds()%>"/>
 									</div>
 								</div>
 								<div class="form-row">
 									<div class="form-group col-md-12">
 										<label for="f_date2">迄:</label> <input type="datetime"
-											name="shoppde" id="f_date2" class="form-control" />
+											name="shoppde" id="f_date2" class="form-control" value="<%=(shopbkVO == null) ? "" : shopbkVO.getShoppde()%>"/>
 									</div>
 									</div>
 								 <input type="hidden" name="action" value="insert">
@@ -186,6 +187,21 @@ button {
 		</div>
 	</div>
 	<!-- 	=================================datetimepicker============================ -->
+	<%
+		java.sql.Timestamp start = null;
+		try {
+			start = shopbkVO.getShoppds();
+		} catch (Exception e) {
+			start = new java.sql.Timestamp(System.currentTimeMillis()+ (1000 * 60 * 60 * 96));
+		}
+
+		java.sql.Timestamp stop = null;
+		try {
+			stop = shopbkVO.getShoppde();
+		} catch (Exception e) {
+			stop = new java.sql.Timestamp(System.currentTimeMillis()+ (1000 * 60 * 60 * 106));
+		}
+	%>
 	<script>
 		$.datetimepicker.setLocale('en'); // kr ko ja en
 		$('#f_date1').datetimepicker({
@@ -193,10 +209,10 @@ button {
 			timepicker : true, //timepicker: false,
 			step : 30, //step: 60 (這是timepicker的預設間隔60分鐘)
 			format : 'Y-m-d H:i:s',
-			value : new Date(),
+			value : '<%=start%>',
 			//disabledDates:    ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
 			//startDate:	        '2017/07/10',  // 起始日
-			minDate : '-1970-01-01 00:00:00', // 去除今日(不含)之前
+			minDate : '-1969-12-28 00:00:00', // 去除今日(不含)之前
 		//maxDate:  '+1970-01-01'  // 去除今日(不含)之後
 		});
 		$('#f_date2').datetimepicker({
@@ -204,13 +220,24 @@ button {
 			timepicker : true, //timepicker: false,
 			step : 30, //step: 60 (這是timepicker的預設間隔60分鐘)
 			format : 'Y-m-d H:i:s',
-			value : new Date(),
+			value : '<%=stop%>',
 			//disabledDates:    ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
 			//startDate:	        '2017/07/10',  // 起始日
-			minDate : '-1970-01-01 00:00:00', // 去除今日(不含)之前
-		//maxDate:           '+1970-01-01'  // 去除今日(不含)之後
+			minDate : '-1969-12-28 00:00:00', // 去除今日(不含)之前
+// 			maxDate:           '+1970-01-01'  // 去除今日(不含)之後
 		});
 	</script>
+	
+	<script>
+	<c:if test="${not empty errorMsgs}">	
+ 	var erromsg="";
+	<c:forEach var="erromsg" items="${errorMsgs}">
+			erromsg+="${erromsg}\n"
+	</c:forEach>
+	swal({text:erromsg });
+	</c:if>
+	</script>
+	
 	<script>
 		$(document).ready(function() {
 			$("#go").click(function() {
@@ -224,6 +251,6 @@ button {
 			})
 		})
 	</script>
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
 </html>

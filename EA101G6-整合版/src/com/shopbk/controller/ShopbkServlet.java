@@ -252,7 +252,10 @@ public class ShopbkServlet extends HttpServlet {
 
 				String shopno = req.getParameter("shopno");
 				Integer ofdtable = new Integer(req.getParameter("ofdtable").trim());
-				
+				if (req.getParameter("ofdtable").trim() == null||req.getParameter("ofdtable").trim().length()==0) {
+					ofdtable = 15;
+					errorMsgs.add("提供位置不可空白");
+				}
 				java.sql.Timestamp shoppds = null;
 				try {
 					shoppds = java.sql.Timestamp.valueOf(req.getParameter("shoppds").trim());
@@ -270,7 +273,11 @@ public class ShopbkServlet extends HttpServlet {
 				}
 				
 				
-				Integer payinfohr = new Integer(req.getParameter("payinfohr").trim());				
+				Integer payinfohr = new Integer(req.getParameter("payinfohr").trim());	
+				if (req.getParameter("payinfohr").trim() == null||req.getParameter("payinfohr").trim().length()==0) {
+					ofdtable = 30;
+					errorMsgs.add("每小時價格不可空白");
+				}
 				Integer payinfoday = new Integer(req.getParameter("payinfoday").trim());
 				
 				ShopbkVO shopbkVO = new ShopbkVO();
@@ -284,6 +291,7 @@ public class ShopbkServlet extends HttpServlet {
 
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
+					System.out.println("error");
 					req.setAttribute("shopbkVO", shopbkVO); // �t����J�榡���~��shopVO����,�]�s�Jreq
 					RequestDispatcher failureView = req.getRequestDispatcher("listSomeShopbk2.jsp");
 					failureView.forward(req, res);
