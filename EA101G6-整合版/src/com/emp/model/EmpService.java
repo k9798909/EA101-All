@@ -88,7 +88,7 @@ public class EmpService {
 	}
 	
 	public static String getRanPwd() {
-		char[] pwdAry =new char[10];//要拿來裝亂數密碼的陣列
+		char[] pwdAry =new char[5];//要拿來裝亂數密碼的陣列
 		char[] all = new char[62];//將我可以顯示的所有字元存放進一個陣列，讓我之後選(26大寫英文+26小寫英文+10個數字)
 		for(int i = 0; i < 26; i++) {//將英文字母放進陣列中
 			all[i] = (char)(65+i);//0~25放A-Z，A的ASCIIcode為65
@@ -97,8 +97,8 @@ public class EmpService {
 		for(int i = 0; i < 10; i++) {
 			all[52 + i] = (char)(48 + i);//52~62放0-9，0的ASCIIcode為48
 		}
-		int[] num = new int[10];//亂數密碼共可放10碼
-		for(int i = 0; i < 10; i++) {
+		int[] num = new int[5];//亂數密碼共可放10碼
+		for(int i = 0; i < 5; i++) {
 			num[i] = (int)(Math.random()*all.length);//1-62的數字亂數取出10個數字，相當於將共62個元素，亂數抽出10個
 			pwdAry[i] =  all[ num[i] ];//Ex：如果第一個random 抽出10，即為num[10]，num[] 第0個元素是10
 						// ↑ i=0時，all[num[0]] => all[10]
