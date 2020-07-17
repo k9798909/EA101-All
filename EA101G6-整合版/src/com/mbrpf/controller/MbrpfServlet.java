@@ -384,7 +384,7 @@ if ("update".equals(action)) { // 來自update_mbrpf_input.jsp的請求
 				session.removeAttribute(mbrno);
 				//讓原本的session更新
 				session.setAttribute("mbrpfVO",mbrpfVO);
-				String url = "/front-end/mbrpf/listOneMbrpf.jsp";
+				String url = "/front-end/mbrpf/listMyMbrpf.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneMbrpf.jsp
 				successView.forward(req, res);
 

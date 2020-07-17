@@ -9,11 +9,12 @@
 <title>會員資料 - listOneMbrpf.jsp</title>
 
 <% 
+MbrpfVO vo;
 	if(request.getAttribute("mbrVO")!=null){
-		MbrpfVO vo=(MbrpfVO)request.getAttribute("mbrVO");
+		 vo=(MbrpfVO)request.getAttribute("mbrVO");
 		pageContext.setAttribute("mbrVO",vo);
 	}else if(session.getAttribute("mbrpfVO")!=null){
-		MbrpfVO vo=(MbrpfVO)session.getAttribute("mbrpfVO");
+		 vo=(MbrpfVO)session.getAttribute("mbrpfVO");
 		pageContext.setAttribute("mbrVO",vo);
 	}
 %>

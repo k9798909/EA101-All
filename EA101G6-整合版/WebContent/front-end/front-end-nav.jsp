@@ -157,7 +157,7 @@
 									<li><a href="<%=request.getContextPath()%>/front-end/tfcord/tfMoney.jsp" class="nav-link">兌換現金</a></li>
 									<c:choose>
 										<c:when test="${mbrpfVO.mbrname != null}">
-											<li><a href="<%=request.getContextPath()%>/front-end/mbrpf/listOneMbrpf.jsp" class="nav-link">個人資訊</a></li>																	
+											<li><a href="<%=request.getContextPath()%>/front-end/mbrpf/listMyMbrpf.jsp" class="nav-link">個人資訊</a></li>																	
 										</c:when>
 									</c:choose>
 								</ul></li>
