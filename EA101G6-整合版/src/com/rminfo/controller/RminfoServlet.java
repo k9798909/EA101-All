@@ -161,7 +161,7 @@ if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 				List<String> successMsgs = new LinkedList<String>();
 				req.setAttribute("successMsgs", successMsgs);
 				successMsgs.add("建立成功!!");
-				String url = "/front-end/room/create.jsp";
+				String url = "/front-end/room/myRoom.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);				
 				

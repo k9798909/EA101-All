@@ -54,17 +54,6 @@
 			})
 	</script>
 </c:if>
-<c:if test="${not empty successMsgs}">
-	<script>
-		Swal.fire({
-			  position: 'center',
-			  icon: 'success',
-			  title: '${successMsgs}',
-			  showConfirmButton: false,
-			  timer: 1500
-			})
-	</script>
-</c:if>
 <%@ include file="/front-end/front-end-nav.jsp"%>
 <!-- 開團表單 -->
 	<div id="dialog-form" title="設定揪團資訊">
@@ -85,7 +74,7 @@
 				*遊玩地點:
 				<select name="shopno">
 					<c:forEach var="shopVO" items="${shopSvc.getAll()}">
-						<option value="${shopVO.shopno}" ${(rminfoVO.shopno==shopVO.shopno)? 'selected':'' }${(param.shopno==shopVO.shopno)? 'selected':'' }>${shopVO.shopname}
+						<option value="${shopVO.shopno}" ${(param.shopno==shopVO.shopno)? 'selected':'' }>${shopVO.shopname}
 					</c:forEach>
 				</select><br><br>
 				
@@ -227,7 +216,7 @@
 		</div>
 	</c:if>
 	</c:forEach>
-</div>	
+</div>
 </body>
 <%
 	java.sql.Timestamp starttime = null;
@@ -375,6 +364,7 @@
 			dialog2.dialog("open");
 		</c:if>
 	});
+	
 })(jQuery_1_12_2);  	
 </script>
 <script>
