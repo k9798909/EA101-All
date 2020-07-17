@@ -27,6 +27,10 @@
 		text-align:center;
 	}
 
+.cho{
+	display:none;
+}
+
 </style>
 
 </head>
@@ -80,12 +84,12 @@
 <%-- 						<tr><td>未出席次數</td><td>${mbrpfVO.unattend}</td></tr> --%>
 <!-- 						<tr><td>&nbsp;</td></tr> -->
 <%-- 						<tr><td>總參團次數</td><td>${mbrpfVO.ttattend}</td></tr> --%>
-<!-- 						<td> -->
-<%-- 						  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/mbrpf/mbrpf.do" style="margin-bottom: 0px;"> --%>
-<!-- 						     <input type="submit" value="修改"> -->
-<%-- 						     <input type="hidden" name="mbrno"  value="${mbrVO.mbrno}"> --%>
-<!-- 						     <input type="hidden" name="action"	value="getOne_To_Update"></FORM> -->
-<!-- 						</td> -->
+						<td>
+						  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/mbrpf/mbrpf.do" style="margin-bottom: 0px;">
+						     <input type="submit" value="修改" class="cho">
+						     <input type="hidden" name="mbrno"  value="${mbrVO.mbrno}">
+						     <input type="hidden" name="action"	value="getOne_To_Update"></FORM>
+						</td>
 						
 				</table>
 			</div>
