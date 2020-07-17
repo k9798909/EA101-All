@@ -8,6 +8,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.rminfo.model.RminfoVO;
+
 public class JoinrmDAO implements JoinrmDAO_interface{
 	private static DataSource ds = null;
 	static {
@@ -23,7 +25,8 @@ public class JoinrmDAO implements JoinrmDAO_interface{
 	private static final String GET_ROOMMENBER_STMT = "SELECT * FROM JOINRM WHERE RMNO = ? OR MBRNO = ? ORDER BY RMNO DESC";
 	private static final String DELETE = "DELETE FROM JOINRM WHERE RMNO = ? AND MBRNO = ?";
 	private static final String GET_ALL_STMT = "SELECT * FROM JOINRM ORDER BY RMNO DESC";
-
+	private static final String UPDATE = "UPDATE JOINRM SET RATEREPORT = ?,  SHOPREPORT = ? WHERE RMNO = ? AND MBRNO = ?";
+	
 	@Override
 	public void insert(JoinrmVO joinrmVO) {
 		Connection con = null;
@@ -90,6 +93,8 @@ public class JoinrmDAO implements JoinrmDAO_interface{
 
 			while (rs.next()) {
 				joinrmVO = new JoinrmVO();
+				joinrmVO.setRatereport(rs.getInt("ratereport"));
+				joinrmVO.setShopreport(rs.getInt("shopreport"));
 				joinrmVO.setRmno(rs.getString("rmno"));
 				joinrmVO.setMbrno(rs.getString("mbrno"));
 				list.add(joinrmVO);
@@ -226,5 +231,48 @@ public class JoinrmDAO implements JoinrmDAO_interface{
 		return list2;
 	}
 	
+	@Override
+	public void update(JoinrmVO joinrmVO) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE);
+
+			pstmt.setInt(1, joinrmVO.getRatereport());
+			pstmt.setInt(2, joinrmVO.getShopreport());
+			pstmt.setString(3, joinrmVO.getRmno());
+			pstmt.setString(4, joinrmVO.getMbrno());
+			
+			
+			pstmt.executeUpdate();
+
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+		
+	}
 
 }

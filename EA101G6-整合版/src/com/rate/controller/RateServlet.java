@@ -6,8 +6,7 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-import com.joinrm.model.JoinrmService;
-import com.joinrm.model.JoinrmVO;
+import com.joinrm.model.*;
 import com.rate.model.*;
 
 public class RateServlet extends HttpServlet{
@@ -40,9 +39,13 @@ public class RateServlet extends HttpServlet{
 			String[] detail= req.getParameterValues("detail");
 			String[] s = req.getParameterValues("score");
 			Integer[] score = new Integer[s.length];
+			String[] shop = req.getParameterValues("shopreport");
+			Integer[] shopreport = new Integer[s.length];
+
 			
 			for(int i = 0; i < s.length; i++) {
 				score[i] = Integer.parseInt(s[i]);
+				shopreport[i] = Integer.parseInt(shop[i]);
 			}
 			for(int i = 0; i < ratedmbrno.length; i++) {
 				RateVO rateVO = new RateVO();
@@ -54,6 +57,11 @@ public class RateServlet extends HttpServlet{
 				
 				RateService rateSvc = new RateService();
 				rateVO = rateSvc.sendRate(rmno[i],ratingmbrno[i],ratedmbrno[i],detail[i],score[i]);
+				System.out.println(shopreport[i] + rmno[i] + ratingmbrno[i]);
+				JoinrmService joinrmSvc = new JoinrmService();				
+				joinrmSvc.update(1,shopreport[i],rmno[i], ratingmbrno[i]);
+				
+				
 			}
 			
 			

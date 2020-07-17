@@ -32,4 +32,14 @@ public class JoinrmService {
 	public List<JoinrmVO> getAll(){
 		return dao.getAll();
 	}
+	
+	public JoinrmVO update(Integer ratereport, Integer shopreport, String rmno,String mbrno) {
+		JoinrmVO joinrmVO = new JoinrmVO();
+		joinrmVO.setRatereport(ratereport);
+		joinrmVO.setShopreport(shopreport);
+		joinrmVO.setRmno(rmno);
+		joinrmVO.setMbrno(mbrno);
+		dao.update(joinrmVO);
+		return joinrmVO;
+	}
 }

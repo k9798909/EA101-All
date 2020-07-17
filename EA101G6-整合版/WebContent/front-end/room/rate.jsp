@@ -31,6 +31,7 @@
 			      <input type="hidden" name="ratedmbrno" value="${joinrmVO2.mbrno}">
 			      <input type="hidden" name="rmno" value="<%=request.getParameter("rmno")%>">
 			      <input type="hidden" name="ratingmbrno" value="${mbrpfVO.mbrno}">
+			      <input type="hidden" name="shopreport" value="${joinrmVO2.shopreport}">
 		      </td>
 		      <td align="center"> 
 		      	<select name="score">
