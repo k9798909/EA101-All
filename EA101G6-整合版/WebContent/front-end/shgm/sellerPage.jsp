@@ -477,8 +477,9 @@ div.pageselect-area {
 			</div>
 		</div>
 	</div>
-	
 	<input type="hidden" id="mbrpfVO" value="${mbrpfVO.mbrname}">
+	<input type="hidden" id="updateSuccess" value="${updateSuccess}">
+	
 	
 <jsp:include page="/front-end/shgm/alert-area.jsp"></jsp:include>
 	
@@ -487,6 +488,20 @@ div.pageselect-area {
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/jsForAlert-area.js"></script>
 	<script>
 	$(document).ready(function(){
+		
+		if($("#updateSuccess").val() == "success"){
+			Swal.fire({
+				  icon: 'success',
+				  title: '您已修改成功！',
+				  showConfirmButton: false,
+				  timer: 1500
+				})
+			$("#updateSuccess").val('');
+		}
+		
+		var $getContextPath = $("#getContextPath").val();
+		
+		if(updateSuccess)
 		
 		/*下架中、待上架狀態切換*/
 		$(".container").on("click",".upcheck",function(){
@@ -508,11 +523,11 @@ div.pageselect-area {
 					jsondata = JSON.stringify(response);
 					webSocket.send(jsondata);
 					if(response.upcheck == 2){
-						$("#upcheck2 ul:eq(0)").after('<form method="post" action="/EA101G6/front-end/shgm/shgm.do"></form>');
+						$("#upcheck2 ul:eq(0)").after('<form method="post" action="'+$getContextPath+'/front-end/shgm/shgm.do"></form>');
 						$("form:first").append('<ul class="list-group list-group-horizontal four-li"></ul>');
 						$("form:first ul").append('<li class="list-group-item">'+response.shgmname+'</li>');
 						$("form:first ul").append('<li class="list-group-item"><div class="imgwrapper">'+
-							'<img src="/EA101G6/shgm/displayimg?shgmno='+response.shgmno+'"></div></li>');
+							'<img src="'+$getContextPath+'/shgm/displayimg?shgmno='+response.shgmno+'"></div></li>');
 						$("form:first ul").append('<li class="list-group-item">'+response.detail+'</li>');
 						$("form:first ul").append('<li class="list-group-item"><input type="submit" class="btn btn-primary slrbyr-css" value="修改"><br>'+
 							'<button id="'+response.shgmno+'"value="2" type="button" class="btn btn-primary slrbyr-css upcheck">重新上架</button></li>');
@@ -522,7 +537,7 @@ div.pageselect-area {
 						$('#upcheck0 ul').eq(0).after('<ul class="list-group list-group-horizontal four-li"></ul>');
 						$('#upcheck0 ul').eq(1).append('<li class="list-group-item">'+response.shgmname+'</li>');
 						$('#upcheck0 ul').eq(1).append('<li class="list-group-item"><div class="imgwrapper">'+
-							'<img src="/EA101G6/shgm/displayimg?shgmno='+response.shgmno+'"></div></li>');
+							'<img src="'+$getContextPath+'/shgm/displayimg?shgmno='+response.shgmno+'"></div></li>');
 						$('#upcheck0 ul').eq(1).append('<li class="list-group-item">'+response.price+'</li>');
 						$('#upcheck0 ul').eq(1).append('<li class="list-group-item">上架審核中</li>');
 						$('#upcheck0 ul:eq(1) li:eq(3)').append('<br>');
@@ -558,7 +573,7 @@ div.pageselect-area {
 						$("#boxstatus1 ul:eq(0)").after('<ul class="list-group list-group-horizontal six-li"></ul>');
 						$("#boxstatus1 ul:eq(1)").append('<li class="list-group-item">'+response.shgmname+'</li>');
 						$("#boxstatus1 ul:eq(1)").append('<li class="list-group-item"><div class="imgwrapper">'+
-							'<img src="/EA101G6/shgm/displayimg?shgmno='+response.shgmno+'"></div></li>');
+							'<img src="'+$getContextPath+'/shgm/displayimg?shgmno='+response.shgmno+'"></div></li>');
 						$("#boxstatus1 ul:eq(1)").append('<li class="list-group-item">'+response.takernm+'</li>');
 						$("#boxstatus1 ul:eq(1)").append('<li class="list-group-item">'+response.takerph+'</li>');
 						$("#boxstatus1 ul:eq(1)").append('<li class="list-group-item">'+response.address+'</li>');
@@ -569,7 +584,7 @@ div.pageselect-area {
 						$("#boxstatus2 ul:eq(0)").after('<ul class="list-group list-group-horizontal six-li"></ul>');
 						$("#boxstatus2 ul:eq(1)").append('<li class="list-group-item">'+response.shgmname+'</li>');
 						$("#boxstatus2 ul:eq(1)").append('<li class="list-group-item"><div class="imgwrapper">'+
-							'<img src="/EA101G6/shgm/displayimg?shgmno='+response.shgmno+'"></div></li>');
+							'<img src="'+$getContextPath+'/shgm/displayimg?shgmno='+response.shgmno+'"></div></li>');
 						$("#boxstatus2 ul:eq(1)").append('<li class="list-group-item">'+response.takernm+'</li>');
 						$("#boxstatus2 ul:eq(1)").append('<li class="list-group-item">'+response.takerph+'</li>');
 						$("#boxstatus2 ul:eq(1)").append('<li class="list-group-item">'+response.address+'</li>');
@@ -601,7 +616,7 @@ div.pageselect-area {
 					$('#upcheck0 ul').eq(0).after('<ul class="list-group list-group-horizontal four-li"></ul>');
 					$('#upcheck0 ul').eq(1).append('<li class="list-group-item">'+response.shgmname+'</li>');
 					$('#upcheck0 ul').eq(1).append('<li class="list-group-item"><div class="imgwrapper">'+
-						'<img src="/EA101G6/shgm/displayimg?shgmno='+response.shgmno+'"></div></li>');
+						'<img src="'+$getContextPath+'/shgm/displayimg?shgmno='+response.shgmno+'"></div></li>');
 					$('#upcheck0 ul').eq(1).append('<li class="list-group-item">'+response.price+'</li>');
 					$('#upcheck0 ul').eq(1).append('<li class="list-group-item">上架審核中</li>');
 					$('#upcheck0 ul:eq(1) li:eq(3)').append('<br>');

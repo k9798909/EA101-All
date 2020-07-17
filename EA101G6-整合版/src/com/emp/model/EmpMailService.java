@@ -60,7 +60,7 @@ public class EmpMailService extends Thread {
 			String ranPwd = empVO.getEmppwd();
 			
 			String subject = "密碼通知";
-			String messageText = "Hello! " + name + " 請謹記此密碼: " + ranPwd + "\n" +" (已經啟用)" + "您的原編為：" + empno;
+			String messageText = "Hello! " + name + " 請謹記此密碼: " + ranPwd + "\n" +" (已經啟用)" + "您的員編為：" + empno;
 			
 			sendMail(mail, subject, messageText);
 		}

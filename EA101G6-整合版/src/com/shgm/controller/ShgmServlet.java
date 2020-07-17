@@ -316,13 +316,13 @@ public class ShgmServlet extends HttpServlet {
 				ShgmService shgmsvc = new ShgmService();
 				shgmsvc.addShgm(sellerno, null, shgmname, price, intro, img, 0, null, null, null, null, null, 0, 0, 0,
 						null);
-				
+
 				JSONObject jsonobj = new JSONObject();
 				jsonobj.put("shgmno", "noPK");
 				jsonobj.put("sellerno", sellerno);
 				jsonobj.put("shgmname", shgmname);
 				String jsonstr = jsonobj.toString();
-				request.setAttribute("sellsuccess", jsonstr);//提示賣家成功新增商品用的(還要審核)，並經由webSocket送出提醒後台
+				request.setAttribute("sellsuccess", jsonstr);// 提示賣家成功新增商品用的(還要審核)，並經由webSocket送出提醒後台
 
 				String url = "/front-end/shgm/mainPage.jsp";
 				RequestDispatcher successview = request.getRequestDispatcher(url);
@@ -427,6 +427,8 @@ public class ShgmServlet extends HttpServlet {
 						shgmorg.getUpcheck(), shgmorg.getUptime(), shgmorg.getTake(), shgmorg.getTakernm(),
 						shgmorg.getTakerph(), shgmorg.getAddress(), shgmorg.getBoxstatus(), shgmorg.getPaystatus(),
 						shgmorg.getStatus(), shgmorg.getSoldtime());
+				
+				request.setAttribute("updateSuccess", "success");
 
 				String url = "/front-end/shgm/sellerPage.jsp";// 回到原本的頁面
 				RequestDispatcher successview = request.getRequestDispatcher(url);
@@ -676,8 +678,62 @@ public class ShgmServlet extends HttpServlet {
 			ShgmService shgmsvc = new ShgmService();
 			ShgmVO shgmvo = shgmsvc.getOneShgm(shgmno);
 			try {
-				// 改變上架狀態
-				if (request.getParameter("upcheck") != null) {
+				if (request.getParameter("backend") != null) {
+
+					if (request.getParameter("upcheck") != null) {
+						Integer upcheck = Integer.parseInt(request.getParameter("upcheck"));
+
+						ShgmVO shgmNew = shgmsvc.updateShgm(shgmno, shgmvo.getSellerno(), shgmvo.getBuyerno(),
+								shgmvo.getShgmname(), shgmvo.getPrice(), shgmvo.getIntro(), shgmvo.getImg(), upcheck,
+								shgmvo.getUptime(), shgmvo.getTake(), shgmvo.getTakernm(), shgmvo.getTakerph(),
+								shgmvo.getAddress(), shgmvo.getBoxstatus(), shgmvo.getPaystatus(), shgmvo.getStatus(),
+								shgmvo.getSoldtime());
+
+						java.text.DateFormat df = new java.text.SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+						String uptime = null;
+						String soldtime = null;
+
+						Timestamp uptimeCT = shgmNew.getUptime();
+						if (upcheck == 0) {
+							uptime = "尚未上架";
+							soldtime = "尚未售出";
+						} else if (upcheck == 2) {
+							uptime = "已審核下架";
+							soldtime = "已審核下架";
+						} else if (upcheck == 1) {
+							uptime = df.format(uptimeCT);
+							soldtime = "尚未售出";
+						}
+						jsonobj.put("shgmno", shgmno);
+						jsonobj.put("uptime", uptime);
+						jsonobj.put("soldtime", soldtime);
+					}
+					if (request.getParameter("shgmrpStatus") != null) {
+						Integer status = Integer.parseInt(request.getParameter("shgmrpStatus"));
+						System.out.println(status);
+
+						String shgmrpno = request.getParameter("shgmrpno");
+						ShgmrpService shgmrpsvc = new ShgmrpService();
+						ShgmrpVO shgmrpvo = shgmrpsvc.getOneShgmrp(shgmrpno);
+
+						shgmrpsvc.updateShgmrp(shgmrpno, shgmrpvo.getShgmno(),
+								shgmrpvo.getSuiterno(), shgmrpvo.getDetail(), status);
+
+						String  statusStr = null;
+						if(status == 0) {
+							statusStr = "目前未審核";
+						} else if(status == 1) {
+							statusStr = "已確認檢舉";
+						} else if(status == 2) {
+							statusStr = "已取消檢舉";
+						}
+						jsonobj.put("shgmno", shgmrpvo.getShgmno());
+						jsonobj.put("status", statusStr);
+					}
+				}
+
+				// 改變上架狀態(前台送來)
+				if (request.getParameter("upcheck") != null && request.getParameter("backend") == null) {
 
 					Integer upcheck = new Integer(request.getParameter("upcheck"));
 					// 待上架、上架中選擇自行下架，改成下架中狀態
@@ -692,8 +748,8 @@ public class ShgmServlet extends HttpServlet {
 						ShgmrpService shgmrpsvc = new ShgmrpService();
 						// 判斷是否有被檢舉的內容
 						ShgmrpVO shgmrpvo = shgmrpsvc.getOnerpByShgmno(shgmno);
-						if(shgmrpvo != null) {
-							if(shgmrpvo.getStatus() == 1){
+						if (shgmrpvo != null) {
+							if (shgmrpvo.getStatus() == 1) {
 								detail = shgmrpsvc.getOnerpByShgmno(shgmno).getDetail();
 							} else {
 								detail = "自行下架";
@@ -765,7 +821,7 @@ public class ShgmServlet extends HttpServlet {
 						jsonobj.put("shgmno", shgmno);
 						jsonobj.put("shgmname", shgmvo.getShgmname());
 						jsonobj.put("price", shgmvo.getPrice());
-						//送去WebSocket提醒後台用的
+						// 送去WebSocket提醒後台用的
 						jsonobj.put("upcheck", 0);
 					}
 					// 已送達，買家確認收貨，下訂改成完成

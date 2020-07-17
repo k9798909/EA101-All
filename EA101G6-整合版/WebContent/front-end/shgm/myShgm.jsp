@@ -316,7 +316,7 @@ div.pageselect-area {
 		</div>
 	</div>
 	<input type="hidden" id="mbrpfVO" value="${mbrpfVO.mbrname}">
-	<input type="hidden" id="success" value="${updateSuccess}">
+	<input type="hidden" id="updateSuccess" value="${updateSuccess}">
 	
 <jsp:include page="/front-end/shgm/alert-area.jsp"></jsp:include>
 	
@@ -326,14 +326,14 @@ div.pageselect-area {
 	<script>
 	$(document).ready(function(){
 		
-		if($("#success").val() == "success"){
+		if($("#updateSuccess").val() == "success"){
 			Swal.fire({
 				  icon: 'success',
 				  title: '您已修改成功！',
 				  showConfirmButton: false,
 				  timer: 1500
 				})
-			$("#success").val('');
+			$("#updateSuccess").val('');
 		}
 		
 		/*確定收貨購買完成*/
@@ -354,7 +354,7 @@ div.pageselect-area {
 			    	$("#list-status2 ul:eq(0)").after('<ul class="list-group list-group-horizontal five-li"></ul>');
 					$("#list-status2 ul:eq(1)").append('<li class="list-group-item">'+response.shgmname+'</li>');			    	
 					$("#list-status2 ul:eq(1)").append('<li class="list-group-item"><div class="imgwrapper">'+
-							'<img src="/EA101G6/shgm/displayimg?shgmno='+response.shgmno+'"></div></li>');			    	
+							'<img src="'+$getContextPath+'/shgm/displayimg?shgmno='+response.shgmno+'"></div></li>');			    	
 					$("#list-status2 ul:eq(1)").append('<li class="list-group-item">'+response.price+'</li>');
 					$("#list-status2 ul:eq(1)").append('<li class="list-group-item">'+response.uptime+'</li>');
 					$("#list-status2 ul:eq(1)").append('<li class="list-group-item">'+response.soldtime+'</li>');

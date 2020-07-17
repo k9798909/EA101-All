@@ -139,7 +139,7 @@
 
 				<div class="site-logo">
 					<a href="<%= request.getContextPath()%>/front-end/index.jsp" class="text-black"><span
-						class="text-primary">Gameing on Board</span></a>
+						class="text-primary">Gaming on Board</span></a>
 				</div>
 
 				<div class="col-12">

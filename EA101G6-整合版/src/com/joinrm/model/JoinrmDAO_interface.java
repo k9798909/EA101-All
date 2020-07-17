@@ -7,5 +7,5 @@ public interface JoinrmDAO_interface {
 	public List<JoinrmVO> findByPK(String rmno,String mbrno);
 	public void delete(String rmno,String mbrno);
 	public List<JoinrmVO> getAll();
-
+	public void update(JoinrmVO joinrmVO);
 }

@@ -68,7 +68,7 @@
 <body>
 
 <jsp:include page="/back-end/back-end_nav-boyuan.jsp"></jsp:include>
-<div class="col-10" style="margin: 0 auto;">
+<div class="container" style="margin: 0 auto;">
 	<jsp:include page="/back-end/shgmrp/shgmrp_select_page.jsp"></jsp:include>
 </div>
 <ul>
@@ -78,59 +78,39 @@
 		</c:forEach>
 	</c:if>
 </ul>
-<div class="col-10" style="margin: 0 auto;">
+<div class="container" style="margin: 0 auto;">
 <%@ include file="/back-end/shgmrp/page1.file" %> 
 	<table id="table" class="table bg-white">
-		<tr style="background-color:#e6e6e6;">
+		<tr style="background-color:#e6e6e6;" class="${shgmvrpo.shgmrpno}textRow">
 			<td>市集商品檢舉編號</td>
+			<td>檢舉人會員編號</td>
 			<td>賣家會員編號</td>
 			<td>市集商品名稱</td>
 			<td>市集商品價錢</td>
 			<td>市集商品簡介</td>
 			<td>市集商品圖片</td>
-			<td>檢舉人會員編號</td>
 			<td>檢舉內容</td>
-			<td>檢舉狀態</td>
-			<td>修改檢舉</td>
-			<td>刪除檢舉</td>
+			<td>審核狀態</td>
 		</tr>
 		
 		<c:forEach var="shgmrpvo" items="${shgmrpset}"  begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		<tr ${(shgmrpvo.shgmrpno == param.shgmrpno)? 'bgcolor=#e6e6e6':''}>
 			<td>${shgmrpvo.shgmrpno}</td>
+			<td>${shgmrpvo.suiterno}</td>
 			<td>${shgmsvc.getOneForInfo(shgmrpvo.shgmno).sellerno}</td>
 			<td>${shgmsvc.getOneForInfo(shgmrpvo.shgmno).shgmname}</td>
 			<td>${shgmsvc.getOneForInfo(shgmrpvo.shgmno).price}</td>
 			<td id="intro"style="width:300px">${shgmsvc.getOneForInfo(shgmrpvo.shgmno).intro}</td>
 			<td><img src="<%=request.getContextPath() %>/shgm/displayimg?shgmno=${shgmrpvo.shgmno}"></td>
-			<td>${shgmrpvo.suiterno}</td>
 			<td>${shgmrpvo.detail}</td>
-			<c:choose>
-				<c:when test="${shgmrpvo.status == 0}">
-					<td>未審核</td>
-				</c:when>
-				<c:when test="${shgmrpvo.status == 1}">
-					<td>確認檢舉</td>
-				</c:when>
-				<c:otherwise>
-					<td>取消檢舉</td>
-				</c:otherwise>
-			</c:choose>
 			<td>
-				<form method="post" action="<%= request.getContextPath()%>/shgmrp/shgmrp.do">
-					<input type="hidden" name="shgmrpno" value="${shgmrpvo.shgmrpno}">
-					<input type="hidden" name="action" value="getone_update" >
-					<input type="hidden" name="whichPage" value="<%=whichPage%>">
-					<input type="submit" value="修改" class="btn btn-primary">
-				</form>
-			</td>
-			<td>
-				<form method="post" action="<%= request.getContextPath()%>/shgmrp/shgmrp.do">
-					<input type="hidden" name="shgmrpno" value="${shgmrpvo.shgmrpno}">
-					<input type="hidden" name="action" value="delete" >
-					<input type="hidden" name="whichPage" value="<%=whichPage%>">
-					<input type="submit" value="刪除" class="btn btn-primary">
-				</form>
+			<input class="shgmrpUpdate" type="hidden" value="${shgmvo.shgmno}">
+				<select id="${shgmrpvo.shgmrpno}" name="status">
+					<c:forEach var="i" begin="0" end="2">
+						<option value="${i}" ${(shgmrpvo.status == i)? 'selected':''}>${(i == 0)? "未審查": (i == 1)? "確認檢舉": "取消檢舉"}</option>
+					</c:forEach>
+				</select>
+			<button value="${shgmrpvo.shgmrpno}" class="btn btn-primary upcheckUpdate" style="margin-top:27%;">確認修改</button>
 			</td>
 		</tr>
 		</c:forEach>
@@ -144,5 +124,36 @@
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/ajaxForMbrmsgs-backend.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/wsForShgm.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/jsForAlert-area.js"></script>
+	<script>
+	$(document).ready(function(){
+		$(".container").on("click",".upcheckUpdate",function(){
+			var $shgmrpno = $(this).val();
+			var $value = $(this).siblings()[1].value;
+			console.log($shgmrpno);
+			console.log($value);
+			
+			$.ajax({
+				type: "POST",
+				url: "<%=request.getContextPath()%>/front-end/shgm/shgm.do?action=statusUpdate",
+				data: {"shgmrpno":$shgmrpno,"shgmrpStatus":$value,"backend":"backendUpdate"},
+				dataType: "json",
+				cache: false,
+				success: function(response){
+					webSocket.send(response.shgmno);
+					Swal.fire({
+						  icon: 'success',
+						  title: response.status,
+						  showConfirmButton: false,
+						  timer: 1500
+						})
+				},
+				error:function(result){
+					alert("目前不允許此操作");
+				}
+			});
+		});
+		
+	});
+	</script>
 </body>
 </html>

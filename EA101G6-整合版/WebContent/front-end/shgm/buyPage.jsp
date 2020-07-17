@@ -225,6 +225,7 @@ div.top-info {
 							<div class="button-wrapper">
 								<button id="buythis" type="submit" class="btn btn-primary">確定購買</button>
 								<a id="backToMain" href="<%=request.getContextPath()%>/front-end/shgm/mainPage.jsp" class="btn btn-primary">取消購買</a>
+								<input type="button" class="btn btn-primary resetBtnCss" value="神奇小按鈕" onclick="magicalBtn()">
 							</div>
 							<input type="hidden" name="shgmno" value="${infoshgm.shgmno}">
 							<input type="hidden" name="buyerno" value="${mbrpfVO.mbrno}">
@@ -245,7 +246,15 @@ div.top-info {
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/wsForShgm.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/jsForAlert-area.js"></script>
 	
-	<script type="text/javascript">
+	<script>
+	
+	function magicalBtn(){
+		$("input[name='take']")[0].checked = true;
+		$("#takernm").val("王阿明");
+		$("#takerph").val("0955661314");
+		$("#ads").val("中大路300號");
+	}
+	
 	window.onload = function () {
 		if($("#rpsuccess").val() == "success"){
 			Swal.fire({

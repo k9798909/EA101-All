@@ -265,10 +265,10 @@ $('#f_date1').val(today);
 
 $(document).ready(function(){
 	   $("#testman").click(function(){
-	     $("#tmbract").val("iaresad");
+	     $("#tmbract").val("amin");
 	     $("#tmbrpw").val("123456");
-	     $("#tmbrname").val("我難過");
-	     $("#temail").val("iaresad@gmail.com");
+	     $("#tmbrname").val("阿明");
+	     $("#temail").val("k9798909@gmail.com");
 	     $("#tphone").val("0987654321");
 	     $("#tmbrac").val("1234-5678-8765-4321");
 	     $("#tnickname").val("難過");

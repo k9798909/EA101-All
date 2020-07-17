@@ -44,5 +44,8 @@ public class ShopadService {
 	public List<ShopadVO> getAll(){
 		return dao.getAll();
 	}
+	public List<ShopadVO> getAllStatus(Integer status){
+		return dao.getAllStatus(status);
+	}
 
 }

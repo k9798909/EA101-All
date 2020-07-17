@@ -227,15 +227,7 @@ public class ArtServlet extends HttpServlet {
 				artVO.setStatus(status);
 				
 				
-				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					req.setAttribute("artVO", artVO); // 含有輸入格式錯誤的empVO物件,也存入req
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/art/listMbrArt.jsp");
-					failureView.forward(req, res);
-					return; //程式中斷
-				}
-				
+			
 				/***************************2.開始修改資料*****************************************/
 				
 				ArtService artSvc = new ArtService();
@@ -257,11 +249,85 @@ public class ArtServlet extends HttpServlet {
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/back-end/art/listMbrArt.jsp");
 				failureView.forward(req, res);
-			}
+			}		
+		}
+		
+		if ("update_Art_Status0".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
 			
+			try {
+				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+				String artno = req.getParameter("artno");
+				Integer status = new Integer(req.getParameter("status"));
+				
+				
+				
+				ArtVO artVO = new ArtVO();
+				artVO.setArtno(artno);
+				artVO.setStatus(status);
+				
+				
+				
+				/***************************2.開始修改資料*****************************************/
+				
+				ArtService artSvc = new ArtService();
+				
+				artVO = artSvc.updateArtStatus(artno, status);
+				
+				artVO = artSvc.getOneArt(artno);
+				/***************************3.修改完成,準備轉交(Send the Success view)*************/
+				
+				req.setAttribute("artVO", artVO); // 資料庫update成功後,正確的的empVO物件,存入req
+				String url = "/back-end/art/listAllStatus0.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
+				successView.forward(req, res);
+				
+				/***************************其他可能的錯誤處理*************************************/
+			} catch (Exception e) {
+				
+				errorMsgs.add("修改資料失敗:"+e.getMessage());
+				
+			}		
+		}
+		if ("update_Art_Status1".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
 			
-			
-			
+			try {
+				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+				String artno = req.getParameter("artno");
+				Integer status = new Integer(req.getParameter("status"));
+				
+				
+				
+				ArtVO artVO = new ArtVO();
+				artVO.setArtno(artno);
+				artVO.setStatus(status);
+				
+				
+				
+				
+				/***************************2.開始修改資料*****************************************/
+				
+				ArtService artSvc = new ArtService();
+				
+				artVO = artSvc.updateArtStatus(artno, status);
+				
+				artVO = artSvc.getOneArt(artno);
+				/***************************3.修改完成,準備轉交(Send the Success view)*************/
+				
+				req.setAttribute("artVO", artVO); // 資料庫update成功後,正確的的empVO物件,存入req
+				String url = "/back-end/art/listAllStatus1.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
+				successView.forward(req, res);
+				
+				/***************************其他可能的錯誤處理*************************************/
+			} catch (Exception e) {
+				
+				errorMsgs.add("修改資料失敗:"+e.getMessage());
+				
+			}		
 		}
 		
 		

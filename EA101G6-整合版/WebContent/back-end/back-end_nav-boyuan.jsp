@@ -73,6 +73,7 @@
 								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/mbrpf/listAllMbrpf.jsp">一般會員管理</a> 
 <!-- active測試，之後換頁面  -->			<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/shop/listAllShop.jsp">店家管理</a>
+									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/shopad/listAllShopadS0.jsp">店家廣告管理</a>
 								</div></li>
 							
 							<li class="nav-item dropdown backnavdown">
@@ -105,9 +106,15 @@
 									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/artrp/listAllArtrp.jsp">討論區文章檢舉審核</a> 
 									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/shgmrp/listAllShgmrp.jsp">市集商品檢舉審核</a>
 								</div></li>
-							<li class="nav-item"><a class="nav-link"
-								href="<%=request.getContextPath()%>/back-end/art/listAllArt.jsp">討論區管理</a>
-							</li>
+							<li class="nav-item dropdown backnavdown"><a
+								class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+								role="button" data-toggle="dropdown" aria-haspopup="true"
+								aria-expanded="false"> 討論區管理 </a>
+								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/art/listAllArt.jsp">所有文章</a> 
+									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/art/listAllStatus0.jsp">正常顯示文章</a> 
+									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/art/listAllStatus1.jsp">被隱藏文章</a>
+								</div></li>
 							<li class="nav-item dropdown backnavdown"><a
 								class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 								role="button" data-toggle="dropdown" aria-haspopup="true"

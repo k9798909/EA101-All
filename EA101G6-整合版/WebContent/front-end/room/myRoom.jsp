@@ -62,11 +62,10 @@
 		<th style="width:15%">遊玩時間</th>
 		<th style="width:15%">玩的遊戲</th>
 		<th style="width:10%">備註</th>
-		<th style="width:7%">房間狀態</th>
+		<th style="width:15%">房間狀態</th>
 		<th style="width:6%"></th><th></th>
 	</tr>
 	<c:forEach var="joinrmVO" items="${list}">
-	<c:if test="${rminfoSvc.getOneRm(joinrmVO.rmno).status != 4}">
 	<tr>
 		<td>${rminfoSvc.getOneRm(joinrmVO.rmno).naming}</td>
 		<td>${mbrpfSvc.getOneMbrpf(rminfoSvc.getOneRm(joinrmVO.rmno).mbrno).mbrname}</td>
@@ -79,16 +78,16 @@
 		<td>
 			<c:choose>
     			<c:when test="${rminfoSvc.getOneRm(joinrmVO.rmno).status eq 0}">
-    				等待成員加入
+    				<span style="color:blue;">等待成員加入</span>
    		 		</c:when>
 			    <c:when test="${rminfoSvc.getOneRm(joinrmVO.rmno).status eq 1}">
-			    	人數已達可訂位下限
+			    	<span style="color:blue;">人數已達可訂位下限</span>
 			    </c:when>
 			    <c:when test="${rminfoSvc.getOneRm(joinrmVO.rmno).status eq 2}">
-			    	人數已滿
+			    	<span style="color:blue;">人數已滿</span>
 			    </c:when>
 			    <c:when test="${rminfoSvc.getOneRm(joinrmVO.rmno).status eq 3}">
-			    	已訂位
+			    	<span style="color:red;">已訂位</span>
 			    </c:when>
 			    <c:when test="${rminfoSvc.getOneRm(joinrmVO.rmno).status eq 4}">
 			    	取消揪團
@@ -108,7 +107,7 @@
 		<td><div id="dialog2_${joinrmVO.rmno}" title="遊玩評價">
 		<jsp:include page="/front-end/room/rate.jsp"><jsp:param name="rmno" value="${joinrmVO.rmno}" /></jsp:include>
 	</div>
-		<c:if test="${rminfoSvc.getOneRm(joinrmVO.rmno).status == 5}">
+		<c:if test="${rminfoSvc.getOneRm(joinrmVO.rmno).status == 5 && joinrmVO.ratereport == 0}">			
 			<button class="btn btn-warning btn-sm" id="opener2_${joinrmVO.rmno}">團員遊玩評價</button>
 		</c:if>
 		<c:if test="${rminfoSvc.getOneRm(joinrmVO.rmno).status == 1 || rminfoSvc.getOneRm(joinrmVO.rmno).status == 2 && rminfoSvc.getOneRm(joinrmVO.rmno).mbrno == mbrpfVO.mbrno}">
@@ -174,7 +173,6 @@
 })(jQuery_1_12_4);  
  </script>
 	</tr>
-	</c:if>
 	</c:forEach>
 
 </table>
@@ -190,6 +188,5 @@
 	float:left;
 	margin:0px 5px;
 }
-
 </style>
 </html>
