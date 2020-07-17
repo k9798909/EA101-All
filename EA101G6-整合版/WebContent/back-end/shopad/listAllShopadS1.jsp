@@ -139,7 +139,7 @@
 	<marquee onMouseOver="this.stop()" onMouseOut="this.start()"  bgcolor=ffcc00 class="col-md-12">
 		<c:forEach var="shopadVO" items="${list}">
 			<c:if test="${shopadVO.status == 1}">
-				<a target="_self" style="text-decoration:none;" href="<%=request.getContextPath()%>/shop/shop.do?action=getOne_Detail&shopno=${shopadVO.shopno}">
+				<a target="_self" style="text-decoration:none;" href="<%=request.getContextPath()%>/front-end/shop/shop.do?action=getOne_For_Display&shopno=${shopadVO.shopno}">
 					${shopadVO.shopno}
 				</a> : ${shopadVO.shopadtt} &nbsp;&nbsp;&nbsp;
 			</c:if>

@@ -120,9 +120,7 @@
 	</div>
   	
 
-<br>
-<input type="hidden" name="action" value="insert">
-<input type="submit" value="°e¥X·s¼W"></FORM>
+
 
 
 
