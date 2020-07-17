@@ -125,11 +125,11 @@ div.comm {
 						<a href="<%= request.getContextPath()%>/front-end/login.jsp" class="text-white"><span class="d-md-inline-block">
 								<img class="icon"
 								src="<%=request.getContextPath()%>/images/ghost.png">·|­ûµn¤J
-						</span></a><c:if test="${not empty sessionScope.shopVO}">
+						</span></a><c:if test="${not empty shopAcount}">
 							<span class="mx-md-2 d-inline-block"></span>
 							<a href="<%=request.getContextPath()%>/front-end/shop/shopArea.jsp" class="text-white"> <span
 								class="mr-2 text-white icon-instagram"></span> <span
-								class="d-none d-md-inline-block">${sessionScope.shopVO.shopname}</span></a>
+								class="d-none d-md-inline-block">${shopAcount.shopname}</span></a>
 							<a href="#" class="text-white" id="goLogout"> <span
 								class="mr-2 text-white"></span> <span
 								class="d-none d-md-inline-block">log out</span></a>
@@ -139,7 +139,7 @@ div.comm {
 								<input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>">
 							</FORM>							
 						</c:if>
-						<c:if test="${empty sessionScope.shopVO}">
+						<c:if test="${empty shopAcount}">
 							<a href="<%=request.getContextPath()%>/front-end/shop/login.jsp"
 								class="text-white"> <span class="d-md-inline-block"><img
 									class="icon"

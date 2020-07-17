@@ -31,7 +31,7 @@ public class shopLogin implements Filter {
 		HttpServletResponse res = (HttpServletResponse)response;
 		HttpSession session = req.getSession();
 		
-		Object account = session.getAttribute("shopVO");
+		Object account = session.getAttribute("shopAcount");
 		if(account == null) {
 			session.setAttribute("location", req.getRequestURI());
 			res.sendRedirect(req.getContextPath()+"/front-end/shop/login.jsp");

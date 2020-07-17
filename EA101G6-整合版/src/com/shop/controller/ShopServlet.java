@@ -445,13 +445,14 @@ public class ShopServlet extends HttpServlet {
 				errorMsgs.add("帳號密碼錯誤");
 			}			
 			if (!errorMsgs.isEmpty()) {
+				System.out.println("req");
 				req.setAttribute("shopVO", shopVO); 
 				RequestDispatcher failureView = req.getRequestDispatcher("login.jsp");
 				failureView.forward(req, res);
 				return; // �{�����_
 			}else {
 				shopVO = shopSvc.getOneShop(shopVO.getShopno());
-				session.setAttribute("shopVO", shopVO);
+				session.setAttribute("shopAcount", shopVO);
 			      
 			       try {                                                        
 			         String location = (String) session.getAttribute("location");
@@ -466,7 +467,7 @@ public class ShopServlet extends HttpServlet {
 			}
 		}
 		if ("logout".equals(action)) {
-			session.removeAttribute("shopVO");
+			session.removeAttribute("shopAcount");
 			String url = req.getParameter("requestURL");
 			if(url.equals("/front-end/shop/shopArea.jsp") || url.equals("/front-end/gmlist/addGmlist.jsp")|| url.equals("/front-end/room/shop_roomList.jsp")){
 				url ="/front-end/index.jsp";

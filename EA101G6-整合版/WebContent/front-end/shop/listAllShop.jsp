@@ -16,7 +16,7 @@
 
 	ShopadVO shopadVO = (ShopadVO) request.getAttribute("shopadVO");
 
-	ShopVO ssVO = (ShopVO) session.getAttribute("shopVO");
+	ShopVO ssVO = (ShopVO) session.getAttribute("shopAcount");
 	pageContext.setAttribute("ssVO", ssVO);
 %>
 

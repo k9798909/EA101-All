@@ -56,13 +56,13 @@ h4 {
 					<li class="list-group-item list-group-item-action" id="goGmlist" onclick="location.href='<%=request.getContextPath()%>/front-end/gmlist/addGmlist.jsp';">我的遊戲</li>
 					<FORM id="gmlist" METHOD="post"
 						ACTION="<%=request.getContextPath()%>/front-end/gmlist/gmlist.do">
-						<input type="hidden" name="shopno" value="${shopVO.shopno}">
+						<input type="hidden" name="shopno" value="${shopAcount.shopno}">
 						<input type="hidden" name="action" value="getSome_For_Display">
 					</FORM>
 					<li class="list-group-item list-group-item-action" id="goShopbk">我的揪團</li>
 					<FORM id="shopbk" METHOD="post"
 						ACTION="<%=request.getContextPath()%>/front-end/shopbk/shopbk.do">
-						<input type="hidden" name="shopno" value="${shopVO.shopno}">
+						<input type="hidden" name="shopno" value="${shopAcount.shopno}">
 						<input type="hidden" name="action" value="getSome_For_Display2">
 					</FORM>
 					<li class="list-group-item list-group-item-action" id="goUpdate">更改店家資料</li>
@@ -76,15 +76,15 @@ h4 {
 		</div>
 		<div class="col-sm-1"></div>
 		<div class="col-sm-5">
-			<h1 class="display-4" style="margin-left: auto;">${shopVO.shopname}</h1>
+			<h1 class="display-4" style="margin-left: auto;">${shopAcount.shopname}</h1>
 			<p class="lead">
 				<img
-					src="<%=request.getContextPath()%>/ShopShowImg?shopno=${shopVO.shopno}" />
+					src="<%=request.getContextPath()%>/ShopShowImg?shopno=${shopAcount.shopno}" />
 			</p>
 			<hr class="my-3">
-			<p>提供座位:${shopVO.shopcy}</p>
-			<p>電話:0${shopVO.shopphone}</p>
-			<p>位置:${shopVO.shoploc}</p>
+			<p>提供座位:${shopAcount.shopcy}</p>
+			<p>電話:0${shopAcount.shopphone}</p>
+			<p>位置:${shopAcount.shoploc}</p>
 		</div>
 	</div>
 	</div>
