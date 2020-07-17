@@ -354,7 +354,7 @@ div.pageselect-area {
 			    	$("#list-status2 ul:eq(0)").after('<ul class="list-group list-group-horizontal five-li"></ul>');
 					$("#list-status2 ul:eq(1)").append('<li class="list-group-item">'+response.shgmname+'</li>');			    	
 					$("#list-status2 ul:eq(1)").append('<li class="list-group-item"><div class="imgwrapper">'+
-							'<img src="/EA101G6/shgm/displayimg?shgmno='+response.shgmno+'"></div></li>');			    	
+							'<img src="'+$getContextPath+'/shgm/displayimg?shgmno='+response.shgmno+'"></div></li>');			    	
 					$("#list-status2 ul:eq(1)").append('<li class="list-group-item">'+response.price+'</li>');
 					$("#list-status2 ul:eq(1)").append('<li class="list-group-item">'+response.uptime+'</li>');
 					$("#list-status2 ul:eq(1)").append('<li class="list-group-item">'+response.soldtime+'</li>');

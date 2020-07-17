@@ -44,7 +44,7 @@
   	#intro{
 	  	text-align:left;
   	}
-  	#introbtn{
+  	#soldtlbtn{
   		margin-top: 10%;
   	}
 	div.pageselect-area {
@@ -99,46 +99,62 @@
 			<td>市集商品名稱</td>
 			<td>市集商品價錢</td>
 			<td>市集商品圖片</td>
-			<td>上架審核狀態</td>
 			<td>上架時間</td>
-			<td>市集商品詳情</td>
 			<td>售出時間</td>
-			<td>修改市集商品</td>
-			<td>刪除市集商品</td>
+			<td>市集商品詳情</td>
+			<td>審核狀態</td>
 		</tr>
 
 
 		<c:forEach var="shgmvo" items="${shgmlist}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-		<tr ${(shgmvo.shgmno == param.shgmno)? 'bgcolor=#e6e6e6':''}>
+		<tr ${(shgmvo.shgmno == param.shgmno)? 'bgcolor=#e6e6e6':''} class="${shgmvo.shgmno}textRow">
 			<td>${shgmvo.shgmno}</td>
 			<td>${shgmvo.sellerno}</td>
 			<td>${shgmvo.shgmname}</td>
 			<td>${shgmvo.price}</td>
 			<td class="imgtd"><img src="<%=request.getContextPath()%>/shgm/displayimg?shgmno=${shgmvo.shgmno}"/></td>
-			<c:choose>
-	            <c:when test="${shgmvo.upcheck == 0}">
-	                <td>未審核</td>
-	            </c:when>
-	            <c:when test="${shgmvo.upcheck == 1}">
-	                <td>審核上架</td>
-	            </c:when>
-	            <c:otherwise>
-	                 <td>審核下架</td>
-	            </c:otherwise>
-        	</c:choose>
         	<c:choose>
         		<c:when test="${shgmvo.upcheck == 2}">
-        			<td>本商品已審核下架</td>
+        			<td>已審核下架</td>
         		</c:when>
         		<c:when test="${shgmvo.uptime == null}">
-        			<td>本商品尚未上架</td>
+        			<td>尚未上架</td>
         		</c:when>
         		<c:otherwise>
 	        		<td><fmt:formatDate value="${shgmvo.uptime}" pattern="yyyy/MM/dd HH:mm:ss"/></td>
         		</c:otherwise>
         	</c:choose>
+        	<c:choose>
+        		<c:when test="${shgmvo.upcheck == 2}">
+        			<td>已審核下架</td>
+        		</c:when>
+        		<c:when test="${shgmvo.soldtime == null}">
+        			<td>尚未售出</td>
+        		</c:when>
+        		<c:otherwise>
+	        		<td><fmt:formatDate value="${shgmvo.soldtime}" pattern="yyyy/MM/dd HH:mm:ss"/></td>
+        		</c:otherwise>
+        	</c:choose>
         	<td>
-        	<button id="soldtlbtn" type="button" class="btn btn-primary" data-toggle="modal" onclick="showmodal()" data-target="#modal1${shgmvo.shgmno}">
+			<button id="introbtn" type="button" class="btn btn-primary" data-toggle="modal" onclick="showmodal()" data-target="#modal2${shgmvo.shgmno}">
+			 簡介
+			</button>
+        	<div class="modal fade" id="modal2${shgmvo.shgmno}" tabindex="-1" role="dialog" aria-labelledby="${shgmvo.shgmno}ModalLabel2">
+			  <div class="modal-dialog modal-dialog-scrollable">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="${shgmvo.shgmno}ModalLabel2">市集商品簡介</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div id="intro"class="modal-body">
+			        	${shgmvo.intro}
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			<button id="soldtlbtn" type="button" class="btn btn-primary" data-toggle="modal" onclick="showmodal()" data-target="#modal1${shgmvo.shgmno}">
 			  交易詳情
 			</button>
         	<div class="modal fade" id="modal1${shgmvo.shgmno}" tabindex="-1" role="dialog" aria-labelledby="${shgmvo.shgmno}ModalLabel1">
@@ -207,52 +223,15 @@
 			    </div>
 			  </div>
 			</div>
-			<button id="introbtn" type="button" class="btn btn-primary" data-toggle="modal" onclick="showmodal()" data-target="#modal2${shgmvo.shgmno}">
-			 簡介
-			</button>
-        	<div class="modal fade" id="modal2${shgmvo.shgmno}" tabindex="-1" role="dialog" aria-labelledby="${shgmvo.shgmno}ModalLabel2">
-			  <div class="modal-dialog modal-dialog-scrollable">
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <h5 class="modal-title" id="${shgmvo.shgmno}ModalLabel2">市集商品簡介</h5>
-			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			          <span aria-hidden="true">&times;</span>
-			        </button>
-			      </div>
-			      <div id="intro"class="modal-body">
-			        	${shgmvo.intro}
-			      </div>
-			    </div>
-			  </div>
-			</div>
         	</td>
-        	<c:choose>
-        		<c:when test="${shgmvo.upcheck == 2}">
-        			<td>已審核下架</td>
-        		</c:when>
-        		<c:when test="${shgmvo.soldtime == null}">
-        			<td>尚未售出</td>
-        		</c:when>
-        		<c:otherwise>
-	        		<td><fmt:formatDate value="${shgmvo.soldtime}" pattern="yyyy/MM/dd HH:mm:ss"/></td>
-        		</c:otherwise>
-        	</c:choose>
 			<td>
-				<form method="post" action="<%= request.getContextPath()%>/shgm/shgm.do">
-					<input type="hidden" name="shgmno" value="${shgmvo.shgmno}">
-					<input type="hidden" name="action" value="getone_update" >
-					<input type="hidden" name="requestURL" value="<%=request.getServletPath()%>"/>
-					<input type="hidden" name="whichPage" value="<%=whichPage%>">
-					<input type="submit" value="修改" class="btn btn-primary">
-				</form>
-			</td>
-			<td>
-				<form method="post" action="<%= request.getContextPath()%>/shgm/shgm.do">
-					<input type="hidden" name="shgmno" value="${shgmvo.shgmno}">
-					<input type="hidden" name="action" value="delete" >
-					<input type="hidden" name="whichPage" value="<%=whichPage%>">
-					<input type="submit" value="刪除" class="btn btn-primary">
-				</form>
+			<input class="shgmUpdate" type="hidden" value="${shgmvo.shgmno}">
+				<select id="${shgmvo.shgmno}" name="upcheck">
+					<c:forEach var="i" begin="0" end="2">
+						<option value="${i}" ${(shgmvo.upcheck == i)? 'selected':'' }>${(i == 0)? "未審核": (i == 1)? "審核上架": "審核下架"}</option>
+					</c:forEach>
+				</select>
+				<button value="${shgmvo.shgmno}" class="btn btn-primary upcheckUpdate" style="margin-top:27%;">確認修改</button>
 			</td>
 		</tr>
 		</c:forEach>
@@ -269,9 +248,35 @@
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/wsForShgm.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/jsForAlert-area.js"></script>
 	<script>
-	function showmodal(){
-		$(this).modal("show");
-	}
+	$(document).ready(function(){
+		function showmodal(){
+			$(this).modal("show");
+		}
+		
+		$("#shgmall-mainarea").on("click",".upcheckUpdate",function(){
+			var $shgmno = $(this).val();
+			var $value = $(this).siblings()[1].value;
+			console.log($shgmno);
+			console.log($value);
+			
+			$.ajax({
+				type: "POST",
+				url: "<%=request.getContextPath()%>/front-end/shgm/shgm.do?action=statusUpdate",
+				data: {"shgmno":$shgmno,"upcheck":$value,"backend":"backendUpdate"},
+				dataType: "json",
+				cache: false,
+				success: function(response){
+					webSocket.send(response.shgmno);
+					$("."+response.shgmno+"textRow td:eq(5)").text(response.uptime);
+					$("."+response.shgmno+"textRow td:eq(6)").text(response.soldtime);
+				},
+				error:function(result){
+					alert("目前不允許此操作");
+				}
+			});
+		});
+		
+	});
 	</script>
 </body>
 </html> 
