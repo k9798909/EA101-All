@@ -6,14 +6,31 @@
 <%@ page import="com.mbrpf.model.*" %>
 
 
-<% 
-	MbrpfVO mbrpfVO = (MbrpfVO)session.getAttribute("mbrpfVO");
+<%
 	
+	MbrpfVO mbrpfVO = (MbrpfVO) session.getAttribute("mbrpfVO");
+	pageContext.setAttribute("mbrpfVO", mbrpfVO);
 	ArtService artSvc = new ArtService();
 	List<ArtVO> list = artSvc.getArtsByMbrno(mbrpfVO.getMbrno());
 	pageContext.setAttribute("list", list);
 
 	
+	
+	
+
+	
+
+	if (list.isEmpty()) {
+		List<String> errorMsgs = new LinkedList<String>();
+		errorMsgs.add("你尚未擁有文章~請點右下角棋子圖案新增!");
+		request.setAttribute("errorMsgs", errorMsgs);
+
+		List<ArtVO> list2 = artSvc.getAll();
+		request.setAttribute("list2", list2);
+
+		RequestDispatcher failureView = request.getRequestDispatcher("listAllArt.jsp");
+		failureView.forward(request, response);
+	}
 %>
 
 
@@ -83,6 +100,9 @@
    body{
    	background-image: url('<%=request.getContextPath()%>/images/bg4.png');
    }
+   .kagay{
+   	margin-left: 20px;
+   }
    
 </style>
 
@@ -133,7 +153,10 @@
                     <div class="btn-group">
                       <button type="submit" name="action" value="get_One_Detail" class="btn btn-sm btn-outline-secondary">繼續閱讀...</button>
                       <input type="hidden" name="artno" value="${artVO.artno}"/>
-                      
+                      <c:if test="${artVO.status == 1}">
+                      	 <h5><span class="kagay badge badge-secondary">被隱藏</span></h5>
+                      </c:if>
+                     
                     </div>
                     <small class="text-muted">${artVO.pdate}</small>
                   </div>

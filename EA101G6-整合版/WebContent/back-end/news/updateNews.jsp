@@ -70,53 +70,59 @@
 	</ul>
 </c:if>
 
-<div class="bg-white tm-block col-md-10 offset-md-1 add-1">
-		<div class="row">
-			<div class="col-12">
-				<h2 class="tm-block-title d-inline-block">Update News</h2>
+	<div class="container">
+		<div class="bg-white tm-block  add-1">
+			<div class="row">
+				<div class="col-12">
+					<h2 class="tm-block-title d-inline-block">Update News</h2>
+				</div>
 			</div>
+
+
+
+			<FORM METHOD="post"
+				ACTION="<%=request.getContextPath()%>/news/news.do" name="form1">
+
+
+
+
+				<div class="form-group">
+					<label for="exampleFormControlInput1">程穝夹肈:</label> <input
+						type="TEXT" class="form-control" id="exampleFormControlInput1"
+						placeholder="程穝夹肈" name="newstt"
+						value="<%=(newsVO == null) ? "" : newsVO.getNewstt()%>">
+				</div>
+
+
+
+
+
+
+				<textarea name="detail" id="detail"><%=(newsVO == null) ? "" : newsVO.getDetail()%></textarea>
+
+				<script type="text/javascript">
+					window.onload = function() {
+						CKEDITOR.replace('detail');
+					};
+				</script>
+
+
+
+
+				<br> <input type="hidden" name="newsno"
+					value="${newsVO.newsno}"> <input type="hidden"
+					name="action" value="update"> <input type="submit"
+					value="癳э">
+
+			</FORM>
+
 		</div>
+	</div>
 
 
 
-<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/news/news.do" name="form1" >
-	
-	
-	
-	
-	<div class="form-group">
-    	<label  for="exampleFormControlInput1">程穝夹肈:</label>
-    	<input type="TEXT" class="form-control" id="exampleFormControlInput1" placeholder="程穝夹肈" name="newstt"  value="<%= (newsVO==null)? "" : newsVO.getNewstt()%>">
-  	</div>
-	
-	
 
-
-	
-	
-	<textarea name="detail" id="detail"><%= (newsVO==null)? "" : newsVO.getDetail()%></textarea>
-	
-  	<script type="text/javascript">
-  		window.onload = function(){
-        	CKEDITOR.replace( 'detail' );
-    	};
-  	</script>
-  	
-  	
-  	
-
-	<br>
-	<input type="hidden" name="newsno" value="${newsVO.newsno}">
-	<input type="hidden" name="action" value="update">
-	<input type="submit" value="癳э">
-
-</FORM>
-
-</div>
-
-
-
-<script src="./vendors/jquery/jquery-3.4.1.min.js"></script>
+	<script src="./vendors/jquery/jquery-3.4.1.min.js"></script>
 <script src="./vendors/popper/popper.min.js"></script>
 <script src="./vendors/bootstrap/js/bootstrap.min.js"></script>
 </body>
