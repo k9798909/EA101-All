@@ -96,7 +96,11 @@
 	<div class="row float-right">
 		<a href="<%=request.getContextPath()%>/front-end/tfcord/tfMoney.jsp" class="pointBtn orangeBtn">前往兌換現金</a>
 	</div>
-	
+	<br>
+	<div class="row style='clear:both'">
+		${mbrpfVO.mbrname}，您目前擁有<font style="color:red"><b>${mbrpfVO.points}</b></font>點
+	</div>
+	<br>
 	<form method="post" action="<%=request.getContextPath()%>/tfcord/TfcordServlet">
 		<div class="row" style="clear:both">
 			<div class="col-sm">
