@@ -237,18 +237,18 @@ public class ArtServlet extends HttpServlet {
 				artVO = artSvc.getOneArt(artno);
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				
-//				req.setAttribute("artVO", artVO); // 資料庫update成功後,正確的的empVO物件,存入req
-//				String url = "/back-end/art/listAllArt.jsp";
-//				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
-//				successView.forward(req, res);
+				req.setAttribute("artVO", artVO); // 資料庫update成功後,正確的的empVO物件,存入req
+				String url = "/back-end/art/listAllArt.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
+				successView.forward(req, res);
 				
 				/***************************其他可能的錯誤處理*************************************/
 			} catch (Exception e) {
 				
-//				errorMsgs.add("修改資料失敗:"+e.getMessage());
-//				RequestDispatcher failureView = req
-//						.getRequestDispatcher("/back-end/art/listMbrArt.jsp");
-//				failureView.forward(req, res);
+				errorMsgs.add("修改資料失敗:"+e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/back-end/art/listMbrArt.jsp");
+				failureView.forward(req, res);
 			}		
 		}
 		
