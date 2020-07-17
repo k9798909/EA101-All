@@ -154,13 +154,14 @@ div.top-info {
 								<button type="submit" class="btn btn-primary resetBtnCss">送出</button>
 								<a href="<%=request.getContextPath()%>/front-end/shgm/mainPage.jsp" class="btn btn-primary resetBtnCss">取消</a>
 							</div>
+							<input type="button" class="btn btn-primary resetBtnCss" onclick="magicalBtn()" value="神奇小按鈕" style="margin-top:3%;">
 						</div>
 					</div>
 					<br> <br> <br>
 					<div class="shgm-info-middle">
 						輸入此桌遊的詳情<span class="alert">${errormap.get("intro")}</span>
 						<div class="card">
-							<textarea name="intro">${(shgmsell != null)? shgmsell.intro:""}</textarea>
+							<textarea id="intro" name="intro">${(shgmsell != null)? shgmsell.intro:""}</textarea>
 						</div>
 						${errormap.get("error")}
 					</div>
@@ -177,5 +178,13 @@ div.top-info {
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/ajaxForMbrmsgs.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/wsForShgm.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/jsForAlert-area.js"></script>
+	<script>
+		function magicalBtn(){
+			console.log('123');
+			$("#shgmname").val("企鵝大遊行(二手)");
+			$("#price").val("200");
+			$("#intro").text("二手商品，多少有使用過痕跡，介意者勿標\n\n售出不退");
+		}
+	</script>
 </body>
 </html>

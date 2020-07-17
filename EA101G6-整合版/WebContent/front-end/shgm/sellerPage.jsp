@@ -477,8 +477,9 @@ div.pageselect-area {
 			</div>
 		</div>
 	</div>
-	
 	<input type="hidden" id="mbrpfVO" value="${mbrpfVO.mbrname}">
+	<input type="hidden" id="updateSuccess" value="${updateSuccess}">
+	
 	
 <jsp:include page="/front-end/shgm/alert-area.jsp"></jsp:include>
 	
@@ -488,7 +489,19 @@ div.pageselect-area {
 	<script>
 	$(document).ready(function(){
 		
+		if($("#updateSuccess").val() == "success"){
+			Swal.fire({
+				  icon: 'success',
+				  title: '您已修改成功！',
+				  showConfirmButton: false,
+				  timer: 1500
+				})
+			$("#updateSuccess").val('');
+		}
+		
 		var $getContextPath = $("#getContextPath").val();
+		
+		if(updateSuccess)
 		
 		/*下架中、待上架狀態切換*/
 		$(".container").on("click",".upcheck",function(){

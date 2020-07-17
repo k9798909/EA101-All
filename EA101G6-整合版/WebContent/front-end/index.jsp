@@ -162,7 +162,7 @@ div.comm {
 
 				<div class="site-logo">
 					<a href="<%=request.getContextPath()%>/front-end/index.jsp"
-						class="text-black"> <span class="text-primary">Gameing
+						class="text-black"> <span class="text-primary">Gaming
 							on Board</span>
 					</a>
 				</div>
@@ -239,7 +239,7 @@ div.comm {
 				<div
 					class="row align-items-center justify-content-center text-center">
 					<div class="col-md-12 col-lg-7">
-						<h1 data-aos="fade-up" data-aos-delay="">Welcome to Gameing
+						<h1 data-aos="fade-up" data-aos-delay="">Welcome to Gaming
 							on board</h1>
 						<p class="mb-5" data-aos="fade-up" data-aos-delay="100">資策會最大桌遊平台上線啦!!</p>
 						<p data-aos="fade-up" data-aos-delay="200">

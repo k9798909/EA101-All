@@ -427,6 +427,8 @@ public class ShgmServlet extends HttpServlet {
 						shgmorg.getUpcheck(), shgmorg.getUptime(), shgmorg.getTake(), shgmorg.getTakernm(),
 						shgmorg.getTakerph(), shgmorg.getAddress(), shgmorg.getBoxstatus(), shgmorg.getPaystatus(),
 						shgmorg.getStatus(), shgmorg.getSoldtime());
+				
+				request.setAttribute("updateSuccess", "success");
 
 				String url = "/front-end/shgm/sellerPage.jsp";// 回到原本的頁面
 				RequestDispatcher successview = request.getRequestDispatcher(url);
@@ -720,8 +722,7 @@ public class ShgmServlet extends HttpServlet {
 						String  statusStr = null;
 						if(status == 0) {
 							statusStr = "目前未審核";
-						}
-						if(status == 1) {
+						} else if(status == 1) {
 							statusStr = "已確認檢舉";
 						} else if(status == 2) {
 							statusStr = "已取消檢舉";

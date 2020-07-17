@@ -316,7 +316,7 @@ div.pageselect-area {
 		</div>
 	</div>
 	<input type="hidden" id="mbrpfVO" value="${mbrpfVO.mbrname}">
-	<input type="hidden" id="success" value="${updateSuccess}">
+	<input type="hidden" id="updateSuccess" value="${updateSuccess}">
 	
 <jsp:include page="/front-end/shgm/alert-area.jsp"></jsp:include>
 	
@@ -326,14 +326,14 @@ div.pageselect-area {
 	<script>
 	$(document).ready(function(){
 		
-		if($("#success").val() == "success"){
+		if($("#updateSuccess").val() == "success"){
 			Swal.fire({
 				  icon: 'success',
 				  title: '您已修改成功！',
 				  showConfirmButton: false,
 				  timer: 1500
 				})
-			$("#success").val('');
+			$("#updateSuccess").val('');
 		}
 		
 		/*確定收貨購買完成*/

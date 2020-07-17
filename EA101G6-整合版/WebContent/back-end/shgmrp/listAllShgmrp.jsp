@@ -68,7 +68,7 @@
 <body>
 
 <jsp:include page="/back-end/back-end_nav-boyuan.jsp"></jsp:include>
-<div class="col-10" style="margin: 0 auto;">
+<div class="container" style="margin: 0 auto;">
 	<jsp:include page="/back-end/shgmrp/shgmrp_select_page.jsp"></jsp:include>
 </div>
 <ul>
@@ -78,7 +78,7 @@
 		</c:forEach>
 	</c:if>
 </ul>
-<div class="col-10" style="margin: 0 auto;">
+<div class="container" style="margin: 0 auto;">
 <%@ include file="/back-end/shgmrp/page1.file" %> 
 	<table id="table" class="table bg-white">
 		<tr style="background-color:#e6e6e6;" class="${shgmvrpo.shgmrpno}textRow">
@@ -126,7 +126,7 @@
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/jsForAlert-area.js"></script>
 	<script>
 	$(document).ready(function(){
-		$(".col-10").on("click",".upcheckUpdate",function(){
+		$(".container").on("click",".upcheckUpdate",function(){
 			var $shgmrpno = $(this).val();
 			var $value = $(this).siblings()[1].value;
 			console.log($shgmrpno);

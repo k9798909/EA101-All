@@ -79,7 +79,7 @@
 <body>
 
 <jsp:include page="/back-end/back-end_nav-boyuan.jsp"></jsp:include>
-<div class="col-10" style="margin: 0 auto;">
+<div class="container" style="margin: 0 auto;">
 	<jsp:include page="/back-end/shgm/shgm_select_page.jsp"></jsp:include>
 </div>
 <ul>
@@ -90,7 +90,7 @@
 	</c:if>
 </ul>
 <div id="shgmall-mainarea">
-<div class="col-10" style="margin: 0 auto;">
+<div class="container" style="margin: 0 auto;">
 		<%@ include file="/back-end/shgm/page1.file" %> 
 	<table id="table" class="table bg-white">
 		<tr style="background-color:#e6e6e6;">
