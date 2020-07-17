@@ -108,7 +108,7 @@
 								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/art/listAllArt.jsp">所有文章</a> 
 									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/art/listAllStatus0.jsp">正常顯示文章</a> 
-									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/art/listAllStatus0.jsp">被隱藏文章</a>
+									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/art/listAllStatus1.jsp">被隱藏文章</a>
 								</div></li>
 							
 							<li class="nav-item dropdown backnavdown"><a
