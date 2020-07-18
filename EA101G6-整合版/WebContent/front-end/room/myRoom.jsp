@@ -100,7 +100,7 @@
 		</td>
 		<td>
 		<div id="dialog3_${joinrmVO.rmno}" title="檢舉店家">
-			<jsp:include page="<%=request.getContextPath()%>/front-end/shoprpdt/addShoprpdt.jsp"></jsp:include>
+<%-- 			<jsp:include page="<%=request.getContextPath()%>/front-end/shoprpdt/addShoprpdt.jsp"></jsp:include> --%>
 		</div>
 		<button class="btn btn-outline-info btn-sm" id="opener3_${joinrmVO.rmno}">檢舉店家</button>
 		</td>
