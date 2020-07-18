@@ -246,6 +246,11 @@ public class ShgmService {
 
 		return dao.searchForMain(word);
 	}
+	
+	public Set<ShgmVO> searchForAll(String word) {
+
+		return dao.searchForAll(word);
+	}
 
 	public Set<ShgmVO> getAllShgmUncheck() {
 

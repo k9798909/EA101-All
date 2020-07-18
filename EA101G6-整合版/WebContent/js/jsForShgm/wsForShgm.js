@@ -14,7 +14,11 @@ var $sellsuccess = $("#sellsuccess").text();
 var $shgmno = $("#wsShgmno").val();
 
 //在infoPage.jsp
-var $buysuccess = $("#buysuccess").val();
+var $buySucess = $("#buysucess").val();
+
+//在infoPage.jsp
+var $shgmname = $("#shgmname").text();
+var $rpSuccess = $("#rpsuccess").val() 
 
 var jsondata;
 
@@ -31,13 +35,19 @@ if (mbrno !== '') {
 			webSocket.send($shgmno);
 		}
 		
-		//送出上架需要審核的市集商品
+		//賣家成功上架，向後台送出上架需要審核的市集商品
 		if($sellsuccess !== '' && $sellsuccess !== undefined){
 			sendSellSuccess();
 		}
 		
-		if($buysuccess !== '' && $buysuccess !== undefined){
+		//買家成功購買，向後台送出需要向賣家推播的該項商品
+		if($buySucess !== '' && $buySucess !== undefined){
 			sendBuySuccess();
+		}
+		
+		//前台成功檢舉，向後台送出審核提醒
+		if($rpSuccess !== '' && $rpSuccess !== undefined){
+			sendRpSuccess();
 		}
 		
 	};
@@ -76,7 +86,6 @@ if (mbrno !== '') {
 	};
 	
 	function sendSellSuccess(){
-		webSocket.send($sellsuccess);
 		if($sellsuccess !== ''){
 			Swal.fire({
 			  icon: 'success',
@@ -85,28 +94,48 @@ if (mbrno !== '') {
 			  showConfirmButton: false,
 			  timer: 1500
 			})
+			webSocket.send($sellsuccess);
 		}
 	}
 	
 	function sendBuySuccess(){
 		var $shgmno = $("#shgmno").val();
-		if($buysuccess === "success"){
+		if($buySucess === "success"){
 			Swal.fire({
 				  icon: 'success',
 				  title: '您已購買成功！',
 				  showConfirmButton: false,
 				  timer: 1500
 				})
-			var successObj = {
+			var buySucessObj = {
 				"shgmno":$shgmno,
 				"paystatus":1
 			}
-			var successJson = JSON.stringify(successObj);
-			webSocket.send(successJson);
+			var buySucessJson = JSON.stringify(buySucessObj);
+			webSocket.send(buySucessJson);
 		}
 	}
 	
-	
+	function sendRpSuccess(){
+		var $shgmno = $("#shgmno").val();
+		if($rpSuccess === "success"){
+			Swal.fire({
+				icon: 'success',
+				title: '您的檢舉已成功送出！',
+				text: '請等待審核',
+				showConfirmButton: false,
+				timer: 1500
+			})
+			var rpSuccessObj = {
+				"shgmno":$shgmno,
+				"shgmname": $shgmname,
+				"frontend-RP":"success"
+			};
+			var rpSuccessJson = JSON.stringify(rpSuccessObj);
+			console.log(rpSuccessJson);
+			webSocket.send(rpSuccessJson);
+		}
+	}
 	
 
 }

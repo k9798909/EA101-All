@@ -38,7 +38,12 @@
 			</form>
 		</td>
 		<td class="half">
-			<a href="<%=request.getContextPath()%>/back-end/shgmrp/addShgmrp.jsp" class="btn btn-primary">檢舉市集商品</a>
+			<form method="post" action="<%=request.getContextPath()%>/shgmrp/shgmrp.do">
+			審核市集檢舉，搜尋名稱：
+				<input id="word" type="text" name="word" value="${(searchRpResult == null)? '':param.word}"/>
+				<input type="hidden" name="action" value="search"/>
+				<input id="findshgmrp"  class="btn btn-primary" type="submit" value="送出"/>
+			</form>
 		</td>
 	</tr>
 	<tr>
@@ -56,15 +61,14 @@
 		</td>
 		<td class="half">
 			<form method="post" action="<%=request.getContextPath()%>/shgmrp/shgmrp.do">
-			選擇要修改的市集檢舉：
-				<select size="1" name="shgmrpno">
+			審核市集檢舉：
+			<select size="1" name="word">
 					<c:forEach var="shgmrpvo" items="${shgmrpsvc.allShgmrp}">
-						<option value="${shgmrpvo.shgmrpno}">${shgmsvc.getOneShgm(shgmrpvo.shgmno).shgmname}
+						<option value="${shgmsvc.getOneShgm(shgmrpvo.shgmno).shgmname}">${shgmsvc.getOneShgm(shgmrpvo.shgmno).shgmname}
 					</c:forEach>
 				</select>
-				<input type="hidden" name="action" value="getone_update" >
-				<input type="hidden" name="requestURL" value="<%=request.getServletPath()%>"/>
-				<input type="submit" value="送出" class="btn btn-primary">
+				<input type="hidden" name="action" value="search"/>
+				<input id="findshgmrp"  class="btn btn-primary" type="submit" value="送出"/>
 			</form>
 		</td>
 	</tr>

@@ -7,7 +7,7 @@
 <%
 	ShgmService shgmsvc = new ShgmService();
 	Set<ShgmVO> set = shgmsvc.getAllShgm();
-	pageContext.setAttribute("shgmlist", set);
+	pageContext.setAttribute("shgmset", set);
 %>
 <html>
 <head>
@@ -31,7 +31,6 @@
 	}
   	#shgmall-mainarea{
   		margin:0.5% auto;
-  		height:702px;
   	}
   	@media (min-width: 576px){
 	  	.modal-dialog {
@@ -74,6 +73,9 @@
   		height:150px;
   		objtec-fit:contain;
   	}
+  	.modal-open {
+    overflow: scroll;
+}
 </style>
 </head>
 <body>
@@ -106,7 +108,7 @@
 		</tr>
 
 
-		<c:forEach var="shgmvo" items="${shgmlist}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+		<c:forEach var="shgmvo" items="${(searchResult == null)? shgmset:searchResult}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		<tr ${(shgmvo.shgmno == param.shgmno)? 'bgcolor=#e6e6e6':''} class="${shgmvo.shgmno}textRow">
 			<td>${shgmvo.shgmno}</td>
 			<td>${shgmvo.sellerno}</td>
@@ -242,7 +244,12 @@
 	<input type="hidden" id="mbrno" value="shgmBackEnd">
 	<input type="hidden" id="wsShgmno" value="${param.shgmno}">
 </div>
-	<%@ include file="/back-end/shgmrp/page2.file" %>
+	<c:if test="${searchResult == null}">
+		<%@ include file="/back-end/shgm/page2.file" %>
+	</c:if>
+	<c:if test="${setsize == 0}">
+		<div class="container" style="width:100%; padding:250px; text-align:center; background-color:white;">沒有符合的搜尋結果 或是 此商品已被訂購，無法進行審核</div>
+	</c:if>
 		
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/ajaxForMbrmsgs-backend.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/wsForShgm.js"></script>
@@ -252,6 +259,13 @@
 		function showmodal(){
 			$(this).modal("show");
 		}
+		
+		$("#findshgm").click(function(){
+			console.log($("#word").val());
+			if($("#word").val().trim() === ''){
+				event.preventDefault();
+			}
+		});
 		
 		$("#shgmall-mainarea").on("click",".upcheckUpdate",function(){
 			var $shgmno = $(this).val();
@@ -266,9 +280,18 @@
 				dataType: "json",
 				cache: false,
 				success: function(response){
+					//根據dataType辨識出response的資料是json，並把它轉換成Javascript物件
 					webSocket.send(response.shgmno);
+					
 					$("."+response.shgmno+"textRow td:eq(5)").text(response.uptime);
 					$("."+response.shgmno+"textRow td:eq(6)").text(response.soldtime);
+					
+					Swal.fire({
+						  icon: 'success',
+						  title: response.alertStr,
+						  showConfirmButton: false,
+						  timer: 1500
+						})
 				},
 				error:function(result){
 					alert("目前不允許此操作");

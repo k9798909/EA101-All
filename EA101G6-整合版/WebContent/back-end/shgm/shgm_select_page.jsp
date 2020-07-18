@@ -37,7 +37,13 @@
 				</form>
 			</td>
 			<td class="half">
-				<a href="<%=request.getContextPath()%>/back-end/shgm/addShgm.jsp" class="btn btn-primary">上架新的市集商品</a>
+				<form method="post" action="<%=request.getContextPath()%>/front-end/shgm/shgm.do">
+				審核市集商品，搜尋名稱：
+					<input id="word" type="text" name="word" value="${(searchResult == null)? '':param.word}"/>
+					<input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
+					<input type="hidden" name="action" value="search"/>
+					<input id="findshgm"  class="btn btn-primary" type="submit" value="送出"/>
+				</form>
 			</td>
 		</tr>
 		<tr>
@@ -55,15 +61,14 @@
 			</td>
 			<td class="half">
 				<form method="post" action="<%=request.getContextPath()%>/shgm/shgm.do">
-					選擇要修改的市集商品：
-					<select size="1" name="shgmno">
+					審核市集商品：
+					<select size="1" name="word">
 						<c:forEach var="shgmvo" items="${shgmsvc.allShgm}">
-							<option value="${shgmvo.shgmno}">${shgmvo.shgmname}
+							<option value="${shgmvo.shgmname}"  ${(shgmvo.shgmname == param.word)? 'selected':''}>${shgmvo.shgmname}
 						</c:forEach>
 					</select>
-					<input type="hidden" name="action" value="getone_update" >
-					<input type="hidden" name="requestURL" value="<%=request.getServletPath()%>"/>
-					<input type="submit" value="送出" class="btn btn-primary">
+					<input type="hidden" name="action" value="search"/>
+					<input id="findshgm"  class="btn btn-primary" type="submit" value="送出"/>
 				</form>
 			</td>
 		</tr>

@@ -93,7 +93,7 @@
 			<td>審核狀態</td>
 		</tr>
 		
-		<c:forEach var="shgmrpvo" items="${shgmrpset}"  begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+		<c:forEach var="shgmrpvo" items="${(searchRpResult == null)? shgmrpset:searchRpResult}"  begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		<tr ${(shgmrpvo.shgmrpno == param.shgmrpno)? 'bgcolor=#e6e6e6':''}>
 			<td>${shgmrpvo.shgmrpno}</td>
 			<td>${shgmrpvo.suiterno}</td>
@@ -116,16 +116,30 @@
 		</c:forEach>
 	</table>
 </div>
-<%@ include file="/back-end/shgmrp/page2.file" %>
 	<jsp:include page="/back-end/shgm/alert-area-backend.jsp"></jsp:include>
+
 	<input type="hidden" id="mbrno" value="shgmBackEnd">
 	<input type="hidden" id="wsShgmno" value="${param.shgmno}">
+	
+	<c:if test="${searchRpResult == null}">
+		<%@ include file="/back-end/shgmrp/page2.file" %>
+	</c:if>
+	<c:if test="${setRpsize == 0}">
+		<div class="container" style="width:100%; padding:250px; text-align:center; background-color:white;">沒有符合的搜尋結果 或是 此商品已被訂購，無法進行審核</div>
+	</c:if>
 
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/ajaxForMbrmsgs-backend.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/wsForShgm.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/jsForAlert-area.js"></script>
 	<script>
 	$(document).ready(function(){
+		
+		$("#findshgmrp").click(function(){
+			if($("#word").val().trim() === ''){
+				event.preventDefault();
+			}
+		});
+		
 		$(".container").on("click",".upcheckUpdate",function(){
 			var $shgmrpno = $(this).val();
 			var $value = $(this).siblings()[1].value;
@@ -140,9 +154,10 @@
 				cache: false,
 				success: function(response){
 					webSocket.send(response.shgmno);
+					
 					Swal.fire({
 						  icon: 'success',
-						  title: response.status,
+						  title: response.alertStr,
 						  showConfirmButton: false,
 						  timer: 1500
 						})

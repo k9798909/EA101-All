@@ -20,5 +20,6 @@ public interface ShgmDAO_interface {
 	public Set<ShgmVO> getAllForMain();
 	public List<ShgmVO> getAllForInfoShuffle();
 	public Set<ShgmVO> searchForMain(String word);
+	public Set<ShgmVO> searchForAll(String word);
 	public Set<ShgmVO> getAllUncheck();
 }

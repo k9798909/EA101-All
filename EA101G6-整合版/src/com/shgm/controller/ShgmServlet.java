@@ -692,21 +692,28 @@ public class ShgmServlet extends HttpServlet {
 						java.text.DateFormat df = new java.text.SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 						String uptime = null;
 						String soldtime = null;
+						
+						String alertStr = null;
 
 						Timestamp uptimeCT = shgmNew.getUptime();
 						if (upcheck == 0) {
 							uptime = "尚未上架";
 							soldtime = "尚未售出";
+							alertStr = "目前未審核";
 						} else if (upcheck == 2) {
 							uptime = "已審核下架";
 							soldtime = "已審核下架";
+							alertStr = "已審核下架";
 						} else if (upcheck == 1) {
 							uptime = df.format(uptimeCT);
 							soldtime = "尚未售出";
+							alertStr = "已審核上架";
 						}
+						
 						jsonobj.put("shgmno", shgmno);
 						jsonobj.put("uptime", uptime);
 						jsonobj.put("soldtime", soldtime);
+						jsonobj.put("alertStr", alertStr);
 					}
 					if (request.getParameter("shgmrpStatus") != null) {
 						Integer status = Integer.parseInt(request.getParameter("shgmrpStatus"));
@@ -719,16 +726,16 @@ public class ShgmServlet extends HttpServlet {
 						shgmrpsvc.updateShgmrp(shgmrpno, shgmrpvo.getShgmno(),
 								shgmrpvo.getSuiterno(), shgmrpvo.getDetail(), status);
 
-						String  statusStr = null;
+						String  alertStr = null;
 						if(status == 0) {
-							statusStr = "目前未審核";
+							alertStr = "目前未審核";
 						} else if(status == 1) {
-							statusStr = "已確認檢舉";
+							alertStr = "已確認檢舉";
 						} else if(status == 2) {
-							statusStr = "已取消檢舉";
+							alertStr = "已取消檢舉";
 						}
 						jsonobj.put("shgmno", shgmrpvo.getShgmno());
-						jsonobj.put("status", statusStr);
+						jsonobj.put("alertStr", alertStr);
 					}
 				}
 
@@ -1139,6 +1146,15 @@ public class ShgmServlet extends HttpServlet {
 		}
 
 		if ("search".equals(action)) {
+			
+			String requestURL = request.getParameter("requestURL");
+			
+			String url = null;
+			if(requestURL.equals("/back-end/shgm/listAllShgm.jsp")) {
+				url = "/back-end/shgm/listAllShgm.jsp";
+			} else {
+				url = "/front-end/shgm/mainPage.jsp";
+			}
 
 			try {
 				String word = request.getParameter("word");
@@ -1147,11 +1163,10 @@ public class ShgmServlet extends HttpServlet {
 				Set<ShgmVO> set = shgmsvc.searchForMain(word);
 				request.setAttribute("searchResult", set);
 				request.setAttribute("setsize", (long) set.size());
-				String url = "/front-end/shgm/mainPage.jsp";
+				
 				RequestDispatcher successview = request.getRequestDispatcher(url);
 				successview.forward(request, response);
 			} catch (Exception e) {
-				String url = "/front-end/shgm/mainPage.jsp";
 				RequestDispatcher failedview = request.getRequestDispatcher(url);
 				failedview.forward(request, response);
 			}

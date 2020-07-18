@@ -67,7 +67,6 @@ public class MyWebSocket {
 		// 只有市集商品後台會送出市集商品編號的資料，這裡的參數data是市集商品編號
 		String shgmRegexp = "^CA\\d{5}$";
 		if (data.matches(shgmRegexp)) {
-			System.out.println("enter data send");
 			ShgmVO shgmvo = shgmsvc.getOneShgm(data);
 			sellerno = shgmvo.getSellerno();
 			sellerVO = mbrpfsvc.getOneMbrpf(sellerno);
@@ -94,66 +93,76 @@ public class MyWebSocket {
 			ShgmrpVO shgmrpvo = null;
 			String shgmno = (String) jsonobj.get("shgmno");
 			System.out.println(shgmno);
-			//sendSellSuccess()送來的json，沒有pk，經過controller時，shgmno的value值存著"noPK"，還有sellerno和shgmname
-			if (shgmno.equals("noPK")) {
-				sendthis.append("市集商品「" + jsonobj.get("shgmname") + "」正申請上架，請至市集管理審核！");
+			
+			// 只有前台新增檢舉才有的key值
+			if (jsonobj.get("frontend-RP") != null) {
+				sendthis.append("市集商品「" + jsonobj.get("shgmname") + "」已經被檢舉，請至檢舉管理審核！");
 				sendmsg("shgmBackEnd", sendthis);
 				return;
-				// 從前台頁面ajax送來的json格式資料，有pk
 			} else {
-				shgmorg = shgmsvc.getOneShgm(shgmno);
-				sellerno = shgmorg.getSellerno();
-				sellerVO = mbrpfsvc.getOneMbrpf(sellerno);
-				
-				shgmrpvo = shgmrpsvc.getOnerpByShgmno(shgmno);
-				buyerno = shgmorg.getBuyerno();
-				buyerVO = mbrpfsvc.getOneMbrpf(buyerno);
-			}
+				// sendSellSuccess()送來的json，沒有pk，經過controller時，shgmno的value值存進"noPK"，還有sellerno和shgmname
+				if (shgmno.equals("noPK")) {
+					sendthis.append("市集商品「" + jsonobj.get("shgmname") + "」正申請上架，請至市集管理審核！");
+					sendmsg("shgmBackEnd", sendthis);
+					return;
+					// 從前台頁面ajax送來的json格式資料，有pk
+				} else {
+					shgmorg = shgmsvc.getOneShgm(shgmno);
+					sellerno = shgmorg.getSellerno();
+					sellerVO = mbrpfsvc.getOneMbrpf(sellerno);
 
-			Gson gson = new Gson();
-			ShgmVO shgmvo = gson.fromJson(data, ShgmVO.class);
-			if (shgmvo.getUpcheck() != null) {
-				// 確定檢舉的市集商品，在前台是待上架狀態，可能是賣家修改後重新上架，通知後台做重新審核
-				if (shgmrpvo != null && shgmrpvo.getStatus() == 1) {
-					sendthis.append("被檢舉的商品「" + shgmvo.getShgmname() + "」已重新申請上架，請至檢舉管理審核！");
-					sendmsg("shgmBackEnd", sendthis);
-				} else if (shgmrpvo == null && shgmvo.getUpcheck() == 0){
-					sendthis.append("市集商品「" + shgmvo.getShgmname() + "」正申請上架，請至市集管理審核！");
-					sendmsg("shgmBackEnd", sendthis);
+					shgmrpvo = shgmrpsvc.getOnerpByShgmno(shgmno);
+					buyerno = shgmorg.getBuyerno();
+					buyerVO = mbrpfsvc.getOneMbrpf(buyerno);
 				}
-			} else if (shgmvo.getBoxstatus() != null) {
-				if (shgmvo.getBoxstatus() == 1) {
-					sendthis.append("賣家 " + sellerVO.getNickname() + "，已將您購買的商品「" + shgmorg.getShgmname() + "」出貨。");
-					sendmsg(buyerno, sendthis);
-				} else if (shgmvo.getBoxstatus() == 2) {
-					sendthis.append(buyerVO.getNickname() + "，您購買的商品「" + shgmorg.getShgmname() + "」已送達，請確認取貨。");
-					sendmsg(buyerno, sendthis);
+
+				Gson gson = new Gson();
+				ShgmVO shgmvo = gson.fromJson(data, ShgmVO.class);
+				if (shgmvo.getUpcheck() != null) {
+					// 確定檢舉的市集商品，在前台是待上架狀態，可能是賣家修改後重新上架，通知後台做重新審核
+					if (shgmrpvo != null && shgmrpvo.getStatus() == 1) {
+						sendthis.append("被檢舉的商品「" + shgmvo.getShgmname() + "」已重新申請上架，請至檢舉管理審核！");
+						sendmsg("shgmBackEnd", sendthis);
+					} else if (shgmrpvo == null && shgmvo.getUpcheck() == 0) {
+						sendthis.append("市集商品「" + shgmvo.getShgmname() + "」正申請上架，請至市集管理審核！");
+						sendmsg("shgmBackEnd", sendthis);
+					}
 				}
-			}
-			if (shgmvo.getStatus() != null) {
-				if (shgmvo.getStatus() == 2) {
-					sendthis.append("買家 " + shgmorg.getTakernm() + "，已確認收貨，您的商品「" + shgmorg.getShgmname() + "」已賣出！");
+				if (shgmvo.getBoxstatus() != null) {
+					if (shgmvo.getBoxstatus() == 1) {
+						sendthis.append("賣家 " + sellerVO.getNickname() + "，已將您購買的商品「" + shgmorg.getShgmname() + "」出貨。");
+						sendmsg(buyerno, sendthis);
+					} else if (shgmvo.getBoxstatus() == 2) {
+						sendthis.append(buyerVO.getNickname() + "，您購買的商品「" + shgmorg.getShgmname() + "」已送達，請確認取貨。");
+						sendmsg(buyerno, sendthis);
+					}
+				}
+				if (shgmvo.getStatus() != null) {
+					if (shgmvo.getStatus() == 2) {
+						sendthis.append(
+								"買家 " + shgmorg.getTakernm() + "，已確認收貨，您的商品「" + shgmorg.getShgmname() + "」已賣出！");
+						sendmsg(sellerno, sendthis);
+						sendthis.setLength(0);
+						sendthis.append("已確認收貨！您已成功購買商品「" + shgmorg.getShgmname() + "」！");
+						sendmsg(buyerno, sendthis);
+					} else if (shgmvo.getStatus() == 3) {
+						sendthis.append(
+								"買家 " + shgmorg.getTakernm() + "，已取消購買「" + shgmorg.getShgmname() + "」，請至賣家專區回收商品。");
+						sendmsg(sellerno, sendthis);
+						sendthis.setLength(0);
+						sendthis.append(buyerVO.getNickname() + "，您已成功取消購買「" + shgmorg.getShgmname() + "」，點數共 "
+								+ shgmorg.getPrice() + "點已退還至您的帳戶。");
+						sendmsg(buyerno, sendthis);
+					}
+				}
+				// 購買成功，前台送過來
+				if (shgmvo.getPaystatus() != null) {
+					sendthis.append("買家 " + shgmorg.getTakernm() + "，已購買您的商品「" + shgmorg.getShgmname() + "」，請至賣家專區出貨。");
 					sendmsg(sellerno, sendthis);
 					sendthis.setLength(0);
-					sendthis.append("已確認收貨！您已成功購買商品「" + shgmorg.getShgmname() + "」！");
-					sendmsg(buyerno, sendthis);
-				} else if (shgmvo.getStatus() == 3) {
-					sendthis.append(
-							"買家 " + shgmorg.getTakernm() + "，已取消購買「" + shgmorg.getShgmname() + "」，請至賣家專區回收商品。");
-					sendmsg(sellerno, sendthis);
-					sendthis.setLength(0);
-					sendthis.append(buyerVO.getNickname() + "，您已成功取消購買「" + shgmorg.getShgmname() + "」，點數共 "
-							+ shgmorg.getPrice() + "點已退還至您的帳戶。");
+					sendthis.append(buyerVO.getNickname() + "，您已成功購買商品「" + shgmorg.getShgmname() + "」，請等待賣家出貨。");
 					sendmsg(buyerno, sendthis);
 				}
-			}
-			// 購買成功，前台送過來
-			if (shgmvo.getPaystatus() != null) {
-				sendthis.append("買家 " + shgmorg.getTakernm() + "，已購買您的商品「" + shgmorg.getShgmname() + "」，請至賣家專區出貨。");
-				sendmsg(sellerno, sendthis);
-				sendthis.setLength(0);
-				sendthis.append(buyerVO.getNickname() + "，您已成功購買商品「" + shgmorg.getShgmname() + "」，請等待賣家出貨。");
-				sendmsg(buyerno, sendthis);
 			}
 		}
 	}

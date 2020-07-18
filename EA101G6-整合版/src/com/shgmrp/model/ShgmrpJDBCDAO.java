@@ -20,6 +20,7 @@ public class ShgmrpJDBCDAO implements ShgmrpDAO_interface {
 	private static final String GET_ONE_STMT = "SELECT * FROM SHGMRP WHERE shgmrpno=?";
 	private static final String GET_ONE_BY_SHGMNO = "SELECT * FROM SHGMRP WHERE shgmno=?";
 	private static final String GET_ALL_STMT = "SELECT * FROM SHGMRP";
+	private static final String SEARCH_STMT = "SELECT * FROM SHGMRP WHERE UPPER(shgmno) LIKE UPPER(?) ORDER BY CAST(SUBSTR(shgmrpno, 5) AS INT)";
 	private static final String GET_ALL_UNCHECK = "SELECT * FROM SHGMRP WHERE status=0 ORDER BY CAST(SUBSTR(shgmrpno, 5) AS INT)";
 
 	public static void main(String[] args) {
@@ -299,6 +300,66 @@ public class ShgmrpJDBCDAO implements ShgmrpDAO_interface {
 					pstmt.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return set;
+	}
+	
+	@Override
+	public Set<ShgmrpVO> searchForBackend(String word) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Set<ShgmrpVO> set = new LinkedHashSet<ShgmrpVO>();
+
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, user, password);
+			pstmt = con.prepareStatement(SEARCH_STMT);
+			pstmt.setString(1, "%" + word + "%");
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				ShgmrpVO shgmrpvo = new ShgmrpVO();
+				shgmrpvo.setShgmrpno(rs.getString(1));
+				shgmrpvo.setShgmno(rs.getString(2));
+				shgmrpvo.setSuiterno(rs.getString(3));
+				java.sql.Clob clob = rs.getClob(4);
+				String detail = clob.getSubString(1, (int) clob.length());
+				shgmrpvo.setDetail(detail);
+				shgmrpvo.setStatus(rs.getInt(5));
+
+				set.add(shgmrpvo);
+			}
+			
+			rs.close();
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e2) {
+					e2.printStackTrace();
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
 				}
 			}
 			if (con != null) {

@@ -75,6 +75,11 @@ public class ShgmrpService {
 		return dao.getAll();
 	}
 	
+	public java.util.Set<ShgmrpVO> searchShgmrp(String word){
+		
+		return dao.searchForBackend(word);
+	}
+	
 	public java.util.Set<ShgmrpVO> getAllShgmrpUncheck(){
 		
 		return dao.getAllUncheck();

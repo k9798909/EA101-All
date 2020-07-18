@@ -41,10 +41,19 @@
 	[type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
     cursor: pointer;
 }
+.modal-open {
+    overflow-y: scroll;
+}
+body:not(.modal-open){
+  padding-right: 50px !important;
+}
+body {
+    padding-right: 50px !important;
+}
 </style>
 
 </head>
-<body class="bg03">
+<body class="bg03" >
 	<div class="container">
 		<div class="row">
 			<div class="col-12">

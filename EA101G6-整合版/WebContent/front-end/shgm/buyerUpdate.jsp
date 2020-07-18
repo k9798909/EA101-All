@@ -132,43 +132,8 @@ div.top-info {
 					<li class="breadcrumb-item"><a
 						href="<%=request.getContextPath()%>/front-end/shgm/myShgm.jsp">我的市集商品</a></li>
 					<li class="breadcrumb-item active" aria-current="page">修改取貨資訊</li>
-					<li class="awrapper"><span class="rpdiv">${errormap.get("rp")}</span><button type="button" id="rp"
-							class="btn btn-primary" data-toggle="modal"
-							data-target="#exampleModal" data-whatever="@mdo">檢舉</button></li>
 				</ol>
 			</nav>
-		</div>
-		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-			aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">檢舉此商品</h5>
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<form method="post" action="<%=request.getContextPath()%>/front-end/shgm/shgmrp.do">
-						<div class="modal-body">
-							<div class="form-group">
-								<label for="message-text" class="col-form-label">檢舉內容:</label>
-								<textarea name="detail" class="form-control" id="message-text"></textarea>
-							</div>
-
-						</div>
-						<div class="modal-footer">
-							<button type="submit" class="btn btn-primary">確定</button>
-							<button type="button" class="btn btn-primary"
-								data-dismiss="modal">取消</button>
-						</div>
-						<input type="hidden" name="shgmno" value="${shgmvo.shgmno}">
-						<input type="hidden" name="suiterno" value="${mbrpfVO.mbrno}">
-						<input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
-						<input type="hidden" name="action" value="insertrp">
-					</form>
-				</div>
-			</div>
 		</div>
 		<div class="shgm-info-allarea">
 			<div class="shgm-info-toparea container">

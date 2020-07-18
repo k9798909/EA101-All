@@ -2,8 +2,10 @@ package com.shgmrp.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -274,6 +276,42 @@ public class ShgmrpServlet extends HttpServlet {
 			} catch (Exception e) {
 				errormsgs.add("無法修改檢舉的市集商品" + e.getMessage());
 				String url = "/back-end/shgmrp/listAllShgmrp.jsp?whichPage="+whichPage;
+				RequestDispatcher failedview = request.getRequestDispatcher(url);
+				failedview.forward(request, response);
+			}
+		}
+		
+		if ("search".equals(action)) {
+			List<String> errormsgs = new LinkedList<String>();
+			request.setAttribute("errormsgs", errormsgs);
+			
+			try {
+				String word = request.getParameter("word");
+				
+				ShgmService shgmsvc = new ShgmService();
+				Set<ShgmVO> shgmSet = shgmsvc.searchForAll(word);
+				
+				ShgmrpService shgmrpsvc = new ShgmrpService();
+				Set<ShgmrpVO> set = new LinkedHashSet<ShgmrpVO>();
+				
+				Set<ShgmrpVO> shgmrpset = shgmrpsvc.getAllShgmrp();
+				for(ShgmrpVO shgmrpvo:shgmrpset) {
+					for(ShgmVO shgmvo:shgmSet) {
+						if(shgmrpvo.getShgmno().equals(shgmvo.getShgmno()))
+							set.add(shgmrpvo);
+					}
+				}
+				
+				
+				request.setAttribute("searchRpResult", set);
+				request.setAttribute("setRpsize", (long) set.size());
+				
+				String url = "/back-end/shgmrp/listAllShgmrp.jsp";
+				RequestDispatcher successview = request.getRequestDispatcher(url);
+				successview.forward(request, response);
+			} catch (Exception e) {
+				errormsgs.add("無法搜尋檢舉的市集商品" + e.getMessage());
+				String url = "/back-end/shgmrp/listAllShgmrp.jsp";
 				RequestDispatcher failedview = request.getRequestDispatcher(url);
 				failedview.forward(request, response);
 			}

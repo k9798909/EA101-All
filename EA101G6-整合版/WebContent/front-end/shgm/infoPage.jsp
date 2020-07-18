@@ -176,7 +176,7 @@ a img:hover{
 						class="shgm-info-right-inner d-flex align-items-center flex-column bd-highlight mb-3" style="text-align:center;">
 						<div class="p-2 bd-highlight">
 							名稱
-							<h1 style="text-align:left;">${infoshgm.shgmname}</h1>
+							<h1 id="shgmname" style="text-align:left;">${infoshgm.shgmname}</h1>
 						</div>
 						<div class="p-2 bd-highlight">
 							售價
@@ -274,16 +274,6 @@ a img:hover{
 	<script>
 	$(document).ready(function(){
 		
-		if($("#rpsuccess").val() == "success"){
-			Swal.fire({
-				  icon: 'success',
-				  title: '您的檢舉已成功送出！',
-				  text: '請等待審核',
-				  showConfirmButton: false,
-				  timer: 1500
-				})
-		}
-		var $mbrname = $("#mbrname").text().substr(4);
 		$("#buythis").click(function(){
 			if($mbrname == ""){
 				Swal.fire({
@@ -312,6 +302,8 @@ a img:hover{
 				}
 			}
 		});
+		
+		var $mbrname = $("#mbrname").text().substr(4);
 		$("#rp").click(function(){
 			if($mbrname == ""){
 				Swal.fire({
