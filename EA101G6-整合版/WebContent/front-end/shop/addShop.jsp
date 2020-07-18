@@ -198,9 +198,17 @@ img {
 	$(document).ready(function(){
 		$("#add").click(function(){
 			console.log($("#name").val());
-			$.ajax({
-				url: "<%=request.getContextPath()%>/front-end/shop/shop.do",
-				type:"POST",
+			console.log($("#act").val());
+			console.log($("#¿¤¥«1").val());
+			console.log($("#¶mÂí¥«°Ï1").val());
+			console.log($("#ads").val());
+			console.log($("#inputCy").val());
+			console.log($("#inputPhone").val());
+			console.log($("#myFile").val());
+			
+			$.post("<%=request.getContextPath()%>/front-end/shop/shop.do",
+				{
+				enctype:"multipart/form-data"
 				action:"insert",
 				shopname:$("#name").val(),
 				shopact:$("#act").val(),
@@ -210,8 +218,9 @@ img {
 				shopcy:$("#inputCy").val(),
 				shopphone:$("#inputPhone").val(),
 				shopimg:$("#myFile").val()
-			})	
-			console.log($("#name").val());
+			}),function(data,status){
+			      alert("" + data + "" + status);
+		    };
 		})
 	})
 </script>

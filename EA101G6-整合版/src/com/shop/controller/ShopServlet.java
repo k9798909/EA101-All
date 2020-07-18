@@ -356,11 +356,13 @@ public class ShopServlet extends HttpServlet {
 					errorMsgs.add("電話號碼格式錯誤");
 				}
 				
-				
-				System.out.println("5555555555555");
+				System.out.println("5555555");
+				System.out.println("shopimg");
 				byte[] shopimg = null;
 				Part part = req.getPart("shopimg");
+				System.out.println("55555666665");
 				InputStream in = null;
+				System.out.println("5555555555555");
 				try {
 					in = part.getInputStream();
 					shopimg = new byte[in.available()];
