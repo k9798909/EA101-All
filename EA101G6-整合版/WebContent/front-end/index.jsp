@@ -16,14 +16,10 @@
 	href="https://fonts.googleapis.com/css?family=Rubik:300,400,700|Oswald:400,700"
 	rel="stylesheet">
 <!-- µn¤J¹Ï¥Ü -->
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/fonts/icomoon/style.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/model/bootstrap.min.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/model/jquery.fancybox.min.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/model/owl.carousel.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/fonts/icomoon/style.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/model/bootstrap.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/model/jquery.fancybox.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/model/owl.carousel.min.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/model/owl.theme.default.min.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/model/aos.css">
 <!-- MAIN CSS -->

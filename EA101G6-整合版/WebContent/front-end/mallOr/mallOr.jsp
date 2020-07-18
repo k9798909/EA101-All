@@ -40,8 +40,8 @@ input.mbrName{
 	border-radius: 4px;
  }
  
-  #msform input.paybtn:hover{ 
-opacity:0.8;
+#msform input.paybtn:hover{ 
+	opacity:0.8;
  } 
   
 #msform input.cancel{ 
@@ -56,8 +56,8 @@ opacity:0.8;
 	border:none;
 	border-radius: 4px;
  	}
- 	#msform input.cancel:hover{ 
-opacity:0.8;
+ #msform input.cancel:hover{ 
+	opacity:0.8;
  	}  
 
 #msform div{
@@ -69,29 +69,29 @@ opacity:0.8;
 	height:25px;
 }
 
-		.table img{
-			width: 40px;
-			height:40px;
-			border: solid 1px;
-			display: inline-block;
-			margin:0px 10px; 
-		}
+.table img{
+	width: 40px;
+	height:40px;
+	border: solid 1px;
+	display: inline-block;
+	margin:0px 10px; 
+}
 		
-	div.orTitle{
-		text-align:center;
-		margin:10px 0px;
-		font-size:18px;
-	}
+div.orTitle{
+	text-align:center;
+	margin:10px 0px;
+	font-size:18px;
+}
 	
-	div.checkdiv{
-		text-align:right;
-	}
+div.checkdiv{
+	text-align:right;
+}
 	
-		div.checkdiv p{
-			display: inline-block;
-			margin:0px 30px;
-			font-size: 26px;
-		}
+div.checkdiv p{
+	display: inline-block;
+	margin:0px 30px;
+	font-size: 26px;
+}
 		
 
 /*form styles*/

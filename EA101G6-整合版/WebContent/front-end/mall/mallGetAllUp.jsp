@@ -15,14 +15,14 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/mallCss/mallGetAllUpFornt.css">
 
 <style>
-	.img-bg-section{
-		width: 100%;
-		height: 120%;
-	}
-	.owl-carousel{
-		margin-bottom: 90px;
-		margin-top: 90px;
-	}
+.img-bg-section{
+	width: 100%;
+	height: 120%;
+}
+.owl-carousel{
+	margin-bottom: 90px;
+	margin-top: 90px;
+}
 	
 </style>
 

@@ -9,8 +9,7 @@
 <meta charset="UTF-8">
 <title>會員訂單</title>
 
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/model/bootstrap.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/model/bootstrap.min.css">
 
 <style>
 div.orMain table.table {

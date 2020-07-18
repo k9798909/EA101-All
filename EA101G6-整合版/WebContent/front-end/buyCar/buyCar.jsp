@@ -12,8 +12,7 @@
 <meta charset="UTF-8">
 <title>購物車</title>
 <!-- 個人CSS -->
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/buyCarCss/buyCar.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/buyCarCss/buyCar.css">
 
 </head>
 <body>

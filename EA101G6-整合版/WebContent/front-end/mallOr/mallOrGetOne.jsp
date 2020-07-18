@@ -11,22 +11,21 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/model/bootstrap.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/model/bootstrap.min.css">
 
 <style>
 .margin-center {
   margin:0px auto;
 }
 div.dtMain{
- margin:20px auto;
+ 	margin:20px auto;
 }
 
 div.dtMain table.table th{
- font-size:16px;
+ 	font-size:16px;
 }
 div.dtMain table.table td{
- font-size:14px;
+ 	font-size:14px;
 }
 
 main{
@@ -39,8 +38,8 @@ main{
 }
 
 main div.thank{
-text-align:center;
-margin:30px 0px;
+	text-align:center;
+	margin:30px 0px;
 }
 
 

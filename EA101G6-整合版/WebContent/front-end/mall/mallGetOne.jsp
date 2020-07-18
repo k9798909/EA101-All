@@ -12,8 +12,7 @@
 <title>商品</title>
 
 <!-- 個人CSS -->
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/mallCss/mallGetOne.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/mallCss/mallGetOne.css">
 
 
 </head>

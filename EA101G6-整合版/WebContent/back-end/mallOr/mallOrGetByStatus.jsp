@@ -13,11 +13,11 @@
 	href="<%=request.getContextPath()%>/css/model/bootstrap.min.css">
 
 <style>
-	div.orMain table.table{
-	 table-layout:fixed;
-	 word-break:break-all;
-	 text-align:center;
-	}
+div.orMain table.table{
+	table-layout:fixed;
+	word-break:break-all;
+	text-align:center;
+}
 	
 div.orMain table.table td{
 	height:10px;
@@ -26,7 +26,7 @@ div.orMain table.table td{
 	font-size:18px;
 }
 	
-	input.dtbtn {
+input.dtbtn {
 	margin-top:2px;
     border-radius: 2px; 
     border: none;
@@ -38,13 +38,13 @@ div.orMain table.table td{
     background-color:#007bff;
 	color:#ffffff;
 	border:solid 1px #000000;
-	}
+}
 	
-	input.dtbtn:hover {
-		opacity:0.8;
-	}
+input.dtbtn:hover {
+	opacity:0.8;
+}
 	
-	.bg-gray{
+.bg-gray{
 	background-color:#E0E0E0;
 }
 
