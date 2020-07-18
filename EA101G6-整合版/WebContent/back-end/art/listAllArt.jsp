@@ -165,7 +165,7 @@
 				<FORM METHOD="post"
 					ACTION="<%=request.getContextPath()%>/back-end/art/art.do"
 					style="margin-bottom: 0px;">
-					<tr>
+					<tr ${(artVO.artno == param.artno) ? 'bgcolor=#e6e6e6' : ''} class="${artVO.artno}textRow">
 						<td><a target="_blank"
 							href="<%=request.getContextPath()%>/back-end/art/art.do?action=get_One_Detail&artno=${artVO.artno}">${artVO.artno}</a></td>
 						<td>${artVO.mbrno}</td>
@@ -218,6 +218,8 @@
 
 	<a target="_self" href="addArt.jsp"><img class="add7" src="images/alpc.png" title="Add Article"></a>
 
+	<input type="hidden" id="wsArtno" value="${param.artno}">
+	
 
 </body>
 </html>
