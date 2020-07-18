@@ -35,7 +35,7 @@ public class LoginFilterBack implements Filter {
 		HttpSession session = req.getSession();//取得session
 		Object accountBack = session.getAttribute("accountBack");//從session看是否有登入過，如果有通過登入EmpServlet.java會將accountBack存進session中，354行【session.setAttribute("accountBack", accountBack);】
 		if(accountBack == null) {//如果沒有登入過
-			session.setAttribute("location", req.getRequestURI());//將現在的位址，以location的名字存進session
+			session.setAttribute("backLocation", req.getRequestURI());//將現在的位址，以location的名字存進session
 			res.sendRedirect(req.getContextPath()+"/loginBack.jsp");//重導至登入頁面
 			System.out.println("後台首頁"); 
 			return;

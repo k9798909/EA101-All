@@ -385,9 +385,9 @@ public class EmpServlet extends HttpServlet {
 						session.setAttribute("authList", authList);
 				/***************************3.查詢完成,準備轉交(Send the Success view)***********/
 						try {//查看是否有來源網頁
-							String location = (String)session.getAttribute("location");
+							String location = (String)session.getAttribute("backLocation");
 							if(location != null) {//如果有來源網頁
-								session.removeAttribute("location");
+								session.removeAttribute("backLocation");
 								res.sendRedirect(location);//重導至該網頁
 								return;
 							}
