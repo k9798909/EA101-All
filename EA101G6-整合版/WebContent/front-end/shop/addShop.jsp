@@ -129,9 +129,10 @@ img {
 					</div>
 				</div>
 				<input type="hidden" name="status" value="0">
-				<input type="hidden" name="action" value="insert">			
+				<input type="hidden" name="action" value="insert">	
+				<button type="submit" class="btn btn-primary">註冊</button>		
 			</form>
-				<button id="add" class="btn btn-primary">註冊</button>
+				
 		</div>
 </body>
 <script>
@@ -192,37 +193,6 @@ img {
      };
   }
    	  	
-</script>
-
-<script type="text/javascript">
-	$(document).ready(function(){
-		$("#add").click(function(){
-			console.log($("#name").val());
-			console.log($("#act").val());
-			console.log($("#縣市1").val());
-			console.log($("#鄉鎮市區1").val());
-			console.log($("#ads").val());
-			console.log($("#inputCy").val());
-			console.log($("#inputPhone").val());
-			console.log($("#myFile").val());
-			
-			$.post("<%=request.getContextPath()%>/front-end/shop/shop.do",
-				{
-				enctype:"multipart/form-data"
-				action:"insert",
-				shopname:$("#name").val(),
-				shopact:$("#act").val(),
-				city:$("#縣市1").val(),
-				area:$("#鄉鎮市區1").val(),
-				addr:$("#ads").val(),
-				shopcy:$("#inputCy").val(),
-				shopphone:$("#inputPhone").val(),
-				shopimg:$("#myFile").val()
-			}),function(data,status){
-			      alert("" + data + "" + status);
-		    };
-		})
-	})
 </script>
 
 

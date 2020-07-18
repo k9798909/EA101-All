@@ -144,7 +144,7 @@ public class GmlistServlet extends HttpServlet {
 
 				try {
 				String[] gmno = req.getParameterValues("gmno2");
-				ShopVO shopVO = (ShopVO)session.getAttribute("shopVO");
+				ShopVO shopVO = (ShopVO)session.getAttribute("shopAcount");
 				if(gmno == null) {
 					errorMsgs+="請選擇要增加的遊戲";
 					req.setAttribute("errorMsgs", errorMsgs);
@@ -168,6 +168,7 @@ public class GmlistServlet extends HttpServlet {
 				
 				/*************************** 3.(Send the Success view) *************/
 				String url = "addGmlist.jsp";
+				req.setAttribute("successMsgs", "新增成功!");
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 
@@ -188,7 +189,7 @@ public class GmlistServlet extends HttpServlet {
 
 			try {
 			String[] gmno = req.getParameterValues("gmno");
-			ShopVO shopVO = (ShopVO)session.getAttribute("shopVO");
+			ShopVO shopVO = (ShopVO)session.getAttribute("shopAcount");
 			if(gmno == null) {
 				errorMsgs+="請選擇要刪除的遊戲";
 				req.setAttribute("errorMsgs", errorMsgs);
@@ -205,6 +206,7 @@ public class GmlistServlet extends HttpServlet {
 			
 			/*************************** 3.(Send the Success view) *************/
 			String url = "addGmlist.jsp";
+			req.setAttribute("successMsgs", "刪除成功!");
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 

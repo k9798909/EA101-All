@@ -63,7 +63,8 @@
 		<th style="width:15%">玩的遊戲</th>
 		<th style="width:10%">備註</th>
 		<th style="width:15%">房間狀態</th>
-		<th style="width:6%"></th><th></th>
+		<th style="width:6%"></th>
+		<th></th>
 	</tr>
 	<c:forEach var="joinrmVO" items="${list}">
 	<tr>
@@ -97,16 +98,25 @@
 			    </c:otherwise>
 			</c:choose>
 		</td>
-		<td><div id="dialog_${joinrmVO.rmno}" title="成員列表">
-		<jsp:include page="/front-end/room/roomMember.jsp"><jsp:param name="rmno" value="${joinrmVO.rmno}" /></jsp:include>
-	</div>
+		<td>
+		<div id="dialog3_${joinrmVO.rmno}" title="檢舉店家">
+			<jsp:include page="<%=request.getContextPath()%>/front-end/shoprpdt/addShoprpdt.jsp"></jsp:include>
+		</div>
+		<button class="btn btn-outline-info btn-sm" id="opener3_${joinrmVO.rmno}">檢舉店家</button>
+		</td>
+		<td>
+		<div id="dialog_${joinrmVO.rmno}" title="成員列表">
+			<jsp:include page="/front-end/room/roomMember.jsp"><jsp:param name="rmno" value="${joinrmVO.rmno}" /></jsp:include>
+		</div>
 	
-	<button class="btn btn-outline-info btn-sm" id="opener_${joinrmVO.rmno}">參加成員</button>
-	</td>
+		<button class="btn btn-outline-info btn-sm" id="opener_${joinrmVO.rmno}">參加成員</button>
+		</td>
 	
-		<td><div id="dialog2_${joinrmVO.rmno}" title="遊玩評價">
-		<jsp:include page="/front-end/room/rate.jsp"><jsp:param name="rmno" value="${joinrmVO.rmno}" /></jsp:include>
-	</div>
+		<td>
+		
+		<div id="dialog2_${joinrmVO.rmno}" title="遊玩評價">
+			<jsp:include page="/front-end/room/rate.jsp"><jsp:param name="rmno" value="${joinrmVO.rmno}" /></jsp:include>
+		</div>
 		<c:if test="${rminfoSvc.getOneRm(joinrmVO.rmno).status == 5 && joinrmVO.ratereport == 0}">			
 			<button class="btn btn-warning btn-sm" id="opener2_${joinrmVO.rmno}">團員遊玩評價</button>
 		</c:if>
@@ -168,6 +178,25 @@
 	 
 	    $( "#opener2_${joinrmVO.rmno}" ).on( "click", function() {
 	      $( "#dialog2_${joinrmVO.rmno}" ).dialog( "open" );
+	    });
+	  } );
+  
+  $( function() {
+	    $( "#dialog3_${joinrmVO.rmno}" ).dialog({
+	      autoOpen: false,
+	      show: {
+	        effect: "blind",
+	        duration: 1000
+	      },
+	      hide: {
+	        effect: "explode",
+	        duration: 1000
+	      },
+	      width: 600,
+	    });
+	 
+	    $( "#opener3_${joinrmVO.rmno}" ).on( "click", function() {
+	      $( "#dialog3_${joinrmVO.rmno}" ).dialog( "open" );
 	    });
 	  } );
 })(jQuery_1_12_4);  

@@ -251,9 +251,20 @@ h4 {
 		<!-- 	店家登出js -->
 	<script>
 		$(document).ready(function() {
+			<c:if test="${not empty successMsgs}">
+			swal("", "註冊成功!密碼請至信箱收信", "success");
+			</c:if>
 			$("#goLogout").click(function() {
 				$("#logout").submit();
 			})
+			
+			<c:if test="${not empty errorMsgs}">	
+		 	var erromsg="";
+			<c:forEach var="erromsg" items="${errorMsgs}">
+					erromsg+="${erromsg}\n"
+			</c:forEach>
+			swal("",erromsg,"error");
+			</c:if>
 		})
 	</script>
 </body>
@@ -272,12 +283,6 @@ h4 {
 					id="Passwod" name="password"> <i class="fa fa-lock"></i>
 			</div>
 			<span style="font-size: 12px; color: #f00; float: left;"> 
-			<%-- 錯誤表列 --%>
-				<c:if test="${not empty errorMsgs}">
-					<c:forEach var="message" items="${errorMsgs}">
-							${message}
-						</c:forEach>
-				</c:if>
 			</span> <input type="submit"
 				class="log-btn" value="店家登入"> <input type="hidden"
 				name="action" value="login">

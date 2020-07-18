@@ -1,87 +1,47 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.game.model.*"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ page import="java.util.*"%>
+<%@ page import="com.rminfo.model.*"%>
 
 <%
-	GameVO gameVO = (GameVO) request.getAttribute("gameVO");
+	RminfoService rmSvc = new RminfoService();
+	String rmno = request.getParameter("rmno");
+	RminfoVO rmVO = rmSvc.getOneRm(rmno);
+	pageContext.setAttribute("rmVO", rmVO);
 %>
+<jsp:useBean id="shopSvc" scope="page" class="com.shop.model.ShopService" />
+<jsp:useBean id="jSvc" scope="page" class="com.joinrm.model.JoinrmService" />
+<!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>檢舉店家</title>
-
-	<style>
-table {
-	margin-top: 10px;
-}
-
-tr th {
-	border: 2px solid black;
-	text-align: center;
-}
-
-td {
-	border: 2px solid black;
-	text-align: center;
-}
-label {
-	text-align: left;
-}
-.icon {
-	width: 20px;
-	height: 20px;
-}
-
-tr:nth-child(odd) {
-	background-color: #FFED97;
-}
-
-img {
-	width:300px;
-	height:200px;
-}
-</style>
+<title>檢舉店家-include用</title>
 </head>
-<body bgcolor='white'>
-
-
-<%@ include file="/front-end/front-end-nav.jsp" %>
-
-	<table id="table-1">
-		<a href="index.jsp"><img src="<%=request.getContextPath()%>/front-end/images/add-icon.png"
-			class="icon">回首頁</a>
-		<h3>檢舉店家</h3>
+<body>
+<form METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/shoprpdt/shoprpdt.do">
+<table class="table table-striped">
+<tr><th style="width:130px">店家名稱</th>
+<th style="width:100px">檢舉店家</th>
+<th >檢舉內容</th></tr>
+			<tr>		  
+		      <td align="center">${shopSvc.getOneShop(rmVO.shopno).shopname}
+		      </td>
+		      <td align="center"> 
+				${rmVO.naming}
+			  </td>
+		      <td><input type="text" name="detail" maxlength="15" placeholder="有何不滿?" name="detail"></td>     
+		    </tr>    		 	  
+<!-- 	<tr><td colspan="3" align="right"><input type="hidden" name="action" value="insert"> -->
+<!-- 	<input type="submit" value="送出"></td></tr> -->
 	</table>
-	<%-- 錯誤表列 --%>
-<%-- 	<c:if test="${not empty errorMsgs}"> --%>
-<!-- 		<font style="color: red">請修正以下錯誤:</font> -->
-<!-- 		<ul> -->
-<%-- 			<c:forEach var="message" items="${errorMsgs}"> --%>
-<%-- 				<li style="color: red">${message}</li> --%>
-<%-- 			</c:forEach> --%>
-<!-- 		</ul> -->
-<%-- 	</c:if> --%>
+	<div style="text-align:right">
+		<input type="hidden" name="shopno" value="${rmVO.rmno}">
+		<input type="hidden" name="shopno" value="${param.rmno}">
+		<input type="hidden" name="shopno" value="${shopSvc.getOneShop(rmVO.shopno).shopno}">
+		<input type="hidden" name="action" value="insert">
+		<input type="submit" value="送出" onclick="return(confirm('送出後將無法修改'))">
+	</div>
+</form>
 
-	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/game/game.do" enctype="multipart/form-data">
-		<table>
-			<tr>
-				<td>遊戲名稱:</td>
-				<td><input type="TEXT" name="gmname" size=100%
-					value="<%=(gameVO == null) ? "" : gameVO.getGmname()%>" /></td>
-			</tr>
-			<tr>
-				<td>遊戲圖片:</td>
-				<td>
-					<input type="file" id="myFile" name="gmimg">				
-					<div id="preview">
-					</div>	
-				</td>
-			</tr>
-		</table>
-		<br> <input type="hidden" name="action" value="insert"> <input
-			type="submit" value="送出新增">
-	</FORM>
 </body>
 </html>

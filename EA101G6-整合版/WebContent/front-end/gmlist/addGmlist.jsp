@@ -166,21 +166,11 @@ h4 {
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-	<!-- 查詢時有錯誤啟動 -->
-	<script>
-	<c:if test="${not empty errorMsgs}">	
- 	var erromsg="";
-	<c:forEach var="erromsg" items="${errorMsgs}">
-			erromsg+="${erromsg}\n"
-	</c:forEach>
-	swal("",erromsg,"error");
-	</c:if>
-	</script>
 	
 		<script>
 			$(document).ready(function() {
-				<c:if test="${not empty successMsgs}">
-				swal("", "新增成功!", "success");
+				<c:if test="${not empty errorMsgs}">
+				swal("Error", "${errorMsgs[0]}\n${errorMsgs[1]}", "error");
 				</c:if>
 				
 				
@@ -277,7 +267,11 @@ h4 {
 	window.onload = init;
 </script>
 <script>
-	$(document).ready(function(){		
+	$(document).ready(function(){	
+		<c:if test="${not empty successMsgs}">
+		swal("Good", "${successMsgs}", "success");
+		</c:if>
+		
 		$("#go").click(function(){
 			$("#ya").submit();
 		})

@@ -66,6 +66,13 @@ footer {
 	margin-bottom: 50px;
 	position: relative;
 }
+
+.absolute {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
+
 </style>
 </head>
 
@@ -122,7 +129,7 @@ footer {
 					<div class="col-sm-3"
 						style="margin-bottom: 20px; margin-left: 20px;">
 
-						<div class="card" style="width: 18rem">
+						<div class="card" style="width: 20rem;height: 25rem;">
 							<div class="card-body">
 								<label> <img
 									src="<%=request.getContextPath()%>/ShopShowImg?shopno=${shopVO.shopno}"
@@ -133,7 +140,7 @@ footer {
 										ACTION="<%=request.getContextPath()%>/front-end/shop/shop.do">
 										<input type="hidden" name="shopno" value="${shopVO.shopno}">
 										<input type="hidden" name="action" value="getOne_For_Display"><input
-											type="submit" value="詳細資訊" class="btn btn-primary">
+											type="submit" value="詳細資訊" class="btn btn-primary absolute">
 									</FORM>
 								</label>
 							</div>
@@ -215,7 +222,6 @@ footer {
 							data-dismiss="modal">關閉</button>
 						<button type="submit" name="action" id="action" value="insert"
 							id="demo1" class="btn btn-primary" data-dismiss="modal">送出申請</button>
-
 
 					</div>
 				</div>

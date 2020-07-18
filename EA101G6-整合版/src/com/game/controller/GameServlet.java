@@ -237,7 +237,6 @@ System.out.println("1");
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
-			Map successMsgs = new HashMap();
 			req.setAttribute("errorMsgs", errorMsgs);
 //			try {
 				/*********************** 1.�����ШD�Ѽ� - ��J�榡�����~�B�z *************************/
@@ -285,8 +284,7 @@ System.out.println("1");
 				
 				/*************************** 3.�s�W����,�ǳ����(Send the Success view) ***********/
 				String url = "/front-end/gmlist/addGmlist.jsp";
-				successMsgs.put("successMsgs","123");
-				req.setAttribute("successMsgs", successMsgs);
+				req.setAttribute("successMsgs", "新增成功!");
 				RequestDispatcher successView = req.getRequestDispatcher(url); // �s�W���\�����listAllshop.jsp
 				successView.forward(req, res);
 
