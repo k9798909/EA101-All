@@ -54,6 +54,7 @@ public class MyWebSocket {
 
 	@OnMessage
 	public void message(Session session, String data) {
+		System.out.println(data);
 		httpsession = (HttpSession) conf.getUserProperties().get("httpsession");
 		StringBuilder sendthis = new StringBuilder();
 		ShgmService shgmsvc = new ShgmService();
@@ -94,8 +95,9 @@ public class MyWebSocket {
 			String shgmno = (String) jsonobj.get("shgmno");
 			System.out.println(shgmno);
 			
-			// 只有前台新增檢舉才有的key值
-			if (jsonobj.get("frontend-RP") != null) {
+			
+			// 只有前台新增檢舉才有的key值，has方法放參數名稱，存在回傳true，反之false
+			if (jsonobj.has("frontend-RP")) {
 				sendthis.append("市集商品「" + jsonobj.get("shgmname") + "」已經被檢舉，請至檢舉管理審核！");
 				sendmsg("shgmBackEnd", sendthis);
 				return;

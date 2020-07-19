@@ -724,7 +724,7 @@ INSERT INTO SHGM VALUES('CA'||LPAD(shgm_seq.NEXTVAL,5,'0'),
 load_blob('shgm05.jpg'),1,TO_TIMESTAMP('2020-03-19 14:17:05', 'YYYY-MM-DD HH24:MI:SS'),NULL,NULL,NULL,NULL,0,0,0,NULL);
 
 INSERT INTO SHGM VALUES('CA'||LPAD(shgm_seq.NEXTVAL,5,'0'),
-'BM00003',NULL,'詐賭巫師',390,'在這個遊戲裡，玩家們是懂得各種咒語的魔法師。在怪物競技賭場裡，只要自己押注的怪物鬥士獲勝，就能得到一大筆賞金。玩家們秘密地使用咒語，想盡辦法讓自己押注的怪物鬥士獲勝。但是競技場可不會放任不管，有時是嚴格的裁判，有時是寬容的裁判。
+'BM00004',NULL,'詐賭巫師',390,'在這個遊戲裡，玩家們是懂得各種咒語的魔法師。在怪物競技賭場裡，只要自己押注的怪物鬥士獲勝，就能得到一大筆賞金。玩家們秘密地使用咒語，想盡辦法讓自己押注的怪物鬥士獲勝。但是競技場可不會放任不管，有時是嚴格的裁判，有時是寬容的裁判。
 強大的咒語在某些情況下無法使用，但也有機會背著裁判使用，做得太過火可是會取消比賽的喔。使用咒語讓自己押注的怪物鬥士勝利（存活下來），以賺取賞金，遊戲結束時，由賺到最多錢的玩家獲勝。
 每場比賽的裁判個性都不一樣，誰能口袋滿滿地回家呢？從桌遊店全新原價入手 畢業後沒有朋友一起玩故售出8成新 配件齊全',
 load_blob('shgm06.jpg'),1,TO_TIMESTAMP('2020-03-22 13:37:25', 'YYYY-MM-DD HH24:MI:SS'),NULL,NULL,NULL,NULL,0,0,0,NULL);
@@ -734,7 +734,7 @@ INSERT INTO SHGM VALUES('CA'||LPAD(shgm_seq.NEXTVAL,5,'0'),
 load_blob('shgm07.jpg'),1,TO_TIMESTAMP('2020-03-27 08:14:47', 'YYYY-MM-DD HH24:MI:SS'),NULL,NULL,NULL,NULL,0,0,0,NULL);
 
 INSERT INTO SHGM VALUES('CA'||LPAD(shgm_seq.NEXTVAL,5,'0'),
-'BM00008',NULL,'骰越世紀',800,'在60分鐘內建立一個繁盛的文明！ 在歷史上永遠只有強大的文明才會被歌頌！但是文明發展不但需要一位決策英明的統治者，很多時候?國家的運氣?似乎也是決定性的關鍵…… 
+'BM00001',NULL,'骰越世紀',800,'在60分鐘內建立一個繁盛的文明！ 在歷史上永遠只有強大的文明才會被歌頌！但是文明發展不但需要一位決策英明的統治者，很多時候?國家的運氣?似乎也是決定性的關鍵…… 
 取得物資、指派工人建造城市及巨型建築，透過文化與科學的發展來推進您的文明，但別忘了要生產足夠的糧食來餵養您迅速增加的人民。 靠著您無比的機智與手氣，抓起這些骰子，並在這個步調快速、令人上癮且策略豐富的遊戲中「骰越世紀」，創造一座流傳千古的傳奇之都吧！！',
 load_blob('shgm08.jpg'),1,TO_TIMESTAMP('2020-04-01 11:50:46', 'YYYY-MM-DD HH24:MI:SS'),NULL,NULL,NULL,NULL,0,0,0,NULL);
 
@@ -835,11 +835,7 @@ INSERT INTO SHGM VALUES('CA'||LPAD(shgm_seq.NEXTVAL,5,'0'),
 load_blob('shgm20.jpg'),1,TO_TIMESTAMP('2020-07-02 17:18:00', 'YYYY-MM-DD HH24:MI:SS'),NULL,NULL,NULL,NULL,0,0,0,NULL);
 
 
-INSERT INTO SHGMRP VALUES('CB'||LPAD(shgmrp_seq.NEXTVAL,5,'0'),'CA00004','BM00001','圖片與產品名稱、簡介不一樣。',0);
-
 INSERT INTO SHGMRP VALUES('CB'||LPAD(shgmrp_seq.NEXTVAL,5,'0'),'CA00005','BM00002','簡介好像是電玩版的，跟桌遊沒有關係。',0);
-
-INSERT INTO SHGMRP VALUES('CB'||LPAD(shgmrp_seq.NEXTVAL,5,'0'),'CA00007','BM00004','簡介是廣告訊息。',0);
 
 INSERT INTO SHGMRP VALUES('CB'||LPAD(shgmrp_seq.NEXTVAL,5,'0'),'CA00008','BM00007','圖片太模糊了，看不清楚。',0);
 

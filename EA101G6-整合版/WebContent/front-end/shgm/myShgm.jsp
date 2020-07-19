@@ -336,6 +336,9 @@ div.pageselect-area {
 			$("#updateSuccess").val('');
 		}
 		
+		//在alert-area.jsp
+		var $getContextPath = $("#getContextPath").val();
+		
 		/*確定收貨購買完成*/
 		$(".container").on("click",".boxstatus2",function(){
 			var $shgmno = $(this).closest("button")[0].id;
@@ -390,7 +393,7 @@ div.pageselect-area {
 			    	$("#list-status3 ul:eq(0)").after('<ul class="list-group list-group-horizontal five-li"></ul>');
 					$("#list-status3 ul:eq(1)").append('<li class="list-group-item">'+response.shgmname+'</li>');			    	
 					$("#list-status3 ul:eq(1)").append('<li class="list-group-item"><div class="imgwrapper">'+
-							'<img src="/EA101G6/shgm/displayimg?shgmno='+response.shgmno+'"></div></li>');			    	
+							'<img src="'+$getContextPath+'/shgm/displayimg?shgmno='+response.shgmno+'"></div></li>');			    	
 					$("#list-status3 ul:eq(1)").append('<li class="list-group-item">'+response.price+'</li>');
 					$("#list-status3 ul:eq(1)").append('<li class="list-group-item">已取消</li>');
 			    },

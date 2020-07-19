@@ -14,7 +14,7 @@ var $sellsuccess = $("#sellsuccess").text();
 var $shgmno = $("#wsShgmno").val();
 
 //在infoPage.jsp
-var $buySucess = $("#buysucess").val();
+var $buySuccess = $("#buysuccess").val();
 
 //在infoPage.jsp
 var $shgmname = $("#shgmname").text();
@@ -41,7 +41,7 @@ if (mbrno !== '') {
 		}
 		
 		//買家成功購買，向後台送出需要向賣家推播的該項商品
-		if($buySucess !== '' && $buySucess !== undefined){
+		if($buySuccess !== '' && $buySuccess !== undefined){
 			sendBuySuccess();
 		}
 		
@@ -99,8 +99,9 @@ if (mbrno !== '') {
 	}
 	
 	function sendBuySuccess(){
+		console.log('enter function')
 		var $shgmno = $("#shgmno").val();
-		if($buySucess === "success"){
+		if($buySuccess === "success"){
 			Swal.fire({
 				  icon: 'success',
 				  title: '您已購買成功！',
