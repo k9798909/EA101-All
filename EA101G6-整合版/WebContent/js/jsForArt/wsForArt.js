@@ -42,13 +42,14 @@ if (mbrno !== '') {
 		}
 	};
 	
-	webSocket.ommessage = function(event) {
+	webSocket.onmessage = function(event) {
+		console.log(event.data);
 		swal.fire({
-			icon: info,
+			icon: 'info',
 			title: event.data,
 			showConfirmButton: false,
 			timer: 5000,
-			footer: '快到<a href="<%request.getContextPath()%>/front-end/art/listOwnArt.jsp" target="_self">個人文章</a>查看吧!'
+			footer: '快到討論區查看吧!'
 		})
 	}
 	webSocket.onclose = function(event) {
@@ -68,6 +69,7 @@ if (mbrno !== '') {
 		}
 	}
 	function sendAddArt() {
+		console.log($addArt);
 		webSocket.send($addArt);
 		if($addArt !== ''){
 			swal.fire({
@@ -75,7 +77,7 @@ if (mbrno !== '') {
 				title: '您已成功新增文章',
 				showConfirmButton: false,
 				timer: 5000,
-				footer: '快到<a href="<%request.getContextPath()%>/front-end/art/listOwnArt.jsp" target="_self">個人文章</a>查看吧!'
+				footer: '快到個人文章查看吧!'
 			})
 		}
 	}
