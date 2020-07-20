@@ -189,7 +189,8 @@
     
     
     
-
+	<input type="hidden" id="addArt" value="${addArt}">
+	
 
 
 	

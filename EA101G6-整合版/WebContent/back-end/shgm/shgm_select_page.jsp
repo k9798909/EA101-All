@@ -56,6 +56,7 @@
 						</c:forEach>
 					</select>
 					<input type="hidden" name="action" value="get_one" >
+					<input type="hidden" name="requestURL" value="<%= request.getServletPath()%>"/>
 					<input type="submit" value="送出" class="btn btn-primary">
 				</form>
 			</td>
@@ -68,6 +69,7 @@
 						</c:forEach>
 					</select>
 					<input type="hidden" name="action" value="search"/>
+					<input type="hidden" name="requestURL" value="<%= request.getServletPath()%>"/>
 					<input id="findshgm"  class="btn btn-primary" type="submit" value="送出"/>
 				</form>
 			</td>

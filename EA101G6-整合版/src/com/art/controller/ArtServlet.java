@@ -8,6 +8,8 @@ import javax.servlet.*;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
 
+import org.json.JSONObject;
+
 import com.art.model.*;
 @MultipartConfig
 public class ArtServlet extends HttpServlet {
@@ -616,6 +618,13 @@ public class ArtServlet extends HttpServlet {
 				/***************************2.開始新增資料***************************************/
 				ArtService artSvc = new ArtService();
 				artVO = artSvc.addArt(mbrno, detail, arttt, status, atno, apic);
+				
+				JSONObject jsonobj = new JSONObject();
+				jsonobj.put("artno","new");
+				jsonobj.put("artWriter", mbrno);
+				jsonobj.put("arttt", arttt);
+				String jsonstr = jsonobj.toString();
+				req.setAttribute("addArt", jsonstr);
 			
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				String url = "/front-end/art/listAllArt.jsp";
@@ -645,13 +654,21 @@ public class ArtServlet extends HttpServlet {
 				/***************************2.開始查詢資料****************************************/
 				ArtService artSvc = new ArtService();
 				ArtVO artVO = artSvc.getOneArt(artno);
-			
+				
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
-				req.setAttribute("artVO", artVO);
-				String url = "/front-end/art/updateOne.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);
-				successView.forward(req, res);
+				if (artVO.getStatus() == 0) {
+					req.setAttribute("artVO", artVO);
+					String url = "/front-end/art/updateOne.jsp";
+					RequestDispatcher successView = req.getRequestDispatcher(url);
+					successView.forward(req, res);
+				} else if (artVO.getStatus() == 1) {
+					req.setAttribute("artVO", artVO);
+					String url = "/front-end/art/reUpdate.jsp";
+					RequestDispatcher successView = req.getRequestDispatcher(url);
+					successView.forward(req, res);
+				}
+				
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/art/listAllArt.jsp");
@@ -661,7 +678,7 @@ public class ArtServlet extends HttpServlet {
 		
 		
 		
-		if ("update".equals(action)) {
+		if ("reUpdate".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			
@@ -696,10 +713,6 @@ public class ArtServlet extends HttpServlet {
 				}
 				in.read(apic);
 				in.close();
-				
-				
-				
-				
 			
 				ArtVO artVO = new ArtVO();
 				artVO.setArtno(artno);
@@ -723,6 +736,13 @@ public class ArtServlet extends HttpServlet {
 				artVO = artSvc.updateArt(artno, mbrno, detail, arttt, atno, apic);
 				artVO = artSvc.getOneArt(artno);
 				
+				JSONObject jsonobj = new JSONObject();
+				jsonobj.put("artno", "re");
+				jsonobj.put("artWriter", artVO.getMbrno());
+				jsonobj.put("arttt", artVO.getArttt());
+				String jsonStr = jsonobj.toString();
+				req.setAttribute("reEdit", jsonStr);
+				
 			
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("artVO", artVO);
@@ -734,6 +754,87 @@ public class ArtServlet extends HttpServlet {
 				/***************************其他可能的錯誤處理*************************************/
 			} catch (Exception e) {
 			
+				errorMsgs.add("修改資料失敗:"+e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front-end/art/updateOne.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
+		
+		if ("update".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+				String arttt = req.getParameter("arttt");
+				if (arttt == null || arttt.trim().length() == 0) {
+					errorMsgs.add("標題請勿空白");
+				}
+				String detail = req.getParameter("detail");
+				if (detail == null || detail.trim().length() == 0) {
+					errorMsgs.add("內容請勿空白");
+				}
+				String artno = req.getParameter("artno");
+				String mbrno = req.getParameter("mbrno");
+				String atno = req.getParameter("atno");
+				
+				
+				
+				byte[] apic = null;
+				//類似getParameter()
+				Part part = req.getPart("apic");
+				//用part物件去接水管
+				InputStream in = part.getInputStream();
+				//先判斷Part裡面有沒有資料，Part裡面有資料代表有上傳或修改新圖片
+				if(in.available() > 0) {
+					apic = new byte[in.available()];
+				} else {  //若是part裡面沒有資料，則new一個service去找原本VO裡面的byte[]
+					ArtService artSvc = new ArtService();
+					ArtVO artVO = artSvc.getOneArt(artno);
+					apic = artVO.getApic();
+				}
+				in.read(apic);
+				in.close();
+				
+				
+				
+				
+				
+				ArtVO artVO = new ArtVO();
+				artVO.setArtno(artno);
+				artVO.setMbrno(mbrno);
+				artVO.setArttt(arttt);
+				artVO.setDetail(detail);
+				artVO.setArtno(atno);
+				artVO.setApic(apic);
+				
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					req.setAttribute("artVO", artVO); // 含有輸入格式錯誤的empVO物件,也存入req
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front-end/art/updateOne.jsp");
+					failureView.forward(req, res);
+					return; //程式中斷
+				}
+				
+				/***************************2.開始修改資料*****************************************/
+				ArtService artSvc = new ArtService();
+				artVO = artSvc.updateArt(artno, mbrno, detail, arttt, atno, apic);
+				artVO = artSvc.getOneArt(artno);
+				
+				
+				/***************************3.修改完成,準備轉交(Send the Success view)*************/
+				req.setAttribute("artVO", artVO);
+				String url = "/front-end/art/listOneArt.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
+				successView.forward(req, res);
+				
+				
+				/***************************其他可能的錯誤處理*************************************/
+			} catch (Exception e) {
+				
 				errorMsgs.add("修改資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/front-end/art/updateOne.jsp");

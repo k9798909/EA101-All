@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -1150,17 +1151,21 @@ public class ShgmServlet extends HttpServlet {
 			String requestURL = request.getParameter("requestURL");
 			
 			String url = null;
-			if(requestURL.equals("/back-end/shgm/listAllShgm.jsp")) {
-				url = "/back-end/shgm/listAllShgm.jsp";
-			} else {
-				url = "/front-end/shgm/mainPage.jsp";
-			}
+			Set<ShgmVO> set = new LinkedHashSet<ShgmVO>();
 
 			try {
 				String word = request.getParameter("word");
 
 				ShgmService shgmsvc = new ShgmService();
-				Set<ShgmVO> set = shgmsvc.searchForMain(word);
+				if(requestURL.equals("/back-end/shgm/listAllShgm.jsp")) {
+					//無條件search
+					set = shgmsvc.searchForAll(word);
+					url = "/back-end/shgm/listAllShgm.jsp";
+				} else {
+					//此search方法SQL指令有加入「upcheck=1 AND boxstatus=0 AND paystatus=0 AND status=0」條件
+					set = shgmsvc.searchForMain(word);
+					url = "/front-end/shgm/mainPage.jsp";
+				}
 				request.setAttribute("searchResult", set);
 				request.setAttribute("setsize", (long) set.size());
 				

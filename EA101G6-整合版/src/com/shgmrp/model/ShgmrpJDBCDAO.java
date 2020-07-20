@@ -159,13 +159,13 @@ public class ShgmrpJDBCDAO implements ShgmrpDAO_interface {
 
 			while (rs.next()) {
 				shgmrpvo = new ShgmrpVO();
-				shgmrpvo.setShgmrpno(shgmrpno);
-				shgmrpvo.setShgmno(rs.getString(1));
-				shgmrpvo.setSuiterno(rs.getString(2));
-				java.sql.Clob clob = rs.getClob(3);
+				shgmrpvo.setShgmrpno(rs.getString(1));
+				shgmrpvo.setShgmno(rs.getString(2));
+				shgmrpvo.setSuiterno(rs.getString(3));
+				java.sql.Clob clob = rs.getClob(4);
 				String detail = clob.getSubString(1, (int) clob.length());
 				shgmrpvo.setDetail(detail);
-				shgmrpvo.setStatus(rs.getInt(4));
+				shgmrpvo.setStatus(rs.getInt(5));
 			}
 
 			rs.close();

@@ -499,9 +499,8 @@ div.pageselect-area {
 			$("#updateSuccess").val('');
 		}
 		
+		//在alert-area.jsp
 		var $getContextPath = $("#getContextPath").val();
-		
-		if(updateSuccess)
 		
 		/*下架中、待上架狀態切換*/
 		$(".container").on("click",".upcheck",function(){

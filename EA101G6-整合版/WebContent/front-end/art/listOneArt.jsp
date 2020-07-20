@@ -358,6 +358,8 @@
 	
 		
 	</c:forEach>
+	
+	<input type="hidden" id="reEdit" value="${reEdit}">
 
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script>
