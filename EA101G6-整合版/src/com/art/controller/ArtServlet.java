@@ -421,6 +421,13 @@ public class ArtServlet extends HttpServlet {
 				ArtService artSvc = new ArtService();
 				artVO = artSvc.addArt(mbrno, detail, arttt, status, atno, apic);
 				
+				JSONObject jsonobj = new JSONObject();
+				jsonobj.put("artno", "backA");
+				jsonobj.put("artWriter", artVO.getMbrno());
+				jsonobj.put("arttt", artVO.getArttt());
+				String strjsonobj = jsonobj.toString();
+				req.setAttribute("backAddArt", strjsonobj);
+				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				String url = "/back-end/art/listAllArt.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
