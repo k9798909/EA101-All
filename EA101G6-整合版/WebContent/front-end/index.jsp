@@ -465,6 +465,14 @@ div.comm {
 		<jsp:include page="/front-end/frontChat/frontChat.jsp"/>
 	</c:if>
 	
+
+
+	<c:if test="${not empty successMsgs}">
+	<script>swal("註冊成功！","","success")</script>
+	</c:if>
+
+
+
 	
 	
 	<!-- 	店家登出js -->

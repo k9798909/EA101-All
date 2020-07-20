@@ -213,14 +213,14 @@
 			</c:forEach>
 		</table>
 	</div>
-
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
 
 	<a target="_self" href="addArt.jsp"><img class="add7" src="images/alpc.png" title="Add Article"></a>
 
 	<input type="hidden" id="wsArtno" value="${param.artno}">
 	<input type="hidden" id="mbrno" value="artBackEnd">
+	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForArt/wsForArt.js"></script>
 	
-
 </body>
 </html>

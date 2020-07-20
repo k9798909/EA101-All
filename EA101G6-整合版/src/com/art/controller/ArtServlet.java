@@ -561,8 +561,10 @@ public class ArtServlet extends HttpServlet {
 		
 		
 		if ("insert_AF".equals(action)) {
+			res.setContentType("text/html; charset=utf-8");
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
+			Writer out = res.getWriter();
 			
 			
 			try {
@@ -624,7 +626,9 @@ public class ArtServlet extends HttpServlet {
 				jsonobj.put("artWriter", mbrno);
 				jsonobj.put("arttt", arttt);
 				String jsonstr = jsonobj.toString();
+				
 				req.setAttribute("addArt", jsonstr);
+				
 			
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				String url = "/front-end/art/listAllArt.jsp";

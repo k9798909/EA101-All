@@ -27,7 +27,7 @@ public class RateDAO implements RateDAO_interface{
 	private static final String INSERT_STMT ="INSERT INTO RATE(RATENO,RMNO,RATINGMBRNO,RATEDMBRNO,DETAIL,SCORE) VALUES ('SS'||LPAD(TO_CHAR(RATE_SEQ.NEXTVAL),5,'0'),?,?,?,?,?)";
 	private static final String DELETE ="DELETE FROM RATE WHERE RATENO = ?";
 	private static final String GET_ALL_STMT ="SELECT * FROM RATE";
-	private static final String GET_ONE_BY_MBRNO = "SELECT * FROM RATE WHERE RATEDMBRNO = ?";
+	private static final String GET_ONE_BY_MBRNO = "SELECT * FROM RATE WHERE RATEDMBRNO = ? ORDER BY RATETIME DESC";
 	
 	@Override
 	public void insert(RateVO rateVO) {
@@ -195,6 +195,10 @@ public class RateDAO implements RateDAO_interface{
 			while (rs.next()) {
 				rateVO = new RateVO();
 				rateVO.setRatedmbrno(rs.getString("ratedmbrno"));
+				rateVO.setRatingmbrno(rs.getString("ratingmbrno"));
+				rateVO.setScore(rs.getInt("score"));
+				rateVO.setDetail(rs.getString("detail"));
+				rateVO.setRatetime(rs.getTimestamp("ratetime"));
 				list.add(rateVO);
 				
 			}

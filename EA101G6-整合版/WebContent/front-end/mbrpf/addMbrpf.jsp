@@ -111,7 +111,7 @@ body {
 						<tr>
 							<td class="tdtitle">一般會員密碼</td>
 						<tr>
-							<td><input type="TEXT" class="mainF" id="tmbrpw" name="mbrpw" size="45"
+							<td><input type="PASSWORD" class="mainF" id="tmbrpw" name="mbrpw" size="45"
 								value="<%=(erroMbrpfVO == null) ? "" : erroMbrpfVO.getMbrpw()%>" /></td>
 						</tr>
 						<tr>
@@ -189,7 +189,7 @@ body {
 					<br> <input type="hidden" name="action" value="insert">
 					<div style="text-align:center; margin-left:50px;"><input type="submit" value="送出新增"></div>
 					<div style="text-align:center; padding-top:10px;">
-					<button type="button" class="btn btn-secondary" style="margin-left:50px; color:#ffffff;padding:4px;" id="testman">測試人</button>
+					<button type="button" class="btn btn-secondary" style="margin-left:50px; color:#ffffff;padding:4px;" id="testman">我是阿明</button>
 					</div>
 					
 				</FORM>
@@ -267,11 +267,11 @@ $(document).ready(function(){
 	   $("#testman").click(function(){
 	     $("#tmbract").val("amin");
 	     $("#tmbrpw").val("123456");
-	     $("#tmbrname").val("阿明");
+	     $("#tmbrname").val("王阿明");
 	     $("#temail").val("k9798909@gmail.com");
 	     $("#tphone").val("0987654321");
 	     $("#tmbrac").val("1234-5678-8765-4321");
-	     $("#tnickname").val("難過");
+	     $("#tnickname").val("阿明");
 	   });
 	 });
 
