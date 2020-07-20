@@ -21,12 +21,12 @@
 <form METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/shoprpdt/shoprpdt.do">
 <table class="table table-striped">
 <tr><th style="width:130px">店家名稱</th>
-<th style="width:100px">檢舉店家</th>
+<th style="width:130px">房間名稱</th>
 <th >檢舉內容</th></tr>
 			<tr>		  
-		      <td align="center">${shopSvc.getOneShop(rmVO.shopno).shopname}
+		      <td>${shopSvc.getOneShop(rmVO.shopno).shopname}
 		      </td>
-		      <td align="center"> 
+		      <td> 
 				${rmVO.naming}
 			  </td>
 		      <td><input type="text" name="detail" maxlength="15" placeholder="有何不滿?" name="detail"></td>     

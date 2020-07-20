@@ -40,7 +40,7 @@
 					<%}%>
 				</select>
 			  </td>
-		      <td><input type="text" name="detail" value="·F¸}¶W¯ä" maxlength="15"></td>     
+		      <td><input type="text" name="detail" value="ªí²{¤Íµ½" maxlength="15"></td>     
 		    </tr>    		 	  
 		</c:if>
 	</c:forEach>

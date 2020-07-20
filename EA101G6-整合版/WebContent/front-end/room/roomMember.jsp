@@ -20,15 +20,15 @@
 <div class="accordion" id="accordionExample">
   <c:forEach var="joinrmVO2" items="${list2}">
     <div class="card">
-	  <div class="card-header" id="heading_${joinrmVO2.mbrno}">
+	  <div class="card-header" id="heading_${joinrmVO2.mbrno}_${joinrmVO2.rmno}">
         <h5 class="mb-0">
-		  <button class="btn btn-light" type="button" data-toggle="collapse" data-target="#collapse_${joinrmVO2.mbrno}" aria-expanded="true" aria-controls="collapse_${joinrmVO2.mbrno}">
+		  <button class="btn btn-light" type="button" data-toggle="collapse" data-target="#collapse_${joinrmVO2.mbrno}_${joinrmVO2.rmno}" aria-expanded="true" aria-controls="collapse_${joinrmVO2.mbrno}_${joinrmVO2.rmno}">
 			${mbrpfSvc.getOneMbrpf(joinrmVO2.mbrno).mbrname}
 		  </button>
 	    </h5>
 	  </div>
 
-	  <div id="collapse_${joinrmVO2.mbrno}" class="collapse" aria-labelledby="heading_${joinrmVO2.mbrno}" data-parent="#accordionExample">
+	  <div id="collapse_${joinrmVO2.mbrno}_${joinrmVO2.rmno}" class="collapse" aria-labelledby="heading_${joinrmVO2.mbrno}_${joinrmVO2.rmno}" data-parent="#accordionExample">
         <div class="card-body">
         	µû»ù¤À¼Æ:
         	<c:choose>

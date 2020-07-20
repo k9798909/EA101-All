@@ -135,7 +135,8 @@
 			</form>
 		</c:if>
 		<div id="dialog3_${joinrmVO.rmno}" title="檢舉店家">
-			<jsp:include page="/front-end/shoprpdt/addShoprpdt.jsp"></jsp:include>
+			<jsp:include page="/front-end/shoprpdt/addShoprpdt.jsp"><jsp:param name="rmno" value="${joinrmVO.rmno}"/>
+			<jsp:param name="ratereport" value="${joinrmVO.ratereport}" /></jsp:include>
 		</div>
 		<c:if test="${rminfoSvc.getOneRm(joinrmVO.rmno).status == 5 && joinrmVO.shopreport == 0}">
 			<button class="btn btn-secondary btn-sm" id="opener3_${joinrmVO.rmno}">檢舉店家</button>
@@ -193,6 +194,7 @@
 	        effect: "explode",
 	        duration: 1000
 	      },
+	      width: 600,
 	    });
 	 
 	    $( "#opener3_${joinrmVO.rmno}" ).on( "click", function() {
