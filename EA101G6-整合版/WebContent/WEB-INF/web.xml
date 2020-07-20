@@ -247,6 +247,7 @@
 	<servlet-mapping>
 		<servlet-name>MsgServlet</servlet-name>
 		<url-pattern>/back-end/msg/msg.do</url-pattern>
+		<url-pattern>/front-end/msg/msg.do</url-pattern>
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>MsgrpServlet</servlet-name>

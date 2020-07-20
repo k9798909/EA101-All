@@ -8,7 +8,7 @@
 <%@ page import="com.shop.model.*" %>
 
 <%
-	ShopVO shopVO = (ShopVO)session.getAttribute("shopVO");
+	ShopVO shopVO = (ShopVO)session.getAttribute("shopAcount");
 	RminfoService rminfoSvc = new RminfoService();
 	List<RminfoVO> list = rminfoSvc.findByShopno(shopVO.getShopno());
 	pageContext.setAttribute("list", list);

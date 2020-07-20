@@ -318,7 +318,7 @@
 				</h3>
 
 				<FORM METHOD="POST"
-					ACTION="<%=request.getContextPath()%>/back-end/msg/msg.do">
+					ACTION="<%=request.getContextPath()%>/front-end/msg/msg.do">
 					<p>
 						<input class="col-md-11  tea1" type="text" name="detail"
 							placeholder="說點什麼吧...">
@@ -359,9 +359,10 @@
 		
 	</c:forEach>
 	
-	<input type="hidden" id="reEdit" value="${reEdit}">
+	<input type="hidden" id="reEdit" value='${reEdit}'>
+	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForArt/wsForArt.js"></script>
 
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 	<script>
     $(document).ready(function(){
     	$("#action").click(function(){

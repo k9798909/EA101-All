@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page import="java.util.*"%>
@@ -15,31 +15,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>ÀËÁ|©±®a-include¥Î</title>
+<title>æª¢èˆ‰åº—å®¶include</title>
 </head>
 <body>
 <form METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/shoprpdt/shoprpdt.do">
 <table class="table table-striped">
-<tr><th style="width:130px">©±®a¦WºÙ</th>
-<th style="width:100px">ÀËÁ|©±®a</th>
-<th >ÀËÁ|¤º®e</th></tr>
+<tr><th style="width:130px">åº—å®¶åç¨±</th>
+<th style="width:130px">æˆ¿é–“åç¨±</th>
+<th >æª¢èˆ‰å…§å®¹</th></tr>
 			<tr>		  
-		      <td align="center">${shopSvc.getOneShop(rmVO.shopno).shopname}
+		      <td>${shopSvc.getOneShop(rmVO.shopno).shopname}
 		      </td>
-		      <td align="center"> 
+		      <td> 
 				${rmVO.naming}
 			  </td>
-		      <td><input type="text" name="detail" maxlength="15" placeholder="¦³¦ó¤£º¡?" name="detail"></td>     
-		    </tr>    		 	  
-<!-- 	<tr><td colspan="3" align="right"><input type="hidden" name="action" value="insert"> -->
-<!-- 	<input type="submit" value="°e¥X"></td></tr> -->
+		      <td><input type="text" name="detail" maxlength="15" placeholder="æœ‰ä½•ä¸æ»¿?" name="detail"></td>     
+		    </tr>    
 	</table>
 	<div style="text-align:right">
-		<input type="hidden" name="shopno" value="${rmVO.rmno}">
-		<input type="hidden" name="shopno" value="${param.rmno}">
+		<input type="hidden" name="ratereport" value="${param.ratereport}">
+		<input type="hidden" name="status" value="0">
+		<input type="hidden" name="rmno" value="${param.rmno}">
+		<input type="hidden" name="mbrno" value="${mbrpfVO.mbrno}">
 		<input type="hidden" name="shopno" value="${shopSvc.getOneShop(rmVO.shopno).shopno}">
 		<input type="hidden" name="action" value="insert">
-		<input type="submit" value="°e¥X" onclick="return(confirm('°e¥X«á±NµLªk­×§ï'))">
+		<input type="submit" value="é€å‡º" onclick="return(confirm('é€å‡ºå¾Œå°‡ç„¡æ³•ä¿®æ”¹'))">
 	</div>
 </form>
 

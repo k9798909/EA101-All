@@ -13,6 +13,8 @@ import com.art.model.ArtService;
 import com.art.model.ArtVO;
 import com.artrp.model.ArtrpService;
 import com.artrp.model.ArtrpVO;
+import com.emp.model.EmpVO;
+import com.emp.model.EmpService;
 
 import connectionpool.WsMessage;
 
@@ -40,7 +42,7 @@ public class MyWebSocket {
 	
 	@OnOpen
 	public void open(@PathParam("mbrno") String mbrno, Session session) {
-		System.out.println("mbrno:" + mbrno + "sessionID:" + session.getId());
+		System.out.println("mbrno:" + mbrno + " sessionID:" + session.getId());
 		connectedSessions.put(mbrno, session);
 	}
 	
@@ -50,6 +52,7 @@ public class MyWebSocket {
 		ArtService artSvc = new ArtService();
 		ArtrpService artrpSvc = new ArtrpService();
 		MbrpfService mbrpfSvc = new MbrpfService();
+		EmpService empSvc = new EmpService();
 		String mbrno = null;
 		MbrpfVO mbrpfVO = null;
 		
@@ -62,6 +65,7 @@ public class MyWebSocket {
 			mbrpfVO = mbrpfSvc.getOneMbrpf(mbrno);
 			
 			if (artVO.getStatus() == 1) {
+				
 				sendthis.append(mbrpfVO.getNickname() + "，您的文章「" + artVO.getArttt() + "」，已經下架了!");
 				List<ArtrpVO> list = artrpSvc.getAllByArtno(data);
 				for(ArtrpVO artrpVO : list) {
@@ -71,7 +75,7 @@ public class MyWebSocket {
 				}
 				sendMsg(mbrno, sendthis);
 			}
-			if (artVO.getStatus() == 2) {
+			if (artVO.getStatus() == 0) {
 				sendthis.append(mbrpfVO.getNickname() + "，您的文章「" + artVO.getArttt() + "」，已經重新上架了!");
 				sendMsg(mbrno, sendthis);
 			}
@@ -79,10 +83,12 @@ public class MyWebSocket {
 			
 		} else {
 			//這裡的data是json格式的文章商品物件
+			System.out.println(data);
+			
 			JSONObject jsonobj = new JSONObject(data);
-			ArtVO artvo = null;
-			ArtrpVO artrpvo = null;
+			
 			String artno = (String)jsonobj.get("artno");
+			
 			mbrno = (String)jsonobj.get("artWriter");
 			mbrpfVO = mbrpfSvc.getOneMbrpf(mbrno);
 			System.out.println(artno);
@@ -92,8 +98,12 @@ public class MyWebSocket {
 				sendMsg("artBackEnd", sendthis);
 				
 			} else if (artno.equals("new")) {
-				sendthis.append(mbrpfVO.getMbrname() + "的文章「" + jsonobj.get("artWriter") + "」已新增至討論區，快去瞧瞧吧!");
+				sendthis.append(mbrpfVO.getMbrname() + "的文章「" + jsonobj.get("arttt") + "」已新增至討論區，快去瞧瞧吧!");
 				sendToAll(mbrno, sendthis);
+			} else if (artno.equals("backA")) {
+				EmpVO empVO = empSvc.getOneEmp(mbrno);
+				sendthis.append("管理員" + empVO.getEmpname() + "的公告「" + jsonobj.get("arttt") + "」已公布至討論區，快去一瞧究竟吧!!");
+				sendToAllEB(mbrno, sendthis);
 			}
 			return;
 		}
@@ -104,6 +114,7 @@ public class MyWebSocket {
 		for(String hashmapkey : connectedSessions.keySet()) {
 			if(mbrno.equals(hashmapkey)) {
 				if(connectedSessions.get(hashmapkey).isOpen()) {
+					System.out.println(strSendThis);
 					connectedSessions.get(hashmapkey).getAsyncRemote().sendText(strSendThis);
 				}
 			}
@@ -112,9 +123,23 @@ public class MyWebSocket {
 	
 	public void sendToAll(String mbrno, StringBuilder sendthis) {
 		String strSendThis = sendthis.toString();
+		
 		for(String hashmapkey : connectedSessions.keySet()) {
 			if(!mbrno.equals(hashmapkey)) {
 				if(connectedSessions.get(hashmapkey).isOpen()) {
+					System.out.println(strSendThis);
+					connectedSessions.get(hashmapkey).getAsyncRemote().sendText(strSendThis);
+				}
+			}
+		}
+	}
+	public void sendToAllEB(String mbrno, StringBuilder sendthis) {
+		String strSendThis = sendthis.toString();
+		
+		for(String hashmapkey : connectedSessions.keySet()) {
+			if(!hashmapkey.equals("artBackEnd")) {
+				if(connectedSessions.get(hashmapkey).isOpen()) {
+					System.out.println(strSendThis);
 					connectedSessions.get(hashmapkey).getAsyncRemote().sendText(strSendThis);
 				}
 			}
@@ -131,7 +156,7 @@ public class MyWebSocket {
 	public void close(Session session, CloseReason reason) {
 		for (Entry<String, Session> keyValue : connectedSessions.entrySet()) {
 			if (session.equals(keyValue.getValue())) {
-				System.out.println("close:" + keyValue.getKey() + "leaved, reason:" + reason.getReasonPhrase());
+				System.out.println("close:" + keyValue.getKey() + " leaved, reason:" + reason.getReasonPhrase());
 			}
 		}
 	}

@@ -3,6 +3,7 @@ package com.shoprpdt.model;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.joinrm.model.JoinrmVO;
 import com.shoprpdt.model.ShoprpdtVO;
 
 public class ShoprpdtService {
@@ -12,11 +13,10 @@ public class ShoprpdtService {
 	public ShoprpdtService() {
 		dao = new ShoprpdtDAO();
 	}
-	public ShoprpdtVO addShoprpdt(String shoprpno, String rmno, String mbrno, String shopno, String detail, Integer status) {
+	public ShoprpdtVO addShoprpdt(String rmno, String mbrno, String shopno, String detail, Integer status) {
 		
 		ShoprpdtVO shoprpdtVO = new ShoprpdtVO();
 		
-		shoprpdtVO.setShoprpno(shoprpno);
 		shoprpdtVO.setRmno(rmno);
 		shoprpdtVO.setMbrno(mbrno);
 		shoprpdtVO.setShopno(shopno);

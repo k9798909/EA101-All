@@ -232,12 +232,6 @@ public class MsgServlet extends HttpServlet {
 					errorMsgs.add("格式錯誤.");
 				}	
 				
-				
-
-
-				
-				
-				
 				/***************************2.開始新增資料***************************************/
 				MsgService msgSvc = new MsgService();
 				msgSvc.addMsg(mbrno, detail, artno, status);
@@ -251,6 +245,7 @@ public class MsgServlet extends HttpServlet {
 					failureView.forward(req, res);
 					return;
 				}
+			
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				req.setAttribute("artVO", artVO);
 				RequestDispatcher successView = req.getRequestDispatcher("/front-end/art/listOneArt.jsp"); // 新增成功後轉交listAllMsg.jsp
@@ -258,7 +253,7 @@ public class MsgServlet extends HttpServlet {
 				
 				/***************************其他可能的錯誤處理**********************************/
 			} catch (Exception e) {
-				
+				System.out.println(4);
 				errorMsgs.add(e.getMessage());
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/front-end/art/listOneArt.jsp");

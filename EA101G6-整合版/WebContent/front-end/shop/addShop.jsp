@@ -197,7 +197,7 @@ img {
 </script>
 <script>
 $(document).ready(function(){
-	  $("#magicBtn").hover(function(){
+	  $("#magicBtn").click(function(){
 		  $("#ads").val("中大路300號");
 // 		  AddressSeleclList.erroAdd("桃園市","320中壢區");
 		  $("#name").val("123");

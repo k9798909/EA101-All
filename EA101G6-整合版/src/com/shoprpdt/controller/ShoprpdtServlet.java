@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.joinrm.model.JoinrmService;
+import com.joinrm.model.JoinrmVO;
 import com.shoprpdt.model.*;
 
 
@@ -118,56 +120,57 @@ public class ShoprpdtServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
-//
-//		if ("insert".equals(action)) { // �Ӧ�addshop.jsp���ШD
-//
-//			List<String> errorMsgs = new LinkedList<String>();
-//			// Store this set in the request scope, in case we need to
-//			// send the ErrorPage view.
-//			req.setAttribute("errorMsgs", errorMsgs);
-////			try {
-//				/*********************** 1.�����ШD�Ѽ� - ��J�榡�����~�B�z *************************/
-//
-//				String shopno = req.getParameter("shopno");
-//				Integer ofdtable = new Integer(req.getParameter("ofdtable").trim());
-//				String shoppds = req.getParameter("shoppds");
-//				String shoppde = req.getParameter("shoppde");
-//				Integer payinfohr = new Integer(req.getParameter("payinfohr").trim());				
-//				Integer payinfoday = new Integer(req.getParameter("payinfoday").trim());
-//				
-//				ShoprpdtVO shoprpdtVO = new ShoprpdtVO();
-//				shoprpdtVO.setShopno(shopno);
-//				shoprpdtVO.setOfdtable(ofdtable);
-//				shoprpdtVO.setShoppds(shoppds);
-//				shoprpdtVO.setShoppde(shoppde);
-//				shoprpdtVO.setPayinfohr(payinfohr);
-//				shoprpdtVO.setPayinfoday(payinfoday);
-//				
-//
-//				// Send the use back to the form, if there were errors
-//				if (!errorMsgs.isEmpty()) {
-//					req.setAttribute("shoprpdtVO", shoprpdtVO); // �t����J�榡���~��shopVO����,�]�s�Jreq
-//					RequestDispatcher failureView = req.getRequestDispatcher("addShoprpdt.jsp");
-//					failureView.forward(req, res);
-//					return;
-//				}
-//
-//				/*************************** 2.�}�l�s�W��� ***************************************/
-//				ShoprpdtService shoprpdtSvc = new ShoprpdtService();
-//				shoprpdtVO = shoprpdtSvc.addShoprpdt(shopno, ofdtable, shoppds, shoppde, payinfohr, payinfoday);
-//
-//				/*************************** 3.�s�W����,�ǳ����(Send the Success view) ***********/
-//				String url = "listAllShoprpdt.jsp";
-//				RequestDispatcher successView = req.getRequestDispatcher(url); // �s�W���\�����listAllshop.jsp
-//				successView.forward(req, res);
-//
-//				/*************************** ��L�i�઺���~�B�z **********************************/
-////			} catch (Exception e) {
-////				errorMsgs.add(e.getMessage());
-////				RequestDispatcher failureView = req.getRequestDispatcher("addshoprpdt.jsp");
-////				failureView.forward(req, res);
-////			}
-//		}
+
+		if ("insert".equals(action)) { // �Ӧ�addshop.jsp���ШD
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			try {
+				/*********************** 1.�����ШD�Ѽ� - ��J�榡�����~�B�z *************************/
+
+				String shopno = req.getParameter("shopno");
+				String rmno = req.getParameter("rmno");
+				String mbrno = req.getParameter("mbrno");
+				String detail = req.getParameter("detail");
+				Integer status = new Integer(req.getParameter("status"));				
+				Integer ratereport = new Integer(req.getParameter("ratereport"));
+				
+				ShoprpdtVO shoprpdtVO = new ShoprpdtVO();
+				shoprpdtVO.setShopno(shopno);
+				shoprpdtVO.setRmno(rmno);
+				shoprpdtVO.setMbrno(mbrno);
+				shoprpdtVO.setDetail(detail);
+				shoprpdtVO.setStatus(status);
+				
+
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					req.setAttribute("shoprpdtVO", shoprpdtVO); // �t����J�榡���~��shopVO����,�]�s�Jreq
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/room/myRoom.jsp");
+					failureView.forward(req, res);
+					return;
+				}
+
+				/*************************** 2.�}�l�s�W��� ***************************************/
+				ShoprpdtService shoprpdtSvc = new ShoprpdtService();
+				JoinrmService joinrmSvc = new JoinrmService();
+				shoprpdtVO = shoprpdtSvc.addShoprpdt(rmno, mbrno, shopno, detail, status);
+				joinrmSvc.update(ratereport,1,rmno,mbrno);
+				/*************************** 3.�s�W����,�ǳ����(Send the Success view) ***********/
+				String url = "/front-end/room/myRoom.jsp";
+				req.setAttribute("rpdtMsgs","檢舉完成!");
+				RequestDispatcher successView = req.getRequestDispatcher(url); // �s�W���\�����listAllshop.jsp
+				successView.forward(req, res);
+
+				/*************************** ��L�i�઺���~�B�z **********************************/
+			} catch (Exception e) {
+				errorMsgs.add(e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/room/myRoom.jsp");
+				failureView.forward(req, res);
+			}
+		}
 	
 	}
 

@@ -9,8 +9,9 @@ var webSocket;
 
 //在後台listAllArt.jsp
 var $artno = $("#wsArtno").val();
+var $backAddArt = $("#backAddArt").val();
 
-//在前台listAllArt.jsp
+//在前台listOneArt.jsp
 var $reEdit = $("#reEdit").val();
 
 //在前台listAllArt.jsp
@@ -36,19 +37,24 @@ if (mbrno !== '') {
 			sendReEdit();
 		}
 		
-		//送出新上架的文章
+		//前台送出新上架的文章
 		if ($addArt !== '' && $addArt !== undefined) {
 			sendAddArt();
 		}
+		//後台送出新上架的文章
+		if ($backAddArt !== '' && $backAddArt !== undefined) {
+			sendBackAddArt();
+		}
 	};
 	
-	webSocket.ommessage = function(event) {
+	webSocket.onmessage = function(event) {
+		console.log(event.data);
 		swal.fire({
-			icon: info,
+			icon: 'info',
 			title: event.data,
 			showConfirmButton: false,
 			timer: 5000,
-			footer: '快到<a href="<%request.getContextPath()%>/front-end/art/listOwnArt.jsp" target="_self">個人文章</a>查看吧!'
+			footer: '快到討論區查看吧!'
 		})
 	}
 	webSocket.onclose = function(event) {
@@ -68,6 +74,7 @@ if (mbrno !== '') {
 		}
 	}
 	function sendAddArt() {
+		
 		webSocket.send($addArt);
 		if($addArt !== ''){
 			swal.fire({
@@ -75,7 +82,19 @@ if (mbrno !== '') {
 				title: '您已成功新增文章',
 				showConfirmButton: false,
 				timer: 5000,
-				footer: '快到<a href="<%request.getContextPath()%>/front-end/art/listOwnArt.jsp" target="_self">個人文章</a>查看吧!'
+				footer: '快到個人文章查看吧!'
+			})
+		}
+	}
+	function sendBackAddArt() {
+		
+		webSocket.send($backAddArt);
+		if($addArt !== ''){
+			swal.fire({
+				icon: 'success',
+				title: '您已成功新增文章',
+				showConfirmButton: false,
+				timer: 5000,
 			})
 		}
 	}

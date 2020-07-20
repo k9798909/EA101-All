@@ -59,7 +59,7 @@
 		<th style="width:6%">房主</th>
 		<th style="width:7%">遊玩店家</th>
 		<th style="width:6%">人數限制[目前人數]</th>
-		<th style="width:15%">遊玩時間</th>
+		<th style="width:8%">遊玩時間</th>
 		<th style="width:15%">玩的遊戲</th>
 		<th style="width:10%">備註</th>
 		<th style="width:15%">房間狀態</th>
@@ -99,12 +99,6 @@
 			</c:choose>
 		</td>
 		<td>
-		<div id="dialog3_${joinrmVO.rmno}" title="檢舉店家">
-<%-- 			<jsp:include page="<%=request.getContextPath()%>/front-end/shoprpdt/addShoprpdt.jsp"></jsp:include> --%>
-		</div>
-		<button class="btn btn-outline-info btn-sm" id="opener3_${joinrmVO.rmno}">檢舉店家</button>
-		</td>
-		<td>
 		<div id="dialog_${joinrmVO.rmno}" title="成員列表">
 			<jsp:include page="/front-end/room/roomMember.jsp"><jsp:param name="rmno" value="${joinrmVO.rmno}" /></jsp:include>
 		</div>
@@ -139,6 +133,13 @@
 				<input type="hidden" name="action" value="update">
 				<input class="btn btn-danger btn-sm" type="submit" value="取消揪團" onclick="return(confirm('確認要取消嗎？確認後將無法恢復'))">
 			</form>
+		</c:if>
+		<div id="dialog3_${joinrmVO.rmno}" title="檢舉店家">
+			<jsp:include page="/front-end/shoprpdt/addShoprpdt.jsp"><jsp:param name="rmno" value="${joinrmVO.rmno}"/>
+			<jsp:param name="ratereport" value="${joinrmVO.ratereport}" /></jsp:include>
+		</div>
+		<c:if test="${rminfoSvc.getOneRm(joinrmVO.rmno).status == 5 && joinrmVO.shopreport == 0}">
+			<button class="btn btn-secondary btn-sm" id="opener3_${joinrmVO.rmno}">檢舉店家</button>
 		</c:if>	
 		</td>
 	
@@ -154,7 +155,8 @@
       hide: {
         effect: "explode",
         duration: 1000
-      }
+      },
+      width: 400,
     });
  
     $( "#opener_${joinrmVO.rmno}" ).on( "click", function() {
