@@ -80,7 +80,8 @@ button {
 <script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <body>
-
+<jsp:useBean id="shopSvc" scope="page"
+	class="com.shop.model.ShopService" />
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-1"></div>
@@ -112,13 +113,15 @@ button {
 					</ul>
 				</div>
 			</div>
-			<!-- 		<div class="col-sm-1"></div> -->
 			<div class="col-sm-8">
 				<div>
 				
 					<div>
-						<button data-toggle="modal" data-target="#exampleModal"
-							class="btn btn-primary btn-lg" <c:if test="${shopAcount.status!=1}">disabled="disabled"</c:if>>新增</button>
+						<button id="btn" data-toggle="modal" data-target="#exampleModal"
+							class="btn btn-primary btn-lg" <c:if test="${shopSvc.getOneShop(shopAcount.shopno).status!=1}">disabled="disabled"</c:if>>新增</button>
+							<c:if test="${shopSvc.getOneShop(shopAcount.shopno).status!=1}">
+							<span class="d-inline-block"  data-content="Disabled popover" id="pop">尚未審核，目前無法新增訂位</span>
+							</c:if>
 					</div>
 				
 				
@@ -343,7 +346,6 @@ button {
 			<c:if test="${not empty successMsgs}">
 			swal("", "${successMsgs}", "success");
 			</c:if>
-			
 			
 			$("#go").click(function() {
 				$("#create").submit();

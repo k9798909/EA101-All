@@ -52,6 +52,17 @@
 			})
 	</script>
 </c:if>
+<c:if test="${not empty rpdtMsgs}">
+	<script>
+		Swal.fire({
+			  position: 'center',
+			  icon: 'success',
+			  title: '${rpdtMsgs}',
+			  showConfirmButton: false,
+			  timer: 1500
+			})
+	</script>
+</c:if>
 <div id="listAll">
 <table class="table table-striped">
 	<tr>
@@ -63,6 +74,7 @@
 		<th style="width:15%">玩的遊戲</th>
 		<th style="width:10%">備註</th>
 		<th style="width:15%">房間狀態</th>
+		<th></th>
 		<th style="width:6%"></th>
 		<th></th>
 	</tr>
@@ -100,9 +112,13 @@
 		</td>
 		<td>
 		<div id="dialog3_${joinrmVO.rmno}" title="檢舉店家">
-<%-- 			<jsp:include page="<%=request.getContextPath()%>/front-end/shoprpdt/addShoprpdt.jsp"></jsp:include> --%>
+			<jsp:include page="/front-end/shoprpdt/addShoprpdt.jsp">
+			<jsp:param name="rmno" value="${joinrmVO.rmno}" />
+			<jsp:param name="ratereport" value="${joinrmVO.ratereport}" /></jsp:include>
 		</div>
-		<button class="btn btn-outline-info btn-sm" id="opener3_${joinrmVO.rmno}">檢舉店家</button>
+		<c:if test="${joinrmVO.shopreport == 0 && rminfoSvc.getOneRm(joinrmVO.rmno).status > 4}">
+		<button class="btn btn-light btn-sm" id="opener3_${joinrmVO.rmno}">檢舉店家</button>
+		</c:if>
 		</td>
 		<td>
 		<div id="dialog_${joinrmVO.rmno}" title="成員列表">
@@ -113,9 +129,8 @@
 		</td>
 	
 		<td>
-		
 		<div id="dialog2_${joinrmVO.rmno}" title="遊玩評價">
-			<jsp:include page="/front-end/room/rate.jsp"><jsp:param name="rmno" value="${joinrmVO.rmno}" /></jsp:include>
+		<jsp:include page="/front-end/room/rate.jsp"><jsp:param name="rmno" value="${joinrmVO.rmno}" /></jsp:include>
 		</div>
 		<c:if test="${rminfoSvc.getOneRm(joinrmVO.rmno).status == 5 && joinrmVO.ratereport == 0}">			
 			<button class="btn btn-warning btn-sm" id="opener2_${joinrmVO.rmno}">團員遊玩評價</button>
