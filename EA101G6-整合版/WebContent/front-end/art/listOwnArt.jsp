@@ -130,7 +130,7 @@
   			<ol class="breadcrumb ">
     			<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/index.html">Home</a></li>
     			<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/front-end/art/listAllArt.jsp">Article</a></li>
-    			<li class="breadcrumb-item active" aria-current="page">${keyWord}</li>
+    			<li class="breadcrumb-item active" aria-current="page">我的文章</li>
  			 </ol>
 	  </nav>
 
