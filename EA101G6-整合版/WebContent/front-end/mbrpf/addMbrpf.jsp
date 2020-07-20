@@ -111,7 +111,7 @@ body {
 						<tr>
 							<td class="tdtitle">一般會員密碼</td>
 						<tr>
-							<td><input type="TEXT" class="mainF" id="tmbrpw" name="mbrpw" size="45"
+							<td><input type="PASSWORD" class="mainF" id="tmbrpw" name="mbrpw" size="45"
 								value="<%=(erroMbrpfVO == null) ? "" : erroMbrpfVO.getMbrpw()%>" /></td>
 						</tr>
 						<tr>
@@ -267,11 +267,11 @@ $(document).ready(function(){
 	   $("#testman").click(function(){
 	     $("#tmbract").val("amin");
 	     $("#tmbrpw").val("123456");
-	     $("#tmbrname").val("阿明");
+	     $("#tmbrname").val("王阿明");
 	     $("#temail").val("k9798909@gmail.com");
 	     $("#tphone").val("0987654321");
 	     $("#tmbrac").val("1234-5678-8765-4321");
-	     $("#tnickname").val("難過");
+	     $("#tnickname").val("阿明");
 	   });
 	 });
 
