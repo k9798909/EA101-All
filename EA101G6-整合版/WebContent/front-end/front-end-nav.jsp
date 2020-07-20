@@ -81,6 +81,7 @@
 						<c:if test="${empty shopAcount}">
 						<c:choose>
 						<c:when test="${mbrpfVO.mbrname != null}">
+						<input type="hidden" id="mbrno" value="${mbrpfVO.mbrno}"/>
 						<span id="mbrname" class="d-md-inline-block text-white">歡迎你！${mbrpfVO.mbrname}</span>
 						</c:when>
 						<c:otherwise>
