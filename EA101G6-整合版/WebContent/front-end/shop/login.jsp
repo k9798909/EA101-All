@@ -112,49 +112,54 @@ h4 {
 			<div class="row">
 				<div class="col-12">
 					<div class="float-left">
+						<c:if test="${empty shopAcount}">
 						<c:choose>
 						<c:when test="${mbrpfVO.mbrname != null}">
 						<span id="mbrname" class="d-md-inline-block text-white">歡迎你！${mbrpfVO.mbrname}</span>
 						</c:when>
 						<c:otherwise>
-						<a href="" class="text-white"><span class="d-md-inline-block">
+						<a href="<%= request.getContextPath()%>/front-end/mbrpf/addMbrpf.jsp" class="text-white"><span class="d-md-inline-block">
 								<img class="icon reg1"
 								src="<%=request.getContextPath()%>/images/reg3.png">註冊
 						</span></a>
 						</c:otherwise>
 						</c:choose>
+						</c:if>
+						<c:if test="${not empty shopAcount}">
+						<span id="mbrname" class="d-md-inline-block text-white">歡迎你！${shopAcount.shopname}</span>
+						<a href="<%=request.getContextPath()%>/front-end/shop/shopArea.jsp" class="text-white"><img
+									class="icon"
+									src="<%=request.getContextPath()%>/images/shop.png">店家專區</a>
+						</c:if>
 					</div>
 
 					<div class="float-right">
+						
 						<c:choose>
-						<c:when test="${mbrpfVO.mbrname != null}">
-						<a href="<%= request.getContextPath()%>/mbrpf/mbrpf.do?action=logout" id="logout" class="d-md-inline-block text-white"><img class="icon"
+						<c:when test="${mbrpfVO.mbrname != null || shopAcount.shopname != null}">
+						<a <c:if test="${mbrpfVO.mbrname != null}"> href="<%= request.getContextPath()%>/mbrpf/mbrpf.do?action=logout"</c:if>
+						   <c:if test="${shopAcount.shopname != null}"> href="<%= request.getContextPath()%>/front-end/shop/shop.do?action=logout&requestURL=<%=request.getServletPath()%>"</c:if>
+							 id="logout" class="d-md-inline-block text-white"><img class="icon"
 								src="<%=request.getContextPath()%>/images/logout.png">登出</a>
 						</c:when>
 						<c:otherwise>
-						<a href="<%= request.getContextPath()%>/front-end/login.jsp" class="text-white"><span class="d-md-inline-block">
+						<c:if test="${empty shopAcount}">
+							<a href="<%= request.getContextPath()%>/front-end/login.jsp" class="text-white"><span class="d-md-inline-block">
 								<img class="icon"
 								src="<%=request.getContextPath()%>/images/ghost.png">會員登入
-						</span></a><c:if test="${not empty shopAcount}">
-							<span class="mx-md-2 d-inline-block"></span>
-							<a href="<%=request.getContextPath()%>/front-end/shop/shopArea.jsp" class="text-white"> <span
-								class="mr-2 text-white icon-instagram"></span> <span
-								class="d-none d-md-inline-block">${shopAcount.shopname}</span></a>
-							<a href="#" class="text-white" id="goLogout"> <span
-								class="mr-2 text-white"></span> <span
-								class="d-none d-md-inline-block">log out</span></a>
-							<FORM id="logout" METHOD="post"
-								ACTION="<%=request.getContextPath()%>/front-end/shop/shop.do">
-								<input type="hidden" name="action" value="logout">
-								<input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>">
-							</FORM>							
-						</c:if>
-						<c:if test="${empty shopAcount}">
+							</span></a>
 							<a href="<%=request.getContextPath()%>/front-end/shop/login.jsp"
 								class="text-white"> <span class="d-md-inline-block"><img
 									class="icon"
 									src="<%=request.getContextPath()%>/images/shop.png">店家登入</span></a>
+						</c:if>					
+						<c:if test="${not empty shopAcount}">
+							<span class="mx-md-2 d-inline-block"></span>
+							<a href="<%=request.getContextPath()%>/front-end/shop/shopArea.jsp" class="text-white"> <span
+								class="mr-2 text-white icon-instagram"></span> <span
+								class="d-none d-md-inline-block">${shopAcount.shopname}</span></a>
 						</c:if>
+						
 						</c:otherwise>
 						</c:choose>
 					</div>
