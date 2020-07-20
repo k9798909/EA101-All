@@ -52,17 +52,6 @@
 			})
 	</script>
 </c:if>
-<c:if test="${not empty rpdtMsgs}">
-	<script>
-		Swal.fire({
-			  position: 'center',
-			  icon: 'success',
-			  title: '${rpdtMsgs}',
-			  showConfirmButton: false,
-			  timer: 1500
-			})
-	</script>
-</c:if>
 <div id="listAll">
 <table class="table table-striped">
 	<tr>
@@ -70,11 +59,10 @@
 		<th style="width:6%">房主</th>
 		<th style="width:7%">遊玩店家</th>
 		<th style="width:6%">人數限制[目前人數]</th>
-		<th style="width:15%">遊玩時間</th>
+		<th style="width:8%">遊玩時間</th>
 		<th style="width:15%">玩的遊戲</th>
 		<th style="width:10%">備註</th>
 		<th style="width:15%">房間狀態</th>
-		<th></th>
 		<th style="width:6%"></th>
 		<th></th>
 	</tr>
@@ -111,16 +99,6 @@
 			</c:choose>
 		</td>
 		<td>
-		<div id="dialog3_${joinrmVO.rmno}" title="檢舉店家">
-			<jsp:include page="/front-end/shoprpdt/addShoprpdt.jsp">
-			<jsp:param name="rmno" value="${joinrmVO.rmno}" />
-			<jsp:param name="ratereport" value="${joinrmVO.ratereport}" /></jsp:include>
-		</div>
-		<c:if test="${joinrmVO.shopreport == 0 && rminfoSvc.getOneRm(joinrmVO.rmno).status > 4}">
-		<button class="btn btn-light btn-sm" id="opener3_${joinrmVO.rmno}">檢舉店家</button>
-		</c:if>
-		</td>
-		<td>
 		<div id="dialog_${joinrmVO.rmno}" title="成員列表">
 			<jsp:include page="/front-end/room/roomMember.jsp"><jsp:param name="rmno" value="${joinrmVO.rmno}" /></jsp:include>
 		</div>
@@ -129,8 +107,9 @@
 		</td>
 	
 		<td>
+		
 		<div id="dialog2_${joinrmVO.rmno}" title="遊玩評價">
-		<jsp:include page="/front-end/room/rate.jsp"><jsp:param name="rmno" value="${joinrmVO.rmno}" /></jsp:include>
+			<jsp:include page="/front-end/room/rate.jsp"><jsp:param name="rmno" value="${joinrmVO.rmno}" /></jsp:include>
 		</div>
 		<c:if test="${rminfoSvc.getOneRm(joinrmVO.rmno).status == 5 && joinrmVO.ratereport == 0}">			
 			<button class="btn btn-warning btn-sm" id="opener2_${joinrmVO.rmno}">團員遊玩評價</button>
@@ -154,6 +133,12 @@
 				<input type="hidden" name="action" value="update">
 				<input class="btn btn-danger btn-sm" type="submit" value="取消揪團" onclick="return(confirm('確認要取消嗎？確認後將無法恢復'))">
 			</form>
+		</c:if>
+		<div id="dialog3_${joinrmVO.rmno}" title="檢舉店家">
+			<jsp:include page="/front-end/shoprpdt/addShoprpdt.jsp"></jsp:include>
+		</div>
+		<c:if test="${rminfoSvc.getOneRm(joinrmVO.rmno).status == 5 && joinrmVO.shopreport == 0}">
+			<button class="btn btn-secondary btn-sm" id="opener3_${joinrmVO.rmno}">檢舉店家</button>
 		</c:if>	
 		</td>
 	
@@ -169,7 +154,8 @@
       hide: {
         effect: "explode",
         duration: 1000
-      }
+      },
+      width: 400,
     });
  
     $( "#opener_${joinrmVO.rmno}" ).on( "click", function() {
@@ -207,7 +193,6 @@
 	        effect: "explode",
 	        duration: 1000
 	      },
-	      width: 600,
 	    });
 	 
 	    $( "#opener3_${joinrmVO.rmno}" ).on( "click", function() {

@@ -141,7 +141,7 @@
 <div id="allCard">
 	<c:forEach var="rminfoVO" items="${list}">
 	<c:if test="${rminfoVO.status < 4}">
-		<div class='card' id="${rminfoVO.rmno}_info">
+		<div class='cards' id="${rminfoVO.rmno}_info">
 			<div>
 				<form METHOD="post" ACTION="joinrm.do">
 					<input type="hidden" name="rmno" value="${rminfoVO.rmno}">
@@ -172,7 +172,8 @@
       hide: {
         effect: "explode",
         duration: 1000
-      }
+      },
+      width: 400,
     });
  
     $( "#opener3_${rminfoVO.rmno}" ).on( "click", function() {
@@ -368,7 +369,7 @@
 })(jQuery_1_12_2);  	
 </script>
 <script>
-	var cards = document.getElementsByClassName('card');
+	var cards = document.getElementsByClassName('cards');
 	for(var i = 0; i < cards.length; i++){
 		var r = Math.floor((Math.random()*4)+1);
 		cards[i].style.backgroundImage="url(<%=request.getContextPath()%>/image/poker" + r +".jpg)";
@@ -469,7 +470,7 @@ div#users-contain table td {
 	text-align: center;
 	color:#42454C;
 }
-.card {
+.cards {
 	width: 344px;
 	height: 440px;
 	display: inline-block;
@@ -479,7 +480,7 @@ div#users-contain table td {
 	border: none;
 }
 
-.card div {
+.cards div {
 	padding:0px 30px;
 }
 .remark{
