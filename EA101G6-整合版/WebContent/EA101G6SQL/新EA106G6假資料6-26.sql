@@ -906,7 +906,7 @@ INSERT INTO ART VALUES ('MA'||LPAD(to_char(art_seq.NEXTVAL),5,'0'),'BM00001','FU
 富途共樂我個人的評價還是不錯的，教學很快、純策略無運氣成分、互動也不差都是優點，除了設置麻煩之外我沒有太大的不滿。
 
 雖說我也覺得富途共樂依然沒辦法像綠毛自己作品的電力公司一般成為經典，但稱得上是一款在一般水準之上的策略遊戲。
-','FUTUROPIA 富途共樂',CURRENT_DATE,0,'AT01','');
+','FUTUROPIA 富途共樂',CURRENT_DATE,0,'AT01',load_blob('fu1.jpg'));
 
 INSERT INTO ART VALUES ('MA'||LPAD(to_char(art_seq.NEXTVAL),5,'0'),'BM00010','Kitchen Rush 忙碌廚房
 
@@ -979,7 +979,7 @@ INSERT INTO ART VALUES ('MA'||LPAD(to_char(art_seq.NEXTVAL),5,'0'),'BM00001','�
 1. 其中一方全滅存活下來的一方獲勝。
 2. 先收集到七個物資的一方獲勝。
 3. 威脅值到達上限時持有較多物資一方獲勝。','陰屍路-全面開戰 THE WALKING DEAD－ALL OUT WAR
-',CURRENT_DATE,0,'AT01',load_blob('wd1.jpg'));
+',CURRENT_DATE,0,'AT01',load_blob('Zom.jpg'));
 
 INSERT INTO ART VALUES ('MA'||LPAD(to_char(art_seq.NEXTVAL),5,'0'),'BM00003','Sweets Stack 甜蜜堆疊
 
