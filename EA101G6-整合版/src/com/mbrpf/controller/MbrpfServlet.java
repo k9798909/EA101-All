@@ -576,6 +576,11 @@ if(in.available()>0) {
 
 //新增資料
 if ("insert".equals(action)) { // 來自addEmp.jsp的請求  
+	
+			List<String> successMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("successMsgs", successMsgs);
 			
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -734,6 +739,7 @@ if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				String url = "/front-end/index.jsp";
+				successMsgs.add("註冊成功!!");
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);				
 				

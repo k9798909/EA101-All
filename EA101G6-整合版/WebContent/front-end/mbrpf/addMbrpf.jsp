@@ -189,7 +189,7 @@ body {
 					<br> <input type="hidden" name="action" value="insert">
 					<div style="text-align:center; margin-left:50px;"><input type="submit" value="送出新增"></div>
 					<div style="text-align:center; padding-top:10px;">
-					<button type="button" class="btn btn-secondary" style="margin-left:50px; color:#ffffff;padding:4px;" id="testman">測試人</button>
+					<button type="button" class="btn btn-secondary" style="margin-left:50px; color:#ffffff;padding:4px;" id="testman">我是阿明</button>
 					</div>
 					
 				</FORM>
