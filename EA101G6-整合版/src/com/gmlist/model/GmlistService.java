@@ -7,7 +7,7 @@ public class GmlistService {
 	GmlistDAO_interface dao;
 	
 	public GmlistService() {
-		dao = new GmlistJDBCDAO();
+		dao = new GmlistDAO();
 	}
 	public GmlistVO addGmlist(String gmno, String shopno) {
 		

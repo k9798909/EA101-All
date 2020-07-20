@@ -98,27 +98,13 @@ button{
 				</c:forEach>
 	</table>
 	<div class="d-flex justify-content-center container"
-				style="margin-left: auto; margin-right: auto;">
-				<div class="row">
-					<div class="col-sm-12">
-						<%@ include file="page2.file"%>
-					</div>
-				</div>
+		style="margin-left: auto; margin-right: auto;">
+		<div class="row">
+			<div class="col-sm-12">
+				<%@ include file="page2.file"%>
 			</div>
 </div>
 </div>
-<%-- <% for(GmlistVO gmlistVO:list) { --%>
-<!--  				ShopVO shopVO = shopSvc.getOneShop(gmlistVO.getShopno()); -->
-<!-- 				GameVO gameVO = gameSvc.getOneGame(gmlistVO.getGmno()); -->
-<%-- 		%> --%>
-<!-- 			<tr> -->
-<%-- 				<td><%= shopVO.getShopname()%></td> --%>
-<%-- 				<td><img src="<%=request.getContextPath()%>/ShopShowImg?shopno=<%=gmlistVO.getShopno()%>"></td> --%>
-<%-- 				<td><%= shopVO.getShoploc()%></td> --%>
-<%-- 				<td><%= gameVO.getGmname()%></td> --%>
-<%-- 				<td><img style="width: 50px; height: 50px;" src="<%=request.getContextPath()%>/GameShowImg?gmno=<%=gmlistVO.getGmno()%>"></td> --%>
-<!-- 			</tr> -->
-<%-- 		<% }%> --%>
 
 
 </body>

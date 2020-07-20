@@ -88,27 +88,23 @@ public class GameServlet extends HttpServlet {
 
 			try {
 				/*************************** 1.�����ШD�Ѽ� - ��J�榡�����~�B�z **********************/
-				String gmname = req.getParameter("gmname");
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("listAllGame.jsp");
-					failureView.forward(req, res);
-					return;// �{�����_
-				}
+				String gmname = req.getParameter("gmname").trim();
 
-				/*************************** 2.�}�l�d�߸�� *****************************************/
 				GameService gameSvc = new GameService();
 				List<GameVO> gameVO = gameSvc.getSomeGames(gmname);
-				if (gameVO == null) {
+				if (gameVO == null||req.getParameter("gmname").trim()==null) {
 					errorMsgs.add("查無資料");
 				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
+					System.out.println(333);
 					RequestDispatcher failureView = req.getRequestDispatcher("listAllGame.jsp");
 					failureView.forward(req, res);
 					return;// �{�����_
 				}
 
 				/*************************** 3.�d�ߧ���,�ǳ����(Send the Success view) *************/
+				System.out.println(123);
 				req.setAttribute("gameVO", gameVO); // ��Ʈw���X��shopVO����,�s�Jreq
 				String url = "listSomeGame.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // ���\��� listOneshop.jsp
@@ -157,13 +153,13 @@ System.out.println("1");
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 			String requestURL = req.getParameter("requestURL");
-//			try {
+			try {
 				/*************************** 1.�����ШD�Ѽ� - ��J�榡�����~�B�z **********************/
 				String gmno = req.getParameter("gmno");
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req.getRequestDispatcher("select_page.jsp");
 					failureView.forward(req, res);
-					return;// �{�����_
+					return;
 				}
 				System.out.println("2");
 				String gmname = req.getParameter("gmname");
@@ -221,15 +217,16 @@ System.out.println("1");
 				if("/front-end/game/update_game_input.jsp".equals(requestURL)) {
 					url="/front-end/game/listOneGame.jsp";
 				}
-				RequestDispatcher successView = req.getRequestDispatcher(url); // �ק令�\��,���listOneshop.jsp
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				req.setAttribute("successMsgs", "修改成功!");
 				successView.forward(req, res);
 				System.out.println("1");
 				/*************************** ��L�i�઺���~�B�z *************************************/
-//			} catch (Exception e) {
-//				errorMsgs.add("修改資料失敗:" + e.getMessage());
-//				RequestDispatcher failureView = req.getRequestDispatcher("listAllGame.jsp");
-//				failureView.forward(req, res);
-//			}
+			} catch (Exception e) {
+				errorMsgs.add("修改資料失敗:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("listAllGame.jsp");
+				failureView.forward(req, res);
+			}
 		}
 
 		if ("insert".equals(action)) { // �Ӧ�addshop.jsp���ШD
@@ -238,10 +235,10 @@ System.out.println("1");
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-//			try {
+			try {
 				/*********************** 1.�����ШD�Ѽ� - ��J�榡�����~�B�z *************************/
 
-				String gmname = null;
+				String gmname = req.getParameter("gmname");
 				if(req.getParameter("gmname")==null||req.getParameter("gmname").trim().length()==0) {
 					gmname="";
 					errorMsgs.add("遊戲名稱不得為空");
@@ -289,11 +286,11 @@ System.out.println("1");
 				successView.forward(req, res);
 
 				/*************************** ��L�i�઺���~�B�z **********************************/
-//			} catch (Exception e) {
-//				errorMsgs.add(e.getMessage());
-//				RequestDispatcher failureView = req.getRequestDispatcher("addGame.jsp");
-//				failureView.forward(req, res);
-//			}
+			} catch (Exception e) {
+				errorMsgs.add(e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("addGame.jsp");
+				failureView.forward(req, res);
+			}
 		}
 	
 	}

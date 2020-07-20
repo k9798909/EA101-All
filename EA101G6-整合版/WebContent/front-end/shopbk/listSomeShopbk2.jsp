@@ -1,16 +1,31 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.shopbk.model.*"%>
 <%@ include file="/front-end/shopbk/front-end-nav.jsp"%>
 <%
 	ShopbkService shopbkSvc = new ShopbkService();
-	String shopno = request.getParameter("shopno");
+	String shopno = ((ShopVO)session.getAttribute("shopAcount")).getShopno();
 	List<ShopbkVO> list = shopbkSvc.getShopbkByShop(shopno);
 	pageContext.setAttribute("list", list);
 	ShopbkVO shopbkVO = (ShopbkVO)request.getAttribute("shopvkVO");
 %>
+<%
+		java.sql.Timestamp start = null;
+		try {
+			start = shopbkVO.getShoppds();
+		} catch (Exception e) {
+			start = new java.sql.Timestamp((System.currentTimeMillis()/1800000)*1800000+ (1000 * 60 * 60 * 96));
+		}
 
+		java.sql.Timestamp stop = null;
+		try {
+			stop = shopbkVO.getShoppde();
+		} catch (Exception e) {
+			stop = new java.sql.Timestamp((System.currentTimeMillis()/1800000)*1800000+ (1000 * 60 * 60 * 100));
+		}
+	%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -65,6 +80,7 @@ button {
 <script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <body>
+
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-1"></div>
@@ -109,26 +125,117 @@ button {
 					<table class="table table-sm">
 						<tr>
 							<th scope="col">提供人數</th>
-							<th scope="col">開始時間</th>
-							<th scope="col">結束時間</th>
+							<th scope="col">遊玩時間</th>
 							<th scope="col">以小時計算</th>
 							<th scope="col">包日</th>
+							<th></th>
 						</tr>
 						<c:forEach var="shopbkVO" items="${list}">
 							<tr>
 								<td>${shopbkVO.ofdtable}</td>
-								<td>${shopbkVO.shoppds}</td>
-								<td>${shopbkVO.shoppde}</td>
+								<td><fmt:formatDate value="${shopbkVO.shoppds}" pattern="yyyy-MM-dd HH:mm" />-<fmt:formatDate value="${shopbkVO.shoppde}" pattern="HH:mm" /></td>
 								<td>${shopbkVO.payinfohr}</td>
 								<td>${shopbkVO.payinfoday}</td>
+								<td><button data-toggle="modal" data-target="#updateModal${shopbkVO.shopbkno}"
+							class="btn btn-primary btn-lg">修改</button></td>
 							</tr>
+							<!-- 	=======================================修改============================================ -->
+<div class="modal fade" id="updateModal${shopbkVO.shopbkno}" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content rp-2">
+				<div class="modal-header"  style="text-align:center;">
+				</div>
+
+				<div class="modal-body">
+					<div class="form-group">
+						<!-- =========================================以下為原listOneEmp.jsp的內容========================================== -->
+						<div class="container">
+							<FORM id="${shopbkVO.shopbkno}" METHOD="post"
+								ACTION="<%=request.getContextPath()%>/front-end/shopbk/shopbk.do">
+
+								<input type="hidden" name="shopno" value="<%=shopno%>" />
+								<div class="form-row">
+									<div class="form-group col-md-4">
+										<label for="4${shopbkVO.shopbkno}">提供人數</label> <input type="TEXT"
+											name="ofdtable" class="form-control" id="4${shopbkVO.shopbkno}" value="${shopbkVO.ofdtable}" placeholder="單位:人頭"/>
+									</div>
+									<div class="form-group col-md-4">
+										<label for="5${shopbkVO.shopbkno}">每小時</label> <input type="TEXT"
+											name="payinfohr" class="form-control" id="5${shopbkVO.shopbkno}" value="${shopbkVO.payinfohr}" placeholder="每小時/元"/>
+									</div>
+									<div class="form-group col-md-4">
+										<label for="6${shopbkVO.shopbkno}">包日:</label> <input type="TEXT"
+											name="payinfoday" class="form-control" id="6${shopbkVO.shopbkno}"  value="${shopbkVO.payinfoday}" placeholder="整天/元"/>
+									</div>
+								</div>
+								<div class="form-row">
+									<div class="form-group col-md-12">
+										<label for="f_date1">起:</label> <input type="datetime"
+											name="shoppds"  id="date1${shopbkVO.shopbkno}"  class="form-control" value="<fmt:formatDate value="${shopbkVO.shoppds}" pattern="yyyy-MM-dd HH:mm" />"/>
+									</div>
+								</div>
+								<div class="form-row">
+									<div class="form-group col-md-12">
+										<label for="f_date2">迄:</label> <input type="datetime"
+											name="shoppde"  id="date2${shopbkVO.shopbkno}" class="form-control" value="<fmt:formatDate value="${shopbkVO.shoppde}" pattern="yyyy-MM-dd HH:mm" />"/>
+									</div>
+									</div>
+								 <input type="hidden" name="shopbkno" value="${shopbkVO.shopbkno}">
+								 <input type="hidden" name="action" value="update">
+							</FORM>
+						</div>
+						<!-- =========================================以上為原listOneEmp.jsp的內容========================================== -->
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" id="go${shopbkVO.shopbkno}" class="btn btn-primary">確認修改</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<script>
+	$('#date1${shopbkVO.shopbkno}').datetimepicker({
+		theme : '', //theme: 'dark',
+		timepicker : true, //timepicker: false,
+		step : 30, //step: 60 (這是timepicker的預設間隔60分鐘)
+		format : 'Y-m-d H:i',
+<%-- 		value : '<%=start%>', --%>
+		//disabledDates:    ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
+		//startDate:	        '2017/07/10',  // 起始日
+		minDate : '-1969-12-28 00:00:00', // 去除今日(不含)之前
+	//maxDate:  '+1970-01-01'  // 去除今日(不含)之後
+	});
+	$('#date2${shopbkVO.shopbkno}').datetimepicker({
+		theme : '', //theme: 'dark',
+		timepicker : true, //timepicker: false,
+		step : 30, //step: 60 (這是timepicker的預設間隔60分鐘)
+		format : 'Y-m-d H:i',
+<%-- 		value : '<%=start%>', --%>
+		//disabledDates:    ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
+		//startDate:	        '2017/07/10',  // 起始日
+		minDate : '-1969-12-28 00:00:00', // 去除今日(不含)之前
+	//maxDate:  '+1970-01-01'  // 去除今日(不含)之後
+	});</script>
+	<script>
+	$(document).ready(function(){
+		$("#go${shopbkVO.shopbkno}").click(function(){
+			console.log(1)
+			$("#${shopbkVO.shopbkno}").submit();
+		})
+	})
+	
+	</script>
 						</c:forEach>
 					</table>
 				</div>
 			</div>
 		</div>
 	</div>
-
+<!-- ===================================新增============================================= -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
@@ -181,27 +288,19 @@ button {
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					<button id="go" type="button" class="btn btn-primary">送出新增</button>
+				<img src="images/meow.png" style="width: 50px;
+					height: 50px;bottom:0;right:0;" id="magicBtn">		
 				</div>
 
 			</div>
 		</div>
 	</div>
-	<!-- 	=================================datetimepicker============================ -->
-	<%
-		java.sql.Timestamp start = null;
-		try {
-			start = shopbkVO.getShoppds();
-		} catch (Exception e) {
-			start = new java.sql.Timestamp((System.currentTimeMillis()/18000)*18000+ (1000 * 60 * 60 * 96));
-		}
+	
+	
 
-		java.sql.Timestamp stop = null;
-		try {
-			stop = shopbkVO.getShoppde();
-		} catch (Exception e) {
-			stop = new java.sql.Timestamp((System.currentTimeMillis()/18000)*18000+ (1000 * 60 * 60 * 106));
-		}
-	%>
+	<!-- 	=================================datetimepicker============================ -->
+	
+	
 	<script>
 		$.datetimepicker.setLocale('en'); // kr ko ja en
 		$('#f_date1').datetimepicker({
@@ -242,7 +341,7 @@ button {
 	<script>
 		$(document).ready(function() {
 			<c:if test="${not empty successMsgs}">
-			swal("", "新增成功!", "success");
+			swal("", "${successMsgs}", "success");
 			</c:if>
 			
 			
@@ -255,6 +354,13 @@ button {
 			$("#goShopbk").click(function() {
 				$("#shopbk").submit();
 			})
+	 		 $("#magicBtn").click(function(){
+		 	 $("#1").val("16");
+		 	 $("#2").val("30");
+		     $("#3").val("200");
+	   	     $("#f_date1").val('2020-08-09 12:00');
+			 $("#f_date2").val('2020-08-09 22:00');
+	 		 })
 		})
 	</script>
 </body>

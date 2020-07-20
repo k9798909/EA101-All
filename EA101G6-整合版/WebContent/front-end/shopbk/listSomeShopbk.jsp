@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.shopbk.model.*"%>
 <%@ include file="/front-end/front-end-nav.jsp" %>
@@ -32,10 +33,12 @@ table {
 	margin-top: 10px;
 }
 
-td th tr {
+td{
 	text-align: center;
 }
-
+th{
+	text-align: center;
+}
 
 
 .icon {
@@ -75,26 +78,26 @@ h4 {
 		<tr>
 			<th>店家名稱</th>
 			<th>提供人數</th>
-			<th>開始時間</th>
-			<th>結束時間</th>
+			<th>遊玩時間</th>
 			<th>以小時計算</th>
 			<th>包日</th>
 			<th></th>
 		</tr>
 		<jsp:useBean id="shopSvc" scope="page" class="com.shop.model.ShopService" />
-		<c:forEach var="shopbkVO" items="${list}">
+		<%@ include file="page1.file"%>
+		<c:forEach var="shopbkVO" items="${list}" begin="<%=pageIndex%>"
+					end="<%=pageIndex+rowsPerPage-1%>">
 			<tr>
 				<td><A style="color:black;" href="<%=request.getContextPath()%>/front-end/shop/shop.do?shopno=${shopbkVO.shopno}&action=getOne_For_Display3&requestURL=<%=request.getServletPath()%>"><b>${shopSvc.getOneShop(shopbkVO.shopno).shopname}</b></a></td>
 				<td>${shopbkVO.ofdtable}</td>
-				<td>${shopbkVO.shoppds}</td>
-				<td>${shopbkVO.shoppde}</td>
+				<td><fmt:formatDate value="${shopbkVO.shoppds}" pattern="yyyy-MM-dd HH:mm" />-<fmt:formatDate value="${shopbkVO.shoppde}" pattern="HH:mm" /></td>
 				<td>${shopbkVO.payinfohr}</td>
 				<td>${shopbkVO.payinfoday}</td>
-				<td><a href="#" id="goCreate"><button class="btn btn-primary">來去開團</button></a></td>
+				<td><a href="#" id="${shopbkVO.shopbkno}"><button class="btn btn-primary">來去開團</button></a></td>
 <%-- 					onclick="location.href='<%=request.getContextPath()%>/front-end/room/create.jsp?shopno=${shopbkVO.shopno}&shoppds=${shopbkVO.shoppds}&shoppde=${shopbkVO.shoppde}';" --%>
 				</tr>
 				<script>
-		    		 $("#goCreate").click(function() {
+		    		 $("#${shopbkVO.shopbkno}").click(function() {
 		    			 <c:choose>		    		
 		    			 	<c:when test="${empty account}">
 					    			Swal.fire({
@@ -107,11 +110,16 @@ h4 {
 							</c:otherwise>
 						</c:choose>		
 		     	     });
-				</script></tr>
+				</script>
 		</c:forEach>
 	</table>
 </div>
-
+<div class="d-flex justify-content-center container"
+		style="margin-left: auto; margin-right: auto;">
+		<div class="row">
+			<div class="col-sm-12">
+				<%@ include file="page2.file"%>
+			</div>
 <c:if test="${openModal!=null}">
 
 <div class="modal fade element-center" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">

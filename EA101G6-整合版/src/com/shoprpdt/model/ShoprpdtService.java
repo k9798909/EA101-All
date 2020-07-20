@@ -10,7 +10,7 @@ public class ShoprpdtService {
 	ShoprpdtDAO_interface dao;
 	
 	public ShoprpdtService() {
-		dao = new ShoprpdtJDBCDAO();
+		dao = new ShoprpdtDAO();
 	}
 	public ShoprpdtVO addShoprpdt(String shoprpno, String rmno, String mbrno, String shopno, String detail, Integer status) {
 		

@@ -90,13 +90,19 @@ h4 {
 	</div>
 		<script>
 			$(document).ready(function() {
+				<c:if test="${not empty successMsgs}">
+				swal("", "${successMsgs}", "success");
+				</c:if>
+				
 				$("#goUpdate").click(function() {
 					$("#getOne_For_Update").submit();
 				})
 				$("#goShopbk").click(function() {
 					$("#shopbk").submit();
 				})
+			
 			})
 		</script>
+		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
 </html>

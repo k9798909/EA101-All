@@ -11,14 +11,24 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import com.shopbk.model.ShopbkDAO_interface;
 
-public class ShopbkJDBCDAO implements ShopbkDAO_interface{
+public class ShopbkJNDIDAO implements ShopbkDAO_interface{
 
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "EA101";
-	String passwd = "123456";
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	private static final String INSERT_STMT =
 			"INSERT INTO SHOPBK (SHOPBKNO, SHOPNO, OFDTABLE, SHOPPDS, SHOPPDE, PAYINFOHR, PAYINFODAY) VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_SEQ.NEXTVAL), 5, '0'), ?, ?, ?, ?, ?, ?)";
@@ -44,8 +54,7 @@ public class ShopbkJDBCDAO implements ShopbkDAO_interface{
 		
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
 			pstmt.setString(1, shopbkVO.getShopno());
@@ -59,9 +68,6 @@ public class ShopbkJDBCDAO implements ShopbkDAO_interface{
 			pstmt.executeUpdate();
 			
 			
-		}catch(ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
 		}catch(SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -91,8 +97,7 @@ public class ShopbkJDBCDAO implements ShopbkDAO_interface{
 		
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 			
 			pstmt.setString(1, shopbkVO.getShopno());
@@ -105,9 +110,6 @@ public class ShopbkJDBCDAO implements ShopbkDAO_interface{
 			
 			pstmt.executeUpdate();
 			
-		}catch(ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
 		}catch(SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -136,17 +138,13 @@ public class ShopbkJDBCDAO implements ShopbkDAO_interface{
 		
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 			
 			pstmt.setString(1, shopbkno);
 			
 			pstmt.executeUpdate();
 			
-		}catch(ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
 		}catch(SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -178,8 +176,7 @@ public class ShopbkJDBCDAO implements ShopbkDAO_interface{
 		
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 			
 			pstmt.setString(1, shopbkno);
@@ -195,9 +192,6 @@ public class ShopbkJDBCDAO implements ShopbkDAO_interface{
 				shopbkVO.setPayinfohr(rs.getInt("payinfohr"));
 				shopbkVO.setPayinfoday(rs.getInt("payinfoday"));			
 			}
-		}catch(ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
 		}catch(SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -238,8 +232,7 @@ public class ShopbkJDBCDAO implements ShopbkDAO_interface{
 		
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_SOME_STMT_BY_TIME);
 			
 			pstmt.setTimestamp(1, shoppds);
@@ -257,9 +250,6 @@ public class ShopbkJDBCDAO implements ShopbkDAO_interface{
 				shopbkVO.setPayinfoday(rs.getInt("payinfoday"));
 				list.add(shopbkVO);				
 			}
-		}catch(ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
 		}catch(SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -300,8 +290,7 @@ public class ShopbkJDBCDAO implements ShopbkDAO_interface{
 		
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_SOME_STMT_BY_SHOPNO);
 			
 			pstmt.setString(1, shopno);
@@ -318,9 +307,6 @@ public class ShopbkJDBCDAO implements ShopbkDAO_interface{
 				shopbkVO.setPayinfoday(rs.getInt("payinfoday"));
 				list.add(shopbkVO);				
 			}
-		}catch(ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
 		}catch(SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -361,8 +347,7 @@ public class ShopbkJDBCDAO implements ShopbkDAO_interface{
 		
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 			
@@ -378,9 +363,6 @@ public class ShopbkJDBCDAO implements ShopbkDAO_interface{
 				list.add(shopbkVO);				
 			}
 									
-		}catch(ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
 		}catch(SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -421,8 +403,7 @@ public class ShopbkJDBCDAO implements ShopbkDAO_interface{
 		
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_AFTER_NOW_STMT);
 			rs = pstmt.executeQuery();
 			
@@ -438,9 +419,6 @@ public class ShopbkJDBCDAO implements ShopbkDAO_interface{
 				list.add(shopbkVO);				
 			}
 									
-		}catch(ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
 		}catch(SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -470,76 +448,6 @@ public class ShopbkJDBCDAO implements ShopbkDAO_interface{
 		return list;
 	}
 	
-	public static void main(String[] args) {
-		ShopbkJDBCDAO dao = new ShopbkJDBCDAO();
-		ShopbkService svc = new ShopbkService();
-		
-		
-		// �s�W
-//		ShopbkVO shopbkVO1 = new ShopbkVO();
-//		shopbkVO1.setShopno("DS00003");
-//		shopbkVO1.setOfdtable(30);
-//		Timestamp t1 = new Timestamp(System.currentTimeMillis());
-//		t1 = Timestamp.valueOf("2020-07-01 12:00:00");
-//		Timestamp t2 = new Timestamp(System.currentTimeMillis());
-//		t2 = Timestamp.valueOf("2020-07-01 20:00:00");
-//		shopbkVO1.setShoppds(t1);
-//		shopbkVO1.setShoppde(t2);
-//		shopbkVO1.setPayinfohr(30);
-//		shopbkVO1.setPayinfoday(130);
-//		dao.insert(shopbkVO1);
-		// �ק�
-		ShopbkVO shopbkVO = new ShopbkVO();
-		shopbkVO.setShopbkno("DB00001");
-		shopbkVO.setShopno("DS00001");
-		shopbkVO.setOfdtable(30);
-		Timestamp t1 = new Timestamp(System.currentTimeMillis());
-		shopbkVO.setShoppds(t1);
-		Timestamp t2 = new Timestamp(System.currentTimeMillis());
-		shopbkVO.setShoppde(t2);
-		shopbkVO.setPayinfohr(50);
-		shopbkVO.setPayinfoday(150);
-		svc.updateShopbk("DB00001","DS00001",60,t1,t2,700,5000);
-		// �R��
-//		dao.delete("DB00011");
-		// �d��
-//		Timestamp t1 = new Timestamp(System.currentTimeMillis());
-//		t1 = Timestamp.valueOf("2020-07-01 12:00:00");
-//		List<ShopbkVO> list = dao.findByShoppd(t1);
-//		for(ShopbkVO shopbk : list) {
-//			System.out.println(shopbk.getShopbkno() + ",");
-//			System.out.println(shopbk.getShopno() + ",");
-//			System.out.println(shopbk.getOfdtable() + ",");
-//			System.out.println(shopbk.getShoppds() + ",");
-//			System.out.println(shopbk.getShoppde() + ",");
-//			System.out.println(shopbk.getPayinfohr() + ",");
-//			System.out.println(shopbk.getPayinfoday() + ",");
-//			System.out.println();
-//		}
-//		List<ShopbkVO> list = dao.findByShop("DS00001");
-//		for(ShopbkVO shopbk : list) {
-//			System.out.println(shopbk.getShopbkno() + ",");
-//			System.out.println(shopbk.getShopno() + ",");
-//			System.out.println(shopbk.getOfdtable() + ",");
-//			System.out.println(shopbk.getShoppds() + ",");
-//			System.out.println(shopbk.getShoppde() + ",");
-//			System.out.println(shopbk.getPayinfohr() + ",");
-//			System.out.println(shopbk.getPayinfoday() + ",");
-//			System.out.println();
-//		}
-		// �d��
-//		List<ShopbkVO> list2 = dao.getAll();
-//		for(ShopbkVO shopbk : list2) {
-//			System.out.println(shopbk.getShopbkno() + ",");
-//			System.out.println(shopbk.getShopno() + ",");
-//			System.out.println(shopbk.getOfdtable() + ",");
-//			System.out.println(shopbk.getShoppds() + ",");
-//			System.out.println(shopbk.getShoppde() + ",");
-//			System.out.println(shopbk.getPayinfohr() + ",");
-//			System.out.println(shopbk.getPayinfoday() + ",");
-//			System.out.println();
-//		}
-	}
 
 	
 

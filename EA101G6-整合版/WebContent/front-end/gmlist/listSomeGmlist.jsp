@@ -106,12 +106,10 @@ h4 {
 				</c:forEach>
 	</table>
 	<div class="d-flex justify-content-center container"
-				style="margin-left: auto; margin-right: auto;">
-				<div class="row">
-					<div class="col-sm-12">
-						<%@ include file="page2.file"%>
-					</div>
-				</div>
+		style="margin-left: auto; margin-right: auto;">
+		<div class="row">
+			<div class="col-sm-12">
+				<%@ include file="page2.file"%>
 			</div>
 </div>
 </div>

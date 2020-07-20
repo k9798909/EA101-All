@@ -151,7 +151,7 @@ img {
 									<div class="custom-file">
 										<input type="file" class="custom-file-input" id="myFile"
 											aria-describedby="myFile" name="shopimg"> <label
-											class="custom-file-label" for="myFile" style="width:700px;">Choose
+											class="custom-file-label" for="myFile" style="width:563px;">Choose
 											file</label>
 									</div>
 								</div>

@@ -111,18 +111,17 @@ h4 {
 	<div class="modal-dialog" role="document">
 		<div class="modal-content rp-2">				
 			<div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLabel">新增遊戲</h3>
+                <h3 class="modal-title" id="exampleModalLabel">修改遊戲</h3>
                 <hr class="my-3">
             </div>
 			
 			<div class="modal-body">
 				<div class="form-group">
-<!-- =========================================以下為原addGame.jsp的內容========================================== -->
-<%-- 		<jsp:include page="update_game_input.jsp" flush="true"/> --%>
-<div class="container">
+<!-- =========================================以下為update的內容========================================== -->
+<div class="d-flex justify-content-center container" style="margin-left: auto; margin-right: auto;">
 	<FORM METHOD="post" id="ya" ACTION="game.do" name="form1"
 		enctype="multipart/form-data">
-		<div class="form-row"><div class="form-group col-md-2"></div>
+		<div class="form-row">
 					<div class="form-group col-md-8">
 						<label for="name">遊戲名稱</label> <input class="form-control"
 							type="TEXT" name="gmname" size=100% id="name"
@@ -131,7 +130,6 @@ h4 {
 					</div>
 					</div>
 				<div class="form-row">
-				<div class="form-group col-md-2"></div>
 				<div class="form-group col-md-8">
 					<div class="input-group">
 						<div class="input-group-prepend">
@@ -147,7 +145,6 @@ h4 {
 					</div>
 				</div>
 				<div class="form-row">
-				<div class="form-group col-md-4"></div>
 					<div class="form-group col-md-6">
 					<div type="file" id="preview">
 						<img src="<%=request.getContextPath()%>/GameShowImg?gmno=${param.gmno}" />
@@ -169,12 +166,21 @@ h4 {
 </div>
 
 	<script>
-	$(document).ready(function(){
-		 		 
+	$(document).ready(function(){	
+			<c:if test="${not empty successMsgs}">
+			swal("Good", "${successMsgs}", "success");
+			</c:if>
+			
 		 $("#go").click(function(){
 				$("#ya").submit();
 			})
 		$("#exampleModal").modal({show: true})
+		
+		 $("#action").click(function(){
+		 	if ($("#gmname").val() == ''){
+		 		swal("", "請輸入遊戲名稱!", "error");
+		 	}
+		 })
 	})
     		
     </script>
@@ -204,17 +210,7 @@ h4 {
 	}
 	window.onload = init;
 </script>	
-	
-	
-	
-	
-	
-	
-	
-	
-	<!-- <script  src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"> -->
-
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 </body>
 </html>

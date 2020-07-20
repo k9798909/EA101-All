@@ -278,6 +278,7 @@ public class ShopServlet extends HttpServlet {
 				String url = "shopArea.jsp";
 				System.out.println(req.getParameter("URL"));
 				if("update_back".equals(action))url =req.getParameter("URL");
+				req.setAttribute("successMsgs", "修改成功!");
 				RequestDispatcher successView = req.getRequestDispatcher(url); 
 				successView.forward(req, res);
 

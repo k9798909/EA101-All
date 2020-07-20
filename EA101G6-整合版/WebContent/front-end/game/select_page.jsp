@@ -47,36 +47,7 @@ div {
 	margin-right: auto;
 }
 </style>
-	<%-- 錯誤表列 --%>
-	<c:if test="${not empty errorMsgs}">
-		<font style="color: red">請修正以下錯誤:</font>
-		<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color: red">${message}</li>
-			</c:forEach>
-		</ul>
-	</c:if>
 
-	<!-- 	<ul> -->
-	<!-- 		<li><a href='listAllGame.jsp' >List</a> all Games. <br></li> -->
-
-
-
-
-
-
-	<!-- 		<li> -->
-	<!-- 			<FORM METHOD="post" ACTION="game.do"> -->
-	<!-- 				<b>選擇遊戲名稱:</b> <select size="1" name="gmno"> -->
-	<%-- 					<c:forEach var="gameVO" items="${gameSvc.all}"> --%>
-	<%-- 						<option value="${gameVO.gmno}">${gameVO.gmname} --%>
-	<%-- 					</c:forEach> --%>
-	<!-- 				</select> <input type="hidden" name="action" value="getOne_For_Display"> -->
-	<!-- 				<input type="submit" value="送出"> -->
-	<!-- 			</FORM> -->
-	<!-- 		</li> -->
-	<!-- 	</ul> -->
-	<!-- --------------------------------------------------------------------------------------------------------------------------- -->
 	<nav
 		class="navbar navbar-expand-lg navbar-light bg-gradient-info shadow p-3 mb-5 rounded">
 
@@ -93,9 +64,9 @@ div {
 					<FORM METHOD="post"
 						ACTION="<%=request.getContextPath()%>/front-end/game/game.do"
 						class="form-inline my-2 my-lg-0">
-						<input type="text" name="gmname"  placeholder="遊戲名稱關鍵字" class="form-control">
+						<input type="text" name="gmname"  placeholder="遊戲名稱關鍵字" class="form-control" id="gmname">
 						<input type="hidden" name="action" value="getSome_For_Display">
-						<input type="submit" value="送出" class="btn btn-outline-secondary my-2 my-sm-0">
+						<input type="submit" value="送出" class="btn btn-outline-secondary my-2 my-sm-0" id="action">
 					</FORM>
 				</li>
 			</ul>
@@ -117,6 +88,14 @@ div {
 			</ul>
 		</div>
 	</nav>
-
+<script>
+	$(document).ready(function(){	
+			<c:if test="${not empty successMsgs}">
+			swal("Good", "${successMsgs}", "success");
+			</c:if>
+			
+	})
+</script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
 </html>

@@ -9,7 +9,7 @@ public class ShopService {
 	  ShopDAO_interface dao;
 	
 	public ShopService() {
-		dao = new ShopJDBCDAO();
+		dao = new ShopDAO();
 	}
 	public ShopVO addShop(String shopact, String shoppw, String shopname, String shoploc, String shopcy, Integer shopphone, byte[] shopimg,Integer status) {
 		

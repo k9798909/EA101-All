@@ -72,7 +72,7 @@ li {
 				<li class="nav-item">
 					<FORM METHOD="post"
 						ACTION="<%=request.getContextPath()%>/front-end/shopbk/shopbk.do">
-						<b>輸入想要遊玩的日期及時間 :</b><input
+						<b>輸入想要遊玩的時間 :</b><input
 							class="custom-select form-control col-xs-1" type="text"
 							name="shoppds" id="f_date1"> <input type="hidden"
 							name="action" value="getSome_For_Display"> <input
@@ -115,7 +115,6 @@ li {
 	height: 151px; /* height:  151px; */
 }
 </style>
-
 <script>
 	$.datetimepicker.setLocale('zh'); // kr ko ja en
 	$('#f_date1').datetimepicker({

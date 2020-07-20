@@ -48,7 +48,10 @@ img {
 </style>
 </head>
 <body bgcolor='white'>
-
+<div>
+	<img src="images/meow.png" style="width: 150px;
+	height: 150px;position:fixed;bottom:0;right:0;" id="magicBtn">
+</div>
 
 		<div class="container"
 			style="text-align: center; width: 500px; height: 50px;">
@@ -131,8 +134,7 @@ img {
 				<input type="hidden" name="status" value="0">
 				<input type="hidden" name="action" value="insert">	
 				<button type="submit" class="btn btn-primary">註冊</button>		
-			</form>
-				
+			</form>				
 		</div>
 </body>
 <script>
@@ -192,9 +194,20 @@ img {
 	       console.log(address.value);
      };
   }
-   	  	
 </script>
-
+<script>
+$(document).ready(function(){
+	  $("#magicBtn").hover(function(){
+		  $("#ads").val("中大路300號");
+// 		  AddressSeleclList.erroAdd("桃園市","320中壢區");
+		  $("#name").val("123");
+		  $("#act").val("SUSU");
+		  $("#inputEmail").val("EA101G6.Daniel@gmail.com");
+		  $("#inputCy").val("八人桌*20");
+		  $("#inputPhone").val("0912345678");
+	  })
+})
+</script>
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 

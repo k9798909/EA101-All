@@ -15,10 +15,6 @@ table {
 	margin-right: auto;
 }
 
-td th tr {
-	text-align: center;
-}
-
 .icon {
 	width: 20px;
 	height: 20px;
@@ -44,15 +40,6 @@ div {
 </style>
 </head>
 <body bgcolor='white'>
-	<%-- 錯誤表列 --%>
-<%-- 	<c:if test="${not empty errorMsgs}"> --%>
-<!-- 		<font style="color: red">請修正以下錯誤:</font> -->
-<!-- 		<ul> -->
-<%-- 			<c:forEach var="message" items="${errorMsgs}"> --%>
-<%-- 				<li style="color: red">${message}</li> --%>
-<%-- 			</c:forEach> --%>
-<!-- 		</ul> -->
-<%-- 	</c:if> --%>
 
 <jsp:useBean id="gmlistSvc" scope="page" class="com.gmlist.model.GmlistService" />
 <jsp:useBean id="gameSvc" scope="page" class="com.game.model.GameService" />
@@ -63,7 +50,7 @@ div {
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item "><a href='listAllGmlist.jsp'>List
-						</a>all Gmlist.</li>
+						</a>all games of shop.</li>
 			</ul>
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item">
@@ -74,8 +61,8 @@ div {
 								<c:forEach var="gameVO" items="${gameSvc.getAll()}">
 									<option value="${gameVO.gmno}">${gameVO.gmname}
 								</c:forEach>
-						</select> <input type="hidden" name="action" value="getSome_For_Display">
-						<button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">送出</button>
+						</select> <input type="hidden" name="action" value="getSome_For_Display" id="gmname">
+						<button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" id="action">送出</button>
 					</FORM>
 				</li>
 			</ul>
@@ -95,8 +82,7 @@ div {
 			</ul>
 		</div>
 	</nav>
-
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
 </body>

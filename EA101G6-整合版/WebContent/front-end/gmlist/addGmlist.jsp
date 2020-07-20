@@ -81,7 +81,6 @@ h4 {
 					<li class="list-group-item list-group-item-action" id="goShopbk">我的揪團</li>
 					<FORM id="shopbk" METHOD="post"
 						ACTION="<%=request.getContextPath()%>/front-end/shopbk/shopbk.do">
-						<input type="hidden" name="shopno" value="${shopVO.shopno}">
 						<input type="hidden" name="action" value="getSome_For_Display2">
 					</FORM>
 					<li class="list-group-item list-group-item-action" id="goUpdate">更改店家資料</li>
@@ -93,8 +92,7 @@ h4 {
 				</ul>
 			</div>
 		</div>
-		<div class="col-sm-1"></div>
-<div class="col-sm-3">
+<div class="col-sm-4">
 	<table class="table table-sm">
 		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/gmlist/gmlist.do">
 		<tr>
@@ -122,7 +120,7 @@ h4 {
 	</table>
 </div>
 <div class="col-sm-1"></div>
-<div class="col-sm-4">
+<div class="col-sm-3">
 	<table class="table table-sm">
 		
 		<tr>
@@ -234,9 +232,10 @@ h4 {
 		</div>
 <!-- =========================================以上為原addGame.jsp的內容========================================== -->
 			</div></div>			
-			<div class="modal-footer">
+			<div class="modal-footer"><img src="images/meow.png" style="width: 50px;
+					height: 50px;bottom:0;left:0;" id="magicBtn">
                 <input type="submit" value="確認送出" id="go" class="btn btn-primary">
-            </div>		
+            </div>
 		</div>
 	</div>
 </div>
@@ -279,6 +278,9 @@ h4 {
 		$("#create").click(function(){
 			$("#goCreate").submit();
 		})		
+		 $("#magicBtn").click(function(){
+		 	 $("#name").val("麻將");
+	 		 })
 	})
 </script>
 </body>

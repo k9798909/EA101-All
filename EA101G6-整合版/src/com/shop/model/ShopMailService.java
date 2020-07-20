@@ -9,7 +9,11 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-public class ShopMailService {
+public class ShopMailService extends Thread{
+	
+	public void run(){
+		
+	}
 	
 	public void sendMail(String to, String subject, String messageText) {
 			
@@ -46,18 +50,19 @@ public class ShopMailService {
 	
 	 public static void main (String args[]){
 
-      String to = "chizai1101@gmail.com";
-      
-      String subject = "密碼通知";
-      
-      String ch_name = "peter1";
-      String passRandom = "111";
-      String messageText = "Hello! " + ch_name + " 請謹記此密碼: " + passRandom + "\n" +" (已經啟用)"; 
-       
-      ShopMailService mailService = new ShopMailService();
-      mailService.sendMail(to, subject, messageText);
+//      String to = "chizai1101@gmail.com";
+//      
+//      String subject = "密碼通知";
+//      
+//      String ch_name = "peter1";
+//      String passRandom = "111";
+//      String messageText = "Hello! " + ch_name + " 請謹記此密碼: " + passRandom + "\n" +" (已經啟用)"; 
+//       
+//      ShopMailService mailService = new ShopMailService();
+//      mailService.sendMail(to, subject, messageText);
 
    }
 
 
 }
+

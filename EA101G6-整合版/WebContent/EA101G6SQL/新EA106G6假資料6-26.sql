@@ -271,16 +271,16 @@ INSERT INTO SHOP VALUES ('DS'||LPAD(TO_CHAR(SHOP_seq.NEXTVAL), 5, '0'), 'ERIC', 
 INSERT INTO SHOP VALUES ('DS'||LPAD(TO_CHAR(SHOP_seq.NEXTVAL), 5, '0'), 'COLA', 'i123', '可樂農莊', '桃園市320中壢區東明街78號', '五人桌*8', 034576181,load_blob('shop10.jpg'), 0);
 
 
-INSERT INTO SHOPBK VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_seq.NEXTVAL), 5, '0'), 'DS00001', 12, to_timestamp('2020-06-30 12:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_timestamp('2020-06-30 20:00:00', 'yyyy-mm-dd hh24:mi:ss'), 20, 120);
-INSERT INTO SHOPBK VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_seq.NEXTVAL), 5, '0'), 'DS00002', 12, to_timestamp('2020-07-01 13:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_timestamp('2020-07-01 20:00:00', 'yyyy-mm-dd hh24:mi:ss'), 30, 140);
-INSERT INTO SHOPBK VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_seq.NEXTVAL), 5, '0'), 'DS00001', 12, to_timestamp('2020-07-02 11:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_timestamp('2020-07-02 21:00:00', 'yyyy-mm-dd hh24:mi:ss'), 20, 130);
-INSERT INTO SHOPBK VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_seq.NEXTVAL), 5, '0'), 'DS00003', 12, to_timestamp('2020-06-28 14:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_timestamp('2020-06-28 19:00:00', 'yyyy-mm-dd hh24:mi:ss'), 20, 120);
-INSERT INTO SHOPBK VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_seq.NEXTVAL), 5, '0'), 'DS00002', 12, to_timestamp('2020-06-30 15:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_timestamp('2020-06-30 22:00:00', 'yyyy-mm-dd hh24:mi:ss'), 30, 130);
-INSERT INTO SHOPBK VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_seq.NEXTVAL), 5, '0'), 'DS00004', 12, to_timestamp('2020-06-25 12:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_timestamp('2020-06-25 20:00:00', 'yyyy-mm-dd hh24:mi:ss'), 20, 140);
-INSERT INTO SHOPBK VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_seq.NEXTVAL), 5, '0'), 'DS00005', 12, to_timestamp('2020-06-30 10:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_timestamp('2020-06-30 18:00:00', 'yyyy-mm-dd hh24:mi:ss'), 20, 100);
-INSERT INTO SHOPBK VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_seq.NEXTVAL), 5, '0'), 'DS00006', 12, to_timestamp('2020-07-03 14:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_timestamp('2020-07-03 22:00:00', 'yyyy-mm-dd hh24:mi:ss'), 50, 150);
-INSERT INTO SHOPBK VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_seq.NEXTVAL), 5, '0'), 'DS00004', 12, to_timestamp('2020-07-24 15:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_timestamp('2020-07-24 21:00:00', 'yyyy-mm-dd hh24:mi:ss'), 20, 100);
-INSERT INTO SHOPBK VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_seq.NEXTVAL), 5, '0'), 'DS00005', 12, to_timestamp('2020-07-02 11:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_timestamp('2020-07-02 19:00:00', 'yyyy-mm-dd hh24:mi:ss'), 30, 140);
+INSERT INTO SHOPBK VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_seq.NEXTVAL), 5, '0'), 'DS00001', 12, to_timestamp('2020-07-30 12:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_timestamp('2020-07-30 20:00:00', 'yyyy-mm-dd hh24:mi:ss'), 20, 120);
+INSERT INTO SHOPBK VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_seq.NEXTVAL), 5, '0'), 'DS00002', 12, to_timestamp('2020-08-01 13:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_timestamp('2020-08-01 20:00:00', 'yyyy-mm-dd hh24:mi:ss'), 30, 140);
+INSERT INTO SHOPBK VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_seq.NEXTVAL), 5, '0'), 'DS00001', 12, to_timestamp('2020-08-02 11:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_timestamp('2020-08-02 21:00:00', 'yyyy-mm-dd hh24:mi:ss'), 20, 130);
+INSERT INTO SHOPBK VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_seq.NEXTVAL), 5, '0'), 'DS00003', 12, to_timestamp('2020-07-28 14:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_timestamp('2020-07-28 19:00:00', 'yyyy-mm-dd hh24:mi:ss'), 20, 120);
+INSERT INTO SHOPBK VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_seq.NEXTVAL), 5, '0'), 'DS00002', 12, to_timestamp('2020-07-30 15:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_timestamp('2020-07-30 22:00:00', 'yyyy-mm-dd hh24:mi:ss'), 30, 130);
+INSERT INTO SHOPBK VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_seq.NEXTVAL), 5, '0'), 'DS00004', 12, to_timestamp('2020-07-25 12:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_timestamp('2020-07-25 20:00:00', 'yyyy-mm-dd hh24:mi:ss'), 20, 140);
+INSERT INTO SHOPBK VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_seq.NEXTVAL), 5, '0'), 'DS00005', 12, to_timestamp('2020-07-30 10:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_timestamp('2020-07-30 18:00:00', 'yyyy-mm-dd hh24:mi:ss'), 20, 100);
+INSERT INTO SHOPBK VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_seq.NEXTVAL), 5, '0'), 'DS00006', 12, to_timestamp('2020-08-03 14:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_timestamp('2020-08-03 22:00:00', 'yyyy-mm-dd hh24:mi:ss'), 50, 150);
+INSERT INTO SHOPBK VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_seq.NEXTVAL), 5, '0'), 'DS00004', 12, to_timestamp('2020-08-24 15:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_timestamp('2020-08-24 21:00:00', 'yyyy-mm-dd hh24:mi:ss'), 20, 100);
+INSERT INTO SHOPBK VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_seq.NEXTVAL), 5, '0'), 'DS00005', 12, to_timestamp('2020-08-02 11:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_timestamp('2020-08-02 19:00:00', 'yyyy-mm-dd hh24:mi:ss'), 30, 140);
 
 INSERT INTO GAME VALUES ('DG'||LPAD(TO_CHAR(GAME_seq.NEXTVAL), 5, '0'), '阿瓦隆', load_blob('4.jpg') );
 INSERT INTO GAME VALUES ('DG'||LPAD(TO_CHAR(GAME_seq.NEXTVAL), 5, '0'), '狼人殺', load_blob('10.jpg'));

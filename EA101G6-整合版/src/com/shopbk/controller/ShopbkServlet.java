@@ -75,32 +75,29 @@ public class ShopbkServlet extends HttpServlet {
 		}
 		if ("getSome_For_Display".equals(action)||"getSome_For_Display2".equals(action)) { // �Ӧ�select_page.jsp���ШD
 			System.out.println(11111);
-			List<String> errorMsgs = new LinkedList<String>();
+			String errorMsgs = "";
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
-			req.setAttribute("errorMsgs", errorMsgs);
+			req.removeAttribute("errorMsgs");
 
-			try {
+//			try {
 				String shopno = null;
 				java.sql.Timestamp shoppds = null;
-				if(req.getParameter("shopno")==null) {
+				if(req.getParameter("shoppds")!=null) {
 					System.out.println(11111);
 					try {
 						String s = req.getParameter("shoppds").trim()+":00";
 						shoppds = java.sql.Timestamp.valueOf(s);
-						System.out.println(2222);
+						System.out.println(3333);
 					} catch (IllegalArgumentException e) {
-						shoppds = new java.sql.Timestamp(System.currentTimeMillis());
-						errorMsgs.add("請輸入日期");
-					}
-					
-					
-				}
-				if(req.getParameter("shopps")==null || req.getParameter("shopps").trim().length()==0) {
-					shopno = req.getParameter("shopno");
+						System.out.println(3333);
+						errorMsgs+="日期格式錯誤";
+					}				
 				}
 				
+				shopno = req.getParameter("shopno");
 				if (!errorMsgs.isEmpty()) {
+					req.setAttribute("errorMsgs", errorMsgs);
 					RequestDispatcher failureView = req.getRequestDispatcher("listAllShopbk.jsp");
 					failureView.forward(req, res);
 					return;// �{�����_
@@ -109,16 +106,28 @@ public class ShopbkServlet extends HttpServlet {
 				/*************************** 2.�}�l�d�߸�� *****************************************/
 				ShopbkService shopbkSvc = new ShopbkService();
 				List<ShopbkVO> shopbkVO = null;
-				if(req.getParameter("shopno")==null)
-					shopbkVO = shopbkSvc.getShopbkByTime(shoppds);
-				if(req.getParameter("shopps")==null || req.getParameter("shoppe")==null)
+				if(req.getParameter("shopno")!=null) {
+					System.out.println(shoppds);
 					shopbkVO = shopbkSvc.getShopbkByShop(shopno);
-				if (shopbkVO == null) {
-					errorMsgs.add("查無資料");
+					if (shopbkVO.size() == 0) {
+						errorMsgs+="對不起，該店家尚無提供訂位";
+					}
 				}
+				System.out.println(55555555);
+				if(req.getParameter("shoppds")!=null) {
+					System.out.println(66666666);
+					System.out.println(shopno);
+					shopbkVO = shopbkSvc.getShopbkByTime(shoppds);
+					if (shopbkVO.size() == 0) {
+						errorMsgs+="對不起，該時段尚無提供訂位";
+					}
+				}
+					
+				
 				
 				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
+				if (!errorMsgs.isEmpty()&&"getSome_For_Display".equals(action)) {
+					req.setAttribute("errorMsgs", errorMsgs);
 					RequestDispatcher failureView = req.getRequestDispatcher("listAllShopbk.jsp");
 					failureView.forward(req, res);
 					return;// �{�����_
@@ -141,11 +150,11 @@ public class ShopbkServlet extends HttpServlet {
 				successView.forward(req, res);
 
 				/*************************** ��L�i�઺���~�B�z *************************************/
-			} catch (Exception e) {
-				errorMsgs.add("有錯誤:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("listAllShopbk.jsp");
-				failureView.forward(req, res);
-			}
+//			} catch (Exception e) {
+//				errorMsgs+="有錯誤:" + e.getMessage();
+//				RequestDispatcher failureView = req.getRequestDispatcher("listAllShopbk.jsp");
+//				failureView.forward(req, res);
+//			}
 		}
 		if ("getOne_For_Update".equals(action)) { // �Ӧ�listAllshop.jsp���ШD
 
@@ -179,26 +188,31 @@ public class ShopbkServlet extends HttpServlet {
 		if ("update".equals(action)) { // �Ӧ�update_shop_input.jsp���ШD
 
 			List<String> errorMsgs = new LinkedList<String>();
-			Map successMsgs = new HashMap();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 
-			try {
+//			try {
 				/*************************** 1.�����ШD�Ѽ� - ��J�榡�����~�B�z **********************/
 				String shopbkno = req.getParameter("shopbkno");
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("select_page.jsp");
-					failureView.forward(req, res);
-					return;// �{�����_
-				}
+				
 
 				String shopno = req.getParameter("shopno");
-				Integer ofdtable = new Integer(req.getParameter("ofdtable"));
-
+				Integer ofdtable = null;
+				try {
+					ofdtable = new Integer(req.getParameter("ofdtable").trim());
+				}catch(Exception e) {
+					errorMsgs.add("提供人數格式錯誤");
+				}
+				
+				if (req.getParameter("ofdtable").trim() == null||req.getParameter("ofdtable").trim().length()==0) {
+					ofdtable = 15;
+					errorMsgs.add("提供位置不可空白");
+				}
 				java.sql.Timestamp shoppds = null;
 				try {
-					shoppds = java.sql.Timestamp.valueOf(req.getParameter("shoppds").trim());
+					String s = req.getParameter("shoppds").trim()+":00";
+					shoppds = java.sql.Timestamp.valueOf(s);
 				} catch (IllegalArgumentException e) {
 					shoppds = new java.sql.Timestamp(System.currentTimeMillis());
 					errorMsgs.add("請輸入日期");
@@ -206,16 +220,29 @@ public class ShopbkServlet extends HttpServlet {
 				
 				java.sql.Timestamp shoppde = null;
 				try {
-					shoppde = java.sql.Timestamp.valueOf(req.getParameter("shoppde").trim());
+					String s1 = req.getParameter("shoppde").trim()+":00";
+					shoppde = java.sql.Timestamp.valueOf(s1);
 				} catch (IllegalArgumentException e) {
 					shoppde = new java.sql.Timestamp(System.currentTimeMillis());
 					errorMsgs.add("請輸入日期");
 				}
 				
+				Integer payinfohr = null;
+				try {
+					payinfohr = new Integer(req.getParameter("payinfohr").trim());
+				}catch(Exception e) {
+					errorMsgs.add("每小時價位格式錯誤");
+				}
 				
 				
-				Integer payinfohr = new Integer(req.getParameter("payinfohr"));
-				Integer payinfoday = new Integer(req.getParameter("payinfoday"));
+				
+				
+				Integer payinfoday = null;
+				try {
+					payinfoday = new Integer(req.getParameter("payinfoday").trim());
+				}catch(Exception e) {
+					errorMsgs.add("每小時價位格式錯誤");
+				}
 				
 				ShopbkVO shopbkVO = new ShopbkVO();
 				shopbkVO.setShopbkno(shopbkno);
@@ -230,7 +257,7 @@ public class ShopbkServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("shopbkVO", shopbkVO); // �t����J�榡���~��shopVO����,�]�s�Jreq
-					RequestDispatcher failureView = req.getRequestDispatcher("update_shopbk_input.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("listSomeShopbk2.jsp");
 					failureView.forward(req, res);
 					return; // �{�����_
 				}
@@ -240,27 +267,26 @@ public class ShopbkServlet extends HttpServlet {
 				shopbkVO = shopbkSvc.updateShopbk(shopbkno, shopno, ofdtable, shoppds, shoppde, payinfohr, payinfoday);
 
 				/*************************** 3.�ק粒��,�ǳ����(Send the Success view) *************/
-				req.setAttribute("shopbkVO", shopbkVO); // ��Ʈwupdate���\��,���T����shopVO����,�s�Jreq
-				String url = "listOneShopbk.jsp";
+				String url = "listSomeShopbk2.jsp";
+				req.setAttribute("successMsgs", "修改成功!");
 				RequestDispatcher successView = req.getRequestDispatcher(url); // �ק令�\��,���listOneshop.jsp
 				successView.forward(req, res);
 
 				/*************************** ��L�i�઺���~�B�z *************************************/
-			} catch (Exception e) {
-				errorMsgs.add("修改資料失敗:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("update_shopbk_input.jsp");
-				failureView.forward(req, res);
-			}
+//			} catch (Exception e) {
+//				errorMsgs.add("修改資料失敗:" + e.getMessage());
+//				RequestDispatcher failureView = req.getRequestDispatcher("listSomeShopbk2.jsp");
+//				failureView.forward(req, res);
+//			}
 		}
 
 		if ("insert".equals(action)) { // �Ӧ�addshop.jsp���ШD
 System.out.println(1111111111);
 			List<String> errorMsgs = new LinkedList<String>();
-			Map successMsgs = new HashMap();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-//			try {
+			try {
 				/*********************** 1.�����ШD�Ѽ� - ��J�榡�����~�B�z *************************/
 
 				String shopno = req.getParameter("shopno");
@@ -277,10 +303,8 @@ System.out.println(1111111111);
 				}
 				java.sql.Timestamp shoppds = null;
 				try {
-System.out.println(1111111111);
 					String s = req.getParameter("shoppds").trim()+":00";
 					shoppds = java.sql.Timestamp.valueOf(s);
-					System.out.println(1111111111);
 				} catch (IllegalArgumentException e) {
 					shoppds = new java.sql.Timestamp(System.currentTimeMillis());
 					errorMsgs.add("請輸入日期");
@@ -288,7 +312,6 @@ System.out.println(1111111111);
 				
 				java.sql.Timestamp shoppde = null;
 				try {
-System.out.println(1111111111);
 					String s1 = req.getParameter("shoppde").trim()+":00";
 					shoppde = java.sql.Timestamp.valueOf(s1);
 				} catch (IllegalArgumentException e) {
@@ -296,14 +319,12 @@ System.out.println(1111111111);
 					errorMsgs.add("請輸入日期");
 				}
 				
-				System.out.println(1111111111);
 				Integer payinfohr = null;
 				try {
 					payinfohr = new Integer(req.getParameter("payinfohr").trim());
 				}catch(Exception e) {
 					errorMsgs.add("每小時價位格式錯誤");
 				}
-				System.out.println(1111111111);
 				
 				
 				
@@ -314,7 +335,6 @@ System.out.println(1111111111);
 				}catch(Exception e) {
 					errorMsgs.add("每小時價位格式錯誤");
 				}
-				System.out.println(1111111111);
 				ShopbkVO shopbkVO = new ShopbkVO();
 				shopbkVO.setShopno(shopno);
 				shopbkVO.setOfdtable(ofdtable);
@@ -339,17 +359,16 @@ System.out.println(1111111111);
 
 				/*************************** 3.�s�W����,�ǳ����(Send the Success view) ***********/
 				String url = "listSomeShopbk2.jsp";
-				successMsgs.put("successMsgs","新增成功!");
-				req.setAttribute("successMsgs", successMsgs);
+				req.setAttribute("successMsgs", "新增成功!");
 				RequestDispatcher successView = req.getRequestDispatcher(url); // �s�W���\�����listAllshop.jsp
 				successView.forward(req, res);
 
 				/*************************** ��L�i�઺���~�B�z **********************************/
-//			} catch (Exception e) {
-//				errorMsgs.add(e.getMessage());
-//				RequestDispatcher failureView = req.getRequestDispatcher("listSomeShopbk2.jsp");
-//				failureView.forward(req, res);
-//			}
+			} catch (Exception e) {
+				errorMsgs.add(e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("listSomeShopbk2.jsp");
+				failureView.forward(req, res);
+			}
 		}
 	
 	}

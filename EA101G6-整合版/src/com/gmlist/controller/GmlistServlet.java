@@ -62,9 +62,7 @@ public class GmlistServlet extends HttpServlet {
 					return;
 				}
 
-				/***************************
-				 * 2.�}�l�d�߸��
-				 *****************************************/
+
 				GmlistService gmlistSvc = new GmlistService();
 				GmlistVO gmlistVO = gmlistSvc.getOneGmlist(gmno, shopno);
 				if (gmlistVO == null) {
@@ -123,7 +121,6 @@ public class GmlistServlet extends HttpServlet {
 			}
 
 			/*************************** 3.(Send the Success view) *************/
-//			req.setAttribute("gmlistVO", gmlistVO);
 			String url = "listSomeGmlist.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
@@ -138,33 +135,24 @@ public class GmlistServlet extends HttpServlet {
 		if ("insert".equals(action)) { // addgmlist.jsp���ШD
 
 				String errorMsgs = "";
-				// Store this set in the request scope, in case we need to
-				// send the ErrorPage view.
 				
-
-				try {
-				String[] gmno = req.getParameterValues("gmno2");
-				ShopVO shopVO = (ShopVO)session.getAttribute("shopAcount");
-				if(gmno == null) {
+				if(req.getParameterValues("gmno2") == null) {
 					errorMsgs+="請選擇要增加的遊戲";
 					req.setAttribute("errorMsgs", errorMsgs);
 					RequestDispatcher failureView = req.getRequestDispatcher("addGmlist.jsp");
 					failureView.forward(req, res);
 					return;
 				}
+				try {
+				String[] gmno = req.getParameterValues("gmno2");
+				ShopVO shopVO = (ShopVO)session.getAttribute("shopAcount");
+				
 
-				/***************************
-				 * 2.�}�l�s�W���
-				 ***************************************/
 				GmlistService gmlistSvc = new GmlistService();
 				for(String s:gmno) {
 					gmlistSvc.addGmlist(s, shopVO.getShopno());
 				}
 
-				/***************************
-				 * 3.�s�W����,�ǳ����(Send the Success view)
-				 ***********/
-				
 				
 				/*************************** 3.(Send the Success view) *************/
 				String url = "addGmlist.jsp";

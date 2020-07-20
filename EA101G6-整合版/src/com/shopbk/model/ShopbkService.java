@@ -11,7 +11,7 @@ public class ShopbkService {
 	ShopbkDAO_interface dao;
 	
 	public ShopbkService() {
-		dao = new ShopbkJDBCDAO();
+		dao = new ShopbkDAO();
 	}
 	public ShopbkVO addShopbk(String shopno, Integer ofdtable, Timestamp shoppds, Timestamp shoppde, Integer payinfohr, Integer payinfoday) {
 		

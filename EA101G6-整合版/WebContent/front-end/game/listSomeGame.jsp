@@ -60,15 +60,6 @@ h4 {
 
 	<jsp:include page="select_page.jsp" flush="true"></jsp:include>
 
-	<%-- 錯誤表列 --%>
-	<c:if test="${not empty errorMsgs}">
-		<font style="color: red">請修正以下錯誤:</font>
-		<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color: red">${message}</li>
-			</c:forEach>
-		</ul>
-	</c:if>
 	<div class="container-fluid">
 		<div class="row">
 			<%@ include file="page1.file"%>
@@ -89,7 +80,7 @@ h4 {
 						<td>
 							<FORM METHOD="post" ACTION="game.do" style="margin-bottom: 0px;">
 								<input type="submit" value="修改"
-									class="btn btn-outline-secondary my-2 my-sm-0"> <input
+									class="btn btn-secondary my-2 my-sm-0"> <input
 									type="hidden" name="gmno" value="${gameVO.gmno}"> <input
 									type="hidden" name="action" value="getOne_For_Update">
 							</FORM>
@@ -108,7 +99,13 @@ h4 {
 		</div>
 	</div>
 
-
-
+<script>
+	$(document).ready(function(){	
+			<c:if test="${not empty successMsgs}">
+			swal("Good", "${successMsgs}", "success");
+			</c:if>
+	})
+</script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
 </html>

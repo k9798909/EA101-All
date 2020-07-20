@@ -9,7 +9,7 @@ public class GameService {
 	GameDAO_interface dao;
 	
 	public GameService() {
-		dao = new GameJDBCDAO();
+		dao = new GameDAO();
 	}
 	public void addGame(String gmname, byte[] gmimg, ShopVO shopVO) {
 		GameVO gameVO = new GameVO();
