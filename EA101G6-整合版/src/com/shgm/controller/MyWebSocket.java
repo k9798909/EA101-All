@@ -125,7 +125,7 @@ public class MyWebSocket {
 					if (shgmrpvo != null && shgmrpvo.getStatus() == 1) {
 						sendthis.append("被檢舉的商品「" + shgmvo.getShgmname() + "」已重新申請上架，請至檢舉管理審核！");
 						sendmsg("shgmBackEnd", sendthis);
-					} else if (shgmrpvo == null && shgmvo.getUpcheck() == 0) {
+					} else if (shgmrpvo == null || shgmrpvo.getStatus() == 2 && shgmvo.getUpcheck() == 0) {
 						sendthis.append("市集商品「" + shgmvo.getShgmname() + "」正申請上架，請至市集管理審核！");
 						sendmsg("shgmBackEnd", sendthis);
 					}

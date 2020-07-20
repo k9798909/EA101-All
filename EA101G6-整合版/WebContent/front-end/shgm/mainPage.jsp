@@ -207,6 +207,7 @@ footer{
 				<form method="post" action="<%=request.getContextPath()%>/front-end/shgm/shgm.do">
 					<input id="word" type="text" name="word" value="${(searchResult == null)? '':param.word}"/>
 					<input id="findshgm"  class="btn btn-primary" type="submit" value="找桌遊"/>
+					<input name="requestURL" type="hidden" value="<%=request.getServletPath()%>">
 					<input type="hidden" name="action" value="search"/>
 				</form>
 				<div class="card-deck">
