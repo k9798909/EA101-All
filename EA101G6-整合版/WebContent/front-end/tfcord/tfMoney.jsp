@@ -105,7 +105,7 @@
 					<div class="col-sm-4 d-flex justify-content-start" style="clear:both">
 						<select size="1" name="price" style="width:200px; line-height:80px; border-radius:10px; font-size:25px;" onmousedown="if(this.options.length>5){this.size=5;}"  onchange='this.size=0;' onblur="this.size=0;">
 		<!-- 				onmousedown="if(this.options.length>5){this.size=5;}"  onchange='this.size=0;' onblur="this.size=0;" 可以將下拉式選單加上滾輪，但位置怪怪的 -->
-							<c:forEach var="price" begin="100" end="${mbrpfVO.points}" step="100">
+							<c:forEach var="price" begin="100" end="${mbrPoint}" step="100">
 								<option value="${price}">${price}元
 							</c:forEach>	
 						</select>
