@@ -9,7 +9,7 @@ CKEDITOR.editorConfig = function( config ) {
 	// https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_config.html
 	
 	
-	
+	config.enterMode = CKEDITOR.ENTER_BR;
 	
 	// The toolbar groups arrangement, optimized for two toolbar rows.
 	config.toolbarGroups = [
