@@ -838,16 +838,10 @@ INSERT INTO SHGM VALUES('CA'||LPAD(shgm_seq.NEXTVAL,5,'0'),
 'BM00005',NULL,'Stockpile 縱橫股海 二手',1000,'中文版，九成新',
 load_blob('shgm20.jpg'),1,TO_TIMESTAMP('2020-07-02 17:18:00', 'YYYY-MM-DD HH24:MI:SS'),NULL,NULL,NULL,NULL,0,0,0,NULL);
 
-
-INSERT INTO SHGMRP VALUES('CB'||LPAD(shgmrp_seq.NEXTVAL,5,'0'),'CA00004','BM00001','圖片與產品名稱、簡介不一樣。',0);
-
-INSERT INTO SHGMRP VALUES('CB'||LPAD(shgmrp_seq.NEXTVAL,5,'0'),'CA00005','BM00002','簡介好像是電玩版的，跟桌遊沒有關係。',0);
-
-INSERT INTO SHGMRP VALUES('CB'||LPAD(shgmrp_seq.NEXTVAL,5,'0'),'CA00007','BM00004','簡介是廣告訊息。',0);
-
 INSERT INTO SHGMRP VALUES('CB'||LPAD(shgmrp_seq.NEXTVAL,5,'0'),'CA00008','BM00007','圖片太模糊了，看不清楚。',0);
 
-INSERT INTO SHGMRP VALUES('CB'||LPAD(shgmrp_seq.NEXTVAL,5,'0'),'CA00007','BM00010','簡介是廣告訊息。',0);
+INSERT INTO SHGMRP VALUES('CB'||LPAD(shgmrp_seq.NEXTVAL,5,'0'),'CA00007','BM000010','簡介是廣告訊息。',0);
+
 
 --孟辰
 
