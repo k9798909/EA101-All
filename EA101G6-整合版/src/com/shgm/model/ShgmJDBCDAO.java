@@ -30,7 +30,7 @@ public class ShgmJDBCDAO implements ShgmDAO_interface {
 
 	private static final String INSERT_STMT = "INSERT INTO SHGM "
 			+ "(shgmno,sellerno,buyerno,shgmname,price,intro,img,upcheck,uptime,take,takernm,takerph,address,boxstatus,paystatus,status,soldtime) "
-			+ "VALUES" + "('CA'||LPAD(shgame_seq.NEXTVAL,5,'0'),?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			+ "VALUES" + "('CA'||LPAD(shgm_seq.NEXTVAL,5,'0'),?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String UPDATE_STMT = "UPDATE SHGM SET sellerno=?,buyerno=?,shgmname=?,price=?,intro=?,img=?,upcheck=?,uptime=?,"
 			+ "take=?,takernm=?,takerph=?,address=?,boxstatus=?,paystatus=?,status=?,soldtime=? WHERE shgmno=?";
 	private static final String DELETE_STMT = "DELETE FROM SHGM WHERE shgmno=?";

@@ -716,7 +716,7 @@ INSERT INTO SHGM VALUES('CA'||LPAD(shgm_seq.NEXTVAL,5,'0'),
 load_blob('shgm03.jpg'),1,TO_TIMESTAMP('2020-02-24 15:43:48', 'YYYY-MM-DD HH24:MI:SS'),NULL,NULL,NULL,NULL,0,0,0,NULL);
 
 INSERT INTO SHGM VALUES('CA'||LPAD(shgm_seq.NEXTVAL,5,'0'),
-'BM00005',NULL,'高雄大空襲',1000,'高雄大空襲(Radio on Takao)是一款劇情式的合作桌遊，一共有5種劇情可以選擇，玩家們要透過解劇情任務來達成遊戲目標，若遊戲中有任何一位玩家死亡，遊戲立刻以失敗結束。
+'BM00008',NULL,'高雄大空襲',1000,'高雄大空襲(Radio on Takao)是一款劇情式的合作桌遊，一共有5種劇情可以選擇，玩家們要透過解劇情任務來達成遊戲目標，若遊戲中有任何一位玩家死亡，遊戲立刻以失敗結束。
 高雄大空襲的故事背景是在日治時期，當時因為高雄有許多日軍的工廠設施而被美軍轟炸，桌遊的劇情任務就以此為背景展開。
 還不錯的國產桌遊，玩到膩了所以想賣掉。',
 load_blob('shgm04.jpg'),1,TO_TIMESTAMP('2020-03-05 10:12:36', 'YYYY-MM-DD HH24:MI:SS'),NULL,NULL,NULL,NULL,0,0,0,NULL);
