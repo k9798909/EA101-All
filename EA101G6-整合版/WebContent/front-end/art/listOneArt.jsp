@@ -116,9 +116,10 @@
   	margin-top: 10px;
   }
   #mem1{
+  	margin-top: -10px;
   	margin-left: 35px;
-  	width: 30px;
-  	height: 30px;
+  	width: 50px;
+  	height: 50px;
   }
   .artmsg{
   	margin-left: 30px;
@@ -142,6 +143,9 @@
  }
  .rapper{
  	text-align: center;
+ }
+ .msgh{
+ 	height: 70px
  }
   
 </style>
@@ -344,12 +348,12 @@
 		<input type="hidden"
 			value="${mbrname = mbrSvc.getOneMbrpf(msgVO.mbrno).mbrname}" />
 
-		<div class="card col-md-8 offset-md-2 float-left">
+		<div class="card col-md-8 offset-md-2 float-left msgh">
 			<div class="card-body">
 				<a><img class="float-left" id="mem1"
-					src="<%=request.getContextPath()%>/front-end/images/member.png"><span class="float-left">${mbrname}
+					src="<%=request.getContextPath()%>/mbrpf/mbrimg.do?mbrno=${msgVO.mbrno}"><span class="float-left">${mbrname}
 						:</span></a>
-				<p class="artmsg float-left">
+				<p class="artmsg float-left ">
 					<span>${msgVO.detail}</span>
 				</p>	
 			</div>
@@ -362,6 +366,7 @@
 	<input type="hidden" id="reEdit" value='${reEdit}'>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForArt/wsForArt.js"></script>
 
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 	<script>
     $(document).ready(function(){

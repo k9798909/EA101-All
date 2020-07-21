@@ -154,7 +154,7 @@
                       <button type="submit" name="action" value="get_One_Detail" class="btn btn-sm btn-outline-secondary">繼續閱讀...</button>
                       <input type="hidden" name="artno" value="${artVO.artno}"/>
                       <c:if test="${artVO.status == 1}">
-                      	 <h5><span class="kagay badge badge-secondary">被隱藏</span></h5>
+                      	 <h5><span class="kagay badge badge-secondary">被下架</span></h5>
                       </c:if>
                      
                     </div>
