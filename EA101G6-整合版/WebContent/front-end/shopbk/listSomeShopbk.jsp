@@ -129,7 +129,8 @@ h4 {
 <!-- 			<div class="modal-footer" style="margin-left:auto;margin-top:auto;"> -->
 <!--                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
 <!--             </div> -->
-		
+		</div>
+		</div>
 		</div>
 	</div>
 </div>
