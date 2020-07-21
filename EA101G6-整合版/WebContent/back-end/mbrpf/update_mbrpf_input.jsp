@@ -76,7 +76,7 @@
 						<tr>
 							<td class="tdtitle">·|­û±K½X</td>
 						<tr>
-							<td><input type="TEXT" class="mainF" name="mbrpw" size="45"
+							<td><input type="PASSWORD" class="mainF" name="mbrpw" size="45"
 								value="<%=mbrpfVO.getMbrpw()%>" /></td>
 						</tr>
 						</tr>
