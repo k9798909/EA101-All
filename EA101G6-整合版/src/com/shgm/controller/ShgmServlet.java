@@ -509,6 +509,7 @@ public class ShgmServlet extends HttpServlet {
 				} else if (!takerph.trim().matches(takerphreg)) {
 					errormap.put("takerph", "請輸入符合格式的電話號碼");
 				}
+				
 
 				String city = request.getParameter("city");
 				String area = request.getParameter("area");
@@ -555,7 +556,8 @@ public class ShgmServlet extends HttpServlet {
 				// 回到infoPage的JSTL判斷用的
 				shgmvo.setPaystatus(1);
 				session.setAttribute("infoshgm", shgmvo);
-
+				//更動過點數的會員資料
+				session.setAttribute("mbrpfVO", mbrpfVO);
 				request.setAttribute("buysuccess", "success");
 
 				String url = "/front-end/shgm/infoPage.jsp";
@@ -840,7 +842,9 @@ public class ShgmServlet extends HttpServlet {
 						MbrpfService mbrpfsvc = new MbrpfService();
 						MbrpfVO mbrpfVO = mbrpfsvc.getOneMbrpf(sellerno);
 						mbrpfVO.setPoints(mbrpfVO.getPoints() + shgmvo.getPrice());
-
+						//更動過點數的會員資料
+						session.setAttribute("mbrpfVO", mbrpfVO);
+						
 						shgmvo = shgmsvc.updateShgm(shgmno, shgmvo.getSellerno(), shgmvo.getBuyerno(),
 								shgmvo.getShgmname(), shgmvo.getPrice(), shgmvo.getIntro(), shgmvo.getImg(),
 								shgmvo.getUpcheck(), shgmvo.getUptime(), shgmvo.getTake(), shgmvo.getTakernm(),
@@ -869,7 +873,10 @@ public class ShgmServlet extends HttpServlet {
 						MbrpfService mbrpfsvc = new MbrpfService();
 						MbrpfVO mbrpfVO = mbrpfsvc.getOneMbrpf(buyerno);
 						mbrpfVO.setPoints(mbrpfVO.getPoints() + shgmvo.getPrice());
-
+						//更動過點數的會員資料
+						session.setAttribute("mbrpfVO", mbrpfVO);
+						
+						
 						shgmsvc.updateShgm(shgmno, shgmvo.getSellerno(), buyerno, shgmvo.getShgmname(),
 								shgmvo.getPrice(), shgmvo.getIntro(), shgmvo.getImg(), shgmvo.getUpcheck(),
 								shgmvo.getUptime(), shgmvo.getTake(), shgmvo.getTakernm(), shgmvo.getTakerph(),
