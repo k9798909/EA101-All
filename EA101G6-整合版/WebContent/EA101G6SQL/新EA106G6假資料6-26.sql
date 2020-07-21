@@ -260,27 +260,27 @@ VALUES ('BM'||LPAD(to_char(mem_seq.NEXTVAL),5,'0'),'11','11','測試man',LOAD_BL
 ------------鴻基
 
 INSERT INTO SHOP VALUES ('DS'||LPAD(TO_CHAR(SHOP_seq.NEXTVAL), 5, '0'), 'WOLF', '123456', '古意狼', '桃園市320中壢區中正路882號', '六人桌*10', 0933103579,load_blob('shop1.jpg'), 1);
-INSERT INTO SHOP VALUES ('DS'||LPAD(TO_CHAR(SHOP_seq.NEXTVAL), 5, '0'), 'PETER', 'a0123', '圓桌騎士', '桃園市320中壢區中美路一段59號2F', '八人桌*5', 0977292033,load_blob('shop2.jpg'), 1);
-INSERT INTO SHOP VALUES ('DS'||LPAD(TO_CHAR(SHOP_seq.NEXTVAL), 5, '0'), 'SARA', 'b9876', '貓腳印', '桃園市320中壢區中央東路13號6樓', '六人桌*8', 034275911,load_blob('shop3.jpeg'), 1);
-INSERT INTO SHOP VALUES ('DS'||LPAD(TO_CHAR(SHOP_seq.NEXTVAL), 5, '0'), 'DANIEL', 'c123', '桌遊幽靈城', '桃園市320中壢區興平路56號', '五人桌*5', 034621264,load_blob('shop4.jpg'), 1);
-INSERT INTO SHOP VALUES ('DS'||LPAD(TO_CHAR(SHOP_seq.NEXTVAL), 5, '0'), 'AURORA', 'd123', '逗你玩', '桃園市320中壢區和平街60號2樓', '五人桌*5', 034224480,load_blob('shop5.jpg'), 2);
-INSERT INTO SHOP VALUES ('DS'||LPAD(TO_CHAR(SHOP_seq.NEXTVAL), 5, '0'), 'SANDY', 'e123', 'iPLAY', '桃園市320中壢區中山路216號2F', '六人桌*10', 034269430,load_blob('shop6.jpg'), 1);
-INSERT INTO SHOP VALUES ('DS'||LPAD(TO_CHAR(SHOP_seq.NEXTVAL), 5, '0'), 'ANDY', 'f123', '安捷尼', '桃園市334八德區廣福路20巷8號2F', '五人桌*10', 033663054,load_blob('shop7.jpg'), 1);
-INSERT INTO SHOP VALUES ('DS'||LPAD(TO_CHAR(SHOP_seq.NEXTVAL), 5, '0'), 'DAVID', 'g123', '桌弄弄桌遊', '桃園市320中壢區大仁街50號', '六人桌*8', 032830916,load_blob('shop8.jpg'), 1);
-INSERT INTO SHOP VALUES ('DS'||LPAD(TO_CHAR(SHOP_seq.NEXTVAL), 5, '0'), 'ERIC', 'h123', '貓咪貓咪G9', '桃園市320中壢區日新路8號2樓', '六人桌*7', 0902026606,load_blob('shop9.jpg'), 0);
-INSERT INTO SHOP VALUES ('DS'||LPAD(TO_CHAR(SHOP_seq.NEXTVAL), 5, '0'), 'COLA', 'i123', '可樂農莊', '桃園市320中壢區東明街78號', '五人桌*8', 034576181,load_blob('shop10.jpg'), 0);
+INSERT INTO SHOP VALUES ('DS'||LPAD(TO_CHAR(SHOP_seq.NEXTVAL), 5, '0'), 'PETER', '123456', '圓桌騎士', '桃園市320中壢區中美路一段59號2F', '八人桌*5', 0977292033,load_blob('shop2.jpg'), 1);
+INSERT INTO SHOP VALUES ('DS'||LPAD(TO_CHAR(SHOP_seq.NEXTVAL), 5, '0'), 'SARA', '123456', '貓腳印', '桃園市320中壢區中央東路13號6樓', '六人桌*8', 034275911,load_blob('shop3.jpeg'), 1);
+INSERT INTO SHOP VALUES ('DS'||LPAD(TO_CHAR(SHOP_seq.NEXTVAL), 5, '0'), 'DANIEL', '123456', '桌遊幽靈城', '桃園市320中壢區興平路56號', '五人桌*5', 034621264,load_blob('shop4.jpg'), 1);
+INSERT INTO SHOP VALUES ('DS'||LPAD(TO_CHAR(SHOP_seq.NEXTVAL), 5, '0'), 'AURORA', '123456', '逗你玩', '桃園市320中壢區和平街60號2樓', '五人桌*5', 034224480,load_blob('shop5.jpg'), 2);
+INSERT INTO SHOP VALUES ('DS'||LPAD(TO_CHAR(SHOP_seq.NEXTVAL), 5, '0'), 'SANDY', '123456', 'iPLAY', '桃園市320中壢區中山路216號2F', '六人桌*10', 034269430,load_blob('shop6.jpg'), 1);
+INSERT INTO SHOP VALUES ('DS'||LPAD(TO_CHAR(SHOP_seq.NEXTVAL), 5, '0'), 'ANDY', '123456', '安捷尼', '桃園市334八德區廣福路20巷8號2F', '五人桌*10', 033663054,load_blob('shop7.jpg'), 1);
+INSERT INTO SHOP VALUES ('DS'||LPAD(TO_CHAR(SHOP_seq.NEXTVAL), 5, '0'), 'DAVID', '123456', '桌弄弄桌遊', '桃園市320中壢區大仁街50號', '六人桌*8', 032830916,load_blob('shop8.jpg'), 1);
+INSERT INTO SHOP VALUES ('DS'||LPAD(TO_CHAR(SHOP_seq.NEXTVAL), 5, '0'), 'ERIC', '123456', '貓咪貓咪G9', '桃園市320中壢區日新路8號2樓', '六人桌*7', 0902026606,load_blob('shop9.jpg'), 0);
+INSERT INTO SHOP VALUES ('DS'||LPAD(TO_CHAR(SHOP_seq.NEXTVAL), 5, '0'), 'COLA', '123456', '可樂農莊', '桃園市320中壢區東明街78號', '五人桌*8', 034576181,load_blob('shop10.jpg'), 0);
 
 
-INSERT INTO SHOPBK VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_seq.NEXTVAL), 5, '0'), 'DS00001', 12, to_timestamp('2020-06-30 12:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_timestamp('2020-06-30 20:00:00', 'yyyy-mm-dd hh24:mi:ss'), 20, 120);
-INSERT INTO SHOPBK VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_seq.NEXTVAL), 5, '0'), 'DS00002', 12, to_timestamp('2020-07-01 13:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_timestamp('2020-07-01 20:00:00', 'yyyy-mm-dd hh24:mi:ss'), 30, 140);
-INSERT INTO SHOPBK VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_seq.NEXTVAL), 5, '0'), 'DS00001', 12, to_timestamp('2020-07-02 11:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_timestamp('2020-07-02 21:00:00', 'yyyy-mm-dd hh24:mi:ss'), 20, 130);
-INSERT INTO SHOPBK VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_seq.NEXTVAL), 5, '0'), 'DS00003', 12, to_timestamp('2020-06-28 14:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_timestamp('2020-06-28 19:00:00', 'yyyy-mm-dd hh24:mi:ss'), 20, 120);
-INSERT INTO SHOPBK VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_seq.NEXTVAL), 5, '0'), 'DS00002', 12, to_timestamp('2020-06-30 15:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_timestamp('2020-06-30 22:00:00', 'yyyy-mm-dd hh24:mi:ss'), 30, 130);
-INSERT INTO SHOPBK VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_seq.NEXTVAL), 5, '0'), 'DS00004', 12, to_timestamp('2020-06-25 12:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_timestamp('2020-06-25 20:00:00', 'yyyy-mm-dd hh24:mi:ss'), 20, 140);
-INSERT INTO SHOPBK VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_seq.NEXTVAL), 5, '0'), 'DS00005', 12, to_timestamp('2020-06-30 10:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_timestamp('2020-06-30 18:00:00', 'yyyy-mm-dd hh24:mi:ss'), 20, 100);
-INSERT INTO SHOPBK VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_seq.NEXTVAL), 5, '0'), 'DS00006', 12, to_timestamp('2020-07-03 14:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_timestamp('2020-07-03 22:00:00', 'yyyy-mm-dd hh24:mi:ss'), 50, 150);
-INSERT INTO SHOPBK VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_seq.NEXTVAL), 5, '0'), 'DS00004', 12, to_timestamp('2020-07-24 15:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_timestamp('2020-07-24 21:00:00', 'yyyy-mm-dd hh24:mi:ss'), 20, 100);
-INSERT INTO SHOPBK VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_seq.NEXTVAL), 5, '0'), 'DS00005', 12, to_timestamp('2020-07-02 11:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_timestamp('2020-07-02 19:00:00', 'yyyy-mm-dd hh24:mi:ss'), 30, 140);
+INSERT INTO SHOPBK VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_seq.NEXTVAL), 5, '0'), 'DS00001', 12, to_timestamp('2020-07-30 12:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_timestamp('2020-07-30 20:00:00', 'yyyy-mm-dd hh24:mi:ss'), 20, 120);
+INSERT INTO SHOPBK VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_seq.NEXTVAL), 5, '0'), 'DS00002', 12, to_timestamp('2020-08-01 13:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_timestamp('2020-08-01 20:00:00', 'yyyy-mm-dd hh24:mi:ss'), 30, 140);
+INSERT INTO SHOPBK VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_seq.NEXTVAL), 5, '0'), 'DS00001', 12, to_timestamp('2020-08-02 11:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_timestamp('2020-08-02 21:00:00', 'yyyy-mm-dd hh24:mi:ss'), 20, 130);
+INSERT INTO SHOPBK VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_seq.NEXTVAL), 5, '0'), 'DS00003', 12, to_timestamp('2020-07-28 14:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_timestamp('2020-07-28 19:00:00', 'yyyy-mm-dd hh24:mi:ss'), 20, 120);
+INSERT INTO SHOPBK VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_seq.NEXTVAL), 5, '0'), 'DS00002', 12, to_timestamp('2020-07-30 15:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_timestamp('2020-07-30 22:00:00', 'yyyy-mm-dd hh24:mi:ss'), 30, 130);
+INSERT INTO SHOPBK VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_seq.NEXTVAL), 5, '0'), 'DS00004', 12, to_timestamp('2020-07-25 12:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_timestamp('2020-07-25 20:00:00', 'yyyy-mm-dd hh24:mi:ss'), 20, 140);
+INSERT INTO SHOPBK VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_seq.NEXTVAL), 5, '0'), 'DS00005', 12, to_timestamp('2020-07-30 10:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_timestamp('2020-07-30 18:00:00', 'yyyy-mm-dd hh24:mi:ss'), 20, 100);
+INSERT INTO SHOPBK VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_seq.NEXTVAL), 5, '0'), 'DS00006', 12, to_timestamp('2020-08-03 14:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_timestamp('2020-08-03 22:00:00', 'yyyy-mm-dd hh24:mi:ss'), 50, 150);
+INSERT INTO SHOPBK VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_seq.NEXTVAL), 5, '0'), 'DS00004', 12, to_timestamp('2020-08-24 15:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_timestamp('2020-08-24 21:00:00', 'yyyy-mm-dd hh24:mi:ss'), 20, 100);
+INSERT INTO SHOPBK VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_seq.NEXTVAL), 5, '0'), 'DS00005', 12, to_timestamp('2020-08-02 11:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_timestamp('2020-08-02 19:00:00', 'yyyy-mm-dd hh24:mi:ss'), 30, 140);
 
 INSERT INTO GAME VALUES ('DG'||LPAD(TO_CHAR(GAME_seq.NEXTVAL), 5, '0'), '阿瓦隆', load_blob('4.jpg') );
 INSERT INTO GAME VALUES ('DG'||LPAD(TO_CHAR(GAME_seq.NEXTVAL), 5, '0'), '狼人殺', load_blob('10.jpg'));
@@ -847,7 +847,7 @@ INSERT INTO SHGMRP VALUES('CB'||LPAD(shgmrp_seq.NEXTVAL,5,'0'),'CA00007','BM0000
 
 INSERT INTO SHGMRP VALUES('CB'||LPAD(shgmrp_seq.NEXTVAL,5,'0'),'CA00008','BM00007','圖片太模糊了，看不清楚。',0);
 
-INSERT INTO SHGMRP VALUES('CB'||LPAD(shgmrp_seq.NEXTVAL,5,'0'),'CA00007','BM000010','簡介是廣告訊息。',0);
+INSERT INTO SHGMRP VALUES('CB'||LPAD(shgmrp_seq.NEXTVAL,5,'0'),'CA00007','BM00010','簡介是廣告訊息。',0);
 
 --孟辰
 

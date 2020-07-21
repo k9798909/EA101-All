@@ -64,15 +64,6 @@ h4 {
 
 <jsp:include page="select_page.jsp" flush="true"/>
 
-<%-- <%-- 錯誤表列 --%>
-<%-- <c:if test="${not empty errorMsgs}"> --%>
-<!-- 	<font style="color: red">請修正以下錯誤:</font> -->
-<!-- 	<ul> -->
-<%-- 		<c:forEach var="message" items="${errorMsgs}"> --%>
-<%-- 			<li style="color: red">${message}</li> --%>
-<%-- 		</c:forEach> --%>
-<!-- 	</ul> -->
-<%-- </c:if> --%>
 <div class="container-fluid">
 	<table class="table table-sm">
 		<tr>
@@ -83,10 +74,8 @@ h4 {
 			<th>包日</th>
 			<th></th>
 		</tr>
-		<jsp:useBean id="shopSvc" scope="page" class="com.shop.model.ShopService" />
 		<%@ include file="page1.file"%>
-		<c:forEach var="shopbkVO" items="${list}" begin="<%=pageIndex%>"
-					end="<%=pageIndex+rowsPerPage-1%>">
+		<c:forEach var="shopbkVO" items="${list}"">
 			<tr>
 				<td><A style="color:black;" href="<%=request.getContextPath()%>/front-end/shop/shop.do?shopno=${shopbkVO.shopno}&action=getOne_For_Display3&requestURL=<%=request.getServletPath()%>"><b>${shopSvc.getOneShop(shopbkVO.shopno).shopname}</b></a></td>
 				<td>${shopbkVO.ofdtable}</td>
@@ -114,13 +103,14 @@ h4 {
 		</c:forEach>
 	</table>
 </div>
+<c:if test="${openModal!=null}">
 <div class="d-flex justify-content-center container"
 		style="margin-left: auto; margin-right: auto;">
 		<div class="row">
 			<div class="col-sm-12">
 				<%@ include file="page2.file"%>
 			</div>
-<c:if test="${openModal!=null}">
+
 
 <div class="modal fade element-center" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
 	<div class="modal-dialog">
@@ -132,7 +122,8 @@ h4 {
 <!-- 			<div class="modal-footer" style="margin-left:auto;margin-top:auto;"> -->
 <!--                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
 <!--             </div> -->
-		
+		</div>
+		</div>
 		</div>
 	</div>
 </div>
