@@ -200,7 +200,7 @@ $(document).ready(function(){
 	  $("#magicBtn").click(function(){
 		  $("#ads").val("中大路300號");
 // 		  AddressSeleclList.erroAdd("桃園市","320中壢區");
-		  $("#name").val("123");
+		  $("#name").val("中大桌遊");
 		  $("#act").val("SUSU");
 		  $("#inputEmail").val("EA101G6.Daniel@gmail.com");
 		  $("#inputCy").val("八人桌*20");

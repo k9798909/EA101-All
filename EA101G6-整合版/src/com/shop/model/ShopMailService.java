@@ -11,10 +11,14 @@ import javax.mail.internet.MimeMessage;
 
 public class ShopMailService extends Thread{
 	
-	public void run(){
+	public void run(){	
+	}
+	
+	public ShopMailService(String to, String subject, String messageText) {
 		
 	}
 	
+
 	public void sendMail(String to, String subject, String messageText) {
 			
 	   try {
