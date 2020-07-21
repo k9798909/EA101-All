@@ -217,7 +217,8 @@
 
 
 	<a target="_self" href="addArt.jsp"><img class="add7" src="images/alpc.png" title="Add Article"></a>
-
+	
+	<input type="hidden" id="backAddArt" value='${backAddArt}'>
 	<input type="hidden" id="wsArtno" value="${param.artno}">
 	<input type="hidden" id="mbrno" value="artBackEnd">
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForArt/wsForArt.js"></script>

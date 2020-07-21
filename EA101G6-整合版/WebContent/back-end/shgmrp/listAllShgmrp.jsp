@@ -125,7 +125,7 @@
 		<%@ include file="/back-end/shgmrp/page2.file" %>
 	</c:if>
 	<c:if test="${setRpsize == 0}">
-		<div class="container" style="width:100%; padding:250px; text-align:center; background-color:white;">沒有符合的搜尋結果 或是 此商品已被訂購，無法進行審核</div>
+		<div class="container" style="width:100%; padding:250px; text-align:center; background-color:white;">沒有符合的搜尋結果</div>
 	</c:if>
 
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForShgm/ajaxForMbrmsgs-backend.js"></script>

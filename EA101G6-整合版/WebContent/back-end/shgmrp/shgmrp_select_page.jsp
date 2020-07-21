@@ -64,7 +64,7 @@
 			審核市集檢舉：
 			<select size="1" name="word">
 					<c:forEach var="shgmrpvo" items="${shgmrpsvc.allShgmrp}">
-						<option value="${shgmsvc.getOneShgm(shgmrpvo.shgmno).shgmname}">${shgmsvc.getOneShgm(shgmrpvo.shgmno).shgmname}
+						<option value="${shgmsvc.getOneShgm(shgmrpvo.shgmno).shgmname}"  ${param.word == shgmsvc.getOneShgm(shgmrpvo.shgmno).shgmname? 'selected':''}>${shgmsvc.getOneShgm(shgmrpvo.shgmno).shgmname}
 					</c:forEach>
 				</select>
 				<input type="hidden" name="action" value="search"/>

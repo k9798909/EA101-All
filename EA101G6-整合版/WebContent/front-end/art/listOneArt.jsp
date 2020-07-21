@@ -318,7 +318,7 @@
 				</h3>
 
 				<FORM METHOD="POST"
-					ACTION="<%=request.getContextPath()%>/back-end/msg/msg.do">
+					ACTION="<%=request.getContextPath()%>/front-end/msg/msg.do">
 					<p>
 						<input class="col-md-11  tea1" type="text" name="detail"
 							placeholder="說點什麼吧...">

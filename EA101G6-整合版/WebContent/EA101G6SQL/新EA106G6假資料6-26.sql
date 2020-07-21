@@ -847,6 +847,7 @@ INSERT INTO SHGMRP VALUES('CB'||LPAD(shgmrp_seq.NEXTVAL,5,'0'),'CA00007','BM0000
 
 INSERT INTO SHGMRP VALUES('CB'||LPAD(shgmrp_seq.NEXTVAL,5,'0'),'CA00008','BM00007','圖片太模糊了，看不清楚。',0);
 
+INSERT INTO SHGMRP VALUES('CB'||LPAD(shgmrp_seq.NEXTVAL,5,'0'),'CA00007','BM000010','簡介是廣告訊息。',0);
 
 --孟辰
 
@@ -872,30 +873,41 @@ INSERT INTO ART VALUES ('MA'||LPAD(to_char(art_seq.NEXTVAL),5,'0'),'LE00001','�
 
 版面上所有文章，僅依照現行版規處理！','>>平台公告<<',CURRENT_DATE,0,'AT03','');
 
-INSERT INTO ART VALUES ('MA'||LPAD(to_char(art_seq.NEXTVAL),5,'0'),'LE00007','什麼是BG?
+INSERT INTO ART VALUES ('MA'||LPAD(to_char(art_seq.NEXTVAL),5,'0'),'BM00001','FUTUROPIA 富途共樂
+人數：1-4人
+時間：約90分鐘
 
-BG是BoardGame的縮寫,中文叫做紙上遊戲(桌上遊戲)
-廣泛的說大家都認識的麻將, 各種棋類, 撲克牌, 大富翁都屬於BG 
+賣點：
+1. 電力公司作者綠毛新作。
+2. 完全沒有運氣成分的策略遊戲。
+3. 有些新意的有趣市場設計。
 
-現金流~UNO也是~
+缺點：
+1. 設置有些麻煩…
+2. 號稱增加變化性的設計，對遊戲來說其實沒有非常大的改變。
 
-不過我們玩的當然不是這種大家都認識的囉~
-桌遊並不只是種”小孩的玩意”雖然說大多遊戲上標示的適合年齡都挺低的，不過也有很多遊戲玩到頭頂都要冒煙的爆腦型遊戲呢。
-借用PTT BG版裡面的介紹文字一小段~
-BoardGame是從德國逐漸風行到各國的眾多有趣遊戲
-台灣的玩家也漸漸多了起來, 開始有人在設計…也開始在出版遊戲了呢~ <(￣︶￣)/
 
-不過BG目前的發行公司幾乎都是歐美為主(台灣加油!)
-所以遊戲設計以及說明書都是英文(德文)為主,有官方中文化的遊戲其實相當少
+建設夢想中的烏托邦 – 富途共樂
 
-不過沒關係~其實很多遊戲需要用到文字閱讀的部分很少,
-說明書的話網路上也常常可以找到熱血玩家翻譯好的, 有些連遊戲內容都翻譯好了~
+在富途共樂中玩家將試著建設出烏托邦一般的家園，人們不需要工作也能自給自足，人們將從工作中解放出來來獲得更佳的生活品質。最終能讓自己社區最多人不用工作的玩家將成為贏家。
 
-所以不用太擔心語言的問題~
+這真是我理想中的軟爛世界（欸
 
-PTT也有BoardGame版喔~在網路上也能找到很多的相關blog,論壇~
+富途共樂是電力公司作者Friedemann Friese（俗稱綠毛）在2018推出的遊戲，而新天鵝堡在不久前才推出中文版。
+相對來說具有不同能力的住宅還更為的有趣一些，玩家將會因為自己獲得的能力而在行動上有所偏重對遊戲節奏的改變影響更為明顯。
 
-所以……..一起來玩BG吧! 很有趣的~','>>Gaming on Board帶你了解甚麼是桌遊<<',CURRENT_DATE,0,'AT03','');
+遊戲中獲勝方法(路線)只有一種，就算加上各種變體也只是稍微有些不同。
+沒有不同得分路線，沒有各種轉換。就是比誰的行動節奏跟機器購買來的更正確。
+
+打得比方來說就像所有人都在同一條路上賽跑，沒有不同路徑沒有不同加速方法。比的就是誰跑得比較快這種感覺…
+
+也就是說整體來說比較老派，不像現在大多數遊戲一樣的炫目。
+但對我來說這不是扣分的點就是 XD
+
+富途共樂我個人的評價還是不錯的，教學很快、純策略無運氣成分、互動也不差都是優點，除了設置麻煩之外我沒有太大的不滿。
+
+雖說我也覺得富途共樂依然沒辦法像綠毛自己作品的電力公司一般成為經典，但稱得上是一款在一般水準之上的策略遊戲。
+','FUTUROPIA 富途共樂',CURRENT_DATE,0,'AT01',load_blob('fu1.jpg'));
 
 INSERT INTO ART VALUES ('MA'||LPAD(to_char(art_seq.NEXTVAL),5,'0'),'BM00010','Kitchen Rush 忙碌廚房
 
@@ -933,7 +945,7 @@ INSERT INTO ART VALUES ('MA'||LPAD(to_char(art_seq.NEXTVAL),5,'0'),'BM00010','Ki
 忙碌廚房可說是守備範圍相當大無論是新手老手都能玩的起來，也能從中獲得樂趣的一款遊戲。
 ','Kitchen Rush 忙碌廚房',CURRENT_DATE,0,'AT01',load_blob('kr1.jpg'));
 
-INSERT INTO ART VALUES ('MA'||LPAD(to_char(art_seq.NEXTVAL),5,'0'),'BM00002','陰屍路-全面開戰 THE WALKING DEAD－ALL OUT WAR
+INSERT INTO ART VALUES ('MA'||LPAD(to_char(art_seq.NEXTVAL),5,'0'),'BM00001','陰屍路-全面開戰 THE WALKING DEAD－ALL OUT WAR
 
 人數：1 – 2 人
 時間：30 – 60 分鐘
@@ -968,7 +980,7 @@ INSERT INTO ART VALUES ('MA'||LPAD(to_char(art_seq.NEXTVAL),5,'0'),'BM00002','�
 1. 其中一方全滅存活下來的一方獲勝。
 2. 先收集到七個物資的一方獲勝。
 3. 威脅值到達上限時持有較多物資一方獲勝。','陰屍路-全面開戰 THE WALKING DEAD－ALL OUT WAR
-',CURRENT_DATE,0,'AT01',load_blob('wd1.jpg'));
+',CURRENT_DATE,0,'AT01',load_blob('Zom.jpg'));
 
 INSERT INTO ART VALUES ('MA'||LPAD(to_char(art_seq.NEXTVAL),5,'0'),'BM00003','Sweets Stack 甜蜜堆疊
 
@@ -1222,14 +1234,14 @@ INSERT INTO ARTRP VALUES('MAR'||LPAD(to_char(artrp_seq.NEXTVAL),4,'0'),'MA00008'
 
 
 /*SHOPAD*/
-INSERT INTO SHOPAD VALUES('MSA'||LPAD(to_char(shopad_seq.NEXTVAL),4,'0'),'DS00006','炎炎夏日，來iPLAY點杯飲料暢玩2小時',TO_TIMESTAMP('2020-06-17','YYYY-MM-DD'),TO_TIMESTAMP('2020-07-17','YYYY-MM-DD'),0);
-INSERT INTO SHOPAD VALUES('MSA'||LPAD(to_char(shopad_seq.NEXTVAL),4,'0'),'DS00001','專業桌遊教學~古意狼不教到你會不罷休!',TO_TIMESTAMP('2020-03-18','YYYY-MM-DD'),TO_TIMESTAMP('2020-07-21','YYYY-MM-DD'),0);
-INSERT INTO SHOPAD VALUES('MSA'||LPAD(to_char(shopad_seq.NEXTVAL),4,'0'),'DS00004','桌遊幽靈城周年慶，四人同行、一人免費!',TO_TIMESTAMP('2020-04-28','YYYY-MM-DD'),TO_TIMESTAMP('2020-06-01','YYYY-MM-DD'),0);
+INSERT INTO SHOPAD VALUES('MSA'||LPAD(to_char(shopad_seq.NEXTVAL),4,'0'),'DS00006','炎炎夏日，來iPLAY點杯飲料暢玩2小時',TO_TIMESTAMP('2020-06-17','YYYY-MM-DD'),TO_TIMESTAMP('2020-07-17','YYYY-MM-DD'),1);
+INSERT INTO SHOPAD VALUES('MSA'||LPAD(to_char(shopad_seq.NEXTVAL),4,'0'),'DS00001','專業桌遊教學~古意狼不教到你會不罷休!',TO_TIMESTAMP('2020-03-18','YYYY-MM-DD'),TO_TIMESTAMP('2020-07-21','YYYY-MM-DD'),1);
+INSERT INTO SHOPAD VALUES('MSA'||LPAD(to_char(shopad_seq.NEXTVAL),4,'0'),'DS00004','桌遊幽靈城周年慶，四人同行、一人免費!',TO_TIMESTAMP('2020-04-28','YYYY-MM-DD'),TO_TIMESTAMP('2020-06-01','YYYY-MM-DD'),1);
 INSERT INTO SHOPAD VALUES('MSA'||LPAD(to_char(shopad_seq.NEXTVAL),4,'0'),'DS00003','貓腳印陪你一起慶祝88節，全店消費88折!',TO_TIMESTAMP('2020-08-01','YYYY-MM-DD'),TO_TIMESTAMP('2020-08-30','YYYY-MM-DD'),0);
 INSERT INTO SHOPAD VALUES('MSA'||LPAD(to_char(shopad_seq.NEXTVAL),4,'0'),'DS00002','圓桌騎士桌遊館歡慶十周年，全店消費79折!',TO_TIMESTAMP('2020-10-11','YYYY-MM-DD'),TO_TIMESTAMP('2020-11-11','YYYY-MM-DD'),0);
 INSERT INTO SHOPAD VALUES('MSA'||LPAD(to_char(shopad_seq.NEXTVAL),4,'0'),'DS00002','聖誕歡樂購，交換禮物Lets Go',TO_TIMESTAMP('2020-11-25','YYYY-MM-DD'),TO_TIMESTAMP('2020-12-25','YYYY-MM-DD'),0);
 INSERT INTO SHOPAD VALUES('MSA'||LPAD(to_char(shopad_seq.NEXTVAL),4,'0'),'DS00002','跨年限定Party Night ',TO_TIMESTAMP('2020-12-08','YYYY-MM-DD'),TO_TIMESTAMP('2021-01-01','YYYY-MM-DD'),0);
-INSERT INTO SHOPAD VALUES('MSA'||LPAD(to_char(shopad_seq.NEXTVAL),4,'0'),'DS00002','【2020玩翻一夏《iPLAY桃園夏令營》】',TO_TIMESTAMP('2020-06-30','YYYY-MM-DD'),TO_TIMESTAMP('2020-08-31','YYYY-MM-DD'),0);
+INSERT INTO SHOPAD VALUES('MSA'||LPAD(to_char(shopad_seq.NEXTVAL),4,'0'),'DS00002','【2020玩翻一夏《iPLAY桃園夏令營》】',TO_TIMESTAMP('2020-06-30','YYYY-MM-DD'),TO_TIMESTAMP('2020-08-31','YYYY-MM-DD'),1);
 
 /*MALLAD*/
 INSERT INTO MALLAD VALUES('MMA'||LPAD(to_char(mallad_seq.NEXTVAL),4,'0'),'ZM00001','雞同鴨講',load_blob('ZM01.jpg'),TO_TIMESTAMP('2020-06-17','YYYY-MM-DD'),TO_TIMESTAMP('2020-07-17','YYYY-MM-DD'));

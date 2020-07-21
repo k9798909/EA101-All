@@ -13,6 +13,8 @@ import com.art.model.ArtService;
 import com.art.model.ArtVO;
 import com.artrp.model.ArtrpService;
 import com.artrp.model.ArtrpVO;
+import com.emp.model.EmpVO;
+import com.emp.model.EmpService;
 
 import connectionpool.WsMessage;
 
@@ -50,6 +52,7 @@ public class MyWebSocket {
 		ArtService artSvc = new ArtService();
 		ArtrpService artrpSvc = new ArtrpService();
 		MbrpfService mbrpfSvc = new MbrpfService();
+		EmpService empSvc = new EmpService();
 		String mbrno = null;
 		MbrpfVO mbrpfVO = null;
 		
@@ -97,6 +100,10 @@ public class MyWebSocket {
 			} else if (artno.equals("new")) {
 				sendthis.append(mbrpfVO.getMbrname() + "的文章「" + jsonobj.get("arttt") + "」已新增至討論區，快去瞧瞧吧!");
 				sendToAll(mbrno, sendthis);
+			} else if (artno.equals("backA")) {
+				EmpVO empVO = empSvc.getOneEmp(mbrno);
+				sendthis.append("管理員" + empVO.getEmpname() + "的公告「" + jsonobj.get("arttt") + "」已公布至討論區，快去一瞧究竟吧!!");
+				sendToAllEB(mbrno, sendthis);
 			}
 			return;
 		}
@@ -119,6 +126,18 @@ public class MyWebSocket {
 		
 		for(String hashmapkey : connectedSessions.keySet()) {
 			if(!mbrno.equals(hashmapkey)) {
+				if(connectedSessions.get(hashmapkey).isOpen()) {
+					System.out.println(strSendThis);
+					connectedSessions.get(hashmapkey).getAsyncRemote().sendText(strSendThis);
+				}
+			}
+		}
+	}
+	public void sendToAllEB(String mbrno, StringBuilder sendthis) {
+		String strSendThis = sendthis.toString();
+		
+		for(String hashmapkey : connectedSessions.keySet()) {
+			if(!hashmapkey.equals("artBackEnd")) {
 				if(connectedSessions.get(hashmapkey).isOpen()) {
 					System.out.println(strSendThis);
 					connectedSessions.get(hashmapkey).getAsyncRemote().sendText(strSendThis);

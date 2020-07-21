@@ -9,8 +9,9 @@ var webSocket;
 
 //在後台listAllArt.jsp
 var $artno = $("#wsArtno").val();
+var $backAddArt = $("#backAddArt").val();
 
-//在前台listAllArt.jsp
+//在前台listOneArt.jsp
 var $reEdit = $("#reEdit").val();
 
 //在前台listAllArt.jsp
@@ -36,9 +37,13 @@ if (mbrno !== '') {
 			sendReEdit();
 		}
 		
-		//送出新上架的文章
+		//前台送出新上架的文章
 		if ($addArt !== '' && $addArt !== undefined) {
 			sendAddArt();
+		}
+		//後台送出新上架的文章
+		if ($backAddArt !== '' && $backAddArt !== undefined) {
+			sendBackAddArt();
 		}
 	};
 	
@@ -69,7 +74,7 @@ if (mbrno !== '') {
 		}
 	}
 	function sendAddArt() {
-		console.log($addArt);
+		
 		webSocket.send($addArt);
 		if($addArt !== ''){
 			swal.fire({
@@ -78,6 +83,18 @@ if (mbrno !== '') {
 				showConfirmButton: false,
 				timer: 5000,
 				footer: '快到個人文章查看吧!'
+			})
+		}
+	}
+	function sendBackAddArt() {
+		
+		webSocket.send($backAddArt);
+		if($addArt !== ''){
+			swal.fire({
+				icon: 'success',
+				title: '您已成功新增文章',
+				showConfirmButton: false,
+				timer: 5000,
 			})
 		}
 	}
