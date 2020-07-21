@@ -404,8 +404,8 @@ public class ShopServlet extends HttpServlet {
 				
 				String to = req.getParameter("email");		      
 			    String subject = "密碼通知";			      
-			    String ch_name = "peter1";
-			    String messageText = "Hello! " + ch_name + " 請謹記此密碼: " + passRandom + "\n" +" (已經啟用)"; 
+			    String ch_name = shopname;
+			    String messageText = "Hello! " + shopname + " 桌遊列國提醒您，請謹記此密碼: " + passRandom + "\n" +" (已經啟用)"; 
 			    System.out.println(passRandom); 
 			    ShopMailService mailService = new ShopMailService(to, subject, messageText);
 			    mailService.start();

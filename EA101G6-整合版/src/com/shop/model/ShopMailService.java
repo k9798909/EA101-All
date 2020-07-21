@@ -10,15 +10,19 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class ShopMailService extends Thread{
+	private String to;
+	private String subject;
+	private String messageText;
 	
-	public void run(){	
+	public void run(){
+		sendMail(to, subject, messageText);
 	}
-	
 	public ShopMailService(String to, String subject, String messageText) {
-		
+		this.to=to;
+		this.subject=subject;
+		this.messageText=messageText;
 	}
 	
-
 	public void sendMail(String to, String subject, String messageText) {
 			
 	   try {
@@ -29,8 +33,8 @@ public class ShopMailService extends Thread{
 		   props.put("mail.smtp.auth", "true");
 		   props.put("mail.smtp.port", "465");
 
-	     final String myGmail = "ixlogic.wu@gmail.com";
-	     final String myGmail_password = "BBB45678BBB";
+	     final String myGmail = "tristaEA101@gmail.com";
+	     final String myGmail_password = "EA101_G6";
 		   Session session = Session.getInstance(props, new Authenticator() {
 			   protected PasswordAuthentication getPasswordAuthentication() {
 				   return new PasswordAuthentication(myGmail, myGmail_password);

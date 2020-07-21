@@ -55,7 +55,9 @@ td {
 tr:nth-child(odd) {
 	background-color: white;
 }
-
+tr:nth-child(even) {
+	background-color: gray;
+}
 
 img {
 	width: 300px;
