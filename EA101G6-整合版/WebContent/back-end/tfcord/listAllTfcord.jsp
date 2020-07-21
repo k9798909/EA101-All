@@ -107,7 +107,7 @@
 											<input type ="hidden" name="price" value="${tfcordVO.price}">
 											<input type ="hidden" name="requestURL" value="<%=request.getServletPath()%>">					
 											<input type ="hidden" name="whichPage" value="<%=whichPage%>">					
-											<input type ="hidden" name="action" value="changeStatue">
+											<input type ="hidden" name="action" value="changeStatus">
 										</form>
 									</td>
 								</tr>

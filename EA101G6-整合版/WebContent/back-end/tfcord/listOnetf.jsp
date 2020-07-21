@@ -81,7 +81,7 @@
 										<input type ="hidden" name="mbrno" value="${tfcordVO.mbrno}">
 										<input type ="hidden" name="tfno" value="${tfcordVO.tfno}">
 										<input type ="hidden" name="requestURL" value="<%=request.getServletPath()%>">					
-										<input type ="hidden" name="action" value="changeStatue">
+										<input type ="hidden" name="action" value="changeStatus">
 									</form> 
 								</td>
 							</tr>
