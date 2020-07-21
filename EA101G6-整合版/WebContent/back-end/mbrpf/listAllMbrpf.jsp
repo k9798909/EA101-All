@@ -60,7 +60,13 @@
 	</ul>
 </c:if>
 
-      <table>
+<div class="container">
+	<div class="row">
+		<div class="col">
+		
+		</div>
+		<div class="col">
+		      <table style="">
 	<tr>
 		<th style="text-align:center">會員照片</th>
 		<th>會員編號</th>
@@ -128,6 +134,14 @@
 	</c:forEach>
 </table>
 <%@ include file="page2.file" %>
+		</div>
+		<div class="col">
+		
+		</div>
+	</div>
+</div>
+
+
 
 
 
