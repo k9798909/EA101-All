@@ -367,7 +367,7 @@
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForArt/wsForArt.js"></script>
 
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+	
 	<script>
     $(document).ready(function(){
     	$("#action").click(function(){
