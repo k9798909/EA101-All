@@ -93,11 +93,11 @@
 </head>
 
 <body>
+
 <jsp:include page="/front-end/front-end-nav.jsp"></jsp:include> 
 
 <!-- <h3>此為某會員的所有點數交易紀錄(前台帳戶管理)</h3> -->
 <div class="container">
-
 	<div class="row">
 		<h4><b>會員帳戶管理</b></h4>
 	</div>
@@ -116,7 +116,7 @@
 		</div>
 		<div class="col-sm-3 d-flex justify-content-start mbrimf align-items-center">
 			<c:choose>
-				<c:when test="${mbrPoint}">
+				<c:when test="${not empty mbrPoint}">
 					${mbrPoint}
 				</c:when>
 				<c:otherwise>

@@ -178,7 +178,7 @@
 
 $(document).ready(function(){
    $("#magic").click(function(){
-     $("#name").val("第六組好棒棒");
+     $("#name").val("小智智");
      $("#email").val("lct840116@gmail.com");
    });
  });
