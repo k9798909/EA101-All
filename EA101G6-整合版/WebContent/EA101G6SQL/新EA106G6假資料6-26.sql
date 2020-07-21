@@ -840,7 +840,7 @@ load_blob('shgm20.jpg'),1,TO_TIMESTAMP('2020-07-02 17:18:00', 'YYYY-MM-DD HH24:M
 
 INSERT INTO SHGMRP VALUES('CB'||LPAD(shgmrp_seq.NEXTVAL,5,'0'),'CA00008','BM00007','圖片太模糊了，看不清楚。',0);
 
-INSERT INTO SHGMRP VALUES('CB'||LPAD(shgmrp_seq.NEXTVAL,5,'0'),'CA00007','BM000010','簡介是廣告訊息。',0);
+INSERT INTO SHGMRP VALUES('CB'||LPAD(shgmrp_seq.NEXTVAL,5,'0'),'CA00007','BM00010','簡介是廣告訊息。',0);
 
 
 --孟辰
