@@ -108,7 +108,7 @@
 			<div id="dialog_${rminfoVO.rmno}" title="到場回報">
 				<jsp:include page="/front-end/room/shop_report.jsp"><jsp:param name="rmno" value="${rminfoVO.rmno}" /></jsp:include>
 			</div>
-			<c:if test="${rminfoVO.report == 0}">
+			<c:if test="${rminfoVO.report == 0 && rminfoVO.status == 5}">
 				<button id="opener_${rminfoVO.rmno}">到場回報</button>
 			</c:if>
 			<script>

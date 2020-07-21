@@ -24,7 +24,7 @@ public class RminfoDAO implements RminfoDAO_interface {
 	private static final String GET_ALL_STMT = "SELECT * FROM RMINFO ORDER BY RMNO DESC";
 	private static final String GET_ONE_STMT = "SELECT * FROM RMINFO WHERE RMNO = ?";
 	private static final String UPDATE = "UPDATE RMINFO SET STATUS = ?, REPORT = ? WHERE RMNO = ?";
-	private static final String GET_ONE_BY_SHOPNO = "SELECT * FROM RMINFO WHERE SHOPNO = ?";
+	private static final String GET_ONE_BY_SHOPNO = "SELECT * FROM RMINFO WHERE SHOPNO = ? ORDER BY RMNO DESC";
 
 	@Override
 	public void insert(RminfoVO rminfoVO) {
