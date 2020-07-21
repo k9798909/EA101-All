@@ -164,5 +164,16 @@
 	
 <!-- </table> -->
 <%-- <%@ include file="page2.file"%> --%>
+
+<script>
+if(${ok}){
+	 swal({ 
+		  title : "審核完成" ,
+		  type : "success" ,
+		  buttons : false ,
+		  confirmButtonColor : "#9CCC65"
+		});
+}
+</script>
 </body>
 </html>

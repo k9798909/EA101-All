@@ -115,7 +115,14 @@
 			會員可用餘額
 		</div>
 		<div class="col-sm-3 d-flex justify-content-start mbrimf align-items-center">
-			${mbrPoint}
+			<c:choose>
+				<c:when test="${mbrPoint}">
+					${mbrPoint}
+				</c:when>
+				<c:otherwise>
+					${mbrpfVO.points}
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</div>
 	<div class="row float-right">
