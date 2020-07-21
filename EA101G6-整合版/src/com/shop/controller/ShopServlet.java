@@ -407,8 +407,8 @@ public class ShopServlet extends HttpServlet {
 			    String ch_name = "peter1";
 			    String messageText = "Hello! " + ch_name + " 請謹記此密碼: " + passRandom + "\n" +" (已經啟用)"; 
 			    System.out.println(passRandom); 
-			    ShopMailService mailService = new ShopMailService();
-			    mailService.sendMail(to, subject, messageText);
+			    ShopMailService mailService = new ShopMailService(to, subject, messageText);
+			    mailService.start();
 			    
 			    
 			    
