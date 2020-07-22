@@ -103,15 +103,10 @@
 									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/artrp/listAllArtrpS0.jsp">討論區文章檢舉審核</a> 
 									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/shgmrp/listAllShgmrp.jsp">市集商品檢舉審核</a>
 								</div></li>
-							<li class="nav-item dropdown backnavdown"><a
-								class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-								role="button" data-toggle="dropdown" aria-haspopup="true"
-								aria-expanded="false"> 討論區管理 </a>
-								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/art/listAllArt.jsp">所有文章</a> 
-									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/art/listAllStatus0.jsp">正常顯示文章</a> 
-									<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/art/listAllStatus1.jsp">被隱藏文章</a>
-								</div></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/back-end/art/listAllArt.jsp">討論區管理</a>
+							</li>
+							
 							
 							<li class="nav-item dropdown backnavdown"><a
 								class="nav-link dropdown-toggle" href="#" id="navbarDropdown"

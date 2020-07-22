@@ -366,20 +366,20 @@
 	<input type="hidden" id="reEdit" value='${reEdit}'>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForArt/wsForArt.js"></script>
 
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 	
 	<script>
     $(document).ready(function(){
     	$("#action").click(function(){
         	if ($("#rp_detail").val() == ''){
-        		swal("失敗!", "請輸入檢舉內容!", "error");
+        		swal.fire("失敗!", "請輸入檢舉內容!", "error");
         	} else{
         		$.ajax({
             		url: "<%=request.getContextPath()%>/artrp/artrp.do",
             		type: "POST",
             		data: { action: $("#action").val(), artno: $("#artno").val(), rp_detail: $("#rp_detail").val(), mbrno: $("#mbrno").val(), status: $("#status").val()},
             		success: function(){
-            			swal("Good job!", "檢舉成功!", "success");
+            			swal.fire("Good job!", "檢舉成功!", "success");
             		}
             	})
         	}
