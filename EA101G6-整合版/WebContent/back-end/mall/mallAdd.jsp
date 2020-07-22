@@ -82,7 +82,7 @@
 <script>
 $(document).ready(function() {
 	$("button.magicBtn").click(function(){
-		$("#commName").val("矮人十兄弟");
+		$("#commName").val("炸彈競技場2");
 		$("#price").val("120");
 		$("#quantity").val("30");
 		$("#intro").val("這些礦工矮人們整天在坑道中挖掘寶石"+
