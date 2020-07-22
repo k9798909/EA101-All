@@ -15,9 +15,9 @@ var $shgmno = $("#wsShgmno").val();
 
 //在infoPage.jsp
 var $buySuccess = $("#buysuccess").val();
-
-//在infoPage.jsp
 var $shgmname = $("#shgmname").text();
+
+//在infoPage.jsp、buyPage.jsp
 var $rpSuccess = $("#rpsuccess").val() 
 
 var jsondata;
