@@ -473,7 +473,7 @@ public class ShopServlet extends HttpServlet {
 		if ("logout".equals(action)) {
 			session.removeAttribute("shopAcount");
 			String url = req.getParameter("requestURL");
-			if(url.equals("/front-end/shop/shopArea.jsp") || url.equals("/front-end/gmlist/addGmlist.jsp")|| url.equals("/front-end/room/shop_roomList.jsp")){
+			if(url.equals("/front-end/shop/shopArea.jsp") || url.equals("/front-end/gmlist/addGmlist.jsp")|| url.equals("/front-end/room/shop_roomList.jsp")|| url.equals("/front-end/shopbk/listSomeShopbk2.jsp")){
 				url ="/front-end/index.jsp";
 			}
 			res.sendRedirect(req.getContextPath()+url);
