@@ -11,21 +11,28 @@ var webSocket;
 var $artno = $("#wsArtno").val();
 var $backAddArt = $("#backAddArt").val();
 
+var $rep = $('#rep').val();
+
+
 //在前台listOneArt.jsp
 var $reEdit = $("#reEdit").val();
 
 //在前台listAllArt.jsp
 var $addArt = $("#addArt").val();
 
+
+
 var jsondata;
 
 if (mbrno !== '') {
 	console.log(endPointURL);
 	
+	
 	webSocket = new WebSocket(endPointURL); //建立連線到伺服器端 @onopen
 	
 	webSocket.onopen = function(event) { //成功連線後 伺服器端的@onopen 回應這邊的onopen
 		console.log('success');
+		
 		//後台向伺服器端send資料 啟動伺服器端的 @onmessage
 		if ($artno !== '' && $artno !== undefined) {
 			//只送pk 從pk取值
@@ -45,6 +52,10 @@ if (mbrno !== '') {
 		if ($backAddArt !== '' && $backAddArt !== undefined) {
 			sendBackAddArt();
 		}
+		if ($rep !== '' && $rep !== undefined) {
+			sendRep();
+		}
+		
 	};
 	
 	webSocket.onmessage = function(event) {
@@ -89,10 +100,22 @@ if (mbrno !== '') {
 	function sendBackAddArt() {
 		
 		webSocket.send($backAddArt);
-		if($addArt !== ''){
+		if($backAddArt !== ''){
 			swal.fire({
 				icon: 'success',
 				title: '您已成功新增文章',
+				showConfirmButton: false,
+				timer: 5000,
+			})
+		}
+	}
+	function sendRep() {
+		
+		webSocket.send($rep);
+		if($rep !== ''){
+			swal.fire({
+				icon: 'success',
+				title: '您已下架該篇文章',
 				showConfirmButton: false,
 				timer: 5000,
 			})

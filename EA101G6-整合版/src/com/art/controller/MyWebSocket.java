@@ -63,7 +63,7 @@ public class MyWebSocket {
 			ArtVO artVO = artSvc.getOneArt(data);
 			mbrno = artVO.getMbrno();
 			mbrpfVO = mbrpfSvc.getOneMbrpf(mbrno);
-			
+			System.out.println(1233);
 			if (artVO.getStatus() == 1) {
 				
 				sendthis.append(mbrpfVO.getNickname() + "，您的文章「" + artVO.getArttt() + "」，已經下架了!");
@@ -90,6 +90,7 @@ public class MyWebSocket {
 			String artno = (String)jsonobj.get("artno");
 			
 			mbrno = (String)jsonobj.get("artWriter");
+			System.out.println(123);
 			mbrpfVO = mbrpfSvc.getOneMbrpf(mbrno);
 			System.out.println(artno);
 			//sendReEdit()送來的json 沒有pk 經過控制器會set一個值存著noPK 還有artWriter和arttt
@@ -104,6 +105,11 @@ public class MyWebSocket {
 				EmpVO empVO = empSvc.getOneEmp(mbrno);
 				sendthis.append("管理員" + empVO.getEmpname() + "的公告「" + jsonobj.get("arttt") + "」已公布至討論區，快去一瞧究竟吧!!");
 				sendToAllEB(mbrno, sendthis);
+			} else if (artno.equals("reportD")) {
+				sendthis.append(mbrpfVO.getNickname() + "，您的文章「" + jsonobj.get("arttt") + "」，已經下架了!");
+				sendthis.append("\n下架原因:" + jsonobj.get("repD"));
+				
+				sendMsg(mbrno, sendthis);
 			}
 			return;
 		}

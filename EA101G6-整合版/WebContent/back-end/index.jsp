@@ -206,7 +206,7 @@
 		        		<a href="<%=request.getContextPath()%>/back-end/shgmrp/listAllShgmrp.jsp">目前有<font style="color:red">${shgmrpNum}</font>筆_市集商品檢舉_未處理</a>
 		        	</span>
 		        	<span class="news">
-		        		<a href="<%=request.getContextPath()%>/back-end/artrp/listAllArtrp.jsp">目前有<font style="color:red">${artrpNum}</font>筆_文章檢舉_未處理</a>
+		        		<a href="<%=request.getContextPath()%>/back-end/artrp/listAllArtrpS0.jsp">目前有<font style="color:red">${artrpNum}</font>筆_文章檢舉_未處理</a>
 		        	</span>
 		        	<span class="news">
 		        		<a href="<%=request.getContextPath()%>/back-end/shoprpdt/listSomeShoprpdt.jsp?status=0">目前有<font style="color:red">${shoprpdtNum}</font>筆_店家檢舉_未處理</a>

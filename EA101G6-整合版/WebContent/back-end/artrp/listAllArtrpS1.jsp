@@ -144,7 +144,7 @@
 							<td><input type="submit" id="action" value="修改"> <input
 								type="hidden" name="artno" value="${artrpVO.artno}"> <input
 								type="hidden" name="artrpno" value="${artrpVO.artrpno}">
-								<input type="hidden" name="action" value="update"></td>
+								<input type="hidden" name="action" value="update1"></td>
 
 
 						</tr>
@@ -153,7 +153,12 @@
 			</c:forEach>
 		</table>
 	</div>
-
+	
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+	<input type="hidden" id="mbrno" value="artBackEnd">
+	<input type="hidden" id="rep" value='${repiii}'>
+	
+	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jsForArt/wsForArt.js"></script>
 
 
 

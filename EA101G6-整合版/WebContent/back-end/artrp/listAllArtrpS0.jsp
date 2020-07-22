@@ -145,7 +145,7 @@
 							<td><input type="submit" id="action" value="修改"> <input
 								type="hidden" name="artno" value="${artrpVO.artno}"> <input
 								type="hidden" name="artrpno" value="${artrpVO.artrpno}">
-								<input type="hidden" name="action" value="update"></td>
+								<input type="hidden" name="action" value="update0"></td>
 
 
 						</tr>
@@ -154,6 +154,8 @@
 			</c:forEach>
 		</table>
 	</div>
+	
+	
 
 
 
