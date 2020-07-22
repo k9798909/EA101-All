@@ -202,7 +202,7 @@ $(document).ready(function(){
 // 		  AddressSeleclList.erroAdd("桃園市","320中壢區");
 		  $("#name").val("中大桌遊");
 		  $("#act").val("SUSU");
-		  $("#inputEmail").val("EA101G6.Daniel@gmail.com");
+		  $("#inputEmail").val("k9798909@gmail.com");
 		  $("#inputCy").val("八人桌*20");
 		  $("#inputPhone").val("0912345678");
 	  })

@@ -33,8 +33,8 @@ public class ShopMailService extends Thread{
 		   props.put("mail.smtp.auth", "true");
 		   props.put("mail.smtp.port", "465");
 
-	     final String myGmail = "tristaEA101@gmail.com";
-	     final String myGmail_password = "EA101_G6";
+	     final String myGmail = "akk9798909@gmail.com";
+	     final String myGmail_password = "0976890050";
 		   Session session = Session.getInstance(props, new Authenticator() {
 			   protected PasswordAuthentication getPasswordAuthentication() {
 				   return new PasswordAuthentication(myGmail, myGmail_password);
