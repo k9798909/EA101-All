@@ -267,8 +267,8 @@ INSERT INTO SHOP VALUES ('DS'||LPAD(TO_CHAR(SHOP_seq.NEXTVAL), 5, '0'), 'AURORA'
 INSERT INTO SHOP VALUES ('DS'||LPAD(TO_CHAR(SHOP_seq.NEXTVAL), 5, '0'), 'SANDY', '123456', 'iPLAY', '桃園市320中壢區中山路216號2F', '六人桌*10', 034269430,load_blob('shop6.jpg'), 1);
 INSERT INTO SHOP VALUES ('DS'||LPAD(TO_CHAR(SHOP_seq.NEXTVAL), 5, '0'), 'ANDY', '123456', '安捷尼', '桃園市334八德區廣福路20巷8號2F', '五人桌*10', 033663054,load_blob('shop7.jpg'), 1);
 INSERT INTO SHOP VALUES ('DS'||LPAD(TO_CHAR(SHOP_seq.NEXTVAL), 5, '0'), 'DAVID', '123456', '桌弄弄桌遊', '桃園市320中壢區大仁街50號', '六人桌*8', 032830916,load_blob('shop8.jpg'), 1);
-INSERT INTO SHOP VALUES ('DS'||LPAD(TO_CHAR(SHOP_seq.NEXTVAL), 5, '0'), 'ERIC', '123456', '貓咪貓咪G9', '桃園市320中壢區日新路8號2樓', '六人桌*7', 0902026606,load_blob('shop9.jpg'), 0);
-INSERT INTO SHOP VALUES ('DS'||LPAD(TO_CHAR(SHOP_seq.NEXTVAL), 5, '0'), 'COLA', '123456', '可樂農莊', '桃園市320中壢區東明街78號', '五人桌*8', 034576181,load_blob('shop10.jpg'), 0);
+INSERT INTO SHOP VALUES ('DS'||LPAD(TO_CHAR(SHOP_seq.NEXTVAL), 5, '0'), 'ERIC', '123456', '貓咪貓咪G9', '桃園市320中壢區日新路8號2樓', '六人桌*7', 0902026606,load_blob('shop9.jpg'), 1);
+INSERT INTO SHOP VALUES ('DS'||LPAD(TO_CHAR(SHOP_seq.NEXTVAL), 5, '0'), 'COLA', '123456', '可樂農莊', '桃園市320中壢區東明街78號', '五人桌*8', 034576181,load_blob('shop10.jpg'), 1);
 
 
 INSERT INTO SHOPBK VALUES ('DB'||LPAD(TO_CHAR(SHOPBK_seq.NEXTVAL), 5, '0'), 'DS00001', 12, to_timestamp('2020-07-30 12:00:00', 'yyyy-mm-dd hh24:mi:ss'), to_timestamp('2020-07-30 20:00:00', 'yyyy-mm-dd hh24:mi:ss'), 20, 120);

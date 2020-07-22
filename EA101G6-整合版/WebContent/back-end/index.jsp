@@ -123,7 +123,7 @@
 									aria-expanded="false"> 會員管理 </a>
 									<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 										<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/mbrpf/listAllMbrpf.jsp">一般會員管理</a> <!-- 還沒放 -->
-	<!-- active測試，之後換頁面  -->			<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/shop/listAllShop.jsp">店家管理</a>
+	<!-- active測試，之後換頁面  -->			<a class="dropdown-item downlist" href="<%=request.getContextPath()%>/back-end/shop/listSomeShop.jsp?status=0"">店家管理</a>
 									</div></li>
 								
 								<li class="nav-item dropdown backnavdown">
@@ -214,7 +214,7 @@
 		        </div>
 		        <div id="tabs-2">
 		        	<span class="news">
-		        		<a href="<%=request.getContextPath()%>/back-end/shop/listAllShop.jsp">目前有<font style="color:red">${shopNum}</font>筆_店家申請_尚未處理</a>
+		        		<a href="<%=request.getContextPath()%>/back-end/shop/listSomeShop.jsp?status=0"">目前有<font style="color:red">${shopNum}</font>筆_店家申請_尚未處理</a>
 		        	</span>
 		        	<span class="news">
 		        		<a href="<%=request.getContextPath()%>/back-end/shopad/listAllShopadS0.jsp">目前有<font style="color:red">${shopadNum}</font>筆_店家廣告申請_尚未處理</a>
