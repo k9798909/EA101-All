@@ -70,11 +70,12 @@
 			<fieldset>
 				<input readonly type="hidden" name="mbrno" id="mbrno" value="${mbrpfVO.mbrno}" class="text ui-widget-content ui-corner-all"> 
 				<label for="naming">*房名: </label>	
-				<input type="text" name="naming" id="naming" value="<%= (rminfoVO==null)? "來決鬥吧!!": rminfoVO.getNaming()%>" class="text ui-widget-content ui-corner-all" maxlength="10">
+				<input type="text" name="naming" id="naming" value="<%= (rminfoVO==null)? "天黑請閉眼!!": rminfoVO.getNaming()%>" class="text ui-widget-content ui-corner-all" maxlength="10">
 				*遊玩地點:
 				<select name="shopno">
 					<c:forEach var="shopVO" items="${shopSvc.getAll()}">
-						<option value="${shopVO.shopno}" ${(param.shopno==shopVO.shopno)? 'selected':'' }>${shopVO.shopname}
+<%-- 						<option value="${shopVO.shopno}" ${(param.shopno==shopVO.shopno)? 'selected':'' }>${shopVO.shopname} --%>
+						<option value="${shopVO.shopno}" ${("DS00001"==shopVO.shopno)? 'selected':'' }>${shopVO.shopname}
 					</c:forEach>
 				</select><br><br>
 				
@@ -107,9 +108,9 @@
 					id="f_date3" class="text ui-widget-content ui-corner-all">
 				*預計玩的遊戲: <br>
 				<textarea placeholder="輸入想玩的遊戲 EX:卡卡頌" required="required"
-				     name="game" maxlength="30"
-				     style="resize: none; width: 280px; height: 60px;"><c:if
-				      test="${not empty requestScope.rminfoVO}">${requestScope.rminfoVO.game}</c:if></textarea>
+				     name="game" maxlength="30" 
+				     style="resize: none; width: 280px; height: 60px;"><%--<c:if test="${not empty requestScope.rminfoVO}">${requestScope.rminfoVO.game}</c:if>--%>狼人殺
+				</textarea>
 				<br> <br>  *評價限制: <select name="restriction">
 					<option value="0">無</option>
 					<%
@@ -260,7 +261,8 @@
 	       step: 30,                //step: 60 (這是timepicker的預設間隔60分鐘)
 // 	       format:'Y-m-d',         
 			format:'Y-m-d H:i:s',
-		   value: '<%=starttime%>', 
+<%-- 		   value: '<%=starttime%>', --%>
+		   value: '2020-08-02 12:00:00',
 		   // value:   new Timestamp(),
            //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
            //startDate:	            '2017/07/10',  // 起始日
@@ -276,7 +278,8 @@
 	       step: 30,                //step: 60 (這是timepicker的預設間隔60分鐘)
 // 	       format:'Y-m-d',         
 			format:'Y-m-d H:i:s',
-		   value: '<%=endtime%>',
+<%-- 		   value: '<%=endtime%>', --%>
+		   value: '2020-08-02 16:00:00',
 		// value:   new Timestamp(),
 		//disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
 		//startDate:	            '2017/07/10',  // 起始日
