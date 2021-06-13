@@ -84,7 +84,7 @@ div.orMain table.table tbody tr:nth-child(odd) {
 				<tbody class="bg-white">
 				<% 
 					MallOrService mallOrSvc=new MallOrService();
-					Set<MallOrVO> set=mallOrSvc.findByStatus(2);
+					List<MallOrVO> list=mallOrSvc.findByStatus(2);
 					request.setAttribute("mallOrSvc",mallOrSvc);
 				%>
 				<%@ include file="/back-end/mallOr/page1.file" %>

@@ -9,7 +9,7 @@ public interface GmTypeDao_interface {
 	public String add(GmTypeVO gmType);
 	public void delete(String typeNo);
 	public void update(GmTypeVO gmType);
-	public Set<GmTypeVO> getAll();
+	public List<GmTypeVO> getAll();
 	public GmTypeVO findOneByTypeNo(String typeNo);
 	
 }

@@ -36,11 +36,11 @@ public class MallOrDtService {
 		return mallOrDtVo;
 	}
 	//ok
-	public Set<MallOrDtVO> getAll(){
+	public List<MallOrDtVO> getAll(){
 		return dao.getAll();
 	}
 	//ok
-	public Set<MallOrDtVO> getByOrNo(String mallOrNo){
+	public List<MallOrDtVO> getByOrNo(String mallOrNo){
 		return dao.getByOrNo(mallOrNo);
 	}
 	//ok

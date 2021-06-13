@@ -175,12 +175,12 @@ public class GmTypeJNDIDao implements GmTypeDao_interface {
 	}
 
 	@Override
-	public Set<GmTypeVO> getAll() {
+	public List<GmTypeVO> getAll() {
 		// TODO Auto-generated method stub
 		Connection conn = null;
 		PreparedStatement past = null;
 		ResultSet rs = null;
-		Set<GmTypeVO> set = new LinkedHashSet<GmTypeVO>();
+		List<GmTypeVO> list = new ArrayList<GmTypeVO>();
 		try {
 			conn = ds.getConnection();
 			past = conn.prepareStatement(SQLSELALL);
@@ -189,7 +189,7 @@ public class GmTypeJNDIDao implements GmTypeDao_interface {
 				GmTypeVO gmType = new GmTypeVO();
 				gmType.setTypeNo(rs.getString(1));
 				gmType.setTypeName(rs.getString(2));
-				set.add(gmType);
+				list.add(gmType);
 			}
 			
 		} catch (SQLException e) {
@@ -212,7 +212,7 @@ public class GmTypeJNDIDao implements GmTypeDao_interface {
 		}
 		
 		
-		return set;
+		return list;
 	}
 
 	@Override

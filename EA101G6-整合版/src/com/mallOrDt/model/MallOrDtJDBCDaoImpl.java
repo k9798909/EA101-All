@@ -173,12 +173,12 @@ public class MallOrDtJDBCDaoImpl implements MallOrDtDao_interface {
 	}
 
 	@Override
-	public Set<MallOrDtVO> getAll() {
+	public List<MallOrDtVO> getAll() {
 		// TODO Auto-generated method stub
 		Connection conn=null;
 		PreparedStatement past=null;
 		ResultSet rs=null;
-		Set<MallOrDtVO> set=new LinkedHashSet<MallOrDtVO>();
+		List<MallOrDtVO> list=new ArrayList<MallOrDtVO>();
 		try {
 			conn=DriverManager.getConnection(URL,NAME,PSW);
 			past=conn.prepareStatement(SQLSELALL);
@@ -190,7 +190,7 @@ public class MallOrDtJDBCDaoImpl implements MallOrDtDao_interface {
 				vo.setCommNo(rs.getString(2));
 				vo.setQuantity(rs.getInt(3));
 				vo.setPrice(rs.getInt(4));
-				set.add(vo);
+				list.add(vo);
 			}
 			
 		} catch (SQLException e) {
@@ -210,16 +210,16 @@ public class MallOrDtJDBCDaoImpl implements MallOrDtDao_interface {
 			}
 		}
 		
-		return set;
+		return list;
 	}
 
 	@Override
-	public Set<MallOrDtVO> getByOrNo(String mallOrNo) {
+	public List<MallOrDtVO> getByOrNo(String mallOrNo) {
 		// TODO Auto-generated method stub
 		Connection conn=null;
 		PreparedStatement past=null;
 		ResultSet rs=null;
-		Set<MallOrDtVO> set=new LinkedHashSet<MallOrDtVO>();
+		List<MallOrDtVO> list=new ArrayList<MallOrDtVO>();
 		try {
 			conn=DriverManager.getConnection(URL,NAME,PSW);
 			past=conn.prepareStatement(SQLSELORNO);
@@ -232,7 +232,7 @@ public class MallOrDtJDBCDaoImpl implements MallOrDtDao_interface {
 				vo.setCommNo(rs.getString(2));
 				vo.setQuantity(rs.getInt(3));
 				vo.setPrice(rs.getInt(4));
-				set.add(vo);
+				list.add(vo);
 			}
 			
 		} catch (SQLException e) {
@@ -252,7 +252,7 @@ public class MallOrDtJDBCDaoImpl implements MallOrDtDao_interface {
 			}
 		}
 		
-		return set;
+		return list;
 	}
 
 	@Override

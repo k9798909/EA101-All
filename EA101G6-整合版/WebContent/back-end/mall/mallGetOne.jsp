@@ -44,7 +44,7 @@
 
 					<jsp:useBean id="gmTypeSvc" class="com.gmType.model.GmTypeService" scope="request"/>
 					<jsp:useBean id="mallSvc" class="com.mall.model.MallService" scope="request"/>					
-					<c:forEach var="mallVo" items="${selNameMallVoSet}">
+					<c:forEach var="mallVo" items="${selNameMallVoList}">
 						<tr>
 							<td>
 							<form action= "<%= request.getContextPath()%>/back-end/mall/mallGetOne.jsp" method="post">

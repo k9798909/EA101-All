@@ -46,7 +46,7 @@
 				
 
 				
-				<c:forEach var="mallVo" items="${selMallVoSet}">
+				<c:forEach var="mallVo" items="${selMallVoList}">
 					<div class="col-lg-3 col-6 comm">
 						<a href="<%=request.getContextPath()%>/front-end/mall/mallGetOne.jsp?commNo=${mallVo.commNo}">
 							<div class="imgdiv"><img src="<%= request.getContextPath()%>/Mall/MallShowImg?commNo=${mallVo.commNo}"></div>

@@ -87,13 +87,13 @@
 		MallService mallSvc = new MallService();
 		pageContext.setAttribute("mallSvc", mallSvc);
 		String typeNo=request.getParameter("typeNo");
-		Set<MallVO> mallVoSet=null;
+		List<MallVO> mallVoList=null;
 		if(typeNo==null||typeNo.trim().length()==0){
-			mallVoSet = mallSvc.getAllUp();
+			mallVoList = mallSvc.getAllUp();
 		}else{
-			mallVoSet = mallSvc.findByType(typeNo);
+			mallVoList = mallSvc.findByType(typeNo);
 		}
-		pageContext.setAttribute("mallVoSet", mallVoSet);
+		pageContext.setAttribute("mallVoList", mallVoList);
 		%>
 
 
@@ -101,7 +101,7 @@
 			<div class="row">
 
 				<%@ include file="/front-end/mall/page1.file"%>
-				<c:forEach var="mallVo" items="${mallVoSet}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+				<c:forEach var="mallVo" items="${mallVoList}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 						<div class="col-lg-3 col-6 comm">
 							<a href="<%=request.getContextPath()%>/front-end/mall/mallGetOne.jsp?commNo=${mallVo.commNo}">
 							<div class="imgdiv">

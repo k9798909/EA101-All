@@ -50,21 +50,21 @@ private MallOrDAO_interface dao ;
 		
 	}
 	//ok
-	public Set<MallOrVO> getAll(){
+	public List<MallOrVO> getAll(){
 		return dao.getAll();
 	}
 	//ok
-	public Set<MallOrVO> findByMbrNo(String mbrNo){
+	public List<MallOrVO> findByMbrNo(String mbrNo){
 		return dao.findByMbrNo(mbrNo);
 	}
 	
 	//ok
-	public Set<MallOrVO> findByBoxStatus(Integer boxStatus){
+	public List<MallOrVO> findByBoxStatus(Integer boxStatus){
 		return dao.findByBoxStatus(boxStatus);
 	}
 	
 	//ok
-	public Set<MallOrVO> findByStatus(Integer status){
+	public List<MallOrVO> findByStatus(Integer status){
 		return dao.findByStatus(status);
 	}
 	//ok

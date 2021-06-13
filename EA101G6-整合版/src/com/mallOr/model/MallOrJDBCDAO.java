@@ -178,13 +178,13 @@ public class MallOrJDBCDAO implements MallOrDAO_interface {
 	}
 
 	@Override
-	public Set<MallOrVO> getAll() {
+	public List<MallOrVO> getAll() {
 		// TODO Auto-generated method stub
 
 		Connection conn = null;
 		PreparedStatement past = null;
 		ResultSet rs = null;
-		Set<MallOrVO> set = new LinkedHashSet<MallOrVO>();
+		List<MallOrVO> list = new ArrayList<MallOrVO>();
 		try {
 			conn = DriverManager.getConnection(URL, NAME, PSW);
 			past = conn.prepareStatement(SQLSELALL);
@@ -201,7 +201,7 @@ public class MallOrJDBCDAO implements MallOrDAO_interface {
 				mallor.setPayStatus(rs.getInt("PAYSTATUS"));
 				mallor.setBoxStatus(rs.getInt("BOXSTATUS"));
 				mallor.setPrice(rs.getInt("PRICE"));
-				set.add(mallor);
+				list.add(mallor);
 			}
 
 		} catch (SQLException e) {
@@ -222,17 +222,17 @@ public class MallOrJDBCDAO implements MallOrDAO_interface {
 			}
 		}
 
-		return set;
+		return list;
 
 	}
 
 	@Override
-	public Set<MallOrVO> findByMbrNo(String mbrNo) {
+	public List<MallOrVO> findByMbrNo(String mbrNo) {
 		// TODO Auto-generated method stub
 		Connection conn = null;
 		PreparedStatement past = null;
 		ResultSet rs = null;
-		Set<MallOrVO> set = new LinkedHashSet<MallOrVO>();
+		List<MallOrVO> list = new ArrayList<MallOrVO>();
 		try {
 			conn = DriverManager.getConnection(URL, NAME, PSW);
 			past = conn.prepareStatement(SQLSELBYMBR);
@@ -250,7 +250,7 @@ public class MallOrJDBCDAO implements MallOrDAO_interface {
 				mallor.setPayStatus(rs.getInt("PAYSTATUS"));
 				mallor.setBoxStatus(rs.getInt("BOXSTATUS"));
 				mallor.setPrice(rs.getInt("PRICE"));
-				set.add(mallor);
+				list.add(mallor);
 			}
 
 		} catch (SQLException e) {
@@ -271,16 +271,16 @@ public class MallOrJDBCDAO implements MallOrDAO_interface {
 			}
 		}
 
-		return set;
+		return list;
 	}
 
 	@Override
-	public Set<MallOrVO> findByStatus(Integer status) {
+	public List<MallOrVO> findByStatus(Integer status) {
 		// TODO Auto-generated method stub
 		Connection conn = null;
 		PreparedStatement past = null;
 		ResultSet rs = null;
-		Set<MallOrVO> set = new LinkedHashSet<MallOrVO>();
+		List<MallOrVO> list = new ArrayList<MallOrVO>();
 		try {
 			conn = DriverManager.getConnection(URL, NAME, PSW);
 			past = conn.prepareStatement(SQLSELBYSTATUS);
@@ -298,7 +298,7 @@ public class MallOrJDBCDAO implements MallOrDAO_interface {
 				mallor.setPayStatus(rs.getInt("PAYSTATUS"));
 				mallor.setBoxStatus(rs.getInt("BOXSTATUS"));
 				mallor.setPrice(rs.getInt("PRICE"));
-				set.add(mallor);
+				list.add(mallor);
 			}
 
 		} catch (SQLException e) {
@@ -319,7 +319,7 @@ public class MallOrJDBCDAO implements MallOrDAO_interface {
 			}
 		}
 
-		return set;
+		return list;
 	}
 
 	@Override
@@ -429,12 +429,12 @@ public class MallOrJDBCDAO implements MallOrDAO_interface {
 	}
 
 	@Override
-	public Set<MallOrVO> findByBoxStatus(Integer boxStatus) {
+	public List<MallOrVO> findByBoxStatus(Integer boxStatus) {
 		// TODO Auto-generated method stub
 		Connection conn = null;
 		PreparedStatement past = null;
 		ResultSet rs = null;
-		Set<MallOrVO> set = new LinkedHashSet<MallOrVO>();
+		List<MallOrVO> list = new ArrayList<MallOrVO>();
 		try {
 			conn = DriverManager.getConnection(URL, NAME, PSW);
 			past = conn.prepareStatement(SQLSELBYBOXSTATUS);
@@ -452,7 +452,7 @@ public class MallOrJDBCDAO implements MallOrDAO_interface {
 				mallor.setPayStatus(rs.getInt("PAYSTATUS"));
 				mallor.setBoxStatus(rs.getInt("BOXSTATUS"));
 				mallor.setPrice(rs.getInt("PRICE"));
-				set.add(mallor);
+				list.add(mallor);
 			}
 
 		} catch (SQLException e) {
@@ -473,7 +473,7 @@ public class MallOrJDBCDAO implements MallOrDAO_interface {
 			}
 		}
 
-		return set;
+		return list;
 	}
 	
 	public String add(MallOrVO mallOr, List<MallOrDtVO> mallOrDtList,MbrpfVO mbrpfVo) {

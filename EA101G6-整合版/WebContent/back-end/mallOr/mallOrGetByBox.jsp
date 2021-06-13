@@ -102,7 +102,7 @@ div.orMain table.table tbody tr:nth-child(odd) {
 				<tbody class="bg-white">
 				<% 
 					MallOrService mallOrSvc=new MallOrService();
-					Set<MallOrVO> set=mallOrSvc.findByBoxStatus(0);
+					List<MallOrVO> list=mallOrSvc.findByBoxStatus(0);
 					request.setAttribute("mallOrSvc",mallOrSvc);
 				%>
 				

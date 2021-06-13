@@ -111,7 +111,7 @@ img.rock{
 				<jsp:useBean id="mallSvc" class="com.mall.model.MallService" />
 				
 				<tbody>
-				<c:forEach var="mallOrDt" items="${mallOrDtSet}" varStatus="count">
+				<c:forEach var="mallOrDt" items="${mallOrDtList}" varStatus="count">
 				<tr> <td>${mallSvc.findOneByNo(mallOrDt.commNo).commName}</td><td>${mallOrDt.quantity}</td><td>${mallOrDt.price}</td><td>${mallOrDt.price*mallOrDt.quantity}</td></tr>
 				</c:forEach>
 				</tbody>

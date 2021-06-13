@@ -1,7 +1,5 @@
 package com.mall.model;
 
-
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,7 +13,7 @@ import java.util.Set;
 import com.gmType.model.GmTypeVO;
 
 public class MallJDBCDAO implements MallDAO_interface {
-	
+
 	static {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -24,65 +22,61 @@ public class MallJDBCDAO implements MallDAO_interface {
 			e.printStackTrace();
 			System.out.println("載入驅動失敗");
 		}
-		
+
 	}
 	private static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-	private static final String NAME="EA101";
-	private static final String PSW="123456";
-	private static final String SQLADD="INSERT INTO MALL "
+	private static final String NAME = "EA101";
+	private static final String PSW = "123456";
+	private static final String SQLADD = "INSERT INTO MALL "
 			+ "(COMMNO,COMMNAME,PRICE,QUANTITY,IMG,INTRO,AGE,PLAYER,STATUS) "
-			+"VALUES('ZM'||LPAD(TO_CHAR(COMMNO_SEQ.NEXTVAL),5, '0') , ? , ? , ? , ? , ? , ? , ?, ?)";
-	private static final String SQLUPDATE="UPDATE MALL "
-			+ "SET COMMNAME=?,PRICE=?,QUANTITY=?,IMG=?,INTRO=?,AGE=?,PLAYER=?,STATUS=? "
-			+ "WHERE COMMNO=? ";
-	private static final String SQLDELETE="DELETE FROM MALL MALL WHERE COMMNO = ?";
-	private static final String SQLSELNAME="SELECT * FROM MALL WHERE COMMNAME LIKE ?";
-	private static final String SQLSELALL="SELECT * FROM MALL ORDER BY COMMNO";
-	private static final String SQLSELALLUP="SELECT * FROM MALL WHERE STATUS=1 ORDER BY COMMNO ";
-	private static final String SQLSELNAMEUP="SELECT * FROM MALL WHERE STATUS=1 AND COMMNAME LIKE ? ORDER BY COMMNO";
-	//查詢編號最後五筆等於最新五筆
-	private static final String SQLSELNEW="SELECT * FROM (SELECT * FROM MALL ORDER BY COMMNO DESC) WHERE ROWNUM <= 6";
-	private static final String SQLSELONE="SELECT * FROM MALL WHERE COMMNO=? ";
-	private static final String SQLSELTYPE="SELECT GMTYPE.TYPENO,TYPENAME FROM MALL "
-			+ " JOIN GMTYPEDT ON mall.commno=gmtypedt.commno"
-			+ " JOIN GMTYPE ON gmtypedt.typeno=gmtype.typeno"
+			+ "VALUES('ZM'||LPAD(TO_CHAR(COMMNO_SEQ.NEXTVAL),5, '0') , ? , ? , ? , ? , ? , ? , ?, ?)";
+	private static final String SQLUPDATE = "UPDATE MALL "
+			+ "SET COMMNAME=?,PRICE=?,QUANTITY=?,IMG=?,INTRO=?,AGE=?,PLAYER=?,STATUS=? " + "WHERE COMMNO=? ";
+	private static final String SQLDELETE = "DELETE FROM MALL MALL WHERE COMMNO = ?";
+	private static final String SQLSELNAME = "SELECT * FROM MALL WHERE COMMNAME LIKE ?";
+	private static final String SQLSELALL = "SELECT * FROM MALL ORDER BY COMMNO";
+	private static final String SQLSELALLUP = "SELECT * FROM MALL WHERE STATUS=1 ORDER BY COMMNO ";
+	private static final String SQLSELNAMEUP = "SELECT * FROM MALL WHERE STATUS=1 AND COMMNAME LIKE ? ORDER BY COMMNO";
+	// 查詢編號最後五筆等於最新五筆
+	private static final String SQLSELNEW = "SELECT * FROM (SELECT * FROM MALL ORDER BY COMMNO DESC) WHERE ROWNUM <= 6";
+	private static final String SQLSELONE = "SELECT * FROM MALL WHERE COMMNO=? ";
+	private static final String SQLSELTYPE = "SELECT GMTYPE.TYPENO,TYPENAME FROM MALL "
+			+ " JOIN GMTYPEDT ON mall.commno=gmtypedt.commno" + " JOIN GMTYPE ON gmtypedt.typeno=gmtype.typeno"
 			+ " WHERE MALL.COMMNO=?";
-	private static final String SQLSELMALLBYTYPE="SELECT * FROM MALL "+
-	"JOIN GMTYPEDT ON mall.commno=gmtypedt.commno "+
-	"WHERE GMTYPEDT.TYPENO=? AND MALL.STATUS=1";
-	
+	private static final String SQLSELMALLBYTYPE = "SELECT * FROM MALL "
+			+ "JOIN GMTYPEDT ON mall.commno=gmtypedt.commno " + "WHERE GMTYPEDT.TYPENO=? AND MALL.STATUS=1";
+
 	@Override
 	public String add(MallVO mall) {
 		// TODO Auto-generated method stub
-		Connection conn =null;
-		PreparedStatement past=null;
+		Connection conn = null;
+		PreparedStatement past = null;
 		ResultSet rs = null;
-		String seq="";
+		String seq = "";
 		try {
-			conn=DriverManager.getConnection(URL,NAME,PSW);
-			
+			conn = DriverManager.getConnection(URL, NAME, PSW);
+
 			conn.setAutoCommit(false);
-			String cols[] = {"COMMNO"};
-			past = conn.prepareStatement(SQLADD,cols);
-			past.setString(1,mall.getCommName());
-			past.setInt(2,mall.getPrice());
-			past.setInt(3,mall.getQuantity());
-			past.setBytes(4,mall.getImg());
-			past.setString(5,mall.getIntro());
-			past.setString(6,mall.getAge());
-			past.setString(7,mall.getPlayer());
-			past.setInt(8,mall.getStatus());
+			String cols[] = { "COMMNO" };
+			past = conn.prepareStatement(SQLADD, cols);
+			past.setString(1, mall.getCommName());
+			past.setInt(2, mall.getPrice());
+			past.setInt(3, mall.getQuantity());
+			past.setBytes(4, mall.getImg());
+			past.setString(5, mall.getIntro());
+			past.setString(6, mall.getAge());
+			past.setString(7, mall.getPlayer());
+			past.setInt(8, mall.getStatus());
 			past.executeUpdate();
-			
+
 			conn.commit();
-			
+
 			rs = past.getGeneratedKeys();
 			if (rs.next()) {
 				seq = rs.getString(1);
 			}
-			
-			
-		}catch(SQLException e){
+
+		} catch (SQLException e) {
 			e.getMessage();
 			e.printStackTrace();
 			try {
@@ -91,47 +85,47 @@ public class MallJDBCDAO implements MallDAO_interface {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			
-		}finally {
-			
+
+		} finally {
+
 			try {
 				conn.setAutoCommit(true);
-				if(rs!=null)
+				if (rs != null)
 					rs.close();
-				if(past!=null)
+				if (past != null)
 					past.close();
-				if(conn!=null)
+				if (conn != null)
 					conn.close();
-			}catch(SQLException e1){
+			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
-			
+
 		}
-		
+
 		return seq;
-		
+
 	}
-	
+
 	@Override
-  	public void update(MallVO mall) {
+	public void update(MallVO mall) {
 		// TODO Auto-generated method stub
-		Connection conn = null ;
+		Connection conn = null;
 		PreparedStatement past = null;
 		try {
-			conn = DriverManager.getConnection(URL,NAME,PSW);
-			
+			conn = DriverManager.getConnection(URL, NAME, PSW);
+
 			conn.setAutoCommit(false);
-			past =conn.prepareStatement(SQLUPDATE);
-			past.setString(1,mall.getCommName());
-			past.setInt(2,mall.getPrice());
-			past.setInt(3,mall.getQuantity());
-			past.setBytes(4,mall.getImg());
-			past.setString(5,mall.getIntro());
-			past.setString(6,mall.getAge());
-			past.setString(7,mall.getPlayer());
-			past.setInt(8,mall.getStatus());
-			past.setString(9,mall.getCommNo());
-			
+			past = conn.prepareStatement(SQLUPDATE);
+			past.setString(1, mall.getCommName());
+			past.setInt(2, mall.getPrice());
+			past.setInt(3, mall.getQuantity());
+			past.setBytes(4, mall.getImg());
+			past.setString(5, mall.getIntro());
+			past.setString(6, mall.getAge());
+			past.setString(7, mall.getPlayer());
+			past.setInt(8, mall.getStatus());
+			past.setString(9, mall.getCommNo());
+
 			past.executeUpdate();
 			conn.commit();
 		} catch (SQLException e) {
@@ -143,37 +137,37 @@ public class MallJDBCDAO implements MallDAO_interface {
 				e1.printStackTrace();
 			}
 			e.printStackTrace();
-		}finally {
-			
+		} finally {
+
 			try {
 				conn.setAutoCommit(true);
-				if(past!=null)
+				if (past != null)
 					past.close();
-				if(conn!=null)
+				if (conn != null)
 					conn.close();
-			}catch(SQLException e1){
+			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
-			
+
 		}
-		
+
 	}
 
 	@Override
 	public void delete(String commno) {
 		// TODO Auto-generated method stub
-		Connection conn = null ;
-		PreparedStatement past = null ;
+		Connection conn = null;
+		PreparedStatement past = null;
 		try {
-			conn = DriverManager.getConnection(URL,NAME,PSW);
-			
+			conn = DriverManager.getConnection(URL, NAME, PSW);
+
 			conn.setAutoCommit(false);
 			past = conn.prepareStatement(SQLDELETE);
-			past.setString(1,commno);
+			past.setString(1, commno);
 			past.executeUpdate();
-			
+
 			conn.commit();
-		}catch(SQLException e) {
+		} catch (SQLException e) {
 			try {
 				conn.rollback();
 			} catch (SQLException e1) {
@@ -181,89 +175,82 @@ public class MallJDBCDAO implements MallDAO_interface {
 				e1.printStackTrace();
 			}
 			e.printStackTrace();
-		}finally {
-			
+		} finally {
+
 			try {
 				conn.setAutoCommit(true);
-				if(past!=null)
+				if (past != null)
 					past.close();
-				if(conn!=null)
+				if (conn != null)
 					conn.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			
+
 		}
-		
-		
-		
-		
-		
-		
+
 	}
 
 	@Override
-	public Set<MallVO> findByName(String name) {
+	public List<MallVO> findByName(String name) {
 		// TODO Auto-generated method stub
-		Set<MallVO> set = new LinkedHashSet<MallVO>();
-		Connection conn=null;
-		PreparedStatement past =null;
+		List<MallVO> list = new ArrayList<MallVO>();
+		Connection conn = null;
+		PreparedStatement past = null;
 		ResultSet rs = null;
 		try {
-			conn=DriverManager.getConnection(URL,NAME,PSW);
-			past=conn.prepareStatement(SQLSELNAME);
-			past.setString(1,"%"+name+"%");
+			conn = DriverManager.getConnection(URL, NAME, PSW);
+			past = conn.prepareStatement(SQLSELNAME);
+			past.setString(1, "%" + name + "%");
 			rs = past.executeQuery();
-			while(rs.next()) {
-			MallVO mall = new MallVO();	
-			mall.setCommNo(rs.getString("COMMNO"));
-			mall.setCommName(rs.getString("COMMNAME"));
-			mall.setPrice(rs.getInt("PRICE"));
-			mall.setQuantity(rs.getInt("QUANTITY"));
-			mall.setImg(rs.getBytes("IMG"));
-			mall.setIntro(rs.getString("INTRO"));
-			mall.setAge(rs.getString("AGE"));
-			mall.setPlayer(rs.getString("PLAYER"));
-			mall.setStatus(rs.getInt("STATUS"));
-			set.add(mall);
+			while (rs.next()) {
+				MallVO mall = new MallVO();
+				mall.setCommNo(rs.getString("COMMNO"));
+				mall.setCommName(rs.getString("COMMNAME"));
+				mall.setPrice(rs.getInt("PRICE"));
+				mall.setQuantity(rs.getInt("QUANTITY"));
+				mall.setImg(rs.getBytes("IMG"));
+				mall.setIntro(rs.getString("INTRO"));
+				mall.setAge(rs.getString("AGE"));
+				mall.setPlayer(rs.getString("PLAYER"));
+				mall.setStatus(rs.getInt("STATUS"));
+				list.add(mall);
 			}
-			 
-		}catch(SQLException e) {
+
+		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
-			
+		} finally {
+
 			try {
-				if(rs!=null)
+				if (rs != null)
 					rs.close();
-				if(past!=null)
+				if (past != null)
 					past.close();
-				if(conn!=null)
+				if (conn != null)
 					conn.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		
-		return set;
+
+		return list;
 	}
 
-	
 	@Override
-	public Set<MallVO> getAll() {
+	public List<MallVO> getAll() {
 		// TODO Auto-generated method stub
 		Connection conn = null;
-		PreparedStatement past = null;		
+		PreparedStatement past = null;
 		ResultSet rs = null;
-		Set<MallVO> set = new LinkedHashSet<MallVO>();
+		List<MallVO> list = new ArrayList<MallVO>();
 		try {
-			conn=DriverManager.getConnection(URL,NAME,PSW);
+			conn = DriverManager.getConnection(URL, NAME, PSW);
 			past = conn.prepareStatement(SQLSELALL);
-			rs=past.executeQuery();
-			while(rs.next()) {
-				MallVO mall = new MallVO();	
+			rs = past.executeQuery();
+			while (rs.next()) {
+				MallVO mall = new MallVO();
 				mall.setCommNo(rs.getString("COMMNO"));
 				mall.setCommName(rs.getString("COMMNAME"));
 				mall.setPrice(rs.getInt("PRICE"));
@@ -273,47 +260,43 @@ public class MallJDBCDAO implements MallDAO_interface {
 				mall.setAge(rs.getString("AGE"));
 				mall.setPlayer(rs.getString("PLAYER"));
 				mall.setStatus(rs.getInt("STATUS"));
-				set.add(mall);
+				list.add(mall);
 			}
-			
-			
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally{
-			
+		} finally {
+
 			try {
-				if(rs!=null)
+				if (rs != null)
 					rs.close();
-				if(past!=null)
+				if (past != null)
 					past.close();
-				if(conn!=null)
+				if (conn != null)
 					conn.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		
-		
-		return set;
+
+		return list;
 	}
 
-	
 	@Override
-	public Set<MallVO> getAllUp() {
+	public List<MallVO> getAllUp() {
 		// TODO Auto-generated method stub
 		Connection conn = null;
-		PreparedStatement past = null;		
+		PreparedStatement past = null;
 		ResultSet rs = null;
-		Set<MallVO> set = new LinkedHashSet<MallVO>();
+		List<MallVO> list = new ArrayList<MallVO>();
 		try {
-			conn=DriverManager.getConnection(URL,NAME,PSW);
+			conn = DriverManager.getConnection(URL, NAME, PSW);
 			past = conn.prepareStatement(SQLSELALLUP);
-			rs=past.executeQuery();
-			while(rs.next()) {
-				MallVO mall = new MallVO();	
+			rs = past.executeQuery();
+			while (rs.next()) {
+				MallVO mall = new MallVO();
 				mall.setCommNo(rs.getString("COMMNO"));
 				mall.setCommName(rs.getString("COMMNAME"));
 				mall.setPrice(rs.getInt("PRICE"));
@@ -323,47 +306,43 @@ public class MallJDBCDAO implements MallDAO_interface {
 				mall.setAge(rs.getString("AGE"));
 				mall.setPlayer(rs.getString("PLAYER"));
 				mall.setStatus(rs.getInt("STATUS"));
-				set.add(mall);
+				list.add(mall);
 			}
-			
-			
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally{
-			
+		} finally {
+
 			try {
-				if(rs!=null)
+				if (rs != null)
 					rs.close();
-				if(past!=null)
+				if (past != null)
 					past.close();
-				if(conn!=null)
+				if (conn != null)
 					conn.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		
-		
-		return set;
+
+		return list;
 	}
-	
-	
+
 	@Override
-	public Set<MallVO> getNew() {
+	public List<MallVO> getNew() {
 		// TODO Auto-generated method stub
 		Connection conn = null;
-		PreparedStatement past = null;		
+		PreparedStatement past = null;
 		ResultSet rs = null;
-		Set<MallVO> set = new LinkedHashSet<MallVO>();
+		List<MallVO> list = new ArrayList<MallVO>();
 		try {
-			conn=DriverManager.getConnection(URL,NAME,PSW);
+			conn = DriverManager.getConnection(URL, NAME, PSW);
 			past = conn.prepareStatement(SQLSELNEW);
-			rs=past.executeQuery();
-			while(rs.next()) {
-				MallVO mall = new MallVO();	
+			rs = past.executeQuery();
+			while (rs.next()) {
+				MallVO mall = new MallVO();
 				mall.setCommNo(rs.getString("COMMNO"));
 				mall.setCommName(rs.getString("COMMNAME"));
 				mall.setPrice(rs.getInt("PRICE"));
@@ -373,47 +352,43 @@ public class MallJDBCDAO implements MallDAO_interface {
 				mall.setAge(rs.getString("AGE"));
 				mall.setPlayer(rs.getString("PLAYER"));
 				mall.setStatus(rs.getInt("STATUS"));
-				set.add(mall);
+				list.add(mall);
 			}
-			
-			
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally{
-			
+		} finally {
+
 			try {
-				if(rs!=null)
+				if (rs != null)
 					rs.close();
-				if(past!=null)
+				if (past != null)
 					past.close();
-				if(conn!=null)
+				if (conn != null)
 					conn.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		
-		
-		return set;
+
+		return list;
 	}
-	
-	
+
 	@Override
 	public MallVO findOneByNo(String commno) {
 		// TODO Auto-generated method stub
 		Connection conn = null;
-		PreparedStatement past = null;		
+		PreparedStatement past = null;
 		ResultSet rs = null;
-		MallVO mall = new MallVO();	
+		MallVO mall = new MallVO();
 		try {
-			conn=DriverManager.getConnection(URL,NAME,PSW);
+			conn = DriverManager.getConnection(URL, NAME, PSW);
 			past = conn.prepareStatement(SQLSELONE);
-			past.setString(1,commno);
-			rs=past.executeQuery();
-			if(rs.next()) {
+			past.setString(1, commno);
+			rs = past.executeQuery();
+			if (rs.next()) {
 				mall.setCommNo(rs.getString("COMMNO"));
 				mall.setCommName(rs.getString("COMMNAME"));
 				mall.setPrice(rs.getInt("PRICE"));
@@ -424,174 +399,161 @@ public class MallJDBCDAO implements MallDAO_interface {
 				mall.setPlayer(rs.getString("PLAYER"));
 				mall.setStatus(rs.getInt("STATUS"));
 			}
-			
-			
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally{
-			
+		} finally {
+
 			try {
-				if(rs!=null)
+				if (rs != null)
 					rs.close();
-				if(past!=null)
+				if (past != null)
 					past.close();
-				if(conn!=null)
+				if (conn != null)
 					conn.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		
-		
+
 		return mall;
 	}
-	
-	
+
 	@Override
-	public Set<GmTypeVO> getType(String commno) {
+	public List<GmTypeVO> getType(String commno) {
 		// TODO Auto-generated method stub
 		Connection conn = null;
-		PreparedStatement past = null;		
+		PreparedStatement past = null;
 		ResultSet rs = null;
-		Set<GmTypeVO> set = new LinkedHashSet<GmTypeVO>();
+		List<GmTypeVO> list = new ArrayList<GmTypeVO>();
 
 		try {
-			conn=DriverManager.getConnection(URL,NAME,PSW);
+			conn = DriverManager.getConnection(URL, NAME, PSW);
 			past = conn.prepareStatement(SQLSELTYPE);
-			past.setString(1,commno);
-			rs=past.executeQuery();
-			while(rs.next()) {
+			past.setString(1, commno);
+			rs = past.executeQuery();
+			while (rs.next()) {
 				GmTypeVO gmTypeVo = new GmTypeVO();
 				gmTypeVo.setTypeNo(rs.getString(1));
 				gmTypeVo.setTypeName(rs.getString(2));
-				set.add(gmTypeVo);
+				list.add(gmTypeVo);
 			}
-			
-			
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally{
-			
+		} finally {
+
 			try {
-				if(rs!=null)
+				if (rs != null)
 					rs.close();
-				if(past!=null)
+				if (past != null)
 					past.close();
-				if(conn!=null)
+				if (conn != null)
 					conn.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		
-		return set;
-	}
-	
-	
-	@Override
-	public Set<MallVO> findByNameUp(String name) {
-		// TODO Auto-generated method stub
-				Set<MallVO> set = new LinkedHashSet<MallVO>();
-				Connection conn=null;
-				PreparedStatement past =null;
-				ResultSet rs = null;
-				try {
-					conn=DriverManager.getConnection(URL,NAME,PSW);
-					past=conn.prepareStatement(SQLSELNAMEUP);
-					past.setString(1,"%"+name+"%");
-					rs = past.executeQuery();
-					while(rs.next()) {
-					MallVO mall = new MallVO();	
-					mall.setCommNo(rs.getString("COMMNO"));
-					mall.setCommName(rs.getString("COMMNAME"));
-					mall.setPrice(rs.getInt("PRICE"));
-					mall.setQuantity(rs.getInt("QUANTITY"));
-					mall.setImg(rs.getBytes("IMG"));
-					mall.setIntro(rs.getString("INTRO"));
-					mall.setAge(rs.getString("AGE"));
-					mall.setPlayer(rs.getString("PLAYER"));
-					mall.setStatus(rs.getInt("STATUS"));
-					set.add(mall);
-					}
-					 
-				}catch(SQLException e) {
-					e.printStackTrace();
-				}finally {
-					
-					try {
-						if(rs!=null)
-							rs.close();
-						if(past!=null)
-							past.close();
-						if(conn!=null)
-							conn.close();
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				
-				return set;
+
+		return list;
 	}
 
 	@Override
-	public Set<MallVO> findByType(String typeno) {
+	public List<MallVO> findByNameUp(String name) {
 		// TODO Auto-generated method stub
-				Connection conn = null;
-				PreparedStatement past = null;		
-				ResultSet rs = null;
-				Set<MallVO> set = new LinkedHashSet<MallVO>();
-				try {
-					conn=DriverManager.getConnection(URL,NAME,PSW);
-					past = conn.prepareStatement(SQLSELMALLBYTYPE);
-					past.setString(1,typeno);
-					rs=past.executeQuery();
-					while(rs.next()) {
-						MallVO mall = new MallVO();	
-						mall.setCommNo(rs.getString("COMMNO"));
-						mall.setCommName(rs.getString("COMMNAME"));
-						mall.setPrice(rs.getInt("PRICE"));
-						mall.setQuantity(rs.getInt("QUANTITY"));
-						mall.setImg(rs.getBytes("IMG"));
-						mall.setIntro(rs.getString("INTRO"));
-						mall.setAge(rs.getString("AGE"));
-						mall.setPlayer(rs.getString("PLAYER"));
-						mall.setStatus(rs.getInt("STATUS"));
-						set.add(mall);
-					}
-					
-					
-					
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}finally{
-					
-					try {
-						if(rs!=null)
-							rs.close();
-						if(past!=null)
-							past.close();
-						if(conn!=null)
-							conn.close();
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				
-				
-				return set;
-	}
-	
-	
+		List<MallVO> list = new ArrayList<MallVO>();
+		Connection conn = null;
+		PreparedStatement past = null;
+		ResultSet rs = null;
+		try {
+			conn = DriverManager.getConnection(URL, NAME, PSW);
+			past = conn.prepareStatement(SQLSELNAMEUP);
+			past.setString(1, "%" + name + "%");
+			rs = past.executeQuery();
+			while (rs.next()) {
+				MallVO mall = new MallVO();
+				mall.setCommNo(rs.getString("COMMNO"));
+				mall.setCommName(rs.getString("COMMNAME"));
+				mall.setPrice(rs.getInt("PRICE"));
+				mall.setQuantity(rs.getInt("QUANTITY"));
+				mall.setImg(rs.getBytes("IMG"));
+				mall.setIntro(rs.getString("INTRO"));
+				mall.setAge(rs.getString("AGE"));
+				mall.setPlayer(rs.getString("PLAYER"));
+				mall.setStatus(rs.getInt("STATUS"));
+				list.add(mall);
+			}
 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+
+			try {
+				if (rs != null)
+					rs.close();
+				if (past != null)
+					past.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		return list;
+	}
+
+	@Override
+	public List<MallVO> findByType(String typeno) {
+		// TODO Auto-generated method stub
+		Connection conn = null;
+		PreparedStatement past = null;
+		ResultSet rs = null;
+		List<MallVO> list = new ArrayList<MallVO>();
+		try {
+			conn = DriverManager.getConnection(URL, NAME, PSW);
+			past = conn.prepareStatement(SQLSELMALLBYTYPE);
+			past.setString(1, typeno);
+			rs = past.executeQuery();
+			while (rs.next()) {
+				MallVO mall = new MallVO();
+				mall.setCommNo(rs.getString("COMMNO"));
+				mall.setCommName(rs.getString("COMMNAME"));
+				mall.setPrice(rs.getInt("PRICE"));
+				mall.setQuantity(rs.getInt("QUANTITY"));
+				mall.setImg(rs.getBytes("IMG"));
+				mall.setIntro(rs.getString("INTRO"));
+				mall.setAge(rs.getString("AGE"));
+				mall.setPlayer(rs.getString("PLAYER"));
+				mall.setStatus(rs.getInt("STATUS"));
+				list.add(mall);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+
+			try {
+				if (rs != null)
+					rs.close();
+				if (past != null)
+					past.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		return list;
+	}
 
 //	public static void main(String[] args) {
 //		byte[] img =null ;
@@ -612,8 +574,7 @@ public class MallJDBCDAO implements MallDAO_interface {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-		
-		
+
 //		MallVO malladd = new MallVO(0,"狼人殺",5000,100,img,"超好玩超好玩","10歲以上" ,"4人",0);
 //		MallJDBCDAO malldao = new MallJDBCDAO();
 //		malldao.add(malladd);
@@ -622,7 +583,7 @@ public class MallJDBCDAO implements MallDAO_interface {
 //		malldao.update(mall2);
 //		
 //		malldao.delete(1003);
-		
+
 //		List<MallVO> list =malldao.findByName("狼");
 //		for(MallVO mall : list) {
 //			System.out.print(mall.getCommNo()+" "+mall.getCommName()+" "+mall.getIntro()+" "+mall.getImg()+"\n");
@@ -638,13 +599,7 @@ public class MallJDBCDAO implements MallDAO_interface {
 //				e.printStackTrace();
 //			}
 //		}
-		
-		
+
 //	}
 
-
-
-
-	
-	
 }

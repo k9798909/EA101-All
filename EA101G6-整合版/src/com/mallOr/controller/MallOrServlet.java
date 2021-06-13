@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -356,7 +354,7 @@ public class MallOrServlet extends HttpServlet{
 			MallOrService mallOrSvc = new MallOrService();
 			MallOrDtService mallOrDtSvc = new MallOrDtService();
 			MallOrVO mallOrVo = mallOrSvc.findOneByOrNo(mallOrNo);
-			Set<MallOrDtVO> mallOrDtSet = mallOrDtSvc.getByOrNo(mallOrNo);
+			List<MallOrDtVO> mallOrDtSet = mallOrDtSvc.getByOrNo(mallOrNo);
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			RequestDispatcher dispatcher = req.getRequestDispatcher("/back-end/mallOr/mallOrGet.jsp");
 			req.setAttribute("showDetail", true);

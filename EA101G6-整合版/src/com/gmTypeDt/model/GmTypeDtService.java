@@ -35,15 +35,15 @@ public class GmTypeDtService {
 	}
 	
 	//ok
-	public Set<GmTypeDtVO> getAll(){
+	public List<GmTypeDtVO> getAll(){
 		return dao.getAll();
 	}
 	//ok
-	public Set<GmTypeDtVO> findByTypeNo(String typeNo){
+	public List<GmTypeDtVO> findByTypeNo(String typeNo){
 		return dao.findByTypeNo(typeNo);
 	}
 	//ok
-	public Set<GmTypeDtVO> findByCommNo(String commNo){
+	public List<GmTypeDtVO> findByCommNo(String commNo){
 		return dao.findByCommNo(commNo);
 	}
 	/**

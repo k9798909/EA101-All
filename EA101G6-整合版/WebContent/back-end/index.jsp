@@ -25,12 +25,12 @@
 	pageContext.setAttribute("shopNum", shopNum);
 	
 	MallOrService mallOrSvc = new MallOrService();
-	Set<MallOrVO> havemallOr = mallOrSvc.findByBoxStatus(0);
+	List<MallOrVO> havemallOr = mallOrSvc.findByBoxStatus(0);
 	int mallOrNum = havemallOr.size();
 	pageContext.setAttribute("mallOrNum", mallOrNum);
 	
 	ShgmService shgmSvc = new ShgmService();
-	Set<ShgmVO> haveShgm = shgmSvc.getAllShgmUncheck();
+	List<ShgmVO> haveShgm = shgmSvc.getAllShgmUncheck();
 	int shgmNum = haveShgm.size();
 	pageContext.setAttribute("shgmNum", shgmNum);
 	

@@ -35,9 +35,9 @@ public class FrontMallServlet extends HttpServlet {
 				String selErroMsg="";
 				String selName = req.getParameter("selName").trim();
 				String selNameReg = "^[(\u4e00-\u9fa5) _\\w]{1,20}$";
-				Set<MallVO> selMallVoSet=null;
+				List<MallVO> selMallVoList=null;
 				if (selName.length() != 0 && selName.matches(selNameReg)){
-					selMallVoSet = mallSvc.findByNameUp(selName);
+					selMallVoList = mallSvc.findByNameUp(selName);
 				}else {
 					selErroMsg="商品名稱格式輸入錯誤，請輸入20字以內，請不要有特殊字元。";
 					req.setAttribute("selErroMsg",selErroMsg);
@@ -45,13 +45,13 @@ public class FrontMallServlet extends HttpServlet {
 					return;
 				}
 		/*************************** 2.查詢完成,準備轉交(Send the Success view) ***********/	
-				if(selMallVoSet.isEmpty()) {
+				if(selMallVoList.isEmpty()) {
 					selErroMsg="查無此資料";
 					req.setAttribute("selErroMsg",selErroMsg);
 					req.getRequestDispatcher("/front-end/mall/mallSelNameUp.jsp").forward(req, res);
 					return;
 				}else {
-					req.setAttribute("selMallVoSet", selMallVoSet);
+					req.setAttribute("selMallVoList", selMallVoList);
 					req.getRequestDispatcher("/front-end/mall/mallSelNameUp.jsp").forward(req, res);
 					return;
 				}

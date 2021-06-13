@@ -130,12 +130,12 @@ public class GmTypeDtJDBCDaoImpl implements GmTypeDtDao_interface {
 //	}
 
 	@Override
-	public Set<GmTypeDtVO> getAll() {
+	public List<GmTypeDtVO> getAll() {
 		// TODO Auto-generated method stub
 		Connection conn=null;
 		PreparedStatement past =null;
 		ResultSet rs=null;
-		Set<GmTypeDtVO> set =new LinkedHashSet<GmTypeDtVO>();
+		List<GmTypeDtVO> list =new ArrayList<GmTypeDtVO>();
 		try {
 			conn=DriverManager.getConnection(URL,NAME,PSW);
 			past=conn.prepareStatement(SQLSELALL);
@@ -144,7 +144,7 @@ public class GmTypeDtJDBCDaoImpl implements GmTypeDtDao_interface {
 				GmTypeDtVO vo =new GmTypeDtVO();
 				vo.setTypeNo(rs.getString(1));
 				vo.setCommNo(rs.getString(2));
-				set.add(vo);
+				list.add(vo);
 			}
 			
 		} catch (SQLException e) {
@@ -166,16 +166,16 @@ public class GmTypeDtJDBCDaoImpl implements GmTypeDtDao_interface {
 			
 		}
 		
-		return set;
+		return list;
 	}
 
 	@Override
-	public Set<GmTypeDtVO> findByTypeNo(String typeNo) {
+	public List<GmTypeDtVO> findByTypeNo(String typeNo) {
 		// TODO Auto-generated method stub
 		Connection conn=null;
 		PreparedStatement past =null;
 		ResultSet rs=null;
-		Set<GmTypeDtVO> set =new LinkedHashSet<GmTypeDtVO>();
+		List<GmTypeDtVO> list =new ArrayList<GmTypeDtVO>();
 		try {
 			conn=DriverManager.getConnection(URL,NAME,PSW);
 			past=conn.prepareStatement(SQLSELBYTYPE);
@@ -185,7 +185,7 @@ public class GmTypeDtJDBCDaoImpl implements GmTypeDtDao_interface {
 				GmTypeDtVO vo =new GmTypeDtVO();
 				vo.setTypeNo(rs.getString(1));
 				vo.setCommNo(rs.getString(2));
-				set.add(vo);
+				list.add(vo);
 			}
 			
 		} catch (SQLException e) {
@@ -207,16 +207,16 @@ public class GmTypeDtJDBCDaoImpl implements GmTypeDtDao_interface {
 			
 		}
 		
-		return set;
+		return list;
 	}
 
 	@Override
-	public Set<GmTypeDtVO> findByCommNo(String commNo) {
+	public List<GmTypeDtVO> findByCommNo(String commNo) {
 		// TODO Auto-generated method stub
 		Connection conn=null;
 		PreparedStatement past =null;
 		ResultSet rs=null;
-		Set<GmTypeDtVO> set =new LinkedHashSet<GmTypeDtVO>();
+		List<GmTypeDtVO> list =new ArrayList<GmTypeDtVO>();
 		try {
 			conn=DriverManager.getConnection(URL,NAME,PSW);
 			past=conn.prepareStatement(SQLSELBYCOMM);
@@ -226,7 +226,7 @@ public class GmTypeDtJDBCDaoImpl implements GmTypeDtDao_interface {
 				GmTypeDtVO vo =new GmTypeDtVO();
 				vo.setTypeNo(rs.getString(1));
 				vo.setCommNo(rs.getString(2));
-				set.add(vo);
+				list.add(vo);
 			}
 			
 		} catch (SQLException e) {
@@ -248,7 +248,7 @@ public class GmTypeDtJDBCDaoImpl implements GmTypeDtDao_interface {
 			
 		}
 		
-		return set;
+		return list;
 		
 	}
 

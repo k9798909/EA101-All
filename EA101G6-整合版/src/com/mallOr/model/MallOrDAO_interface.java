@@ -12,10 +12,10 @@ public interface MallOrDAO_interface {
 	public String add(MallOrVO mallOr,List<MallOrDtVO> mallOrDtList, MbrpfVO mbrpfVo);
 	public void update(MallOrVO mallor);
 	public void delete(String mallOrNo);
-	public Set<MallOrVO> getAll();
-	public Set<MallOrVO> findByMbrNo(String mbrNo);
-	public Set<MallOrVO> findByStatus(Integer status);
-	public Set<MallOrVO> findByBoxStatus(Integer boxStatus);
+	public List<MallOrVO> getAll();
+	public List<MallOrVO> findByMbrNo(String mbrNo);
+	public List<MallOrVO> findByStatus(Integer status);
+	public List<MallOrVO> findByBoxStatus(Integer boxStatus);
 	public MallOrVO findOneByOrNo(String mallOrNo);
 	
 	

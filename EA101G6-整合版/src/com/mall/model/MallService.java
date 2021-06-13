@@ -53,27 +53,27 @@ public class MallService {
 		
 	}
 	//用商品名稱查詢，因為我查的可能不只一項回傳list ok
-	public Set<MallVO> findByName(String name){
+	public List<MallVO> findByName(String name){
 		return dao.findByName(name);
 		
 	}
 	//用商品名稱查詢上架版，因為我查的可能不只一項回傳list
-	public Set<MallVO> findByNameUp(String name){
+	public List<MallVO> findByNameUp(String name){
 		return dao.findByNameUp(name);
 		
 	}
 	//拿全部ok
-	public Set<MallVO> getAll(){
+	public List<MallVO> getAll(){
 		return dao.getAll();
 		
 	}
 	//拿全部ok
-	public Set<MallVO> getAllUp(){
+	public List<MallVO> getAllUp(){
 		return dao.getAllUp();
 		
 	}
 	//取得最新商品前五比 ok
-	public Set<MallVO> getNew(){
+	public List<MallVO> getNew(){
 		return dao.getNew();
 		
 	}
@@ -83,11 +83,11 @@ public class MallService {
 		
 	}
 	
-	public Set<GmTypeVO> getType(String commNo){
+	public List<GmTypeVO> getType(String commNo){
 		return dao.getType(commNo);
 	}
 	
-	public Set<MallVO> findByType(String typeno){
+	public List<MallVO> findByType(String typeno){
 		return dao.findByType(typeno);
 	}
 

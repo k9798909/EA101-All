@@ -313,8 +313,8 @@ public class BackMallServlet extends HttpServlet {
 					//如果不是把action="selectone"在搜尋一次
 					if(req.getParameter("isGetOne").trim().length()!=0) {
 						String selName=(String)session.getAttribute("selName");
-						Set<MallVO> selNameMallVoSet = mallSvc.findByName(selName);
-						session.setAttribute("selNameMallVoSet", selNameMallVoSet);
+						List<MallVO> selNameMallVoList = mallSvc.findByName(selName);
+						session.setAttribute("selNameMallVoList", selNameMallVoList);
 						res.sendRedirect(req.getContextPath()+"/back-end/mall/mallGetOne.jsp"+whichPage); 
 						return;
 					}else{
@@ -348,9 +348,9 @@ public class BackMallServlet extends HttpServlet {
 				String selName = req.getParameter("selName").trim();
 				session.setAttribute("selName", selName);
 				String selNameReg = "^[(\u4e00-\u9fa5) _\\w]{1,20}$";
-				Set<MallVO> selNameMallVoSet=null;
+				List<MallVO> selNameMallVoList=null;
 				if (selName.length() != 0 && selName.matches(selNameReg)){
-					selNameMallVoSet = mallSvc.findByName(selName);
+					selNameMallVoList = mallSvc.findByName(selName);
 				}else {
 					selErroMsg="商品名稱格式輸入錯誤，請輸入20字以內，請不要有特殊字元。";
 					req.setAttribute("selErroMsg",selErroMsg);
@@ -358,13 +358,13 @@ public class BackMallServlet extends HttpServlet {
 					return;
 				}
 		/*************************** 2.查詢完成,準備轉交(Send the Success view) ***********/	
-				if(selNameMallVoSet.isEmpty()) {
+				if(selNameMallVoList.isEmpty()) {
 					selErroMsg="查無此資料";
 					req.setAttribute("selErroMsg",selErroMsg);
 					req.getRequestDispatcher("/back-end/mall/mallGetAll.jsp").forward(req, res);
 					return;
 				}else {
-					session.setAttribute("selNameMallVoSet", selNameMallVoSet);
+					session.setAttribute("selNameMallVoList", selNameMallVoList);
 					req.getRequestDispatcher("/back-end/mall/mallGetOne.jsp").forward(req, res);
 					return;
 				}

@@ -26,7 +26,7 @@ public class GmTypeService {
 		dao.update(gmTypeVo);
 		return gmTypeVo;
 	};
-	public Set<GmTypeVO> getAll(){
+	public List<GmTypeVO> getAll(){
 		return dao.getAll();
 	};
 	public GmTypeVO findOneByTypeNo(String typeNo){
